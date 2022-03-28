@@ -10,7 +10,7 @@ public class DBConnectionSupport {
     private static final String dbURL = "jdbc:sqlserver://localhost:1433;"
                                     + "databaseName=PawnShop;"
                                     + "integratedSecurity=true";
-    private static final String UserName = "sa";
+    private static final String UserName = "NT AUTHORITY\\SYSTEM";
     private static final String PassWord = "";
     
     
