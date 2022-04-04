@@ -5,35 +5,47 @@
 package View;
 
 import Model.*;
-import java.awt.Toolkit;
+import View.JTabbedPaneForm.JAccountPanelForm;
+import javax.swing.JFrame;
+import Support.*;
+import View.JTabbedPaneForm.JProfilePanelForm;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author NVS
  */
-public class jHomePageForm extends javax.swing.JFrame {
+public class JHomePageForm extends javax.swing.JFrame {
 
-    Taikhoan tk = null;
-    public jHomePageForm() {
+    private static Account _account = null;
+    public static JFrame jfparrent = null;
+
+    private JAccountPanelForm jaccountManagementPanelForm = null;
+    private JProfilePanelForm jprofileTabbedPanelForm = null;
+
+    public JHomePageForm() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-    
-    public jHomePageForm(Taikhoan tk) {
+
+    public JHomePageForm(Account _account, JFrame jfparrent) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        if (this.tk == null) {
-            this.tk = new Taikhoan(tk);
-            //jlbUserFullName.setText(this.tk.getHoVaTenUser());
+        this.setLocationRelativeTo(null);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Load();
+    }
+    public void Load(){
+        if (this._account == null) {
+            this._account = _account;
+            jlbProfile.setText(this._account.getName());
+        }
+        if (this.jfparrent == null) {
+            this.jfparrent = jfparrent;
         }
     }
-//    
-//    public void SetSizeModeForm(){
-//        Toolkit tk = Toolkit.getDefaultToolkit();
-//        int xsize = (int) tk.getScreenSize().getWidth();
-//        int ysize = (int) tk.getScreenSize().getHeight();
-//        this.setSize(xsize, ysize);
-//    } 
     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,48 +56,95 @@ public class jHomePageForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jHomePageTabbedPane = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jlbProfile = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMSystem = new javax.swing.JMenu();
-        JMInformation = new javax.swing.JMenu();
-        jMReport = new javax.swing.JMenu();
+        jSystemMenu = new javax.swing.JMenu();
+        jLogOutMenuItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jAccountMenuItem = new javax.swing.JMenuItem();
+        jCustomerMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Trang Chủ");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setName("trangchu"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ho va ten");
+        jlbProfile.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbProfile.setForeground(new java.awt.Color(255, 0, 0));
+        jlbProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbProfile.setText("Họ và tên");
+        jlbProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlbProfileMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(798, Short.MAX_VALUE)
+                .addComponent(jlbProfile)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlbProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(750, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jHomePageTabbedPane)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSystemMenu.setText("Hệ thống");
 
-        jMSystem.setText("Hệ Thống");
-        jMenuBar1.add(jMSystem);
+        jLogOutMenuItem.setText("Đăng xuất");
+        jLogOutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLogOutMenuItemActionPerformed(evt);
+            }
+        });
+        jSystemMenu.add(jLogOutMenuItem);
 
-        JMInformation.setText("Thông Tin");
-        jMenuBar1.add(JMInformation);
+        jMenuBar1.add(jSystemMenu);
 
-        jMReport.setText("Báo Cáo");
-        jMenuBar1.add(jMReport);
+        jMenu2.setText("Quản lý");
+
+        jAccountMenuItem.setText("Tài khoản");
+        jAccountMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAccountMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jAccountMenuItem);
+
+        jCustomerMenuItem.setText("Khách hàng");
+        jMenu2.add(jCustomerMenuItem);
+
+        jMenuItem1.setText("Hàng hóa");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Phiếu cầm đồ");
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -97,11 +156,36 @@ public class jHomePageForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 346, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
+        // Support.AddTabbedPanelForm(jHomePageTabbedPane, jaccountManagementPanelForm, "Tài khoản");
+        if (jaccountManagementPanelForm == null) {
+            jaccountManagementPanelForm = new JAccountPanelForm();
+            jHomePageTabbedPane.add("Tài khoản", jaccountManagementPanelForm);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jaccountManagementPanelForm);
+    }//GEN-LAST:event_jAccountMenuItemActionPerformed
+
+    private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
+        if (MessageSupport.Confirm(null, "Đăng xuất", "Bạn có muốn đăng xuất không?") == JOptionPane.YES_OPTION) {
+            this.dispose();
+            this.jfparrent.setVisible(true);
+        }
+    }//GEN-LAST:event_jLogOutMenuItemActionPerformed
+
+    private void jlbProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbProfileMouseClicked
+        //Support.AddTabbedPanelForm(jHomePageTabbedPane, jprofileTabbedPanelForm, "Thông tin tài khoản");
+        if (jprofileTabbedPanelForm == null) {
+            jprofileTabbedPanelForm = new JProfilePanelForm(this._account, this);
+            jHomePageTabbedPane.add("Thông tin tài khoản", jprofileTabbedPanelForm);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jprofileTabbedPanelForm);
+    }//GEN-LAST:event_jlbProfileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -120,30 +204,37 @@ public class jHomePageForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jHomePageForm().setVisible(true);
+                new JHomePageForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu JMInformation;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMReport;
-    private javax.swing.JMenu jMSystem;
+    private javax.swing.JMenuItem jAccountMenuItem;
+    private javax.swing.JMenuItem jCustomerMenuItem;
+    private javax.swing.JTabbedPane jHomePageTabbedPane;
+    private javax.swing.JMenuItem jLogOutMenuItem;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu jSystemMenu;
+    private javax.swing.JLabel jlbProfile;
     // End of variables declaration//GEN-END:variables
 }

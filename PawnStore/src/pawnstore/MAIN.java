@@ -4,7 +4,7 @@
  */
 package pawnstore;
 
-import View.jLoginForm;
+import View.JLoginForm;
 import java.awt.EventQueue;
 
 public class MAIN {
@@ -12,7 +12,7 @@ public class MAIN {
     public static void main(String[] args) {
          EventQueue.invokeLater(() -> {
              try {
-                 jLoginForm jloginform = new jLoginForm();
+                 JLoginForm jloginform = new JLoginForm();
                  jloginform.setVisible(true);
              } catch (Exception e) {
              }
