@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import Support.*;
 import View.JTabbedPaneForm.JProfilePanelForm;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,11 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class JHomePageForm extends javax.swing.JFrame {
 
-    private static Account _account = null;
     public static JFrame jfparrent = null;
 
-    private JAccountPanelForm jaccountManagementPanelForm = null;
-    private JProfilePanelForm jprofileTabbedPanelForm = null;
+    private JPanel jaccountManagementPanelForm = null;
+    private JPanel jprofileTabbedPanelForm = null;
 
     public JHomePageForm() {
         initComponents();
@@ -29,22 +29,19 @@ public class JHomePageForm extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-    public JHomePageForm(Account _account, JFrame jfparrent) {
+    public JHomePageForm(JFrame jfparrent) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        Load();
+        Load(jfparrent);
     }
-    public void Load(){
-        if (this._account == null) {
-            this._account = _account;
-            jlbProfile.setText(this._account.getName());
-        }
+
+    public void Load(JFrame jfparrent) {
+        jlbProfile.setText(Account.getInstance().getName());
         if (this.jfparrent == null) {
             this.jfparrent = jfparrent;
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +64,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         jCustomerMenuItem = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,8 +139,11 @@ public class JHomePageForm extends javax.swing.JFrame {
         jMenuItem1.setText("Hàng hóa");
         jMenu2.add(jMenuItem1);
 
-        jMenuItem2.setText("Phiếu cầm đồ");
+        jMenuItem2.setText("Cầm/Chuộc đồ");
         jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("Thanh lý");
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -163,26 +164,26 @@ public class JHomePageForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
-        // Support.AddTabbedPanelForm(jHomePageTabbedPane, jaccountManagementPanelForm, "Tài khoản");
-        if (jaccountManagementPanelForm == null) {
-            jaccountManagementPanelForm = new JAccountPanelForm();
-            jHomePageTabbedPane.add("Tài khoản", jaccountManagementPanelForm);
+        String title = "Tài khoản";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jaccountManagementPanelForm = new JAccountPanelForm(this);
+            jHomePageTabbedPane.addTab(title, jaccountManagementPanelForm);
         }
         jHomePageTabbedPane.setSelectedComponent(jaccountManagementPanelForm);
     }//GEN-LAST:event_jAccountMenuItemActionPerformed
 
     private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
-        if (MessageSupport.Confirm(null, "Đăng xuất", "Bạn có muốn đăng xuất không?") == JOptionPane.YES_OPTION) {
+        if (MessageSupport.Confirm(null, "Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
             this.dispose();
             this.jfparrent.setVisible(true);
         }
     }//GEN-LAST:event_jLogOutMenuItemActionPerformed
 
     private void jlbProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbProfileMouseClicked
-        //Support.AddTabbedPanelForm(jHomePageTabbedPane, jprofileTabbedPanelForm, "Thông tin tài khoản");
-        if (jprofileTabbedPanelForm == null) {
-            jprofileTabbedPanelForm = new JProfilePanelForm(this._account, this);
-            jHomePageTabbedPane.add("Thông tin tài khoản", jprofileTabbedPanelForm);
+        String title = "Thông tin tài khoản";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jprofileTabbedPanelForm = new JProfilePanelForm(this);
+            jHomePageTabbedPane.addTab(title, jprofileTabbedPanelForm);
         }
         jHomePageTabbedPane.setSelectedComponent(jprofileTabbedPanelForm);
     }//GEN-LAST:event_jlbProfileMouseClicked
@@ -232,6 +233,7 @@ public class JHomePageForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu jSystemMenu;

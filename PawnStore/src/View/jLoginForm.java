@@ -14,8 +14,6 @@ import Model.Account;
 
 public class JLoginForm extends JFrame {
 
-    public Account _account = null;
-
     public JLoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -51,7 +49,7 @@ public class JLoginForm extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jbtnLogin = new javax.swing.JButton();
         jpfPassWord = new javax.swing.JPasswordField();
-        jChBShowHirePW = new javax.swing.JCheckBox();
+        jchbShowHirePassWord = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         try {
             jlbLogo =(javax.swing.JLabel)java.beans.Beans.instantiate(getClass().getClassLoader(), "View.jLoginForm_jlbLogo");
@@ -63,11 +61,6 @@ public class JLoginForm extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(0, 255, 255));
         jPanel1.setAutoscrolls(true);
@@ -97,10 +90,10 @@ public class JLoginForm extends JFrame {
 
         jpfPassWord.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
 
-        jChBShowHirePW.setText("Hiện mật khẩu");
-        jChBShowHirePW.addMouseListener(new java.awt.event.MouseAdapter() {
+        jchbShowHirePassWord.setText("Hiện mật khẩu");
+        jchbShowHirePassWord.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jChBShowHirePWMouseClicked(evt);
+                jchbShowHirePassWordMouseClicked(evt);
             }
         });
 
@@ -111,7 +104,7 @@ public class JLoginForm extends JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jChBShowHirePW, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jchbShowHirePassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,10 +131,10 @@ public class JLoginForm extends JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jpfPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jChBShowHirePW)
+                .addComponent(jchbShowHirePassWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -173,7 +166,7 @@ public class JLoginForm extends JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jlbLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,7 +177,7 @@ public class JLoginForm extends JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -194,10 +187,10 @@ public class JLoginForm extends JFrame {
 
 
     private void Login(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login
-        if (CheckSupport.IsEmpty(jtfUserName.getText())) {
-            MessageSupport.ShowError(null, "ERROR", "The Username is invalid");
-            return;
-        }
+//        if (CheckSupport.IsEmpty(jtfUserName.getText())) {
+//            MessageSupport.ShowError(null, "ERROR", "The Username is invalid");
+//            return;
+//        }
 //        Connection conn = null;
 //        PreparedStatement prestate = null;
 //        ResultSet rs = null;
@@ -206,12 +199,12 @@ public class JLoginForm extends JFrame {
 //            conn = DBConnectionSupport.getConnection();
 //            prestate = conn.prepareStatement(query);
 //            prestate.setString(1, jtfUserName.getText());
-//            prestate.setString(2, String.valueOf(jtfPassWord.getPassword()));
+//            prestate.setString(2, String.valueOf(jpfPassWord.getPassword()));
 //            rs = prestate.executeQuery();
 //            if (rs.next()) {
 //                try {
-//                    this.taikhoan = new Taikhoan(rs.getString("TEN_TAI_KHOAN"),rs.getString("MAT_KHAU"),rs.getString("HO_VA_TEN_USER"));
-//                    JHomePageForm jhomepageform = new JHomePageForm(taikhoan);
+//                    Account._instance = new Account(rs.getString("TEN_TAI_KHOAN"),rs.getString("MAT_KHAU"),rs.getString("HO_VA_TEN_USER"));
+//                    JHomePageForm jhomepageform = new JHomePageForm(this);
 //                    jhomepageform.setVisible(true);
 //                    this.setVisible(false);
 //                } catch (Exception e) {e.printStackTrace();}
@@ -237,23 +230,16 @@ public class JLoginForm extends JFrame {
 //            }
 //        }
         if (jtfUserName.getText().equals("admin") && String.valueOf(jpfPassWord.getPassword()).equals("admin")) {
-            this._account = new Account("admin","admin","admin");
-            JHomePageForm jhomepageform = new JHomePageForm(_account,this);
+            Account.SetInstance("admin","admin","admin");
+            JHomePageForm jhomepageform = new JHomePageForm(this);
             jhomepageform.setVisible(true);
             this.setVisible(false);
-            jpfPassWord.setText(null);
         }
     }//GEN-LAST:event_Login
 
-    private void jChBShowHirePWMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jChBShowHirePWMouseClicked
-        Support.ShowHirePassword(jChBShowHirePW, jpfPassWord);
-    }//GEN-LAST:event_jChBShowHirePWMouseClicked
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (MessageSupport.Confirm(null, "Đóng ứng dụng", "Xác nhận đóng ứng dụng?") == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_formWindowClosing
+    private void jchbShowHirePassWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jchbShowHirePassWordMouseClicked
+        Support.ShowHirePassword(jchbShowHirePassWord, jpfPassWord);
+    }//GEN-LAST:event_jchbShowHirePassWordMouseClicked
 
     /**
      * @param args the command line arguments
@@ -290,12 +276,12 @@ public class JLoginForm extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jChBShowHirePW;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtnLogin;
+    private javax.swing.JCheckBox jchbShowHirePassWord;
     private javax.swing.JLabel jlbLogo;
     private javax.swing.JPasswordField jpfPassWord;
     private javax.swing.JTextField jtfUserName;

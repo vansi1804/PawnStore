@@ -44,7 +44,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u c&#x1ea7;m &#x111;&#x1ed3;"/>
+                <Property name="text" type="java.lang.String" value="C&#x1ea7;m/Chu&#x1ed9;c &#x111;&#x1ed3;"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Thanh l&#xfd;"/>
               </Properties>
             </MenuItem>
           </SubComponents>

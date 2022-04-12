@@ -32,7 +32,7 @@ public class Information {
     public Information() {
     }
 
-    public Information(String _id, String _name) {
+    public  Information(String _id, String _name) {
         this._id = _id;
         this._name = _name;
     }

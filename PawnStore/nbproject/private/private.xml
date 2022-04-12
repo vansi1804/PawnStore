@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/View/jHomePageForm.java</file>
+            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/View/JTabbedPaneForm/JProfilePanelForm.java</file>
+            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/View/JLoginForm.java</file>
+            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/View/JTabbedPaneForm/JCustomerPanelForm.java</file>
+            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/View/JHomePageForm.java</file>
+            <file>file:/D:/3rdYear/JavaProject/PawnStore/PawnStore/src/Support/DBConnectionSupport.java</file>
         </group>
     </open-files>
 </project-private>

@@ -10,24 +10,34 @@ package Model;
  */
 public class Account extends Information {
 
+    private String _password;
+    
+    private static Account _instance;
+    
+    public static Account getInstance(){
+        if (_instance == null) {
+            return null;
+        }
+        return _instance;
+    }
+    public static void SetInstance(String _id, String _password, String _name){
+        _instance = new Account(_id,_password, _name);
+    }
+    public Account(String _id, String _password, String _name) {
+        super(_id, _name);
+        this._password = _password;
+    }
+    
     public String getPassword() {
-        return _password;
+        return _instance._password;
     }
 
     public void setPassword(String _password) {
-        this._password = _password;
+        this._instance._password = _password;
     }
 
     public Account() {
         super();
     }
 
-    public Account(String _id, String _password, String _name) {
-        super(_id, _name);
-        this._password = _password;
-    }
-
-    private String _password;
-
-    
 }
