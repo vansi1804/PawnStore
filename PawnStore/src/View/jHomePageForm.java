@@ -8,6 +8,7 @@ import Model.*;
 import View.JTabbedPaneForm.JAccountPanelForm;
 import javax.swing.JFrame;
 import Support.*;
+import View.JTabbedPaneForm.JCustomerPanelForm;
 import View.JTabbedPaneForm.JProfilePanelForm;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,8 +21,9 @@ public class JHomePageForm extends javax.swing.JFrame {
 
     public static JFrame jfparrent = null;
 
-    private JPanel jaccountManagementPanelForm = null;
-    private JPanel jprofileTabbedPanelForm = null;
+    private JPanel jaccountTab = null;
+    private JPanel jprofiletab = null;
+    private JPanel jcustomertab = null;
 
     public JHomePageForm() {
         initComponents();
@@ -134,6 +136,11 @@ public class JHomePageForm extends javax.swing.JFrame {
         jMenu2.add(jAccountMenuItem);
 
         jCustomerMenuItem.setText("Khách hàng");
+        jCustomerMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCustomerMenuItemActionPerformed(evt);
+            }
+        });
         jMenu2.add(jCustomerMenuItem);
 
         jMenuItem1.setText("Hàng hóa");
@@ -166,10 +173,10 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
         String title = "Tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jaccountManagementPanelForm = new JAccountPanelForm(this);
-            jHomePageTabbedPane.addTab(title, jaccountManagementPanelForm);
+            jaccountTab = new JAccountPanelForm(this);
+            jHomePageTabbedPane.addTab(title, jaccountTab);
         }
-        jHomePageTabbedPane.setSelectedComponent(jaccountManagementPanelForm);
+        jHomePageTabbedPane.setSelectedComponent(jaccountTab);
     }//GEN-LAST:event_jAccountMenuItemActionPerformed
 
     private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
@@ -182,11 +189,20 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jlbProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbProfileMouseClicked
         String title = "Thông tin tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jprofileTabbedPanelForm = new JProfilePanelForm(this);
-            jHomePageTabbedPane.addTab(title, jprofileTabbedPanelForm);
+            jprofiletab = new JProfilePanelForm(this);
+            jHomePageTabbedPane.addTab(title, jprofiletab);
         }
-        jHomePageTabbedPane.setSelectedComponent(jprofileTabbedPanelForm);
+        jHomePageTabbedPane.setSelectedComponent(jprofiletab);
     }//GEN-LAST:event_jlbProfileMouseClicked
+
+    private void jCustomerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerMenuItemActionPerformed
+        String title = "Khách hàng";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jcustomertab = new JCustomerPanelForm(this);
+            jHomePageTabbedPane.addTab(title, jcustomertab);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jcustomertab);
+    }//GEN-LAST:event_jCustomerMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

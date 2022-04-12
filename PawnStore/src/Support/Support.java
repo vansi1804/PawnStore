@@ -5,6 +5,7 @@
 package Support;
 
 import View.JTabbedPaneForm.JAccountPanelForm;
+import java.awt.Button;
 import java.awt.Component;
 import java.awt.Image;
 import java.net.URL;
@@ -26,6 +27,7 @@ public class Support {
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
     }
+ 
     
     public static void CloseJFrame(Component parent, String title, String content,JFrame jrame){
         if (MessageSupport.Confirm(parent, title, content) == 0) {
