@@ -1,43 +1,56 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Model;
 
 /**
  *
- * @author NVS
+ * @author Bau Kien
  */
-public class Account extends Information {
+public class Account {
 
-    private String _password;
-    
-    private static Account _instance;
-    
-    public static Account getInstance(){
-        if (_instance == null) {
-            return null;
-        }
-        return _instance;
+    public Account() {
     }
-    public static void SetInstance(String _id, String _password, String _name){
-        _instance = new Account(_id,_password, _name);
-    }
-    public Account(String _id, String _password, String _name) {
-        super(_id, _name);
+
+    public Account(String _username, String _password, String _fullname) {
+        this._username = _username;
         this._password = _password;
+        this._fullname = _fullname;
     }
-    
+    public Account(Account _account) {
+        this._username = _account.getUsername();
+        this._password = _account.getPassword();
+        this._fullname = _account.getFullname();
+    }
+
+    public String getUsername() {
+        return _username;
+    }
+
+    public void setUsername(String _username) {
+        this._username = _username;
+    }
+
     public String getPassword() {
-        return _instance._password;
+        return _password;
     }
 
     public void setPassword(String _password) {
-        this._instance._password = _password;
+        this._password = _password;
     }
 
-    public Account() {
-        super();
+    public String getFullname() {
+        return _fullname;
     }
 
+    public void setFullname(String _fullname) {
+        this._fullname = _fullname;
+    }
+    private String _username;
+    private String _password;
+    private String _fullname;
+
+    
 }

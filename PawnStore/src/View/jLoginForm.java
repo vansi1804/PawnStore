@@ -4,16 +4,15 @@
  */
 package View;
 
+import Controller.LoginController;
 import Support.*;
-import java.sql.*;
 import javax.swing.*;
 import java.awt.EventQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import Model.Account;
 
 public class JLoginForm extends JFrame {
-
+ LoginController loginController = new LoginController();
+    
+    
     public JLoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -187,54 +186,29 @@ public class JLoginForm extends JFrame {
 
 
     private void Login(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login
-//        if (CheckSupport.IsEmpty(jtfUserName.getText())) {
-//            MessageSupport.ShowError(null, "ERROR", "The Username is invalid");
-//            return;
-//        }
-//        Connection conn = null;
-//        PreparedStatement prestate = null;
-//        ResultSet rs = null;
-//        String query = "SELECT * FROM TAIKHOAN WHERE TEN_TAI_KHOAN = ? AND MAT_KHAU = ?";
-//        try {
-//            conn = DBConnectionSupport.getConnection();
-//            prestate = conn.prepareStatement(query);
-//            prestate.setString(1, jtfUserName.getText());
-//            prestate.setString(2, String.valueOf(jpfPassWord.getPassword()));
-//            rs = prestate.executeQuery();
-//            if (rs.next()) {
-//                try {
-//                    Account._instance = new Account(rs.getString("TEN_TAI_KHOAN"),rs.getString("MAT_KHAU"),rs.getString("HO_VA_TEN_USER"));
-//                    JHomePageForm jhomepageform = new JHomePageForm(this);
-//                    jhomepageform.setVisible(true);
-//                    this.setVisible(false);
-//                } catch (Exception e) {e.printStackTrace();}
-//            } else {
-//                MessageSupport.ShowError(null, "Login Failed ", "Username or Password incorrect. Check again.");
-//            }
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }finally{
-//            if (prestate != null) {
-//                try {
-//                    prestate.close();
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//            if (conn != null) {
-//                try {
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        }
-        if (jtfUserName.getText().equals("admin") && String.valueOf(jpfPassWord.getPassword()).equals("admin")) {
-            Account.SetInstance("admin","admin","admin");
-            JHomePageForm jhomepageform = new JHomePageForm(this);
-            jhomepageform.setVisible(true);
-            this.setVisible(false);
+        if (CheckSupport.isEmpty(jtfUserName.getText())) {
+            MessageSupport.ShowError(null, "ERROR", "The Username is invalid");
+            return;
         }
+        
+        String username = jtfUserName.getText();
+        String password = String.valueOf(jpfPassWord.getPassword());
+        
+        if (loginController.login(username, password)) {
+            JHomePageForm jHomePageForm = new JHomePageForm(this);
+            jHomePageForm.setVisible(true);
+            this.setVisible(false);
+        }else{
+            MessageSupport.ShowError(null, "Login failed!", "User or password is wrong. Check and try again!");
+        }
+        
+                
+//        if (jtfUserName.getText().equals("admin") && String.valueOf(jpfPassWord.getPassword()).equals("admin")) {
+//            Account.setCurrentInstance("admin","admin","admin");
+//            JHomePageForm jhomepageform = new JHomePageForm(this);
+//            jhomepageform.setVisible(true);
+//            this.setVisible(false);
+//        }
     }//GEN-LAST:event_Login
 
     private void jchbShowHirePassWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jchbShowHirePassWordMouseClicked

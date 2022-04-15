@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  */
 public class JHomePageForm extends javax.swing.JFrame {
 
-    public static JFrame jfparrent = null;
+    private static JFrame jfparrent = null;
 
     private JPanel jaccountTab = null;
     private JPanel jprofiletab = null;
@@ -29,21 +29,22 @@ public class JHomePageForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setProfileName();
     }
 
     public JHomePageForm(JFrame jfparrent) {
         initComponents();
+        this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        Load(jfparrent);
+        setProfileName();
     }
 
-    public void Load(JFrame jfparrent) {
-        jlbProfile.setText(Account.getInstance().getName());
-        if (this.jfparrent == null) {
-            this.jfparrent = jfparrent;
-        }
+    public void setProfileName() {
+        jlbProfile.setText(User.getCurrentInstance().getFullname());
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,7 +174,7 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
         String title = "Tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jaccountTab = new JAccountPanelForm(this);
+            jaccountTab = new JAccountPanelForm();
             jHomePageTabbedPane.addTab(title, jaccountTab);
         }
         jHomePageTabbedPane.setSelectedComponent(jaccountTab);
@@ -189,7 +190,7 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jlbProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbProfileMouseClicked
         String title = "Thông tin tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jprofiletab = new JProfilePanelForm(this);
+            jprofiletab = new JProfilePanelForm();
             jHomePageTabbedPane.addTab(title, jprofiletab);
         }
         jHomePageTabbedPane.setSelectedComponent(jprofiletab);
@@ -198,7 +199,7 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jCustomerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerMenuItemActionPerformed
         String title = "Khách hàng";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jcustomertab = new JCustomerPanelForm(this);
+            jcustomertab = new JCustomerPanelForm();
             jHomePageTabbedPane.addTab(title, jcustomertab);
         }
         jHomePageTabbedPane.setSelectedComponent(jcustomertab);

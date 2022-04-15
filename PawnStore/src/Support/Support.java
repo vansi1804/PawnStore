@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +29,11 @@ public class Support {
         label.setIcon(new ImageIcon(imageScale));
     }
  
+    public static void ScaleImage(JButton button,URL url){
+        ImageIcon imageIcon = new ImageIcon(url);
+        Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(imageScale));
+    }
     
     public static void CloseJFrame(Component parent, String title, String content,JFrame jrame){
         if (MessageSupport.Confirm(parent, title, content) == 0) {

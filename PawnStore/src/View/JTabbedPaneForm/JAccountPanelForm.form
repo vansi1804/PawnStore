@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfUserFullName">
+    </Component>
+    <Component class="javax.swing.JTextField" name="jtfUserName">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p"/>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -32,7 +54,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jPanel5" max="32767" attributes="0"/>
-              <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jPanel9" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -40,8 +62,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -52,7 +73,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel6" alignment="0" pref="1147" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -73,182 +94,172 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="jPanel9">
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel8" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel7" min="-2" pref="169" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jbtnSave" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                                      <Component id="jbtnCancel" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jpfConfirmPassword" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel5" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jpfPassword" min="-2" pref="240" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel4" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jTextField2" min="-2" pref="240" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel3" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" min="-2" pref="240" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jPanel2" min="-2" pref="177" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel4" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="jTextField2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="jpfPassword" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel7" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="jpfConfirmPassword" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jbtnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbtnSave" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="85" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField1">
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField2">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel4">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel5">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n m&#x1ead;t kh&#x1ea9;u"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jchbShowHirePassword">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="12" style="2"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Hi&#x1ec7;n m&#x1ead;t kh&#x1ea9;u"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jchbShowHirePasswordActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="jbtnCancel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jbtnSave">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="18" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSaveActionPerformed"/>
+              </Events>
+            </Component>
+            <Container class="javax.swing.JPanel" name="jPanel1">
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jPanel6" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane1" alignment="1" pref="473" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanel6" min="-2" pref="165" max="-2" attributes="0"/>
-                              <Component id="jPanel3" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel3">
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace pref="123" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jLabel5" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="14" style="3"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="14" style="3"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel6">
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtfUserFullName1" max="32767" attributes="0"/>
-                                  <Component id="jtfUserName" alignment="1" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="143" max="32767" attributes="0"/>
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jtfUserFullName1" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jtfUserName" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JTextField" name="jtfUserName">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jtfUserFullName1">
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel1">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="12" style="2"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="33" green="33" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="jPanel7">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="219" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -260,11 +271,11 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="jtblAccountList">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="2" rowCount="0">
-                            <Column editable="true" title="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p" type="java.lang.Object"/>
+                            <Column editable="false" title="T&#xea;n &#x111;&#x103;ng nh&#x1ead;p" type="java.lang.Object"/>
                             <Column editable="true" title="H&#x1ecd; v&#xe0; t&#xea;n" type="java.lang.Object"/>
                           </Table>
                         </Property>
@@ -275,7 +286,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -291,44 +302,21 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel8">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jbtnAdd" min="-2" pref="78" max="-2" attributes="0"/>
-                          <EmptySpace pref="87" max="32767" attributes="0"/>
-                          <Component id="jbtnRemove" min="-2" pref="78" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jbtnAdd" alignment="1" pref="34" max="32767" attributes="0"/>
-                      <Component id="jbtnRemove" alignment="1" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JButton" name="jbtnAdd">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Times New Roman" size="14" style="3"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jbtnRemove">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Times New Roman" size="14" style="3"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
+            <Component class="javax.swing.JLabel" name="jLabel8">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="12" style="2"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="jpfPassword">
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="jpfConfirmPassword">
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

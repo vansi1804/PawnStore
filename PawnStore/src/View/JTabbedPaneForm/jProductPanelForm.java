@@ -8,12 +8,12 @@ package View.JTabbedPaneForm;
  *
  * @author NVS
  */
-public class jProductPanelForm extends javax.swing.JPanel {
+public class JProductPanelForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jProductPanelForm
      */
-    public jProductPanelForm() {
+    public JProductPanelForm() {
         initComponents();
     }
 

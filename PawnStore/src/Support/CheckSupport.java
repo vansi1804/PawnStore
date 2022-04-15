@@ -9,7 +9,12 @@ package Support;
  * @author NVS
  */
 public class CheckSupport {
-    public static boolean IsEmpty(String str){
+    public static boolean isEmpty(String str){
         return str.isEmpty();
     }
+    
+    public static boolean equals(String str1, String str2){
+        return str1.equals(str2);
+    }
+    
 }

@@ -7,9 +7,7 @@ import java.sql.SQLException;
 
 public class DBConnectionSupport {
     
-    private static final String dbURL = "jdbc:MSSQL_SERVER://localhost:1434;"
-                                    + "databaseName=PawnShop;"
-                                    + "integratedSecurity=true";
+    private static final String dbURL = "jdbc:sqlserver://localhost:1433;databaseName=PawnStore;integratedSecurity=true";
     private static final String UserName = "sa";
     private static final String PassWord = "sa";
     
