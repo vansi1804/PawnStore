@@ -9,6 +9,8 @@ import View.JTabbedPaneForm.JAccountPanelForm;
 import javax.swing.JFrame;
 import Support.*;
 import View.JTabbedPaneForm.JCustomerPanelForm;
+import View.JTabbedPaneForm.JPawnCouponPanelForm;
+import View.JTabbedPaneForm.JProductPanelForm;
 import View.JTabbedPaneForm.JProfilePanelForm;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,9 +23,11 @@ public class JHomePageForm extends javax.swing.JFrame {
 
     private static JFrame jfparrent = null;
 
-    private JPanel jaccountTab = null;
+    private JPanel jaccounttab = null;
     private JPanel jprofiletab = null;
     private JPanel jcustomertab = null;
+    private JPanel jproducttab = null;
+    private JPanel jpawncoupontab = null;
 
     public JHomePageForm() {
         initComponents();
@@ -43,8 +47,6 @@ public class JHomePageForm extends javax.swing.JFrame {
     public void setProfileName() {
         jlbProfile.setText(User.getCurrentInstance().getFullname());
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,11 +67,12 @@ public class JHomePageForm extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jAccountMenuItem = new javax.swing.JMenuItem();
         jCustomerMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jProductMenuItem = new javax.swing.JMenuItem();
+        jPawnCouponMenuItem = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Phầm mềm quản lý cầm dùm đồ");
 
         jlbProfile.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jlbProfile.setForeground(new java.awt.Color(255, 0, 0));
@@ -92,7 +95,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlbProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,10 +111,9 @@ public class JHomePageForm extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jSystemMenu.setText("Hệ thống");
@@ -144,11 +146,21 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jMenu2.add(jCustomerMenuItem);
 
-        jMenuItem1.setText("Hàng hóa");
-        jMenu2.add(jMenuItem1);
+        jProductMenuItem.setText("Hàng hóa");
+        jProductMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jProductMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jProductMenuItem);
 
-        jMenuItem2.setText("Cầm/Chuộc đồ");
-        jMenu2.add(jMenuItem2);
+        jPawnCouponMenuItem.setText("Hợp đồng");
+        jPawnCouponMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPawnCouponMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jPawnCouponMenuItem);
 
         jMenuItem3.setText("Thanh lý");
         jMenu2.add(jMenuItem3);
@@ -174,10 +186,10 @@ public class JHomePageForm extends javax.swing.JFrame {
     private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
         String title = "Tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jaccountTab = new JAccountPanelForm();
-            jHomePageTabbedPane.addTab(title, jaccountTab);
+            jaccounttab = new JAccountPanelForm();
+            jHomePageTabbedPane.addTab(title, jaccounttab);
         }
-        jHomePageTabbedPane.setSelectedComponent(jaccountTab);
+        jHomePageTabbedPane.setSelectedComponent(jaccounttab);
     }//GEN-LAST:event_jAccountMenuItemActionPerformed
 
     private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
@@ -204,6 +216,24 @@ public class JHomePageForm extends javax.swing.JFrame {
         }
         jHomePageTabbedPane.setSelectedComponent(jcustomertab);
     }//GEN-LAST:event_jCustomerMenuItemActionPerformed
+
+    private void jProductMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProductMenuItemActionPerformed
+        String title = "Hàng hóa";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jproducttab = new JProductPanelForm();
+            jHomePageTabbedPane.addTab(title, jproducttab);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jproducttab);
+    }//GEN-LAST:event_jProductMenuItemActionPerformed
+
+    private void jPawnCouponMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPawnCouponMenuItemActionPerformed
+        String title = "Hợp đồng";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jpawncoupontab = new JPawnCouponPanelForm();
+            jHomePageTabbedPane.addTab(title, jpawncoupontab);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jpawncoupontab);
+    }//GEN-LAST:event_jPawnCouponMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,12 +278,12 @@ public class JHomePageForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jLogOutMenuItem;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuItem jPawnCouponMenuItem;
+    private javax.swing.JMenuItem jProductMenuItem;
     private javax.swing.JMenu jSystemMenu;
-    private javax.swing.JLabel jlbProfile;
+    public static javax.swing.JLabel jlbProfile;
     // End of variables declaration//GEN-END:variables
 }

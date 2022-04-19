@@ -1,86 +1,70 @@
-﻿--go
---use master 
---if exists (select name from sys.databases where name = 'QLCD')
-drop database PawnShop
-go
-create database PawnShop
-go 
-use PawnShop
+﻿
 
+create database PawnStore
 go
+use PawnStore
+
 drop table Account
-GO
-CREATE TABLE Account
-(
-	_userName VARCHAR(20) PRIMARY KEY,
-	_passWord VARCHAR(20),
-	_userFullName NVARCHAR(30)
+go
+create table Account(
+	_username varchar(10) primary key,
+	_password nvarchar(30),
+	_fullname nvarchar(50)
 )
 go
 drop table Customer
-GO
-CREATE TABLE Customer
-(
-	_id varchar(10) PRIMARY KEY,
-	_name NVARCHAR(50),
-	_phoneNumber VARCHAR(11) CHECK (DATALENGTH(_phoneNumber) = 10 or DATALENGTH(_phoneNumber) = 11) ,
-	_address NVARCHAR(100),	
-	_identityNumber VARCHAR(12) UNIQUE check (DATALENGTH(_identityNumber) = 9 or DATALENGTH(_identityNumber) = 12),
-)
-GO
-drop table TypeOfProduct
-GO
-CREATE TABLE TypeOfProduct
-(
-	_id varchar(10) PRIMARY KEY,
-	_name NVARCHAR(50),
+go
+create table Customer(
+	_id varchar(12) primary key,
+	_fullname nvarchar(50),
+	_gender nvarchar(10),
+	_phonenumber varchar(12),
+	_address nvarchar(100)
 )
 go
+drop table TypeOfProduct
+go 
+create table TypeOfProduct(
+	_id varchar(10) primary key,
+	_name nvarchar(30)
+)
+
+go
 drop table Product
-GO
-CREATE TABLE Product
-(
-	_id varchar(10) PRIMARY KEY,
-	_name NVARCHAR(50),
-	_typeOfProductID varchar(10),
-	foreign key (_typeOfProductID) references TypeOfProduct(_id) on update cascade 
+go
+create table Product(
+	_id varchar(10) primary key,
+	_name nvarchar(30),
+	_information nvarchar(200),
+	_status nvarchar(50),
+	_typeID varchar(10) foreign key references TypeOfProduct(_id) on update cascade
 )
-GO
+
+go
 drop table PawnCoupon
-GO
-CREATE TABLE PawnCoupon
-(
-	_id varchar(10) PRIMARY KEY,
-	_setupDate DATETIME,
-	_money FLOAT,
-	_status bit,
-	_customerID varchar(10) foreign key (_customerID) references Customer(_id) on update cascade,
-	_userName VARCHAR(20) foreign key (_userName) references Account(_userName) on update cascade,
-)
-GO
-drop table PawnCouponDetail
-GO
-CREATE TABLE PawnCouponDetail
-(
-	_productID varchar(10),
-	_pawnCouponID varchar(10),
+go
+create table PawnCoupon(
+	_id varchar(10) primary key,
+	_pawnDate DateTime,
+	_customerID varchar(12) foreign key references Customer(_id) on update cascade,
+	_productID varchar(10) foreign key references Product(_id) on update cascade,
 	_amount int,
-	_money money,
-	_interesrPaymentDate DATETIME,
-	PRIMARY KEY (_productID,_pawnCouponID),
-	foreign key (_productID) references Product(_id) on update cascade,
-	foreign key (_pawnCouponID) references PawnCoupon(_id) on update cascade,
+	_price float,
+	_interestRate float,
+	_ransomDate DateTime,
+	_username varchar(10) foreign key references Account(_username) on update cascade
 )
-GO 
-drop table BillOfPayment
-CREATE TABLE BillOfPayment
-(
-	_id varchar(10) PRIMARY KEY,
-	_setupDate DATETIME,
-	_pawnTicketID varchar(10),
-	_interest FLOAT,
-	_total MONEY,
-	foreign key (_pawnTicketID) references PawnCoupon(_id) on update cascade 
+
+go
+drop table InterestPayment
+go
+create table InterestPayment(
+	_pawCouponID varchar(10) foreign key references PawnCoupon(_id) on update cascade,
+	_times int,
+	primary key (_pawCouponID,_times),
+	_paymentDate DateTime,
+	_money float,
+	_note nvarchar(200)
 )
-GO
-SET DATEFORMAT DMY
+
+select * from Customer where _gender like N'%Nữ%'

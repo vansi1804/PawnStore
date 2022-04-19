@@ -5,12 +5,10 @@
  */
 package Controller;
 
-import Model.User;
 import Support.DBConnectionSupport;
 import View.JLoginForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +18,8 @@ import java.util.logging.Logger;
  * @author Bau Kien
  */
 public class ProfileController {
-    public boolean save(String fullname, String username, String password){
+
+    public boolean save(String username, String password,String fullname){
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Update Account set _fullname = ?, _password = ? where _username = ?";

@@ -18,17 +18,17 @@ public class JLoginForm extends JFrame {
         this.setLocationRelativeTo(null);
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
         //SetDefault();
-        jtfUserName.setText("admin");
-        jpfPassWord.setText("admin");
-        jpfPassWord.setEchoChar('*');
+        jtfUsername.setText("admin");
+        jpfPassword.setText("admin");
+        jpfPassword.setEchoChar('*');
     }
 
     public void SetDefault() {
         this.setLocationRelativeTo(null);
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
         jlbLogo.setText("");
-        jtfUserName.setText("");
-        jpfPassWord.setText("");
+        jtfUsername.setText("");
+        jpfPassword.setText("");
     }
 
     /**
@@ -44,11 +44,11 @@ public class JLoginForm extends JFrame {
         lbLogin = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lbUserName = new javax.swing.JLabel();
-        jtfUserName = new javax.swing.JTextField();
+        jtfUsername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jbtnLogin = new javax.swing.JButton();
-        jpfPassWord = new javax.swing.JPasswordField();
-        jchbShowHirePassWord = new javax.swing.JCheckBox();
+        jpfPassword = new javax.swing.JPasswordField();
+        jchbShowHirePassword = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         try {
             jlbLogo =(javax.swing.JLabel)java.beans.Beans.instantiate(getClass().getClassLoader(), "View.jLoginForm_jlbLogo");
@@ -74,7 +74,7 @@ public class JLoginForm extends JFrame {
         lbUserName.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         lbUserName.setText("Tên đăng nhập");
 
-        jtfUserName.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jtfUsername.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel2.setText("Mật khẩu");
@@ -87,12 +87,12 @@ public class JLoginForm extends JFrame {
             }
         });
 
-        jpfPassWord.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jpfPassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
 
-        jchbShowHirePassWord.setText("Hiện mật khẩu");
-        jchbShowHirePassWord.addMouseListener(new java.awt.event.MouseAdapter() {
+        jchbShowHirePassword.setText("Hiện mật khẩu");
+        jchbShowHirePassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jchbShowHirePassWordMouseClicked(evt);
+                jchbShowHirePasswordMouseClicked(evt);
             }
         });
 
@@ -103,15 +103,15 @@ public class JLoginForm extends JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jchbShowHirePassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jchbShowHirePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jpfPassWord, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jtfUserName))))
+                            .addComponent(jpfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jtfUsername))))
                 .addGap(184, 184, 184))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(185, 185, 185)
@@ -124,13 +124,13 @@ public class JLoginForm extends JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbUserName)
-                    .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jpfPassWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jchbShowHirePassWord)
+                .addComponent(jchbShowHirePassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -186,13 +186,13 @@ public class JLoginForm extends JFrame {
 
 
     private void Login(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login
-        if (CheckSupport.isEmpty(jtfUserName.getText())) {
+        if (CheckSupport.isEmpty(jtfUsername.getText())) {
             MessageSupport.ShowError(null, "ERROR", "The Username is invalid");
             return;
         }
         
-        String username = jtfUserName.getText();
-        String password = String.valueOf(jpfPassWord.getPassword());
+        String username = jtfUsername.getText();
+        String password = String.valueOf(jpfPassword.getPassword());
         
         if (loginController.login(username, password)) {
             JHomePageForm jHomePageForm = new JHomePageForm(this);
@@ -211,9 +211,9 @@ public class JLoginForm extends JFrame {
 //        }
     }//GEN-LAST:event_Login
 
-    private void jchbShowHirePassWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jchbShowHirePassWordMouseClicked
-        Support.ShowHirePassword(jchbShowHirePassWord, jpfPassWord);
-    }//GEN-LAST:event_jchbShowHirePassWordMouseClicked
+    private void jchbShowHirePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordMouseClicked
+        Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
+    }//GEN-LAST:event_jchbShowHirePasswordMouseClicked
 
     /**
      * @param args the command line arguments
@@ -255,10 +255,10 @@ public class JLoginForm extends JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton jbtnLogin;
-    private javax.swing.JCheckBox jchbShowHirePassWord;
+    private javax.swing.JCheckBox jchbShowHirePassword;
     private javax.swing.JLabel jlbLogo;
-    private javax.swing.JPasswordField jpfPassWord;
-    private javax.swing.JTextField jtfUserName;
+    private javax.swing.JPasswordField jpfPassword;
+    private javax.swing.JTextField jtfUsername;
     private javax.swing.JLabel lbLogin;
     private javax.swing.JLabel lbUserName;
     // End of variables declaration//GEN-END:variables
