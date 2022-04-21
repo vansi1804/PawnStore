@@ -75,6 +75,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         float totalprice = 0f;
         float totalInterestRate = 0.0f;
         Object rowData[] = new Object[11];
+        model.addRow(rowData);
         int STT = 1;
         for (int i = 0; i < _pawncouponList.size(); i++) {
             rowData[0] = String.valueOf(STT++);
@@ -134,10 +135,10 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             int amount = Integer.parseInt(jtfAmount.getText());
             float price = Float.parseFloat(jtfPrice.getText());
             float interestRate = Float.parseFloat(jtfInterestRate.getText());
-            Date redeemingDate = Support.stringToDate(jfmtRedeemingDate.getText());
+            Date redeemingDate = null;
             User user = User.getCurrentInstance();
 
-            return new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, null, user);
+            return new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, user);
         } catch (Exception e) {
         }
         return null;

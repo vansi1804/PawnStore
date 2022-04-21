@@ -31,7 +31,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-
 /**
  *
  * @author NVS
@@ -115,9 +114,11 @@ public class Support {
     }
 
     public static String dateToString(Date date) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return (date == null) ? "" : df.format(date);
-
+        if (date == null) {
+            return "null";
+        }
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date).toString();
     }
 
     public static LocalDateTime getToday() {

@@ -95,7 +95,7 @@ public class PawnCouponController {
     public boolean add(PawnCoupon pawnCoupon) {
         Connection conn = null;
         PreparedStatement prestate = null;
-        String query = "Insert into PawnCoupon(_id, _pawnDate, _customerID, _productID, _amount, _price, _interestRate, _ransomDate, _username) values (?,?,?,?,?,?,?,?,?)";
+        String query = "Insert into PawnCoupon(_id, _pawnDate, _customerID, _productID, _amount, _price, _interestRate, _redeemingDate, _username) values (?,?,?,?,?,?,?,?,?)";
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
@@ -177,12 +177,31 @@ public class PawnCouponController {
 
         String query2 = "";
         String queryId = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryCustomerID = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryProductID = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryAmount = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryPrice = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryInterestRate = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryPawnDate = " _id like '%" + pawnCoupon.getId() + "%'";
+        String queryCustomerID = " _customerID like '%" + pawnCoupon.getCustomer().getId()+ "%'";
+        String queryProductID = " _productID like '%" + pawnCoupon.getProuct().getProductID()+ "%'";
+        String queryAmount = " _amount = " + pawnCoupon.getAmount()+ "";
+        String queryPrice = " _price like " + pawnCoupon.getPrice()+ "";
+        String queryInterestRate = " _interestRate like " + pawnCoupon.getInterestRate()+ "";
+        String queryPawnDate = " _id _pawnDate '%" + pawnCoupon.getPawnDate()+ "%'";
+        String queryRedeemingDate = " _redeemingDate like '%" + pawnCoupon.getRedeemingDate()+ "%'";
+        
+        if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+            if (!CheckSupport.isEmpty(pawnCoupon.getCustomer().getId())) {
+                if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                    if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                        if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                            if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                                if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                                    if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         String query = " SELECT * FROM Product " + query2;
 
