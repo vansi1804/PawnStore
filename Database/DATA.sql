@@ -45,13 +45,13 @@ drop table PawnCoupon
 go
 create table PawnCoupon(
 	_id varchar(10) primary key,
-	_pawnDate DateTime,
+	_pawnDate Date,
 	_customerID varchar(12) foreign key references Customer(_id) on update cascade,
 	_productID varchar(10) foreign key references Product(_id) on update cascade,
 	_amount int,
 	_price float,
 	_interestRate float,
-	_ransomDate DateTime,
+	_redeemingDate Date default null,
 	_username varchar(10) foreign key references Account(_username) on update cascade
 )
 
@@ -62,9 +62,7 @@ create table InterestPayment(
 	_pawCouponID varchar(10) foreign key references PawnCoupon(_id) on update cascade,
 	_times int,
 	primary key (_pawCouponID,_times),
-	_paymentDate DateTime,
+	_paymentDate Date,
 	_money float,
 	_note nvarchar(200)
 )
-
-select * from Customer where _gender like N'%Nữ%'

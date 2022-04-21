@@ -70,12 +70,12 @@ public class PawnCoupon {
         this._interestRate = _interestRate;
     }
 
-    public Date getRansomDate() {
-        return _ransomDate;
+    public Date getRedeemingDate() {
+        return _redeemingDate;
     }
 
-    public void setRansomDate(Date _ransomDate) {
-        this._ransomDate = _ransomDate;
+    public void setRedeemingDate(Date _ransomDate) {
+        this._redeemingDate = _ransomDate;
     }
 
     public User getUser() {
@@ -97,7 +97,7 @@ public class PawnCoupon {
         this._amount = _amount;
         this._price = _price;
         this._interestRate = _interestRate;
-        this._ransomDate = _ransomDate;
+        this._redeemingDate = _ransomDate;
         this._user = _user;
     }
 
@@ -108,6 +108,6 @@ public class PawnCoupon {
     private int _amount;
     private float _price;
     private float _interestRate;
-    private Date _ransomDate;
+    private Date _redeemingDate;
     private User _user;
 }

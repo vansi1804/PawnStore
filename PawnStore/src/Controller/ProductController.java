@@ -102,6 +102,46 @@ public class ProductController {
         return null;
     }
 
+    public Product findProductByID(String value){
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        ResultSet rs = null;
+        String query = "SELECT Product._id,Product._name,Product._information,Product._status,TypeOfProduct._id,TypeOfProduct._name"
+                + " FROM Product INNER JOIN TypeOfProduct ON Product._typeID = TypeOfProduct._id Where Product._id = ?";
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, value);
+            rs = prestate.executeQuery();
+            while (rs.next()) {
+                try {
+                    return new Product(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     public TypeOfProduct findTypeOfProduct(String property, String value) {
         Connection conn = null;
         PreparedStatement prestate = null;
@@ -207,15 +247,16 @@ public class ProductController {
         return false;
     }
 
-    public boolean edit(TypeOfProduct _typeOfProduct) {
+    public boolean edit(TypeOfProduct _typeOfProduct,String id) {
         Connection conn = null;
         PreparedStatement prestate = null;
-        String query = "Update TypeOfProduct set _name = ? Where _id = ?";
+        String query = "Update TypeOfProduct set _id = ?, _name = ? Where _id = ?";
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, _typeOfProduct.getTypeOfProductName());
-            prestate.setString(2, _typeOfProduct.getTypeOfProductID());
+            prestate.setString(1, _typeOfProduct.getTypeOfProductID());
+            prestate.setString(2, _typeOfProduct.getTypeOfProductName());
+            prestate.setString(3, id);
             prestate.executeUpdate();
             return true;
         } catch (SQLException ex) {

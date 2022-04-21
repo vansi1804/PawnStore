@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import Model.Account;
 import java.util.ArrayList;
 import Model.Customer;
 import Support.*;
@@ -15,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -293,5 +294,45 @@ public class CustomerController {
         }
         return null;
     }
+
+    public Customer findCustomerByID(String value) {
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM Customer where _id = ?";
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, value);
+            rs = prestate.executeQuery();
+            _customersList = new ArrayList<>();
+            while (rs.next()) {
+                try {
+                    return new Customer(rs.getString("_id"), rs.getString("_fullname"), rs.getString("_gender"), rs.getString("_phonenumber"), rs.getString("_address"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
+    }
+   
 
 }

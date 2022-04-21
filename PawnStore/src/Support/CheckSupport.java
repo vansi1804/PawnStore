@@ -4,13 +4,6 @@
  */
 package Support;
 
-import View.JLoginForm;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +14,10 @@ import java.util.regex.Pattern;
 public class CheckSupport {
 
     public static boolean isEmpty(String str) {
-        return (str.isBlank() || str == null);
+        if (str == null) {
+            str = "";
+        }
+        return (str.isBlank());
     }
 
     public static boolean containsWhiteSpace(String str) {

@@ -126,4 +126,43 @@ public class AccountController {
         }
         return false;
     }
+    
+    public Account findAccountByID(String value) {
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM Account where _username = ?";
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, value);
+            rs = prestate.executeQuery();
+            _accountList = new ArrayList<>();
+            while (rs.next()) {
+                try {
+                   return new Account(rs.getString("_username"), rs.getString("_password"), rs.getString("_fullname"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
+    }
 }

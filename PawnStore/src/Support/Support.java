@@ -12,11 +12,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -27,7 +31,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
@@ -101,19 +104,32 @@ public class Support {
     }
 
     public static Date stringToDate(String str) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-        try {
-            return formatter.parse(str);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (!CheckSupport.isEmpty(str)) {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                return df.parse(str);
+            } catch (ParseException ex) {
+            }
         }
         return null;
     }
+
     public static String dateToString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-        return formatter.format(date);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return (date == null) ? "" : df.format(date);
+
     }
 
+    public static LocalDateTime getToday() {
+        return LocalDateTime.now();
+    }
+
+    public static String getStringToday() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+    
     public static void setDateTimeField(JFormattedTextField jfmtf, Date date) {
         jfmtf.setText(dateToString(date));
     }
@@ -122,7 +138,7 @@ public class Support {
         return stringToDate(jfmtf.getText());
     }
 
-    public static ResultSet getObject(String objectName, String propertie, String values) {
+    public static ArrayList<Map<String, Object>> getObject(String objectName, String propertie, String values) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -132,11 +148,15 @@ public class Support {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             prestate.setString(1, values);
-            rs = prestate.executeQuery();
-            if (rs.next()) {
-                return rs;
+            ArrayList<Map<String, Object>> result = new ArrayList<>();
+            while (rs.next()) {
+                Map<String, Object> resMap = new HashMap<>();
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    resMap.put(rs.getMetaData().getColumnName(i), rs.getObject(i));
+                }
+                result.add(resMap);
             }
-            
+            return result;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
