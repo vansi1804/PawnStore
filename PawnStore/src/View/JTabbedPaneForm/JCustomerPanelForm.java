@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
+import Support.*;
 /**
  *
  * @author NVS
@@ -50,6 +50,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             rowData[5] = list.get(i).getAddress();
             model.addRow(rowData);
         }
+        Support.setDataTableCenter(jtblCustomersList);
     }
 
     public Customer getDataFromForm() {
@@ -249,11 +250,11 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mặt hàng ", "Ngày cầm", "Số lượng", "Giá", "Lãi xuất", "Số kỳ đã đóng", "Lãi đã đóng", "Ngày chuộc", "Trạng thái"
+                "STT", "Hợp đồng càm", "Mặt hàng ", "Số lượng", "Giá", "Lãi xuất", "Số kỳ đã đóng", "Lãi đã đóng", "Ngày cầm", "Ngày chuộc", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, true, false, false
+                false, false, false, true, false, false, false, true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -387,12 +388,12 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(138, 138, 138)
                         .addComponent(jbtnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnFind, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jbtnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -456,7 +457,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtfCustomerID.setText((table.getModel().getValueAt(row, 1)).toString());
             jtfCustomerName.setText((table.getModel().getValueAt(row, 2)).toString());
             String gender = (table.getModel().getValueAt(row, 3)).toString();
-            if (gender == "Nam") {
+            if (CheckSupport.equals(gender, "Nam")) {
                 jrbMale.setSelected(true);
             } else {
                 jrbFemale.setSelected(true);

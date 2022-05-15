@@ -9,7 +9,6 @@ import Model.Account;
 import Model.Customer;
 import Model.PawnCoupon;
 import Model.Product;
-import Model.TypeOfProduct;
 import Model.User;
 import Support.DBConnectionSupport;
 import View.JLoginForm;
@@ -56,13 +55,13 @@ public class PawnCouponController {
                 try {
                     String id = rs.getString(1);
                     Date pawnDate = Support.stringToDate(rs.getString(2));
-                    Customer customer = _customerController.findCustomerByID(rs.getString(3));
+                    Customer customer = _customerController.findByID(rs.getString(3));
                     Product product = _productController.findProductByID(rs.getString(4));
                     int amount = Integer.parseInt(rs.getString(5));
                     float price = Float.parseFloat(rs.getString(6));
                     float interestRate = Float.parseFloat(rs.getString(7));
                     Date ransomDate = Support.stringToDate(rs.getString(8));
-                    Account acc = _accountController.findAccountByID(rs.getString(9));
+                    Account acc = _accountController.findByUsername(rs.getString(9));
                     User user = new User(acc.getUsername(), acc.getPassword(), acc.getFullname());
                     PawnCoupon pawnCoupon = new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, ransomDate, user);
                     pawnCoupons.add(pawnCoupon);
@@ -145,7 +144,7 @@ public class PawnCouponController {
             prestate.setString(5, String.valueOf(pawnCoupon.getInterestRate()));
             prestate.setString(6, Support.dateToString(pawnCoupon.getPawnDate()));
             String ransomDate = Support.dateToString(pawnCoupon.getRedeemingDate());
-            prestate.setString(8,CheckSupport.isEmpty(ransomDate)?"null":ransomDate);
+            prestate.setString(8, CheckSupport.isEmpty(ransomDate) ? "null" : ransomDate);
             prestate.setString(8, pawnCoupon.getId());
             prestate.executeUpdate();
             return true;
@@ -177,14 +176,14 @@ public class PawnCouponController {
 
         String query2 = "";
         String queryId = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryCustomerID = " _customerID like '%" + pawnCoupon.getCustomer().getId()+ "%'";
-        String queryProductID = " _productID like '%" + pawnCoupon.getProuct().getProductID()+ "%'";
-        String queryAmount = " _amount = " + pawnCoupon.getAmount()+ "";
-        String queryPrice = " _price like " + pawnCoupon.getPrice()+ "";
-        String queryInterestRate = " _interestRate like " + pawnCoupon.getInterestRate()+ "";
-        String queryPawnDate = " _id _pawnDate '%" + pawnCoupon.getPawnDate()+ "%'";
-        String queryRedeemingDate = " _redeemingDate like '%" + pawnCoupon.getRedeemingDate()+ "%'";
-        
+        String queryCustomerID = " _customerID like '%" + pawnCoupon.getCustomer().getId() + "%'";
+        String queryProductID = " _productID like '%" + pawnCoupon.getProuct().getProductID() + "%'";
+        String queryAmount = " _amount = " + pawnCoupon.getAmount() + "";
+        String queryPrice = " _price like " + pawnCoupon.getPrice() + "";
+        String queryInterestRate = " _interestRate like " + pawnCoupon.getInterestRate() + "";
+        String queryPawnDate = " _id _pawnDate '%" + pawnCoupon.getPawnDate() + "%'";
+        String queryRedeemingDate = " _redeemingDate like '%" + pawnCoupon.getRedeemingDate() + "%'";
+
         if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
             if (!CheckSupport.isEmpty(pawnCoupon.getCustomer().getId())) {
                 if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
@@ -193,7 +192,7 @@ public class PawnCouponController {
                             if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
                                 if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
                                     if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
-                                        
+
                                     }
                                 }
                             }
@@ -202,7 +201,7 @@ public class PawnCouponController {
                 }
             }
         }
-        
+
         String query = " SELECT * FROM Product " + query2;
 
         try {
@@ -238,5 +237,4 @@ public class PawnCouponController {
         }
         return null;
     }
-
 }

@@ -35,6 +35,8 @@
         <Property name="text" type="java.lang.String" value="jTextField2"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -172,10 +174,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jtfPawnCouponID" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -217,8 +219,8 @@
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jbtnCreateNew" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jbtnCreateNew" min="-2" pref="17" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jbtnAddPawnCoupon" min="-2" max="-2" attributes="0"/>
@@ -231,7 +233,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -370,10 +372,11 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jrbLiquidated" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jrbNeedToLiquidate" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jchbOutOfDate" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jrbAll" min="-2" max="-2" attributes="0"/>
                                       <Component id="jrbRedeemed" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jrbNeedToLiquidate" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jrbLate" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jrbLiquidated" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -391,12 +394,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jrbRedeemed" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jchbOutOfDate" min="-2" max="-2" attributes="0"/>
+                          <Component id="jrbLate" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jrbNeedToLiquidate" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jrbLiquidated" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jrbAll" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -410,29 +414,52 @@
                     <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jrbNotRedeemed">
+                <Component class="javax.swing.JRadioButton" name="jrbNotRedeemed">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Ch&#x1b0;a chu&#x1ed9;c"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jrbRedeemed">
+                <Component class="javax.swing.JRadioButton" name="jrbRedeemed">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="&#x110;&#xe3; cu&#x1ed9;c"/>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#xe3; chu&#x1ed9;c"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jchbOutOfDate">
+                <Component class="javax.swing.JRadioButton" name="jrbLate">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Tr&#x1ec5; l&#xe3;i"/>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Tr&#x1ec5; h&#x1ea1;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jrbNeedToLiquidate">
+                <Component class="javax.swing.JRadioButton" name="jrbNeedToLiquidate">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="C&#x1ea7;n thanh l&#xfd;"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jrbLiquidated">
+                <Component class="javax.swing.JRadioButton" name="jrbLiquidated">
                   <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="&#x110;&#xe3; thanh l&#xfd;"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JRadioButton" name="jrbAll">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="T&#x1ea5;t c&#x1ea3;"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -502,9 +529,9 @@
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jbtnAddInterestPaymentHistory" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jButton6" min="-2" pref="69" max="-2" attributes="0"/>
+                                      <Component id="jbtnEditInterestPaymentHistory" min="-2" pref="69" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jtfMoney" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
@@ -519,20 +546,16 @@
                               <Component id="jfmtfInterestPaymentDate" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
-                                  <Component id="jPanel13" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jbtnReloadAll" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel13" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" max="32767" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jbtnReloadAll" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -554,7 +577,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" pref="101" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" pref="122" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jtaNote" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -567,8 +590,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbtnAddInterestPaymentHistory" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbtnEditInterestPaymentHistory" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -624,21 +647,27 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="jbtnEditInterestPaymentHistory">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnEditInterestPaymentHistoryActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="jbtnAddInterestPaymentHistory">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnAddInterestPaymentHistoryActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane3">
               <AuxValues>
@@ -650,26 +679,32 @@
                 <Component class="javax.swing.JTable" name="jtbInterestPaymentHistory">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
-                        <Column editable="true" title="K&#x1ef3; &#x111;&#xf3;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="Ng&#xe0;y &#x111;&#xf3;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Object"/>
-                        <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.Object"/>
+                      <Table columnCount="5" rowCount="0">
+                        <Column editable="false" title="K&#x1ef3; &#x111;&#xf3;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y &#x111;&#xf3;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="S&#x1ed1; ti&#x1ec1;n" type="java.lang.Object"/>
+                        <Column editable="false" title="D&#x1b0; n&#x1ee3;" type="java.lang.Object"/>
+                        <Column editable="false" title="Ghi ch&#xfa;" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="75" minWidth="75" prefWidth="75" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                        <Column maxWidth="75" minWidth="75" prefWidth="75" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                        <Column maxWidth="75" minWidth="75" prefWidth="75" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -704,9 +739,12 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel19" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Component id="jLabel19" min="-2" pref="129" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jlbTotalMoney" min="-2" pref="318" max="-2" attributes="0"/>
+                          <Component id="jlbTotalInterestPayment" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jlbTotalDebt" min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -714,7 +752,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel19" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jlbTotalMoney" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jlbTotalInterestPayment" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jlbTotalDebt" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -729,7 +768,16 @@
                     <Property name="text" type="java.lang.String" value="T&#x1ed5;ng      :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jlbTotalMoney">
+                <Component class="javax.swing.JLabel" name="jlbTotalInterestPayment">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Times New Roman" size="14" style="3"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="2"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jlbTotalDebt">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="14" style="3"/>
@@ -762,7 +810,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane2" pref="226" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="224" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -777,18 +825,18 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jtblPawnCoupom">
+                <Component class="javax.swing.JTable" name="jtblPawnCoupon">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="11" rowCount="0">
                         <Column editable="false" title="STT" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xe3; h&#x1ee3;p &#x111;&#x1ed3;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe3; h&#x1ee3;p &#x111;&#x1ed3;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
                         <Column editable="false" title="M&#xe3; h&#xe0;ng c&#x1ea7;m" type="java.lang.Object"/>
                         <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                         <Column editable="false" title="Gi&#xe1; c&#x1ea7;m" type="java.lang.Object"/>
                         <Column editable="false" title="L&#xe3;i su&#x1ea5;t (%/ng&#xe0;y)" type="java.lang.Object"/>
-                        <Column editable="false" title="L&#xe3;i" type="java.lang.Object"/>
+                        <Column editable="false" title="L&#xe3;i &#x111;&#xf3;ng" type="java.lang.Object"/>
                         <Column editable="false" title="Ng&#xe0;y c&#x1ea7;m" type="java.lang.Object"/>
                         <Column editable="false" title="Ng&#xe0;y chu&#x1ed9;c" type="java.lang.Object"/>
                         <Column editable="false" title="Ng&#x1b0;&#x1edd;i l&#x1ead;p" type="java.lang.Object"/>
@@ -858,7 +906,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtblPawnCoupomMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtblPawnCouponMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -909,7 +957,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="14" style="3"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="T&#x1ea1;m t&#x1ed5;ng     :"/>
+                        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng     :"/>
                       </Properties>
                     </Component>
                   </SubComponents>

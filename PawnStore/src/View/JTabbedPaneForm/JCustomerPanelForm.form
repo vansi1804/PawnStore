@@ -89,12 +89,12 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                               <Component id="jbtnAdd" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbtnEdit" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jbtnRemove" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jbtnFind" min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="jbtnFind" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jPanel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -373,15 +373,16 @@
                     <Component class="javax.swing.JTable" name="jtblHistory">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="10" rowCount="0">
+                          <Table columnCount="11" rowCount="0">
                             <Column editable="false" title="STT" type="java.lang.Object"/>
+                            <Column editable="false" title="H&#x1ee3;p &#x111;&#x1ed3;ng c&#xe0;m" type="java.lang.Object"/>
                             <Column editable="false" title="M&#x1eb7;t h&#xe0;ng " type="java.lang.Object"/>
-                            <Column editable="false" title="Ng&#xe0;y c&#x1ea7;m" type="java.lang.Object"/>
                             <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                             <Column editable="false" title="Gi&#xe1;" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xe3;i xu&#x1ea5;t" type="java.lang.Object"/>
                             <Column editable="false" title="S&#x1ed1; k&#x1ef3; &#x111;&#xe3; &#x111;&#xf3;ng" type="java.lang.Object"/>
                             <Column editable="true" title="L&#xe3;i &#x111;&#xe3; &#x111;&#xf3;ng" type="java.lang.Object"/>
+                            <Column editable="false" title="Ng&#xe0;y c&#x1ea7;m" type="java.lang.Object"/>
                             <Column editable="false" title="Ng&#xe0;y chu&#x1ed9;c" type="java.lang.Object"/>
                             <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
                           </Table>
@@ -389,6 +390,11 @@
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="1">
                             <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>

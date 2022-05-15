@@ -22,7 +22,7 @@ public class ProductController {
     public ArrayList<TypeOfProduct> _typeOfProductsList = null;
     public ArrayList<Product> _productsList = null;
 
-    public ArrayList<TypeOfProduct> getTypeList() {
+    public ArrayList<TypeOfProduct> getTypeOfProductList() {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -180,7 +180,7 @@ public class ProductController {
         return null;
     }
 
-    public boolean add(TypeOfProduct _typeOfProduct) {
+    public boolean addTypeOfProduct(TypeOfProduct _typeOfProduct) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Insert into TypeOfProduct(_id,_name) values (?,?)";
@@ -212,7 +212,7 @@ public class ProductController {
         return false;
     }
 
-    public boolean add(Product _product) {
+    public boolean addProduct(Product _product) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Insert into Product(_id,_name,_information,_status,_typeID) values (?,?,?,?,?)";
@@ -247,7 +247,7 @@ public class ProductController {
         return false;
     }
 
-    public boolean edit(TypeOfProduct _typeOfProduct,String id) {
+    public boolean editTypeOfProduct(TypeOfProduct _typeOfProduct, String id) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Update TypeOfProduct set _id = ?, _name = ? Where _id = ?";
@@ -280,7 +280,7 @@ public class ProductController {
         return false;
     }
 
-    public boolean edit(Product _product) {
+    public boolean editProduct(Product _product) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Update Product set _name = ?, _information = ?, _status = ?, _typeID = ? Where _id = ?";
@@ -324,8 +324,9 @@ public class ProductController {
         String queryId = " _id like '%" + product.getProductID() + "%'";
         String queryName = " _name like N'%" + product.getProductName() + "%'";
         String queryInformation = " _information like N'%" + product.getInformation() + "%'";
-        String queryStatus = " _status =" + product.getStatus();
+        String queryStatus = " _status = N'%" + product.getStatus()+"%'";
         String queryTypeID = " _typeID like '%" + product.getTypeOfProductID() + "%'";
+        
         if (!CheckSupport.isEmpty(product.getProductID())) {
             query2 += " WHERE " + queryId;
             if (!CheckSupport.isEmpty(product.getProductName())) {
@@ -470,5 +471,4 @@ public class ProductController {
         }
         return null;
     }
-
 }

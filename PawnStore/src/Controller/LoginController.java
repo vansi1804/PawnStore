@@ -23,7 +23,7 @@ public class LoginController {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM Account WHERE _username = ? AND _password = ?";
+        String query = "SELECT _username, _password, _fullname FROM Account WHERE _username = ? AND _password = ?";
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
@@ -32,7 +32,7 @@ public class LoginController {
             rs = prestate.executeQuery();
             if (rs.next()) {
                 try {
-                    User.setCurrentInstance(rs.getString("_username"), rs.getString("_password"), rs.getString("_fullname"));
+                    User.setCurrentInstance(rs.getString(1), rs.getString(2), rs.getString(3));
                     return true;
                 } catch (Exception e) {e.printStackTrace();}
             }

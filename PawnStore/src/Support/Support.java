@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +32,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 /**
  *
  * @author NVS
@@ -97,6 +101,7 @@ public class Support {
 
     public static void loadCombobox(ArrayList<String> arrayList, JComboBox jComboBox) {
         jComboBox.removeAllItems();
+        jComboBox.addItem("Tất cả");
         for (int i = 0; i < arrayList.size(); i++) {
             jComboBox.addItem(arrayList.get(i).toString());
         }
@@ -104,21 +109,18 @@ public class Support {
 
     public static Date stringToDate(String str) {
         if (!CheckSupport.isEmpty(str)) {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                return df.parse(str);
-            } catch (ParseException ex) {
-            }
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return (Date) dtf.parse(str);
         }
         return null;
     }
 
     public static String dateToString(Date date) {
         if (date == null) {
-            return "null";
+            return "";
         }
-        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date).toString();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return dtf.format((TemporalAccessor) date);
     }
 
     public static LocalDateTime getToday() {
@@ -126,7 +128,7 @@ public class Support {
     }
 
     public static String getStringToday() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
     }
@@ -177,5 +179,18 @@ public class Support {
             }
         }
         return null;
+    }
+    
+    public static void setDataTableCenter(JTable table){
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        TableModel tableModel = table.getModel();
+
+        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++)
+        {
+            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+        }
+    
     }
 }

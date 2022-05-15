@@ -14,8 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,7 +65,7 @@ public class CustomerController {
     }
 
     public boolean checkExistedCustomer(String customerID) {
-        return CheckSupport.checkExistObject("Customer", "_id", customerID);
+        return findByID(customerID) != null;
     }
 
     public boolean add(Customer customer) {
@@ -295,7 +293,7 @@ public class CustomerController {
         return null;
     }
 
-    public Customer findCustomerByID(String value) {
+    public Customer findByID(String id) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -303,7 +301,7 @@ public class CustomerController {
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, value);
+            prestate.setString(1, id);
             rs = prestate.executeQuery();
             _customersList = new ArrayList<>();
             while (rs.next()) {

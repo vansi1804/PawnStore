@@ -64,5 +64,6 @@ create table InterestPayment(
 	primary key (_pawCouponID,_times),
 	_paymentDate Date,
 	_money float,
+	_debt float,
 	_note nvarchar(200)
 )

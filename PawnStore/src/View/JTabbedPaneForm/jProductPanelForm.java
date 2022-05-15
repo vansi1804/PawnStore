@@ -1,16 +1,16 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to editTypeOfProduct this template
  */
 package View.JTabbedPaneForm;
 
 import Controller.ProductController;
-import Model.Customer;
 import Model.Product;
 import Model.TypeOfProduct;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Support.*;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -47,7 +47,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }
 
     public void loadCombobox() {
-        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeList();
+        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeOfProductList();
         ArrayList<String> _typeOfProductsNameList = new ArrayList<>();
         for (TypeOfProduct typeOfProduct : _typeOfProductsList) {
             _typeOfProductsNameList.add(typeOfProduct.getTypeOfProductName());
@@ -69,13 +69,13 @@ public class JProductPanelForm extends javax.swing.JPanel {
             rowData[5] = list.get(i).getStatus();
             model.addRow(rowData);
         }
+        Support.setDataTableCenter(jtblProduct);
     }
 
     public void loadTypeOfProduct() {
-
         DefaultTableModel model = (DefaultTableModel) jtblTypeOfProduct.getModel();
         model.setRowCount(0);
-        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeList();
+        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeOfProductList();
         Object rowData[] = new Object[3];
         int STT = 1;
         for (int i = 0; i < _typeOfProductsList.size(); i++) {
@@ -84,6 +84,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             rowData[2] = _typeOfProductsList.get(i).getTypeOfProductName();
             model.addRow(rowData);
         }
+        Support.setDataTableCenter(jtblTypeOfProduct);
     }
 
     public String getComboBoxValue() {
@@ -108,7 +109,12 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }
 
     public Product getProductFromForm() {
-        TypeOfProduct typeOfProduct = _productController.findTypeOfProduct("_name", getComboBoxValue());
+        TypeOfProduct typeOfProduct;
+        if (CheckSupport.equals(jcbTypeOfProduct.getSelectedItem().toString(), "Tất cả")) {
+            typeOfProduct = new TypeOfProduct(" ", " ");
+        } else {
+            typeOfProduct = _productController.findTypeOfProduct("_name", getComboBoxValue());
+        }
         return new Product(jtfProductID.getText(), jtfProductName.getText(), jtaInformation.getText(), getStatus(), typeOfProduct);
     }
 
@@ -181,7 +187,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jLabel6.setText("Tên hàng hóa");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel7.setText("Loại");
+        jLabel7.setText("Loại hàng hóa");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLabel8.setText("Thông tin chi tiết");
@@ -227,36 +233,34 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbRedeemed)
-                    .addComponent(jrbNotRedeemed))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jrbNeedToLiquidate)
-                        .addGap(18, 18, 18)
-                        .addComponent(jrbAll))
-                    .addComponent(jrbLiquidated))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrbRedeemed)
+                            .addComponent(jrbNotRedeemed)
+                            .addComponent(jrbNeedToLiquidate)
+                            .addComponent(jrbLiquidated)
+                            .addComponent(jrbAll))))
+                .addGap(92, 92, 92))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbNotRedeemed)
-                    .addComponent(jrbNeedToLiquidate)
-                    .addComponent(jrbAll))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrbRedeemed)
-                    .addComponent(jrbLiquidated))
-                .addGap(35, 35, 35))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jrbNotRedeemed)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jrbRedeemed)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jrbNeedToLiquidate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jrbLiquidated)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jrbAll)
+                .addContainerGap())
         );
 
         jbtnEditProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
@@ -315,15 +319,15 @@ public class JProductPanelForm extends javax.swing.JPanel {
                         .addComponent(jbtnAddNew))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jbtnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtnEditProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtnFindProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                        .addComponent(jbtnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnEditProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnFindProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,12 +339,12 @@ public class JProductPanelForm extends javax.swing.JPanel {
                     .addComponent(jtfProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnAddNew))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbTypeOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -350,11 +354,11 @@ public class JProductPanelForm extends javax.swing.JPanel {
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addContainerGap())))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtnEditProduct)
                             .addComponent(jbtnAddProduct)
@@ -439,30 +443,33 @@ public class JProductPanelForm extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtnReloadAll)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jtfTypeOfProductID))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel5Layout.createSequentialGroup()
-                                            .addComponent(jbtnAddTypeOfProduct)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jbtnEditTypeOfProduct))
-                                        .addComponent(jtfTypeOfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jbtnAddNew1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jtfTypeOfProductID))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(jbtnAddTypeOfProduct)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jbtnEditTypeOfProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jtfTypeOfProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnAddNew1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbtnReloadAll)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,7 +541,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -545,14 +552,14 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -569,9 +576,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,7 +590,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,9 +610,10 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jtblTypeOfProductMouseClicked
 
     private void jtblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblProductMouseClicked
-        jtfProductID.setEditable(false);
+
         int row = jtblProduct.getSelectedRow();
         if (evt.getClickCount() == 2 && row != -1) {
+            jtfProductID.setEditable(false);
             JTable table = (JTable) evt.getSource();
             jtfProductID.setText((table.getModel().getValueAt(row, 1)).toString());
             jtfProductName.setText((table.getModel().getValueAt(row, 2)).toString());
@@ -628,16 +634,20 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
     private void jbtnAddTypeOfProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddTypeOfProductActionPerformed
         TypeOfProduct _typeOfProduct = getTypeOfProductFromForm();
-        if (CheckSupport.checkExistObject("TypeOfProduct", "_id", _typeOfProduct.getTypeOfProductID())) {
-            MessageSupport.ShowError(null, "Lỗi", "Loại hàng đã tồn tại.");
+        if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductID())) {
+            MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng không được để trống.");
         } else {
-            if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
-                MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
+            if (_productController.findTypeOfProduct("_id", _typeOfProduct.getTypeOfProductID()) != null) {
+                MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng đã tồn tại.");
             } else {
-                if (_productController.add(_typeOfProduct)) {
-                    MessageSupport.Show(null, "Thông báo", "Thêm mới thành công..");
-                    setTypeOfProductDefault();
-                    loadTypeOfProduct();
+                if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
+                    MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
+                } else {
+                    if (_productController.addTypeOfProduct(_typeOfProduct)) {
+                        MessageSupport.Show(null, "Thông báo", "Thêm mới thành công..");
+                        setTypeOfProductDefault();
+                        loadTypeOfProduct();
+                    }
                 }
             }
         }
@@ -649,13 +659,43 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
     private void jbtnEditTypeOfProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditTypeOfProductActionPerformed
         TypeOfProduct _typeOfProduct = getTypeOfProductFromForm();
-        if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
-            MessageSupport.ShowError(null, "Lỗi", "Tên loại hàng hóa không được để trống.");
+        if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductID())) {
+            MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng không được để trống.");
         } else {
-            if (_productController.edit(_typeOfProduct, ID)) {
-                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                setTypeOfProductDefault();
-                loadTypeOfProduct();
+            if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
+                MessageSupport.ShowError(null, "Lỗi", "Tên loại hàng hóa không được để trống.");
+            } else {
+                if (ID == null) {
+                    if (_productController.findTypeOfProduct("_id", _typeOfProduct.getTypeOfProductID()) == null) {
+                        if (MessageSupport.Confirm(null, "Thông báo", "Mã loại hàng chưa tồn tại. Bạn có muốn thêm mới không?") == JOptionPane.YES_OPTION) {
+                            if (_productController.addTypeOfProduct(_typeOfProduct)) {
+                                MessageSupport.Show(null, "Thông báo", "Thêm mới thành công..");
+                                setTypeOfProductDefault();
+                                loadTypeOfProduct();
+                            }
+                        }
+                    }
+                } else {
+                    if (!CheckSupport.equals(_typeOfProduct.getTypeOfProductID(), ID)) {
+                        if (_productController.findTypeOfProduct("_id", _typeOfProduct.getTypeOfProductID()) != null) {
+                            MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng hóa đã tồn tại.");
+                        } else {
+                            if (_productController.editTypeOfProduct(_typeOfProduct, ID)) {
+                                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+                                setTypeOfProductDefault();
+                                loadTypeOfProduct();
+                                ID = null;
+                            }
+                        }
+                    } else {
+                        if (_productController.editTypeOfProduct(_typeOfProduct, ID)) {
+                            MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+                            setTypeOfProductDefault();
+                            loadTypeOfProduct();
+                            ID = null;
+                        }
+                    }
+                }
             }
         }
     }//GEN-LAST:event_jbtnEditTypeOfProductActionPerformed
@@ -669,13 +709,17 @@ public class JProductPanelForm extends javax.swing.JPanel {
         if (CheckSupport.isEmpty(_product.getProductID())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
         } else {
-            if (CheckSupport.checkExistObject("Product", "_id", _product.getProductID())) {
+            if (_productController.findProductByID(_product.getProductID()) != null) {
                 MessageSupport.ShowError(null, "Lỗi", "Mã hàng tồn tại.");
             } else {
-                if (_productController.add(_product)) {
-                    MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
-                    setProductDefault();
-                    loadProduct(_productController.getProductList());
+                if (CheckSupport.isEmpty(_product.getTypeOfProductName())) {
+                    MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
+                } else {
+                    if (_productController.addProduct(_product)) {
+                        MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
+                        setProductDefault();
+                        loadProduct(_productController.getProductList());
+                    }
                 }
             }
         }
@@ -686,10 +730,14 @@ public class JProductPanelForm extends javax.swing.JPanel {
         if (CheckSupport.isEmpty(_product.getProductID())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
         } else {
-            if (_productController.edit(_product)) {
-                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                setProductDefault();
-                loadProduct(_productController.getProductList());
+            if (CheckSupport.isEmpty(_product.getTypeOfProductName())) {
+                MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
+            } else {
+                if (_productController.editProduct(_product)) {
+                    MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+                    setProductDefault();
+                    loadProduct(_productController.getProductList());
+                }
             }
         }
     }//GEN-LAST:event_jbtnEditProductActionPerformed
@@ -712,6 +760,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         loadCombobox();
         setProductDefault();
         setTypeOfProductDefault();
+        ID = null;
     }//GEN-LAST:event_jbtnReloadAllActionPerformed
 
 

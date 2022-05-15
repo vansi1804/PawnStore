@@ -64,12 +64,12 @@ public class JHomePageForm extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jSystemMenu = new javax.swing.JMenu();
         jLogOutMenuItem = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jManagermentMenu = new javax.swing.JMenu();
         jAccountMenuItem = new javax.swing.JMenuItem();
         jCustomerMenuItem = new javax.swing.JMenuItem();
         jProductMenuItem = new javax.swing.JMenuItem();
         jPawnCouponMenuItem = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jReportMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phầm mềm quản lý cầm dùm đồ");
@@ -128,7 +128,7 @@ public class JHomePageForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jSystemMenu);
 
-        jMenu2.setText("Quản lý");
+        jManagermentMenu.setText("Quản lý");
 
         jAccountMenuItem.setText("Tài khoản");
         jAccountMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +136,7 @@ public class JHomePageForm extends javax.swing.JFrame {
                 jAccountMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jAccountMenuItem);
+        jManagermentMenu.add(jAccountMenuItem);
 
         jCustomerMenuItem.setText("Khách hàng");
         jCustomerMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +144,7 @@ public class JHomePageForm extends javax.swing.JFrame {
                 jCustomerMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jCustomerMenuItem);
+        jManagermentMenu.add(jCustomerMenuItem);
 
         jProductMenuItem.setText("Hàng hóa");
         jProductMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +152,7 @@ public class JHomePageForm extends javax.swing.JFrame {
                 jProductMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jProductMenuItem);
+        jManagermentMenu.add(jProductMenuItem);
 
         jPawnCouponMenuItem.setText("Hợp đồng");
         jPawnCouponMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -160,12 +160,12 @@ public class JHomePageForm extends javax.swing.JFrame {
                 jPawnCouponMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jPawnCouponMenuItem);
+        jManagermentMenu.add(jPawnCouponMenuItem);
 
-        jMenuItem3.setText("Thanh lý");
-        jMenu2.add(jMenuItem3);
+        jMenuBar1.add(jManagermentMenu);
 
-        jMenuBar1.add(jMenu2);
+        jReportMenu.setText("Thống kê");
+        jMenuBar1.add(jReportMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -276,13 +276,13 @@ public class JHomePageForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jCustomerMenuItem;
     private javax.swing.JTabbedPane jHomePageTabbedPane;
     private javax.swing.JMenuItem jLogOutMenuItem;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jManagermentMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenuItem jPawnCouponMenuItem;
     private javax.swing.JMenuItem jProductMenuItem;
+    private javax.swing.JMenu jReportMenu;
     private javax.swing.JMenu jSystemMenu;
     public static javax.swing.JLabel jlbProfile;
     // End of variables declaration//GEN-END:variables

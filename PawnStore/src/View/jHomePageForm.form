@@ -19,7 +19,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="jManagermentMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd;"/>
           </Properties>
@@ -56,12 +56,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPawnCouponMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Thanh l&#xfd;"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jReportMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;"/>
+          </Properties>
         </Menu>
       </SubComponents>
     </Menu>

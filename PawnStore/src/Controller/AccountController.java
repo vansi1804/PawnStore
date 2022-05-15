@@ -55,9 +55,6 @@ public class AccountController {
         return null;
     }
 
-    public boolean checkExistingAccount(String _username) {
-        return CheckSupport.checkExistObject("Account", "_username", _username);
-    }
 
     public boolean add(Account _account) {
         Connection conn = null;
@@ -127,7 +124,7 @@ public class AccountController {
         return false;
     }
     
-    public Account findAccountByID(String value) {
+    public Account findByUsername(String id) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -135,7 +132,7 @@ public class AccountController {
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, value);
+            prestate.setString(1, id);
             rs = prestate.executeQuery();
             _accountList = new ArrayList<>();
             while (rs.next()) {
@@ -164,5 +161,8 @@ public class AccountController {
             }
         }
         return null;
+    }
+    public boolean checkExistingAccount(String _username) {
+        return findByUsername(_username) != null;
     }
 }
