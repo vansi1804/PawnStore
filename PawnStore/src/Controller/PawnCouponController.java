@@ -104,7 +104,7 @@ public class PawnCouponController {
             prestate.setString(4, pawnCoupon.getProuct().getProductID());
             prestate.setString(5, String.valueOf(pawnCoupon.getAmount()));
             prestate.setString(6, String.valueOf(pawnCoupon.getPrice()));
-            prestate.setString(7, String.valueOf(pawnCoupon.getInterestRate()));
+            prestate.setString(7, Support.dateToString(pawnCoupon.getRedeemingDate()));
             prestate.setString(8, "null");
             prestate.setString(9, pawnCoupon.getUser().getUsername());
             prestate.executeUpdate();

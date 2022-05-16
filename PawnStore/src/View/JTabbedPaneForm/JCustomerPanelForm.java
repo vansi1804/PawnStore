@@ -6,6 +6,7 @@ package View.JTabbedPaneForm;
 
 import Controller.CustomerController;
 import Model.Customer;
+import Model.PawnCoupon;
 import Support.CheckSupport;
 import Support.MessageSupport;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Support.*;
+import java.math.BigDecimal;
+
 /**
  *
  * @author NVS
@@ -67,6 +70,29 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         String phonenumber = jtfPhoneNumber.getText();
         String address = jtaAdress.getText();
         return new Customer(id, fullname, gender, phonenumber, address);
+    }
+
+    public void loadPawnHistory(String customerID) {
+        ArrayList<PawnCoupon> list = _customerController.getPawnHistory(customerID);
+        DefaultTableModel model = (DefaultTableModel) jtblHistory.getModel();
+        model.setRowCount(0);
+        Object rowData[] = new Object[11];
+        int STT = 1;
+        for (int i = 0; i < list.size(); i++) {
+            rowData[0] = String.valueOf(STT++);
+            rowData[1] = list.get(i).getId();
+            rowData[2] = list.get(i).getProuct().getProductName();
+            rowData[3] = list.get(i).getAmount();
+            rowData[4] = new BigDecimal(String.valueOf(list.get(i).getPrice())).stripTrailingZeros().toPlainString();
+            rowData[5] = list.get(i).getInterestRate();
+            rowData[6] = null;
+            rowData[7] = null;
+            rowData[8] = Support.dateToString(list.get(i).getPawnDate());
+            rowData[9] = Support.dateToString(list.get(i).getRedeemingDate());
+            rowData[10] = list.get(i).getProuct().getStatus();
+            model.addRow(rowData);
+        }
+        Support.setDataTableCenter(jtblHistory);
     }
 
     @SuppressWarnings("unchecked")
@@ -250,7 +276,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Hợp đồng càm", "Mặt hàng ", "Số lượng", "Giá", "Lãi xuất", "Số kỳ đã đóng", "Lãi đã đóng", "Ngày cầm", "Ngày chuộc", "Trạng thái"
+                "STT", "Hợp đồng cầm", "Mặt hàng ", "Số lượng", "Giá", "Lãi xuất", "Số kỳ đã đóng", "Lãi đã đóng", "Ngày cầm", "Ngày chuộc", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -449,7 +475,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnAddNewActionPerformed
 
     private void jtblCustomersListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblCustomersListMouseClicked
-        
+
         int row = jtblCustomersList.getSelectedRow();
         if (evt.getClickCount() == 2 && row != -1) {
             jtfCustomerID.setEditable(false);
@@ -465,6 +491,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtfPhoneNumber.setText((table.getModel().getValueAt(row, 4)).toString());
             jtaAdress.setText((table.getModel().getValueAt(row, 5)).toString());
         }
+        loadPawnHistory(jtfCustomerID.getText());
     }//GEN-LAST:event_jtblCustomersListMouseClicked
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed

@@ -7,6 +7,7 @@ package Controller;
 
 import java.util.ArrayList;
 import Model.Customer;
+import Model.PawnCoupon;
 import Support.*;
 import Support.DBConnectionSupport;
 import View.JLoginForm;
@@ -330,6 +331,18 @@ public class CustomerController {
             }
         }
         return null;
+    }
+
+    public ArrayList<PawnCoupon> getPawnHistory(String customerID) {
+        PawnCouponController couponController = new PawnCouponController();
+        ArrayList<PawnCoupon> list = couponController.getPawnCouponList();
+        ArrayList<PawnCoupon> listPawnHistory = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (CheckSupport.equals(list.get(i).getCustomer().getId(), customerID)) {
+                listPawnHistory.add(list.get(i));
+            }
+        }
+        return listPawnHistory;
     }
    
 

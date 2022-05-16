@@ -55,8 +55,4 @@ public class CheckSupport {
         }
         return false;
     }
-
-    public static boolean checkExistObject(String objectName, String propertie, String values) {
-        return (Support.getObject(objectName, propertie, values)!=null);
-    }
 }
