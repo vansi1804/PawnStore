@@ -38,12 +38,12 @@ public class PawnCoupon {
         this._customer = _customer;
     }
 
-    public Product getProuct() {
-        return _prouct;
+    public Product getProduct() {
+        return _product;
     }
 
-    public void setProuct(Product _prouct) {
-        this._prouct = _prouct;
+    public void setProduct(Product _prouct) {
+        this._product = _prouct;
     }
 
     public int getAmount() {
@@ -85,29 +85,39 @@ public class PawnCoupon {
     public void setUser(User _user) {
         this._user = _user;
     }
+    
+    public String getStatus() {
+        return _status;
+    }
+
+    public void setStatus(String _status) {
+        this._status = _status;
+    }
 
     public PawnCoupon() {
     }
 
-    public PawnCoupon(String _id, Date _pawnDate, Customer _customer, Product _prouct, int _amount, float _price, float _interestRate, Date _ransomDate, User _user) {
+    public PawnCoupon(String _id, Date _pawnDate, Customer _customer, Product _prouct, int _amount, float _price, float _interestRate, Date _ransomDate, String _status, User _user) {
         this._id = _id;
         this._pawnDate = _pawnDate;
         this._customer = _customer;
-        this._prouct = _prouct;
+        this._product = _prouct;
         this._amount = _amount;
         this._price = _price;
         this._interestRate = _interestRate;
         this._redeemingDate = _ransomDate;
+        this._status = _status;
         this._user = _user;
     }
 
     private String _id;
     private Date _pawnDate;
     private Customer _customer;
-    private Product _prouct;
+    private Product _product;
     private int _amount;
     private float _price;
     private float _interestRate;
     private Date _redeemingDate;
+    private String _status;
     private User _user;
 }

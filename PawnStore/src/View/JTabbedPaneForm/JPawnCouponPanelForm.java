@@ -7,16 +7,19 @@ package View.JTabbedPaneForm;
 
 import Model.Customer;
 import Controller.PawnCouponController;
+import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
+import Model.TypeOfProduct;
 import Model.User;
 import Support.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-
 
 public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
@@ -26,7 +29,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         initComponents();
         setPawnCouponDefault();
         loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
-        setInterestPaymentDefaiult(false);
+        setInterestPaymentDefault(null);
     }
 
     public void setPawnCouponDefault() {
@@ -44,13 +47,85 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         setStatus("Chưa chuộc");
     }
 
-    public void setInterestPaymentDefaiult(boolean b) {
-        JDCInterestPaymentDate.setDate(new Date());
-        jtfMoney.setText("");
-        jtanote.setText("");
-        JDCInterestPaymentDate.setEnabled(b);
-        jtfMoney.setEditable(b);
-        jtanote.setEditable(b);
+    public void setInterestPaymentDefault(PawnCoupon pawnCoupon) {
+        if (pawnCoupon == null) {
+            jtfTimes.setText("");
+            JDCInterestPaymentDate.setDate(null);
+            jtfAmountOfDays.setText("");
+            jtfInterest.setText("");
+            jtfAmountOfMoney.setText("");
+            jtfDebt.setText("");
+            jtanote.setText("");
+            jtfTimes.setEditable(false);
+            JDCInterestPaymentDate.setEnabled(false);
+            jtfAmountOfDays.setEditable(false);
+            jtfInterest.setEditable(false);
+            jtfAmountOfMoney.setEditable(false);
+            jtfDebt.setEditable(false);
+            jtanote.setEditable(false);
+        } else {
+            ArrayList<InterestPayment> interestPayments = _pawncouponController.getInterestPaymentController().getList(pawnCoupon);
+            if (!isStoredProductStatus(pawnCoupon.getStatus())) {
+                setInterestPaymentDefault(null);
+            } else {
+                jtfTimes.setText(String.valueOf(interestPayments.size() + 1));
+                Date interestPaymentDate = null;
+                long amountOfDays = 0;
+                if (interestPayments.size() == 0) {
+                    interestPaymentDate = Support.addDate(pawnCoupon.getPawnDate(), 15);
+                    amountOfDays = Support.subtractDate(pawnCoupon.getPawnDate(), interestPaymentDate);
+                } else {
+                    InterestPayment lastTimes = interestPayments.get(interestPayments.size() - 1);
+                    interestPaymentDate = Support.addDate(lastTimes.getPaymentDate(), 15);
+                    amountOfDays = Support.subtractDate(lastTimes.getPaymentDate(), interestPaymentDate);
+                }
+                
+                
+                JDCInterestPaymentDate.setDate(interestPaymentDate);
+                jtfAmountOfDays.setText("15");
+                float interest = pawnCoupon.getPrice() * pawnCoupon.getInterestRate() / 100 * amountOfDays;
+                jtfInterest.setText(new BigDecimal(String.valueOf(interest)).stripTrailingZeros().toPlainString());
+                jtfAmountOfMoney.setText("");
+                jtfAmountOfMoney.getDocument().addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        setJtfDebt();
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                        setJtfDebt();
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        setJtfDebt();
+                    }
+
+                    public void setJtfDebt() {
+                        if (!CheckSupport.isEmpty(jtfInterest.getText()) && !CheckSupport.isEmpty(jtfAmountOfMoney.getText())) {
+                            try {
+                                jtfDebt.setText(new BigDecimal(String.valueOf(Float.parseFloat(jtfInterest.getText()) - Float.parseFloat(jtfAmountOfMoney.getText()))).stripTrailingZeros().toPlainString());
+                            } catch (Exception e) {
+                                MessageSupport.ShowError(null, "Lỗi", "Lỗi nhập dữ liệu");
+                            }
+                        }else{
+                            jtfDebt.setText("");
+                        }
+                    }
+                });
+                jtfDebt.setText("");
+                jtanote.setText("");
+
+                JDCInterestPaymentDate.setEnabled(true);
+                jtfAmountOfDays.setEditable(true);
+                jtfInterest.setEditable(true);
+                jtfAmountOfMoney.setEditable(true);
+                jtfDebt.setEditable(true);
+                jtanote.setEditable(true);
+            }
+            loadInterestPaymentHistory(pawnCoupon);
+        }
     }
 
     public void loadCustomerComboBox() {
@@ -76,7 +151,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jrbNotRedeemed.setSelected(true);
         } else if (CheckSupport.equals(status, "Đã chuộc")) {
             jrbRedeemed.setSelected(true);
-        } else if (CheckSupport.equals(status, "Trễ hạn")) {
+        } else if (CheckSupport.equals(status, "Trễ")) {
             jrbLate.setSelected(true);
         } else if (CheckSupport.equals(status, "Cần thanh lý")) {
             jrbNeedToLiquidate.setSelected(true);
@@ -93,7 +168,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         } else if (jrbRedeemed.isSelected()) {
             return "Đã chuộc";
         } else if (jrbLate.isSelected()) {
-            return "Trễ hạn";
+            return "Trễ";
         } else if (jrbNeedToLiquidate.isSelected()) {
             return "Cần thanh lý";
         } else if (jrbLiquidated.isSelected()) {
@@ -101,6 +176,13 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         } else {
             return "";
         }
+    }
+
+    public boolean isStoredProductStatus(String Status) {
+        if (CheckSupport.equals(Status, "Chưa chuộc") || CheckSupport.equals(Status, "Cần thanh lý") || CheckSupport.equals(Status, "Trễ")) {
+            return true;
+        }
+        return false;
     }
 
     public void loadDataPawnCoupon(ArrayList<PawnCoupon> _pawncouponList) {
@@ -114,7 +196,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             rowData[0] = String.valueOf(STT++);
             rowData[1] = _pawncouponList.get(i).getId();
             rowData[2] = _pawncouponList.get(i).getCustomer().getId();
-            rowData[3] = _pawncouponList.get(i).getProuct().getProductID();
+            rowData[3] = _pawncouponList.get(i).getProduct().getProductID();
             rowData[4] = _pawncouponList.get(i).getAmount();
             rowData[5] = new BigDecimal(String.valueOf(_pawncouponList.get(i).getPrice())).stripTrailingZeros().toPlainString();
             totalprice += _pawncouponList.get(i).getPrice();
@@ -124,7 +206,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             rowData[8] = Support.dateToString(_pawncouponList.get(i).getPawnDate());
             rowData[9] = Support.dateToString(_pawncouponList.get(i).getRedeemingDate());
             rowData[10] = _pawncouponList.get(i).getUser().getUsername();
-            rowData[11] = _pawncouponList.get(i).getProuct().getStatus();
+            rowData[11] = _pawncouponList.get(i).getStatus();
             model.addRow(rowData);
         }
         jlbTotalPrice.setText(new BigDecimal(String.valueOf(totalprice)).stripTrailingZeros().toPlainString());
@@ -137,9 +219,10 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             String id = jtfPawnCouponID.getText();
             Date pawnDate = jDCPawnDate.getDate();
             String customerID = jcbCustomerID.getSelectedItem().toString();
+
             Customer customer;
             if (CheckSupport.equals(customerID, "Tất cả")) {
-                customer = null;
+                customer = new Customer(" ", " ", " ", " ", " ");
             } else {
                 customer = _pawncouponController.getCustomerController().findByID(customerID);
             }
@@ -147,21 +230,44 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             String productID = jcbProductID.getSelectedItem().toString();
             Product product;
             if (CheckSupport.equals(productID, "Tất cả")) {
-                product = null;
+                product = new Product(" ", " ", " ", " ", new TypeOfProduct(" ", " "));
             } else {
                 product = _pawncouponController.getProductController().findProductByID(jcbProductID.getSelectedItem().toString());
             }
 
-            int amount = Integer.parseInt(jtfAmount.getText());
-            float price = Float.parseFloat(jtfPrice.getText());
-            float interestRate = Float.parseFloat(jtfInterestRate.getText());
+            int amount = CheckSupport.isEmpty(jtfAmount.getText()) ? -1 : Integer.parseInt(jtfAmount.getText());
+            float price = CheckSupport.isEmpty(jtfPrice.getText()) ? -1 : Float.parseFloat(jtfPrice.getText());
+            float interestRate = CheckSupport.isEmpty(jtfInterestRate.getText()) ? -1 : Float.parseFloat(jtfInterestRate.getText());
             Date redeemingDate = jDCRedeemingDate.getDate();
             User user = User.getCurrentInstance();
-
-            return new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, user);
+            String status = getStatus();
+            return new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, status, user);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
+    }
+
+    public void loadInterestPaymentHistory(PawnCoupon pawnCoupon) {
+        DefaultTableModel model = (DefaultTableModel) jtbInterestPaymentHistory.getModel();
+        model.setRowCount(0);
+        float totalInterestPayment = .0f;
+        float totalDebt = 0.0f;
+        Object rowData[] = new Object[5];
+        ArrayList<InterestPayment> interestPayments = _pawncouponController.getInterestPaymentController().getList(pawnCoupon);
+        for (int i = 0; i < interestPayments.size(); i++) {
+            rowData[0] = interestPayments.get(i).getTimes();
+            rowData[1] = interestPayments.get(i).getPaymentDate();
+            rowData[2] = interestPayments.get(i).getMoney();
+            totalInterestPayment += interestPayments.get(i).getMoney();
+            rowData[3] = interestPayments.get(i).getDebt();
+            totalDebt += interestPayments.get(i).getDebt();
+            rowData[4] = interestPayments.get(i).getNote();
+            model.addRow(rowData);
+        }
+        jlbTotalInterestPayment.setText(new BigDecimal(String.valueOf(totalInterestPayment)).stripTrailingZeros().toPlainString());
+        jlbTotalDebt.setText(new BigDecimal(String.valueOf(totalDebt)).stripTrailingZeros().toPlainString());
+        Support.setDataTableCenter(jtbInterestPaymentHistory);
     }
 
     @SuppressWarnings("unchecked")
@@ -210,7 +316,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jDCRedeemingDate = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jtfMoney = new javax.swing.JTextField();
+        jtfAmountOfDays = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jtaNote = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -226,6 +332,14 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jlbTotalDebt = new javax.swing.JLabel();
         jbtnReloadAll = new javax.swing.JButton();
         JDCInterestPaymentDate = new com.toedter.calendar.JDateChooser();
+        jLabel20 = new javax.swing.JLabel();
+        jtfInterest = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jtfAmountOfMoney = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jtfDebt = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jtfTimes = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblPawnCoupon = new javax.swing.JTable();
@@ -250,7 +364,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
         jTextField6.setText("jTextField2");
 
-        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("HỢP ĐỒNG CẦM");
 
@@ -306,21 +420,51 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
         buttonGroup1.add(jrbNotRedeemed);
         jrbNotRedeemed.setText("Chưa chuộc");
+        jrbNotRedeemed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jrbRedeemed);
         jrbRedeemed.setText("Đã chuộc");
+        jrbRedeemed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jrbLate);
         jrbLate.setText("Trễ hạn");
+        jrbLate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jrbNeedToLiquidate);
         jrbNeedToLiquidate.setText("Cần thanh lý");
+        jrbNeedToLiquidate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jrbLiquidated);
         jrbLiquidated.setText("Đã thanh lý");
+        jrbLiquidated.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         buttonGroup1.add(jrbAll);
         jrbAll.setText("Tất cả");
+        jrbAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StatusMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -388,7 +532,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         });
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel11.setText("Ngày chuộc");
+        jLabel11.setText("Ngày chuộc/thanh lý");
 
         jDCPawnDate.setDateFormatString("yyyy-MM-dd");
 
@@ -402,7 +546,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,98 +555,100 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDCPawnDate, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                            .addComponent(jDCRedeemingDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jbtnAddPawnCoupon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91))
+                        .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnFindPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtfPrice, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfAmount, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbProductID, javax.swing.GroupLayout.Alignment.LEADING, 0, 161, Short.MAX_VALUE)
-                            .addComponent(jcbCustomerID, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtfPawnCouponID, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfInterestRate, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnCreateNew)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtnAddPawnCoupon)
-                .addGap(18, 18, 18)
-                .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbtnFindPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jtfPrice, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtfAmount, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jcbProductID, javax.swing.GroupLayout.Alignment.LEADING, 0, 217, Short.MAX_VALUE)
+                                .addComponent(jcbCustomerID, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jtfPawnCouponID, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtfInterestRate, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDCRedeemingDate, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                                    .addComponent(jDCPawnDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnCreateNew))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(1, 1, 1)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jtfPawnCouponID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jbtnCreateNew, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jcbCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jcbProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jtfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jtfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jtfInterestRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel10))
-                            .addComponent(jDCPawnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel11))
-                    .addComponent(jDCRedeemingDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jtfPawnCouponID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jbtnCreateNew, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jcbCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jcbProductID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jtfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jtfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jtfInterestRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jLabel10))
+                                    .addComponent(jDCPawnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel11))
+                            .addComponent(jDCRedeemingDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(46, 46, 46)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnAddPawnCoupon)
                     .addComponent(jbtnEditPawnCoupon)
                     .addComponent(jbtnFindPawnCoupon))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel14.setText("Lịch sử đóng lãi");
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel15.setText("Số tiền");
+        jLabel15.setText("Số ngày");
 
         jtaNote.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jtaNote.setText("Ghi chú");
 
         jtanote.setColumns(20);
         jtanote.setRows(5);
+        jtanote.setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
         jScrollPane1.setViewportView(jtanote);
 
         jbtnEditInterestPaymentHistory.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
@@ -526,7 +672,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Kỳ đóng", "Ngày đóng", "Số tiền", "Dư nợ", "Ghi chú"
+                "Kỳ đóng", "Ngày đóng", "Số tiền", "Nợ", "Ghi chú"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -537,35 +683,40 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jtbInterestPaymentHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbInterestPaymentHistoryMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jtbInterestPaymentHistory);
         if (jtbInterestPaymentHistory.getColumnModel().getColumnCount() > 0) {
             jtbInterestPaymentHistory.getColumnModel().getColumn(0).setMinWidth(50);
             jtbInterestPaymentHistory.getColumnModel().getColumn(0).setPreferredWidth(50);
             jtbInterestPaymentHistory.getColumnModel().getColumn(0).setMaxWidth(50);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setMinWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setPreferredWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setMaxWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setMinWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setPreferredWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setMaxWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setMinWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setPreferredWidth(75);
-            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setMaxWidth(75);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setMinWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(1).setMaxWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setMinWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(2).setMaxWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setMinWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jtbInterestPaymentHistory.getColumnModel().getColumn(3).setMaxWidth(100);
         }
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel17.setText("Ngày đóng");
+        jLabel17.setText("Kỳ đóng");
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Tổng      :");
 
         jlbTotalInterestPayment.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jlbTotalInterestPayment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbTotalInterestPayment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalInterestPayment.setText("0");
 
         jlbTotalDebt.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jlbTotalDebt.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbTotalDebt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalDebt.setText("0");
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -573,12 +724,12 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbTotalInterestPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlbTotalDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jlbTotalInterestPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlbTotalDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,6 +748,18 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
         JDCInterestPaymentDate.setDateFormatString("yyyy-MM-dd");
 
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel20.setText("Lãi");
+
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel21.setText("Đóng");
+
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel22.setText("Nợ");
+
+        jLabel23.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel23.setText("Ngày đóng");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -607,31 +770,30 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtaNote)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfDebt)
+                    .addComponent(jtfAmountOfMoney)
+                    .addComponent(jtfAmountOfDays)
+                    .addComponent(jtfInterest)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtaNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jbtnAddInterestPaymentHistory)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnEditInterestPaymentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jtfMoney)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JDCInterestPaymentDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3))))
+                        .addComponent(jbtnAddInterestPaymentHistory)
+                        .addGap(25, 25, 25)
+                        .addComponent(jbtnEditInterestPaymentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(JDCInterestPaymentDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfTimes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnReloadAll)
@@ -644,16 +806,32 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
+                            .addComponent(jtfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel23)
                             .addComponent(JDCInterestPaymentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfAmountOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfInterest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfAmountOfMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfDebt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jtaNote)
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -662,12 +840,12 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbtnAddInterestPaymentHistory)
-                            .addComponent(jbtnEditInterestPaymentHistory))
+                            .addComponent(jbtnEditInterestPaymentHistory)
+                            .addComponent(jbtnAddInterestPaymentHistory))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jbtnReloadAll, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -676,7 +854,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã hợp đồng", "Mã khách hàng", "Mã hàng cầm", "Số lượng", "Giá cầm", "Lãi suất (%/ngày)", "Lãi", "Ngày cầm", "Ngày chuộc", "Người lập", "Trạng thái"
+                "STT", "Mã hợp đồng", "Mã khách hàng", "Mã hàng cầm", "Số lượng", "Giá cầm", "Lãi suất (%/ngày)", "Lãi (/ngày)", "Ngày cầm", "Ngày chuộc", "Người lập", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -736,14 +914,15 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         );
 
         jlbTotalPrice.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jlbTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalPrice.setText("0");
+        jlbTotalPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbTotalPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+            .addComponent(jlbTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -751,20 +930,18 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         );
 
         jlbTotalInterestRate.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jlbTotalInterestRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbTotalInterestRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalInterestRate.setText("0");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jlbTotalInterestRate, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+            .addComponent(jlbTotalInterestRate, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbTotalInterestRate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlbTotalInterestRate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -784,9 +961,9 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -809,7 +986,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -827,9 +1004,9 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -864,43 +1041,78 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jDCPawnDate.setDate(Support.stringToDate((table.getModel().getValueAt(row, 8)).toString()));
             jDCRedeemingDate.setDate(Support.stringToDate((table.getModel().getValueAt(row, 9)).toString()));
             setStatus((table.getModel().getValueAt(row, 11)).toString());
+            PawnCoupon pawnCoupon = getPawnCouponFromForm();
+            setInterestPaymentDefault(pawnCoupon);
         }
     }//GEN-LAST:event_jtblPawnCouponMouseClicked
 
     private void jbtnCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateNewActionPerformed
         setPawnCouponDefault();
+        setInterestPaymentDefault(null);
     }//GEN-LAST:event_jbtnCreateNewActionPerformed
 
     private void jbtnAddPawnCouponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddPawnCouponActionPerformed
         PawnCoupon pawnCoupon = getPawnCouponFromForm();
-        if (pawnCoupon == null) {
+        if (_pawncouponController.findPawnCouponByProperty("_id", pawnCoupon.getId()) != null) {
+            MessageSupport.ShowError(null, "Lỗi", "Hợp đồng tồn tại.");
+        } else if (pawnCoupon.getCustomer() == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Chọn mã khách hàng.");
+        } else if (pawnCoupon.getProduct() == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Chọn mã hàng hóa.");
+        } else if (isStoredProductStatus(pawnCoupon.getProduct().getStatus())) {
+            MessageSupport.ShowError(null, "Lỗi", "Mã hàng hóa đang tồn tại ở một hợp đồng khác. Kiểm tra và chọn lại mã hàng hóa.");
+            setStatus("");
+        } else if (pawnCoupon == null) {
             MessageSupport.ShowError(null, "Lỗi", "Lỗi nhập dữ liệu. Kiểm tra và thử lại!");
-        } else {
-            if (pawnCoupon.getCustomer() == null) {
-                MessageSupport.ShowError(null, "Lỗi", "Chọn mã khách hàng.");
-            } else if (pawnCoupon.getProuct() == null) {
-                MessageSupport.ShowError(null, "Lỗi", "Chọn mã hàng hóa.");
-            } else {
-                if (_pawncouponController.add(pawnCoupon)) {
-                    MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
-                    setPawnCouponDefault();
-                    loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
-                }
-            }
+        } else if (_pawncouponController.add(pawnCoupon)) {
+            MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
+            setPawnCouponDefault();
+            loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
+            setInterestPaymentDefault(null);
         }
     }//GEN-LAST:event_jbtnAddPawnCouponActionPerformed
 
     private void jbtnFindPawnCouponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnFindPawnCouponActionPerformed
-
+        if (jbtnFindPawnCoupon.getText() == "Tìm") {
+            jbtnFindPawnCoupon.setText("Hủy");
+            PawnCoupon pawnCoupon = getPawnCouponFromForm();
+            loadDataPawnCoupon(_pawncouponController.findPawnCoupon(pawnCoupon));
+        } else {
+            jbtnFindPawnCoupon.setText("Tìm");
+            loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
+            setPawnCouponDefault();
+        }
     }//GEN-LAST:event_jbtnFindPawnCouponActionPerformed
 
     private void jbtnEditPawnCouponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditPawnCouponActionPerformed
-
+        PawnCoupon pawnCoupon = getPawnCouponFromForm();
+        if (_pawncouponController.findPawnCouponByProperty("_id", pawnCoupon.getId()) == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Hợp đồng không tồn tại.");
+        } else if (pawnCoupon.getCustomer() == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Chọn mã khách hàng.");
+        } else if (pawnCoupon.getProduct() == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Chọn mã hàng hóa.");
+        } else if (!isStoredProductStatus(_pawncouponController.findPawnCouponByProperty("_id", pawnCoupon.getId()).getStatus())) {
+            MessageSupport.ShowError(null, "Lỗi", "Hợp đồng đã hết hiệu lực (Đã chuộc/Đã thanh lý). Không thể thao tác.");
+        } else if (pawnCoupon == null) {
+            MessageSupport.ShowError(null, "Lỗi", "Lỗi nhập dữ liệu. Kiểm tra và thử lại!");
+        } else if ((!CheckSupport.equals(_pawncouponController.findPawnCouponByProperty("_id", pawnCoupon.getId()).getProduct().getProductID(), pawnCoupon.getProduct().getProductID())
+                && isStoredProductStatus(pawnCoupon.getProduct().getStatus()))) {
+            MessageSupport.ShowError(null, "Lỗi", "Mã hàng hóa đang tồn tại ở một hợp đồng khác. Kiểm tra và chọn lại mã hàng hóa.");
+            setStatus(_pawncouponController.findPawnCouponByProperty("_id", pawnCoupon.getId()).getStatus());
+        } else if (_pawncouponController.edit(pawnCoupon)) {
+            MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+            setPawnCouponDefault();
+            loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
+            setInterestPaymentDefault(null);
+        }
     }//GEN-LAST:event_jbtnEditPawnCouponActionPerformed
 
     private void jbtnReloadAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadAllActionPerformed
         setPawnCouponDefault();
-        setInterestPaymentDefaiult(false);
+        loadDataPawnCoupon(_pawncouponController.getPawnCouponList());
+        setInterestPaymentDefault(null);
+        jbtnFindPawnCoupon.setText("Tìm");
     }//GEN-LAST:event_jbtnReloadAllActionPerformed
 
     private void jbtnAddInterestPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddInterestPaymentHistoryActionPerformed
@@ -910,6 +1122,36 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     private void jbtnEditInterestPaymentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditInterestPaymentHistoryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnEditInterestPaymentHistoryActionPerformed
+
+    private void StatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StatusMouseClicked
+        if ((jDCRedeemingDate.getDate() == null) && (jrbRedeemed.isSelected() || jrbLiquidated.isSelected())) {
+            jDCRedeemingDate.setDate(Support.getToday());
+        } else {
+            jDCRedeemingDate.setDate(null);
+        }
+    }//GEN-LAST:event_StatusMouseClicked
+
+    private void jtbInterestPaymentHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbInterestPaymentHistoryMouseClicked
+        int row = jtbInterestPaymentHistory.getSelectedRow();
+        if (evt.getClickCount() == 2 && row != -1) {
+            JTable table = (JTable) evt.getSource();
+            jtfTimes.setText((table.getModel().getValueAt(row, 0)).toString());
+            JDCInterestPaymentDate.setDate(Support.stringToDate((table.getModel().getValueAt(row, 1)).toString()));
+            long amountOfDays = 0;
+            if (row == 0) {
+                amountOfDays = Support.subtractDate(jDCPawnDate.getDate(), JDCInterestPaymentDate.getDate());
+            } else {
+                Date lastPaymentDate = Support.stringToDate((table.getModel().getValueAt(row - 1, 1)).toString());
+                amountOfDays = Support.subtractDate(lastPaymentDate, JDCInterestPaymentDate.getDate());
+            }
+            jtfAmountOfDays.setText(String.valueOf(amountOfDays));
+            float interest = Float.parseFloat(jtfPrice.getText()) * Float.parseFloat(jtfInterestRate.getText()) / 100 * amountOfDays;
+            jtfInterest.setText(new BigDecimal(String.valueOf(interest)).stripTrailingZeros().toPlainString());
+            jtfAmountOfMoney.setText((table.getModel().getValueAt(row, 2)).toString());
+            jtfDebt.setText((table.getModel().getValueAt(row, 3)).toString());
+            jtanote.setText(table.getModel().getValueAt(row, 4) == null ? "" : table.getModel().getValueAt(row, 4).toString());
+        }
+    }//GEN-LAST:event_jtbInterestPaymentHistoryMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -930,6 +1172,10 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -978,9 +1224,13 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     private javax.swing.JTable jtbInterestPaymentHistory;
     private javax.swing.JTable jtblPawnCoupon;
     private javax.swing.JTextField jtfAmount;
+    private javax.swing.JTextField jtfAmountOfDays;
+    private javax.swing.JTextField jtfAmountOfMoney;
+    private javax.swing.JTextField jtfDebt;
+    private javax.swing.JTextField jtfInterest;
     private javax.swing.JTextField jtfInterestRate;
-    private javax.swing.JTextField jtfMoney;
     private javax.swing.JTextField jtfPawnCouponID;
     private javax.swing.JTextField jtfPrice;
+    private javax.swing.JTextField jtfTimes;
     // End of variables declaration//GEN-END:variables
 }

@@ -198,8 +198,8 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jPanel7" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jbtnEditProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jbtnAddProduct" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -268,6 +268,9 @@
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Text Cursor"/>
+                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -313,15 +316,16 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jrbRedeemed" min="-2" max="-2" attributes="0"/>
                                           <Component id="jrbNotRedeemed" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jrbNeedToLiquidate" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jrbLiquidated" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jrbAll" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jrbRedeemed" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jrbLiquidated" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jrbNeedToLiquidate" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jrbLate" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -334,12 +338,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jrbRedeemed" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jrbLate" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="jrbNeedToLiquidate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jrbLiquidated" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jrbAll" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -393,6 +398,14 @@
                         <Property name="text" type="java.lang.String" value="T&#x1ea5;t c&#x1ea3;"/>
                       </Properties>
                     </Component>
+                    <Component class="javax.swing.JRadioButton" name="jrbLate">
+                      <Properties>
+                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                          <ComponentRef name="buttonGroup1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Tr&#x1ec5;"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JButton" name="jbtnEditProduct">
@@ -442,7 +455,7 @@
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="jLabel3" min="-2" pref="52" max="-2" attributes="0"/>
@@ -465,14 +478,13 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbtnAddNew1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="381" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="393" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jbtnReloadAll" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jbtnReloadAll" min="-2" pref="75" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -533,7 +545,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
+                            <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>

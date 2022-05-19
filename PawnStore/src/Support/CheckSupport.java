@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class CheckSupport {
 
     public static boolean isEmpty(String str) {
-        if (str == null) {
+        if (str == null || str == "-1") {
             str = "";
         }
         return (str.isBlank());

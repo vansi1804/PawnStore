@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.Date;
 import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
@@ -29,11 +30,11 @@ public class InterestPayment {
         this._times = _times;
     }
 
-    public DateTime getPaymentDate() {
+    public Date getPaymentDate() {
         return _paymentDate;
     }
 
-    public void setPaymentDate(DateTime _paymentDate) {
+    public void setPaymentDate(Date _paymentDate) {
         this._paymentDate = _paymentDate;
     }
 
@@ -44,6 +45,13 @@ public class InterestPayment {
     public void setMoney(float _money) {
         this._money = _money;
     }
+    public float getDebt() {
+        return _debt;
+    }
+
+    public void setDebt(float _debt) {
+        this._debt = _debt;
+    }
 
     public String getNote() {
         return _note;
@@ -53,11 +61,12 @@ public class InterestPayment {
         this._note = _note;
     }
 
-    public InterestPayment(PawnCoupon _pawnCoupon, int _times, DateTime _paymentDate, float _money, String _note) {
+    public InterestPayment(PawnCoupon _pawnCoupon, int _times, Date _paymentDate, float _money, float _debt, String _note) {
         this._pawnCoupon = _pawnCoupon;
         this._times = _times;
         this._paymentDate = _paymentDate;
         this._money = _money;
+        this._debt = _debt;
         this._note = _note;
     }
 
@@ -66,7 +75,8 @@ public class InterestPayment {
 
     private PawnCoupon _pawnCoupon;
     private int _times;
-    private DateTime _paymentDate;
+    private Date _paymentDate;
     private float _money;
+    private float _debt;
     private String _note;
 }

@@ -102,7 +102,7 @@ public class ProductController {
         return null;
     }
 
-    public Product findProductByID(String value){
+    public Product findProductByID(String value) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -115,7 +115,7 @@ public class ProductController {
             rs = prestate.executeQuery();
             while (rs.next()) {
                 try {
-                    return new Product(rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6)));
+                    return new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -138,10 +138,10 @@ public class ProductController {
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     public TypeOfProduct findTypeOfProduct(String property, String value) {
         Connection conn = null;
         PreparedStatement prestate = null;
@@ -222,7 +222,7 @@ public class ProductController {
             prestate.setString(1, _product.getProductID());
             prestate.setString(2, _product.getProductName());
             prestate.setString(3, _product.getInformation());
-            prestate.setString(4, _product.getStatus());
+            prestate.setString(4, null);
             prestate.setString(5, _product.getTypeOfProductID());
             prestate.executeUpdate();
             return true;
@@ -315,6 +315,7 @@ public class ProductController {
         return false;
     }
 
+
     public ArrayList<Product> findProduct(Product product) {
         Connection conn = null;
         PreparedStatement prestate = null;
@@ -322,11 +323,11 @@ public class ProductController {
 
         String query2 = "";
         String queryId = " _id like '%" + product.getProductID() + "%'";
+        String queryTypeID = " _typeID = '" + product.getTypeOfProductID() + "'";
         String queryName = " _name like N'%" + product.getProductName() + "%'";
         String queryInformation = " _information like N'%" + product.getInformation() + "%'";
-        String queryStatus = " _status = N'%" + product.getStatus()+"%'";
-        String queryTypeID = " _typeID like '%" + product.getTypeOfProductID() + "%'";
-        
+        String queryStatus = " _status like N'%" + product.getStatus() + "%'"; 
+
         if (!CheckSupport.isEmpty(product.getProductID())) {
             query2 += " WHERE " + queryId;
             if (!CheckSupport.isEmpty(product.getProductName())) {
@@ -445,7 +446,7 @@ public class ProductController {
             _productsList = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    _productsList.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new TypeOfProduct(findTypeOfProduct("_id", product.getTypeOfProductID()))));
+                    _productsList.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new TypeOfProduct(findTypeOfProduct("_id", rs.getString(5)))));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

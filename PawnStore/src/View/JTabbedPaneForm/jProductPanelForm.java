@@ -91,17 +91,36 @@ public class JProductPanelForm extends javax.swing.JPanel {
         return jcbTypeOfProduct.getSelectedItem().toString();
     }
 
+    public void setStatus(String status) {
+        if (CheckSupport.equals(status, "Chưa chuộc")) {
+            jrbNotRedeemed.setSelected(true);
+        } else if (CheckSupport.equals(status, "Đã chuộc")) {
+            jrbRedeemed.setSelected(true);
+        } else if (CheckSupport.equals(status, "Trễ")) {
+            jrbLate.setSelected(true);
+        } else if (CheckSupport.equals(status, "Cần thanh lý")) {
+            jrbNeedToLiquidate.setSelected(true);
+        } else if (CheckSupport.equals(status, "Đã thanh lý")) {
+            jrbLiquidated.setSelected(true);
+        } else {
+            jrbAll.setSelected(true);
+        }
+    }
+
     public String getStatus() {
         if (jrbNotRedeemed.isSelected()) {
             return "Chưa chuộc";
         } else if (jrbRedeemed.isSelected()) {
             return "Đã chuộc";
+        } else if (jrbLate.isSelected()) {
+            return "Trễ";
         } else if (jrbNeedToLiquidate.isSelected()) {
             return "Cần thanh lý";
         } else if (jrbLiquidated.isSelected()) {
             return "Đã thanh lý";
+        } else {
+            return "";
         }
-        return "";
     }
 
     public TypeOfProduct getTypeOfProductFromForm() {
@@ -146,6 +165,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jrbNeedToLiquidate = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jrbAll = new javax.swing.JRadioButton();
+        jrbLate = new javax.swing.JRadioButton();
         jbtnEditProduct = new javax.swing.JButton();
         jbtnAddProduct = new javax.swing.JButton();
         jbtnFindProduct = new javax.swing.JButton();
@@ -197,6 +217,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
         jtaInformation.setColumns(20);
         jtaInformation.setRows(5);
+        jtaInformation.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane3.setViewportView(jtaInformation);
 
         jcbTypeOfProduct.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
@@ -228,6 +249,9 @@ public class JProductPanelForm extends javax.swing.JPanel {
         buttonGroup1.add(jrbAll);
         jrbAll.setText("Tất cả");
 
+        buttonGroup1.add(jrbLate);
+        jrbLate.setText("Trễ");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -239,12 +263,13 @@ public class JProductPanelForm extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jrbRedeemed)
                             .addComponent(jrbNotRedeemed)
-                            .addComponent(jrbNeedToLiquidate)
+                            .addComponent(jrbAll)
+                            .addComponent(jrbRedeemed)
                             .addComponent(jrbLiquidated)
-                            .addComponent(jrbAll))))
-                .addGap(92, 92, 92))
+                            .addComponent(jrbNeedToLiquidate)
+                            .addComponent(jrbLate))))
+                .addGap(132, 132, 132))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,12 +280,13 @@ public class JProductPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jrbRedeemed)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jrbLate)
+                .addGap(3, 3, 3)
                 .addComponent(jrbNeedToLiquidate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jrbLiquidated)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jrbAll)
-                .addContainerGap())
+                .addComponent(jrbAll))
         );
 
         jbtnEditProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
@@ -357,8 +383,8 @@ public class JProductPanelForm extends javax.swing.JPanel {
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                                 .addContainerGap())))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtnEditProduct)
                             .addComponent(jbtnAddProduct)
@@ -392,9 +418,9 @@ public class JProductPanelForm extends javax.swing.JPanel {
             jtblTypeOfProduct.getColumnModel().getColumn(0).setMinWidth(50);
             jtblTypeOfProduct.getColumnModel().getColumn(0).setPreferredWidth(50);
             jtblTypeOfProduct.getColumnModel().getColumn(0).setMaxWidth(50);
-            jtblTypeOfProduct.getColumnModel().getColumn(1).setMinWidth(50);
-            jtblTypeOfProduct.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jtblTypeOfProduct.getColumnModel().getColumn(1).setMaxWidth(50);
+            jtblTypeOfProduct.getColumnModel().getColumn(1).setMinWidth(100);
+            jtblTypeOfProduct.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jtblTypeOfProduct.getColumnModel().getColumn(1).setMaxWidth(100);
         }
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
@@ -465,11 +491,10 @@ public class JProductPanelForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnAddNew1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbtnReloadAll)))
-                .addContainerGap())
+                        .addComponent(jbtnReloadAll, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,15 +645,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             jcbTypeOfProduct.getModel().setSelectedItem((table.getModel().getValueAt(row, 3)).toString());
             jtaInformation.setText((table.getModel().getValueAt(row, 4)).toString());
             String status = (table.getModel().getValueAt(row, 5)).toString();
-            if (CheckSupport.equals(status, "Chưa chuộc")) {
-                jrbNotRedeemed.setSelected(true);
-            } else if (CheckSupport.equals(status, "Đã chuộc")) {
-                jrbRedeemed.setSelected(true);
-            } else if (CheckSupport.equals(status, "Cần thanh lý")) {
-                jrbNeedToLiquidate.setSelected(true);
-            } else if (CheckSupport.equals(status, "Đã thanh lý")) {
-                jrbLiquidated.setSelected(true);
-            }
+            setStatus(status);
         }
     }//GEN-LAST:event_jtblProductMouseClicked
 
@@ -676,24 +693,14 @@ public class JProductPanelForm extends javax.swing.JPanel {
                         }
                     }
                 } else {
-                    if (!CheckSupport.equals(_typeOfProduct.getTypeOfProductID(), ID)) {
-                        if (_productController.findTypeOfProduct("_id", _typeOfProduct.getTypeOfProductID()) != null) {
-                            MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng hóa đã tồn tại.");
-                        } else {
-                            if (_productController.editTypeOfProduct(_typeOfProduct, ID)) {
-                                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                                setTypeOfProductDefault();
-                                loadTypeOfProduct();
-                                ID = null;
-                            }
-                        }
-                    } else {
-                        if (_productController.editTypeOfProduct(_typeOfProduct, ID)) {
-                            MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                            setTypeOfProductDefault();
-                            loadTypeOfProduct();
-                            ID = null;
-                        }
+                    if (!CheckSupport.equals(_typeOfProduct.getTypeOfProductID(), ID)
+                            && _productController.findTypeOfProduct("_id", _typeOfProduct.getTypeOfProductID()) != null) {
+                        MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng hóa đã tồn tại.");
+                    } else if (_productController.editTypeOfProduct(_typeOfProduct, ID)) {
+                        MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+                        setTypeOfProductDefault();
+                        loadTypeOfProduct();
+                        ID = null;
                     }
                 }
             }
@@ -702,6 +709,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
     private void jbtnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddNewActionPerformed
         setProductDefault();
+        jrbNotRedeemed.setSelected(true);
     }//GEN-LAST:event_jbtnAddNewActionPerformed
 
     private void jbtnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddProductActionPerformed
@@ -732,12 +740,14 @@ public class JProductPanelForm extends javax.swing.JPanel {
         } else {
             if (CheckSupport.isEmpty(_product.getTypeOfProductName())) {
                 MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
-            } else {
-                if (_productController.editProduct(_product)) {
-                    MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                    setProductDefault();
-                    loadProduct(_productController.getProductList());
-                }
+                
+            } else if (!CheckSupport.equals(_productController.findProductByID(_product.getProductID()).getStatus(), getStatus())) {
+                MessageSupport.ShowError(null, "Lỗi", "Không thể sửa trạng thái của sản phầm. Trạng thái của sản phẩm phụ thuộc vào trạng thái của hợp đồng");
+                setStatus(_productController.findProductByID(_product.getProductID()).getStatus());
+            } else if (_productController.editProduct(_product)) {
+                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+                setProductDefault();
+                loadProduct(_productController.getProductList());
             }
         }
     }//GEN-LAST:event_jbtnEditProductActionPerformed
@@ -796,6 +806,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnReloadAll;
     private javax.swing.JComboBox<String> jcbTypeOfProduct;
     private javax.swing.JRadioButton jrbAll;
+    private javax.swing.JRadioButton jrbLate;
     private javax.swing.JRadioButton jrbLiquidated;
     private javax.swing.JRadioButton jrbNeedToLiquidate;
     private javax.swing.JRadioButton jrbNotRedeemed;

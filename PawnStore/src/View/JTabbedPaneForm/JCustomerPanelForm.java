@@ -81,7 +81,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         for (int i = 0; i < list.size(); i++) {
             rowData[0] = String.valueOf(STT++);
             rowData[1] = list.get(i).getId();
-            rowData[2] = list.get(i).getProuct().getProductName();
+            rowData[2] = list.get(i).getProduct().getProductName();
             rowData[3] = list.get(i).getAmount();
             rowData[4] = new BigDecimal(String.valueOf(list.get(i).getPrice())).stripTrailingZeros().toPlainString();
             rowData[5] = list.get(i).getInterestRate();
@@ -89,7 +89,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             rowData[7] = null;
             rowData[8] = Support.dateToString(list.get(i).getPawnDate());
             rowData[9] = Support.dateToString(list.get(i).getRedeemingDate());
-            rowData[10] = list.get(i).getProuct().getStatus();
+            rowData[10] = list.get(i).getProduct().getStatus();
             model.addRow(rowData);
         }
         Support.setDataTableCenter(jtblHistory);
@@ -158,6 +158,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
 
         jtaAdress.setColumns(20);
         jtaAdress.setRows(5);
+        jtaAdress.setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
         jScrollPane3.setViewportView(jtaAdress);
 
         jbtnAddNew.setText("Thêm mới");

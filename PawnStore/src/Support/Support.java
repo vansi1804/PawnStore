@@ -12,12 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -103,7 +104,7 @@ public class Support {
         }
     }
 
-    public static Date stringToDate(String str){
+    public static Date stringToDate(String str) {
         if (!CheckSupport.isEmpty(str)) {
             try {
                 return new SimpleDateFormat("yyyy-MM-dd").parse(str);
@@ -115,21 +116,27 @@ public class Support {
     }
 
     public static String dateToString(Date date) {
-        if (date != null) {
-            return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        if ((date == null) || (date.compareTo(stringToDate("1900-01-01")) == 0)) {
+            return "";
         }
-        return "";
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+    
+    public static String dateToStringData(Date date) {
+        if ((date == null) || (date.compareTo(stringToDate("1900-01-01")) == 0)) {
+            return "";
+        }
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
-    public static LocalDateTime getToday() {
-        return LocalDateTime.now();
+    public static Date getToday() {
+        return new Date();
     }
 
     public static String getStringToday() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(LocalDateTime.now());
+        return new SimpleDateFormat("yyyy-MM-dd").format(getToday());
     }
 
-  
     public static void setDataTableCenter(JTable table) {
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -139,6 +146,21 @@ public class Support {
         for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
             table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
         }
+    }
 
+    public static String format(float value) {
+        DecimalFormat df = new DecimalFormat("###,###,###.00");
+        return df.format(value);
+    }
+    
+    public static long subtractDate(Date date1, Date date2){
+        return TimeUnit.MILLISECONDS.toDays(date2.getTime() - date1.getTime());
+    }
+    
+    public static Date addDate(Date date, int days){
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, days);
+        return c.getTime();
     }
 }
