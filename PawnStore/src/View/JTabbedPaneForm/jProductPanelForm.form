@@ -123,17 +123,17 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel8" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" min="-2" pref="233" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel9" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jtfProductID" min="-2" pref="209" max="-2" attributes="0"/>
+                                  <Component id="jtfProductID" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel6" min="-2" pref="112" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jtfProductName" min="-2" pref="209" max="-2" attributes="0"/>
+                                  <Component id="jtfProductName" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" pref="112" max="-2" attributes="0"/>
@@ -147,7 +147,7 @@
                                   <Component id="jbtnAddNew" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="jbtnAddProduct" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbtnEditProduct" min="-2" pref="100" max="-2" attributes="0"/>
@@ -478,7 +478,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jbtnAddNew1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="393" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane2" pref="375" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

@@ -56,8 +56,6 @@ create table PawnCoupon(
 	_username varchar(10) foreign key references Account(_username) on update cascade
 )
 
-insert into PawnCoupon(_id,_pawnDate,_customerID,_productID,_amount,_price,_interestRate,_redeemingDate,_username) 
-values('HD00000002','2022-05-16','215528545','HH00000002',1,20000000,0.5,null,'admin')
 
 go
 drop table InterestPayment

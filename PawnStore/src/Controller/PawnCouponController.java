@@ -7,6 +7,7 @@ package Controller;
 
 import Model.Account;
 import Model.Customer;
+import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
 import Model.User;
@@ -24,11 +25,11 @@ import java.util.Date;
 
 public class PawnCouponController {
 
-    ArrayList<PawnCoupon> pawnCoupons = null;
-    ProductController _productController = new ProductController();
-    CustomerController _customerController = new CustomerController();
-    AccountController _accountController = new AccountController();
-    InterestPaymentController _interestPaymentController = new InterestPaymentController();
+    private ArrayList<PawnCoupon> pawnCoupons = null;
+    private ProductController _productController = new ProductController();
+    private CustomerController _customerController = new CustomerController();
+    private AccountController _accountController = new AccountController();
+    private InterestPaymentController _interestPaymentController = new InterestPaymentController();
     
     
     public ProductController getProductController() {
@@ -2073,4 +2074,20 @@ public class PawnCouponController {
         return null;
     }
 
+    public boolean checkForLate(PawnCoupon pawnCoupon){
+        ArrayList<InterestPayment> interestPayments = _interestPaymentController.getList(pawnCoupon);
+        Date theNextInterestPaymentDate = null;
+        long amountOfLateDays = 0;
+        if (interestPayments.size() == 0) {
+            theNextInterestPaymentDate = Support.addDate(pawnCoupon.getPawnDate(), 15);
+        }else{
+            theNextInterestPaymentDate = Support.addDate(interestPayments.get(interestPayments.size()-1).getPaymentDate(), 15);
+        }
+        amountOfLateDays = Support.subtractDate(Support.getToday(), theNextInterestPaymentDate);
+        if (amountOfLateDays > 0) {
+            return true;
+        }
+        return false;
+    }
+    
 }

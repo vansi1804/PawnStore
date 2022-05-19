@@ -5,6 +5,7 @@ package Controller;
 import Model.InterestPayment;
 import Model.PawnCoupon;
 import Support.DBConnectionSupport;
+import Support.Support;
 import View.JLoginForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,5 +63,79 @@ public class InterestPaymentController {
             }
         }
         return null;
+    }
+
+    public boolean add(InterestPayment interestPayment) {
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        String query = "INSERT INTO InterestPayment(_pawCouponID, _times, _paymentDate, _money, _debt, _note) VALUES (?,?,?,?,?,?)";
+
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, interestPayment.getPawnCoupon().getId());
+            prestate.setString(2, String.valueOf(interestPayment.getTimes()));
+            prestate.setString(3, Support.dateToString(interestPayment.getPaymentDate()));
+            prestate.setString(4, String.valueOf(interestPayment.getMoney()));
+            prestate.setString(5, String.valueOf(interestPayment.getDebt()));
+            prestate.setString(6, interestPayment.getNote());
+            prestate.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean edit(InterestPayment interestPayment) {
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        String query = "UPDATE InterestPayment SET _paymentDate = ?, _money = ?, _debt = ?, _note = ? WHERE _pawCouponID = ? and _times = ?";
+
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, Support.dateToString(interestPayment.getPaymentDate()));
+            prestate.setString(2, String.valueOf(interestPayment.getMoney()));
+            prestate.setString(3, String.valueOf(interestPayment.getDebt()));
+            prestate.setString(4, interestPayment.getNote());
+            prestate.setString(5, interestPayment.getPawnCoupon().getId());
+            prestate.setString(6, String.valueOf(interestPayment.getTimes()));
+            prestate.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return false;
     }
 }
