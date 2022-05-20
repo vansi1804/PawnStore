@@ -30,8 +30,7 @@ public class PawnCouponController {
     private CustomerController _customerController = new CustomerController();
     private AccountController _accountController = new AccountController();
     private InterestPaymentController _interestPaymentController = new InterestPaymentController();
-    
-    
+
     public ProductController getProductController() {
         return _productController;
     }
@@ -43,7 +42,7 @@ public class PawnCouponController {
     public AccountController getAccountController() {
         return _accountController;
     }
-    
+
     public InterestPaymentController getInterestPaymentController() {
         return _interestPaymentController;
     }
@@ -188,51 +187,51 @@ public class PawnCouponController {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
-
+        
         String query2 = "";
         String queryId = " _id like '%" + pawnCoupon.getId() + "%'";
-        String queryCustomerID = " _customerID like '%" + pawnCoupon.getCustomer().getId() + "%'";
-        String queryProductID = " _productID like '%" + pawnCoupon.getProduct().getProductID() + "%'";
-        String queryAmount = " _amount = " + pawnCoupon.getAmount() + "";
-        String queryPrice = " _price = " + pawnCoupon.getPrice() + "";
-        String queryInterestRate = " _interestRate = " + pawnCoupon.getInterestRate() + "";
-        String queryPawnDate = " _id _pawnDate = '" + pawnCoupon.getPawnDate() + "'";
-        String queryRedeemingDate = " _redeemingDate = '" + pawnCoupon.getRedeemingDate() + "'";
-        String status = " _status = N'%" + pawnCoupon.getStatus() + "%'";
+        String queryCustomerID = " _customerID = '" + pawnCoupon.getCustomer().getId() + "'";
+        String queryProductID = " _productID = '" + pawnCoupon.getProduct().getProductID() + "'";
+        String queryAmount = " _amount = " + pawnCoupon.getAmount();
+        String queryPrice = " _price = " + pawnCoupon.getPrice();
+        String queryInterestRate = " _interestRate = " + pawnCoupon.getInterestRate();
+        String queryPawnDate = " _pawnDate = '" + Support.dateToString(pawnCoupon.getPawnDate()) + "'";
+        String queryRedeemingDate = " _redeemingDate = '" + Support.dateToString(pawnCoupon.getRedeemingDate()) + "'";
+        String querystatus = " _status = N'" + pawnCoupon.getStatus() + "'";
 
         if (!CheckSupport.isEmpty(pawnCoupon.getId())) {
-            query2 += " WHERE " + queryId;
+            query2 += " WHERE" + queryId;
             if (!CheckSupport.isEmpty(pawnCoupon.getCustomer().getId())) {
                 query2 += " AND " + queryCustomerID;
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " AND " + queryProductID;
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -242,50 +241,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -295,53 +294,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -351,50 +350,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -404,22 +403,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -427,33 +426,33 @@ public class PawnCouponController {
                         }
                     }
                 }else{
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -463,50 +462,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -516,53 +515,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -572,50 +571,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -625,22 +624,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -651,33 +650,33 @@ public class PawnCouponController {
             }else{
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " AND " + queryProductID;
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -687,50 +686,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -740,53 +739,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -796,50 +795,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -849,22 +848,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -872,33 +871,33 @@ public class PawnCouponController {
                         }
                     }
                 }else{
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -908,50 +907,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -961,53 +960,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1017,50 +1016,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1070,22 +1069,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1099,33 +1098,33 @@ public class PawnCouponController {
                 query2 += " WHERE " + queryCustomerID;
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " AND " + queryProductID;
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1135,50 +1134,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1188,53 +1187,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1244,50 +1243,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1297,22 +1296,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1320,33 +1319,33 @@ public class PawnCouponController {
                         }
                     }
                 }else{
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1356,50 +1355,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1409,53 +1408,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1465,50 +1464,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1518,22 +1517,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1544,33 +1543,33 @@ public class PawnCouponController {
             }else{
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " WHERE " + queryProductID;
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1580,50 +1579,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1633,53 +1632,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1689,50 +1688,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1742,22 +1741,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1765,33 +1764,33 @@ public class PawnCouponController {
                         }
                     }
                 }else{
-                    if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getAmount()))) {
+                    if (pawnCoupon.getAmount() != -1) {
                         query2 += " WHERE " + queryAmount;
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1801,50 +1800,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1854,53 +1853,53 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }
                     }else{
-                        if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getPrice()))) {
+                        if (pawnCoupon.getPrice() != -1) {
                             query2 += " WHERE " + queryPrice;
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1910,50 +1909,50 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
                             }
                         }else{
-                            if (!CheckSupport.isEmpty(String.valueOf(pawnCoupon.getInterestRate()))) {
+                            if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " WHERE " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
                                 }
@@ -1963,22 +1962,22 @@ public class PawnCouponController {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " AND " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     }
-                                }else{
+                                } else {
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
                                         query2 += " WHERE " + queryRedeemingDate;
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " AND " + status;
+                                            query2 += " AND " + querystatus;
                                         }
                                     } else {
                                         if (!CheckSupport.isEmpty(pawnCoupon.getStatus())) {
-                                            query2 += " WHERE " + status;
+                                            query2 += " WHERE " + querystatus;
                                         }
                                     }
                                 }
@@ -1989,8 +1988,8 @@ public class PawnCouponController {
             }
         }
 
-        String query = " SELECT * FROM Product " + query2;
-
+        String query = " SELECT * FROM PawnCoupon " + query2;
+        
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
@@ -1998,7 +1997,18 @@ public class PawnCouponController {
             ArrayList<PawnCoupon> pawnCoupons = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    pawnCoupons.add(new PawnCoupon());
+                    String id = rs.getString(1);
+                    Date pawnDate = Support.stringToDate(rs.getString(2));
+                    Customer customer = _customerController.findByID(rs.getString(3));
+                    Product product = _productController.findProductByID(rs.getString(4));
+                    int amount = Integer.parseInt(rs.getString(5));
+                    float price = Float.parseFloat(rs.getString(6));
+                    float interestRate = Float.parseFloat(rs.getString(7));
+                    Date redeemingDate = Support.stringToDate(rs.getString(8));
+                    String status = rs.getString(9);
+                    Account acc = _accountController.findByUsername(rs.getString(10));
+                    User user = new User(acc.getUsername(), acc.getPassword(), acc.getFullname());
+                    pawnCoupons.add(new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, status, user));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2023,6 +2033,15 @@ public class PawnCouponController {
             }
         }
         return null;
+    }
+
+    public Date getTheNextInterestPaymentDate(PawnCoupon pawnCoupon) {
+        ArrayList<InterestPayment> interestPayments = _interestPaymentController.getList(pawnCoupon);
+        if (interestPayments.size() == 0) {
+            return Support.addDate(pawnCoupon.getPawnDate(), 14);
+        } else {
+            return Support.addDate(interestPayments.get(interestPayments.size() - 1).getPaymentDate(), 15);
+        }
     }
 
     public PawnCoupon findPawnCouponByProperty(String property, String value) {
@@ -2074,20 +2093,12 @@ public class PawnCouponController {
         return null;
     }
 
-    public boolean checkForLate(PawnCoupon pawnCoupon){
-        ArrayList<InterestPayment> interestPayments = _interestPaymentController.getList(pawnCoupon);
-        Date theNextInterestPaymentDate = null;
-        long amountOfLateDays = 0;
-        if (interestPayments.size() == 0) {
-            theNextInterestPaymentDate = Support.addDate(pawnCoupon.getPawnDate(), 15);
-        }else{
-            theNextInterestPaymentDate = Support.addDate(interestPayments.get(interestPayments.size()-1).getPaymentDate(), 15);
-        }
-        amountOfLateDays = Support.subtractDate(Support.getToday(), theNextInterestPaymentDate);
-        if (amountOfLateDays > 0) {
+    public boolean checkForLate(PawnCoupon pawnCoupon) {
+        Date theNextInterestPaymentDate = getTheNextInterestPaymentDate(pawnCoupon);
+        if (Support.getToday().compareTo(theNextInterestPaymentDate) > 0) {
             return true;
         }
         return false;
     }
-    
+
 }
