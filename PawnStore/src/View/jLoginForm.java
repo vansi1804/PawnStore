@@ -24,8 +24,6 @@ public class JLoginForm extends JFrame {
     }
 
     public void SetDefault() {
-        this.setLocationRelativeTo(null);
-        Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
         jlbLogo.setText("");
         jtfUsername.setText("");
         jpfPassword.setText("");

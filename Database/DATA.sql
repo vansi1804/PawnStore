@@ -56,7 +56,6 @@ create table PawnCoupon(
 	_username varchar(10) foreign key references Account(_username) on update cascade
 )
 
-select * from PawnCoupon where _status = N'Chưa chuộc';
 
 go
 drop table InterestPayment
