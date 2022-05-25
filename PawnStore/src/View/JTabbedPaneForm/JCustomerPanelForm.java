@@ -5,7 +5,9 @@
 package View.JTabbedPaneForm;
 
 import Controller.CustomerController;
+import Controller.PawnCouponController;
 import Model.Customer;
+import Model.InterestPayment;
 import Model.PawnCoupon;
 import Support.CheckSupport;
 import Support.MessageSupport;
@@ -23,7 +25,7 @@ import java.math.BigDecimal;
 public class JCustomerPanelForm extends javax.swing.JPanel {
 
     CustomerController _customerController = new CustomerController();
-
+    PawnCouponController _pawnCouponController = new PawnCouponController();
     public JCustomerPanelForm() {
         initComponents();
         setDefault();
@@ -85,11 +87,16 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             rowData[3] = list.get(i).getAmount();
             rowData[4] = new BigDecimal(String.valueOf(list.get(i).getPrice())).stripTrailingZeros().toPlainString();
             rowData[5] = list.get(i).getInterestRate();
-            rowData[6] = null;
-            rowData[7] = null;
+            ArrayList<InterestPayment> interestPayments = _pawnCouponController.getInterestPaymentController().getList(list.get(i));
+            rowData[6] = interestPayments.size();
+            float interest = 0;
+            for (InterestPayment interestPayment : interestPayments) {
+               interest += interestPayment.getMoney();
+            }
+            rowData[7] = String.valueOf(interest);
             rowData[8] = Support.dateToString(list.get(i).getPawnDate());
             rowData[9] = Support.dateToString(list.get(i).getRedeemingDate());
-            rowData[10] = list.get(i).getProduct().getStatus();
+            rowData[10] = list.get(i).getStatus();
             model.addRow(rowData);
         }
         Support.setDataTableCenter(jtblHistory);
