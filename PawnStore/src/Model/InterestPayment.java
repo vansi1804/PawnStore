@@ -6,13 +6,25 @@
 package Model;
 
 import java.util.Date;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
  * @author Bau Kien
  */
 public class InterestPayment {
+
+    public InterestPayment() {
+    }
+
+    public InterestPayment(PawnCoupon _pawnCoupon, int _times, Date _paymentDate, Date _paymentUntilDate, float _money, float _debt, String _note) {
+        this._pawnCoupon = _pawnCoupon;
+        this._times = _times;
+        this._paymentDate = _paymentDate;
+        this._paymentUntilDate = _paymentUntilDate;
+        this._money = _money;
+        this._debt = _debt;
+        this._note = _note;
+    }
 
     public PawnCoupon getPawnCoupon() {
         return _pawnCoupon;
@@ -38,6 +50,14 @@ public class InterestPayment {
         this._paymentDate = _paymentDate;
     }
 
+    public Date getPaymentUntilDate() {
+        return _paymentUntilDate;
+    }
+
+    public void setPaymentUntilDate(Date _paymentUntilDate) {
+        this._paymentUntilDate = _paymentUntilDate;
+    }
+
     public float getMoney() {
         return _money;
     }
@@ -45,6 +65,7 @@ public class InterestPayment {
     public void setMoney(float _money) {
         this._money = _money;
     }
+
     public float getDebt() {
         return _debt;
     }
@@ -61,21 +82,10 @@ public class InterestPayment {
         this._note = _note;
     }
 
-    public InterestPayment(PawnCoupon _pawnCoupon, int _times, Date _paymentDate, float _money, float _debt, String _note) {
-        this._pawnCoupon = _pawnCoupon;
-        this._times = _times;
-        this._paymentDate = _paymentDate;
-        this._money = _money;
-        this._debt = _debt;
-        this._note = _note;
-    }
-
-    public InterestPayment() {
-    }
-
     private PawnCoupon _pawnCoupon;
     private int _times;
     private Date _paymentDate;
+    private Date _paymentUntilDate;
     private float _money;
     private float _debt;
     private String _note;

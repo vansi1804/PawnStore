@@ -27,6 +27,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         initComponents();
         setDefault();
         loadData();
+        Support.FormatTableHeader(jtblAccountList);
     }
 
     public void setDefault() {
@@ -107,7 +108,6 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jpfPassword = new javax.swing.JPasswordField();
         jpfConfirmPassword = new javax.swing.JPasswordField();
         btnAddNew = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel1.setText("Họ và tên");
@@ -115,7 +115,13 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel2.setText("Tên đăng nhập");
 
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+
+        jPanel5.setBackground(new java.awt.Color(153, 153, 153));
+
+        jLabel6.setBackground(new java.awt.Color(51, 255, 255));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("TÀI KHOẢN");
 
@@ -123,26 +129,43 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 1186, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setForeground(new java.awt.Color(51, 51, 51));
+
         jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Họ và tên");
 
+        jtfFullname.setBackground(new java.awt.Color(255, 255, 255));
+        jtfFullname.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jtfFullname.setForeground(new java.awt.Color(0, 0, 0));
+
+        jtfUsername.setBackground(new java.awt.Color(255, 255, 255));
+        jtfUsername.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jtfUsername.setForeground(new java.awt.Color(0, 0, 0));
+
         jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Tên đăng nhập");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Mật khẩu quản trị viên");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Xác nhận mật khẩu");
 
-        jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
+        jchbShowHirePassword.setBackground(new java.awt.Color(204, 204, 204));
+        jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jchbShowHirePassword.setForeground(new java.awt.Color(0, 0, 0));
         jchbShowHirePassword.setText("Hiện mật khẩu");
         jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +174,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         });
 
         jbtnRemove.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jbtnRemove.setForeground(new java.awt.Color(51, 51, 51));
         jbtnRemove.setText("Xóa");
         jbtnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +183,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         });
 
         jbtnAdd.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jbtnAdd.setForeground(new java.awt.Color(51, 51, 51));
         jbtnAdd.setText("Thêm");
         jbtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +191,9 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jtblAccountList.setBackground(new java.awt.Color(255, 255, 255));
+        jtblAccountList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jtblAccountList.setForeground(new java.awt.Color(0, 0, 0));
         jtblAccountList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -196,14 +224,14 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jlbResetPassword.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
+        jlbResetPassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbResetPassword.setForeground(new java.awt.Color(255, 0, 0));
         jlbResetPassword.setText("Đặt lại mật khẩu");
         jlbResetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,6 +240,16 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jpfPassword.setBackground(new java.awt.Color(255, 255, 255));
+        jpfPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jpfPassword.setForeground(new java.awt.Color(0, 0, 0));
+
+        jpfConfirmPassword.setBackground(new java.awt.Color(255, 255, 255));
+        jpfConfirmPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jpfConfirmPassword.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnAddNew.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddNew.setForeground(new java.awt.Color(51, 51, 51));
         btnAddNew.setText("Thêm mới");
         btnAddNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,50 +261,50 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(jbtnAdd)
-                                .addGap(98, 98, 98)
-                                .addComponent(jbtnRemove))
-                            .addComponent(jpfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jchbShowHirePassword)
-                        .addGroup(jPanel9Layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel9Layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jlbResetPassword)
-                        .addGroup(jPanel9Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 1, Short.MAX_VALUE)
+                                .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(jbtnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jpfConfirmPassword)))
+                    .addComponent(jchbShowHirePassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlbResetPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(jtfUsername))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddNew)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(84, 84, 84))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(73, 73, 73)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,20 +323,9 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                         .addComponent(jlbResetPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbtnRemove)
-                            .addComponent(jbtnAdd))))
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 103, Short.MAX_VALUE)
+                            .addComponent(jbtnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -306,17 +333,17 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -328,9 +355,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -382,10 +407,25 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddNewActionPerformed
 
     private void jlbResetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbResetPasswordMouseClicked
-        if (!CheckSupport.isEmpty(jtfUsername.getText())) {
-            if (MessageSupport.Confirm(null, "Xác nhận", "Xác nhận cài đặt mật khẩu mặc định?") == JOptionPane.YES_OPTION) {
-                if (_accountController.resetPassword(jtfUsername.getText())) {
-                    MessageSupport.Show(null, "Thông báo", "Mật khẩu mặc định của tài khoản là: 1!");
+        Account account = getDataFromForm();
+        if (account != null) {
+            if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), User.getCurrentInstance().getPassword())) {
+                MessageSupport.ShowError(null, "Lỗi", "Sai mật khẩu của admin");
+            } else {
+                if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), String.valueOf(jpfConfirmPassword.getPassword()))) {
+                    MessageSupport.ShowError(null, "Lỗi", "Xác nhận mật khẩu không khớp");
+                } else {
+                    if (!_accountController.checkExistingAccount(account.getUsername())) {
+                        MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không tồn tại.");
+                    } else {
+                        if (MessageSupport.Confirm(null, "Xác nhận", "Xác nhận cài đặt mật khẩu mặc định?") == JOptionPane.YES_OPTION) {
+                            if (_accountController.resetPassword(jtfUsername.getText())) {
+                                MessageSupport.Show(null, "Thông báo", "Mật khẩu mặc định của tài khoản là: 1");
+                                setDefault();
+                                loadData();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -403,11 +443,15 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                     if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), String.valueOf(jpfConfirmPassword.getPassword()))) {
                         MessageSupport.ShowError(null, "Lỗi", "Xác nhận mật khẩu không khớp");
                     } else {
-                        if (MessageSupport.Confirm(null, "Xác nhận", "Bạn có muốn xóa không?") == JOptionPane.YES_OPTION) {
-                            if (_accountController.remove(account.getUsername())) {
-                                MessageSupport.Show(null, "Thông báo", "Đã xóa thành công!");
-                                setDefault();
-                                loadData();
+                        if (!_accountController.checkExistingAccount(account.getUsername())) {
+                            MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không tồn tại.");
+                        } else {
+                            if (MessageSupport.Confirm(null, "Xác nhận", "Bạn có muốn xóa không?") == JOptionPane.YES_OPTION) {
+                                if (_accountController.remove(account.getUsername())) {
+                                    MessageSupport.Show(null, "Thông báo", "Đã xóa thành công!");
+                                    setDefault();
+                                    loadData();
+                                }
                             }
                         }
                     }
@@ -427,7 +471,6 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel9;

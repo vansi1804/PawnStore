@@ -25,6 +25,8 @@ import java.util.Date;
 
 public class PawnCouponController {
 
+    public static int interestPaymentCycle = 15;
+
     private ArrayList<PawnCoupon> pawnCoupons = null;
     private ProductController _productController = new ProductController();
     private CustomerController _customerController = new CustomerController();
@@ -187,7 +189,7 @@ public class PawnCouponController {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
-        
+
         String query2 = "";
         String queryId = " _id like '%" + pawnCoupon.getId() + "%'";
         String queryCustomerID = " _customerID = '" + pawnCoupon.getCustomer().getId() + "'";
@@ -235,7 +237,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -261,7 +263,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -288,7 +290,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -315,7 +317,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -344,7 +346,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -370,7 +372,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -397,7 +399,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -425,7 +427,7 @@ public class PawnCouponController {
                             }
                         }
                     }
-                }else{
+                } else {
                     if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
                         if (pawnCoupon.getPrice() != -1) {
@@ -456,7 +458,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -482,7 +484,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -509,7 +511,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -536,7 +538,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -565,7 +567,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -591,7 +593,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -618,7 +620,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -647,7 +649,7 @@ public class PawnCouponController {
                         }
                     }
                 }
-            }else{
+            } else {
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " AND " + queryProductID;
                     if (pawnCoupon.getAmount() != -1) {
@@ -680,7 +682,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -706,7 +708,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -733,7 +735,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -760,7 +762,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -789,7 +791,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -815,7 +817,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -842,7 +844,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -870,7 +872,7 @@ public class PawnCouponController {
                             }
                         }
                     }
-                }else{
+                } else {
                     if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
                         if (pawnCoupon.getPrice() != -1) {
@@ -901,7 +903,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -927,7 +929,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -954,7 +956,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -981,7 +983,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -1010,7 +1012,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1036,7 +1038,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1063,7 +1065,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1093,7 +1095,7 @@ public class PawnCouponController {
                     }
                 }
             }
-        }else{
+        } else {
             if (!CheckSupport.isEmpty(pawnCoupon.getCustomer().getId())) {
                 query2 += " WHERE " + queryCustomerID;
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
@@ -1128,7 +1130,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1154,7 +1156,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1181,7 +1183,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1208,7 +1210,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -1237,7 +1239,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1263,7 +1265,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1290,7 +1292,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1318,7 +1320,7 @@ public class PawnCouponController {
                             }
                         }
                     }
-                }else{
+                } else {
                     if (pawnCoupon.getAmount() != -1) {
                         query2 += " AND " + queryAmount;
                         if (pawnCoupon.getPrice() != -1) {
@@ -1349,7 +1351,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1375,7 +1377,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1402,7 +1404,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1429,7 +1431,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -1458,7 +1460,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1484,7 +1486,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1511,7 +1513,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1540,7 +1542,7 @@ public class PawnCouponController {
                         }
                     }
                 }
-            }else{
+            } else {
                 if (!CheckSupport.isEmpty(pawnCoupon.getProduct().getProductID())) {
                     query2 += " WHERE " + queryProductID;
                     if (pawnCoupon.getAmount() != -1) {
@@ -1573,7 +1575,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1599,7 +1601,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1626,7 +1628,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1653,7 +1655,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " AND " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -1682,7 +1684,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1708,7 +1710,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1735,7 +1737,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1763,7 +1765,7 @@ public class PawnCouponController {
                             }
                         }
                     }
-                }else{
+                } else {
                     if (pawnCoupon.getAmount() != -1) {
                         query2 += " WHERE " + queryAmount;
                         if (pawnCoupon.getPrice() != -1) {
@@ -1794,7 +1796,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1820,7 +1822,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " AND " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1847,7 +1849,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1874,7 +1876,7 @@ public class PawnCouponController {
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         if (pawnCoupon.getPrice() != -1) {
                             query2 += " WHERE " + queryPrice;
                             if (pawnCoupon.getInterestRate() != -1) {
@@ -1903,7 +1905,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " AND " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1929,7 +1931,7 @@ public class PawnCouponController {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             if (pawnCoupon.getInterestRate() != -1) {
                                 query2 += " WHERE " + queryInterestRate;
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
@@ -1956,7 +1958,7 @@ public class PawnCouponController {
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getPawnDate()))) {
                                     query2 += " WHERE " + queryPawnDate;
                                     if (!CheckSupport.isEmpty(Support.dateToString(pawnCoupon.getRedeemingDate()))) {
@@ -1989,7 +1991,7 @@ public class PawnCouponController {
         }
 
         String query = " SELECT * FROM PawnCoupon " + query2;
-        
+
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
@@ -2033,15 +2035,6 @@ public class PawnCouponController {
             }
         }
         return null;
-    }
-
-    public Date getTheNextInterestPaymentDate(PawnCoupon pawnCoupon) {
-        ArrayList<InterestPayment> interestPayments = _interestPaymentController.getList(pawnCoupon);
-        if (interestPayments.size() == 0) {
-            return Support.addDate(pawnCoupon.getPawnDate(), 14);
-        } else {
-            return Support.addDate(interestPayments.get(interestPayments.size() - 1).getPaymentDate(), 15);
-        }
     }
 
     public PawnCoupon findPawnCouponByProperty(String property, String value) {
@@ -2093,6 +2086,15 @@ public class PawnCouponController {
         return null;
     }
 
+    public Date getTheNextInterestPaymentDate(PawnCoupon pawnCoupon) {
+        ArrayList<InterestPayment> interestPayments = _interestPaymentController.getList(pawnCoupon);
+        if (interestPayments.size() == 0) {
+            return Support.addDate(pawnCoupon.getPawnDate(), 14);
+        } else {
+            return Support.addDate(interestPayments.get(interestPayments.size() - 1).getPaymentUntilDate(), interestPaymentCycle);
+        }
+    }
+
     public boolean checkForLate(PawnCoupon pawnCoupon) {
         Date theNextInterestPaymentDate = getTheNextInterestPaymentDate(pawnCoupon);
         if (Support.getToday().compareTo(theNextInterestPaymentDate) > 0) {
@@ -2100,5 +2102,4 @@ public class PawnCouponController {
         }
         return false;
     }
-
 }

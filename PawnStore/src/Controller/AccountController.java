@@ -134,8 +134,7 @@ public class AccountController {
             prestate = conn.prepareStatement(query);
             prestate.setString(1, id);
             rs = prestate.executeQuery();
-            _accountList = new ArrayList<>();
-            while (rs.next()) {
+            if (rs.next()) {
                 try {
                    return new Account(rs.getString("_username"), rs.getString("_password"), rs.getString("_fullname"));
                 } catch (Exception e) {

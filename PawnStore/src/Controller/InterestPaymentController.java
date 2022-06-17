@@ -35,10 +35,11 @@ public class InterestPaymentController {
                 try {
                     int times = rs.getInt(2);
                     Date paymentDate = rs.getDate(3);
-                    float money = rs.getFloat(4);
-                    float debt = rs.getFloat(5);
-                    String note = rs.getString(6);
-                    interestPayments.add(new InterestPayment(pawnCoupon, times, paymentDate, money, debt, note));
+                    Date paymentUntilDate = rs.getDate(4);
+                    float money = rs.getFloat(5);
+                    float debt = rs.getFloat(6);
+                    String note = rs.getString(7);
+                    interestPayments.add(new InterestPayment(pawnCoupon, times, paymentDate,paymentUntilDate, money, debt, note));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -68,7 +69,7 @@ public class InterestPaymentController {
     public boolean add(InterestPayment interestPayment) {
         Connection conn = null;
         PreparedStatement prestate = null;
-        String query = "INSERT INTO InterestPayment(_pawCouponID, _times, _paymentDate, _money, _debt, _note) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO InterestPayment(_pawCouponID, _times, _paymentDate, _paymentUntilDate,_money, _debt, _note) VALUES (?,?,?,?,?,?,?)";
 
         try {
             conn = DBConnectionSupport.getConnection();
@@ -76,9 +77,10 @@ public class InterestPaymentController {
             prestate.setString(1, interestPayment.getPawnCoupon().getId());
             prestate.setString(2, String.valueOf(interestPayment.getTimes()));
             prestate.setString(3, Support.dateToString(interestPayment.getPaymentDate()));
-            prestate.setString(4, String.valueOf(interestPayment.getMoney()));
-            prestate.setString(5, String.valueOf(interestPayment.getDebt()));
-            prestate.setString(6, interestPayment.getNote());
+            prestate.setString(4, Support.dateToString(interestPayment.getPaymentUntilDate()));
+            prestate.setString(5, String.valueOf(interestPayment.getMoney()));
+            prestate.setString(6, String.valueOf(interestPayment.getDebt()));
+            prestate.setString(7, interestPayment.getNote());
             prestate.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -105,17 +107,18 @@ public class InterestPaymentController {
     public boolean edit(InterestPayment interestPayment) {
         Connection conn = null;
         PreparedStatement prestate = null;
-        String query = "UPDATE InterestPayment SET _paymentDate = ?, _money = ?, _debt = ?, _note = ? WHERE _pawCouponID = ? and _times = ?";
+        String query = "UPDATE InterestPayment SET _paymentDate = ?, _paymentUntilDate = ?, _money = ?, _debt = ?, _note = ? WHERE _pawCouponID = ? and _times = ?";
 
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             prestate.setString(1, Support.dateToString(interestPayment.getPaymentDate()));
-            prestate.setString(2, String.valueOf(interestPayment.getMoney()));
-            prestate.setString(3, String.valueOf(interestPayment.getDebt()));
-            prestate.setString(4, interestPayment.getNote());
-            prestate.setString(5, interestPayment.getPawnCoupon().getId());
-            prestate.setString(6, String.valueOf(interestPayment.getTimes()));
+            prestate.setString(2, Support.dateToString(interestPayment.getPaymentUntilDate()));
+            prestate.setString(3, String.valueOf(interestPayment.getMoney()));
+            prestate.setString(4, String.valueOf(interestPayment.getDebt()));
+            prestate.setString(5, interestPayment.getNote());
+            prestate.setString(6, interestPayment.getPawnCoupon().getId());
+            prestate.setString(7, String.valueOf(interestPayment.getTimes()));
             prestate.executeUpdate();
             return true;
         } catch (SQLException ex) {

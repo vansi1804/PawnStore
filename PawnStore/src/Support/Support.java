@@ -5,8 +5,11 @@
 package Support;
 
 import View.JLoginForm;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Image;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
 /**
@@ -122,12 +126,6 @@ public class Support {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
     
-    public static String dateToStringData(Date date) {
-        if ((date == null) || (date.compareTo(stringToDate("1900-01-01")) == 0)) {
-            return "";
-        }
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
 
     public static Date getToday() {
         return new Date();
@@ -162,5 +160,16 @@ public class Support {
         c.setTime(date);
         c.add(Calendar.DATE, days);
         return c.getTime();
+    }
+    
+    public static void FormatTableHeader(JTable jTable){
+        JTableHeader jTableHeader = jTable.getTableHeader();
+        jTableHeader.setBackground(Color.WHITE);
+        jTableHeader.setForeground(Color.BLACK);
+        jTableHeader.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    }
+    
+    public static String BigFloatToString(float f){
+        return new BigDecimal(String.format("%.0f",f)).stripTrailingZeros().toPlainString();
     }
 }
