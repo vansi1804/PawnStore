@@ -1,5 +1,3 @@
-
-
 package Controller;
 
 import Model.InterestPayment;
@@ -16,11 +14,11 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class InterestPaymentController {
+
     public static ArrayList<InterestPayment> interestPayments = null;
-    
-    public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon){
+
+    public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -34,12 +32,12 @@ public class InterestPaymentController {
             while (rs.next()) {
                 try {
                     int times = rs.getInt(2);
-                    Date paymentDate = rs.getDate(3);
-                    Date paymentUntilDate = rs.getDate(4);
+                    String paymentDate = rs.getString(3);
+                    String paymentUntilDate = rs.getString(4);
                     float money = rs.getFloat(5);
                     float debt = rs.getFloat(6);
                     String note = rs.getString(7);
-                    interestPayments.add(new InterestPayment(pawnCoupon, times, paymentDate,paymentUntilDate, money, debt, note));
+                    interestPayments.add(new InterestPayment(pawnCoupon, times, paymentDate, paymentUntilDate, money, debt, note));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -76,8 +74,8 @@ public class InterestPaymentController {
             prestate = conn.prepareStatement(query);
             prestate.setString(1, interestPayment.getPawnCoupon().getId());
             prestate.setString(2, String.valueOf(interestPayment.getTimes()));
-            prestate.setString(3, Support.dateToString(interestPayment.getPaymentDate()));
-            prestate.setString(4, Support.dateToString(interestPayment.getPaymentUntilDate()));
+            prestate.setString(3, interestPayment.getPaymentDate());
+            prestate.setString(4, interestPayment.getPaymentUntilDate());
             prestate.setString(5, String.valueOf(interestPayment.getMoney()));
             prestate.setString(6, String.valueOf(interestPayment.getDebt()));
             prestate.setString(7, interestPayment.getNote());
@@ -112,8 +110,8 @@ public class InterestPaymentController {
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, Support.dateToString(interestPayment.getPaymentDate()));
-            prestate.setString(2, Support.dateToString(interestPayment.getPaymentUntilDate()));
+            prestate.setString(1, interestPayment.getPaymentDate());
+            prestate.setString(2, interestPayment.getPaymentUntilDate());
             prestate.setString(3, String.valueOf(interestPayment.getMoney()));
             prestate.setString(4, String.valueOf(interestPayment.getDebt()));
             prestate.setString(5, interestPayment.getNote());

@@ -6,6 +6,7 @@ package Controller;
 
 import Model.User;
 import Support.DBConnectionSupport;
+import Support.Encoding;
 import View.JLoginForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,12 +28,13 @@ public class LoginController {
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, username);
-            prestate.setString(2, password);
+            prestate.setString(1, Encoding.encrypt(username));
+            prestate.setString(2, Encoding.encrypt(password));
             rs = prestate.executeQuery();
             if (rs.next()) {
                 try {
-                    User.setCurrentInstance(rs.getString(1), rs.getString(2), rs.getString(3));
+                    User.setCurrentInstance(Encoding.decrypt(rs.getString("_username"))
+                            , Encoding.decrypt(rs.getString("_password")), rs.getString("_fullname"));
                     return true;
                 } catch (Exception e) {e.printStackTrace();}
             }

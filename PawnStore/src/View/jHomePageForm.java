@@ -8,6 +8,7 @@ import Model.*;
 import View.JTabbedPaneForm.JAccountPanelForm;
 import javax.swing.JFrame;
 import Support.*;
+import View.JTabbedPaneForm.JActivityHistoryPanelForm;
 import View.JTabbedPaneForm.JCustomerPanelForm;
 import View.JTabbedPaneForm.JPawnCouponPanelForm;
 import View.JTabbedPaneForm.JProductPanelForm;
@@ -23,21 +24,22 @@ import javax.swing.JPanel;
 public class JHomePageForm extends javax.swing.JFrame {
 
     private static JFrame jfparrent = null;
-
     private JPanel jaccounttab = null;
     private JPanel jprofiletab = null;
     private JPanel jcustomertab = null;
     private JPanel jproducttab = null;
     private JPanel jpawncoupontab = null;
+    private JPanel jactivehistorytab = null;
     
     public JHomePageForm() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
+        Support.ScaleImage(jHomePagePanel, getClass().getResource("/Image/HomePageImage.png"));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setProfileName();
-        jDCToday.setDate(Support.getToday());
+        setProfileName(User.getCurrentInstance().getUsername());
+        Support.getClock(jlblClock,true);
         if (CheckSupport.equals(User.getCurrentInstance().getUsername(), "admin")) {
             isAdmin(true);
         }else{
@@ -48,11 +50,12 @@ public class JHomePageForm extends javax.swing.JFrame {
     public JHomePageForm(JFrame jfparrent) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
+        Support.ScaleImage(jHomePagePanel, getClass().getResource("/Image/HomePageImage.png"));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setProfileName();
-        jDCToday.setDate(Support.getToday());
+        setProfileName(User.getCurrentInstance().getFullname());
+        Support.getClock(jlblClock,true);
         if (CheckSupport.equals(User.getCurrentInstance().getUsername(), "admin")) {
             isAdmin(true);
         }else{
@@ -60,8 +63,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         }
     }
 
-    public void setProfileName() {
-        jlbProfile.setText(User.getCurrentInstance().getFullname());
+    public static void setProfileName(String fullname) {
+        jlblProfile.setText(fullname);
     }
     
     
@@ -78,85 +81,91 @@ public class JHomePageForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jHomePagePanel = new javax.swing.JPanel();
         jHomePageTabbedPane = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jlbProfile = new javax.swing.JLabel();
-        jDCToday = new com.toedter.calendar.JDateChooser();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jlblProfile = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jlblClock = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jSystemMenu = new javax.swing.JMenu();
         jLogOutMenuItem = new javax.swing.JMenuItem();
+        jActiveHistoryMenuItem = new javax.swing.JMenuItem();
         jManagermentMenu = new javax.swing.JMenu();
         jAccountMenuItem = new javax.swing.JMenuItem();
         jCustomerMenuItem = new javax.swing.JMenuItem();
         jProductMenuItem = new javax.swing.JMenuItem();
         jPawnCouponMenuItem = new javax.swing.JMenuItem();
-        jReportMenu = new javax.swing.JMenu();
+        jReportMenuItem = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phầm mềm quản lý cầm dùm đồ");
+        setBackground(new java.awt.Color(102, 102, 102));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jHomePagePanel.setBackground(new java.awt.Color(204, 204, 204));
+        jHomePagePanel.setForeground(new java.awt.Color(255, 255, 255));
 
         jHomePageTabbedPane.setBackground(new java.awt.Color(204, 204, 204));
         jHomePageTabbedPane.setForeground(new java.awt.Color(0, 0, 0));
+        jHomePageTabbedPane.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
 
-        jlbProfile.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jlbProfile.setForeground(new java.awt.Color(255, 0, 0));
-        jlbProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbProfile.setText("Họ và tên");
-        jlbProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblProfile.setBackground(new java.awt.Color(204, 204, 204));
+        jlblProfile.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlblProfile.setForeground(new java.awt.Color(255, 0, 0));
+        jlblProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblProfile.setText("Họ và tên");
+        jlblProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlbProfileMouseClicked(evt);
+                jlblProfileMouseClicked(evt);
             }
         });
 
-        jDCToday.setBackground(new java.awt.Color(153, 255, 255));
-        jDCToday.setForeground(new java.awt.Color(0, 0, 0));
-        jDCToday.setDateFormatString("yyyy-MM-dd");
+        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Hôm nay:      ");
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Hôm nay:");
+        jlblClock.setBackground(new java.awt.Color(204, 204, 204));
+        jlblClock.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlblClock.setForeground(new java.awt.Color(255, 0, 0));
+        jlblClock.setText("Clock");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDCToday, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 580, Short.MAX_VALUE)
-                .addComponent(jlbProfile)
+                .addComponent(jlblClock, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(jlblProfile)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jDCToday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlblClock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlblProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout jHomePagePanelLayout = new javax.swing.GroupLayout(jHomePagePanel);
+        jHomePagePanel.setLayout(jHomePagePanelLayout);
+        jHomePagePanelLayout.setHorizontalGroup(
+            jHomePagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jHomePageTabbedPane)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+        jHomePagePanelLayout.setVerticalGroup(
+            jHomePagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jHomePagePanelLayout.createSequentialGroup()
+                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(153, 153, 153));
@@ -175,6 +184,16 @@ public class JHomePageForm extends javax.swing.JFrame {
             }
         });
         jSystemMenu.add(jLogOutMenuItem);
+
+        jActiveHistoryMenuItem.setBackground(new java.awt.Color(102, 102, 102));
+        jActiveHistoryMenuItem.setForeground(new java.awt.Color(0, 0, 0));
+        jActiveHistoryMenuItem.setText("Lịch sử hoạt động");
+        jActiveHistoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jActiveHistoryMenuItemActionPerformed(evt);
+            }
+        });
+        jSystemMenu.add(jActiveHistoryMenuItem);
 
         jMenuBar1.add(jSystemMenu);
 
@@ -224,10 +243,10 @@ public class JHomePageForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jManagermentMenu);
 
-        jReportMenu.setBackground(new java.awt.Color(204, 204, 204));
-        jReportMenu.setForeground(new java.awt.Color(0, 0, 0));
-        jReportMenu.setText("Thống kê");
-        jMenuBar1.add(jReportMenu);
+        jReportMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jReportMenuItem.setForeground(new java.awt.Color(0, 0, 0));
+        jReportMenuItem.setText("Thống kê");
+        jMenuBar1.add(jReportMenuItem);
 
         setJMenuBar(jMenuBar1);
 
@@ -235,11 +254,11 @@ public class JHomePageForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jHomePagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jHomePagePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -258,17 +277,18 @@ public class JHomePageForm extends javax.swing.JFrame {
         if (MessageSupport.Confirm(null, "Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
             this.dispose();
             this.jfparrent.setVisible(true);
+            JLoginForm.setDefaultPassword();
         }
     }//GEN-LAST:event_jLogOutMenuItemActionPerformed
 
-    private void jlbProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbProfileMouseClicked
+    private void jlblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblProfileMouseClicked
         String title = "Thông tin tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
             jprofiletab = new JProfilePanelForm();
             jHomePageTabbedPane.addTab(title, jprofiletab);
         }
         jHomePageTabbedPane.setSelectedComponent(jprofiletab);
-    }//GEN-LAST:event_jlbProfileMouseClicked
+    }//GEN-LAST:event_jlblProfileMouseClicked
 
     private void jCustomerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerMenuItemActionPerformed
         String title = "Khách hàng";
@@ -296,6 +316,15 @@ public class JHomePageForm extends javax.swing.JFrame {
         }
         jHomePageTabbedPane.setSelectedComponent(jpawncoupontab);
     }//GEN-LAST:event_jPawnCouponMenuItemActionPerformed
+
+    private void jActiveHistoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActiveHistoryMenuItemActionPerformed
+        String title = "Lịch sử hoạt động";
+        if (jHomePageTabbedPane.indexOfTab(title) == -1) {
+            jactivehistorytab = new JActivityHistoryPanelForm();
+            jHomePageTabbedPane.addTab(title, jactivehistorytab);
+        }
+        jHomePageTabbedPane.setSelectedComponent(jactivehistorytab);
+    }//GEN-LAST:event_jActiveHistoryMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,19 +364,20 @@ public class JHomePageForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jAccountMenuItem;
+    private javax.swing.JMenuItem jActiveHistoryMenuItem;
     private javax.swing.JMenuItem jCustomerMenuItem;
-    private com.toedter.calendar.JDateChooser jDCToday;
+    private javax.swing.JPanel jHomePagePanel;
     private javax.swing.JTabbedPane jHomePageTabbedPane;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jLogOutMenuItem;
     private javax.swing.JMenu jManagermentMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem jPawnCouponMenuItem;
     private javax.swing.JMenuItem jProductMenuItem;
-    private javax.swing.JMenu jReportMenu;
+    private javax.swing.JMenu jReportMenuItem;
     private javax.swing.JMenu jSystemMenu;
-    public static javax.swing.JLabel jlbProfile;
+    private javax.swing.JLabel jlblClock;
+    public static javax.swing.JLabel jlblProfile;
     // End of variables declaration//GEN-END:variables
 }

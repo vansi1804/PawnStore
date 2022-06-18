@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 
 public class ProductController {
 
-    public ArrayList<TypeOfProduct> _typeOfProductsList = null;
-    public ArrayList<Product> _productsList = null;
+    public ArrayList<TypeOfProduct> typeOfProducts = null;
+    public ArrayList<Product> products = null;
 
     public ArrayList<TypeOfProduct> getTypeOfProductList() {
         Connection conn = null;
@@ -31,15 +31,15 @@ public class ProductController {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             rs = prestate.executeQuery();
-            _typeOfProductsList = new ArrayList<>();
+            typeOfProducts = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    _typeOfProductsList.add(new TypeOfProduct(rs.getString(1), rs.getString(2)));
+                    typeOfProducts.add(new TypeOfProduct(rs.getString(1), rs.getString(2)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            return _typeOfProductsList;
+            return typeOfProducts;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -71,16 +71,16 @@ public class ProductController {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             rs = prestate.executeQuery();
-            _productsList = new ArrayList<>();
+            products = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    _productsList.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6))));
+                    products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3),
+                            CheckSupport.isEmpty(rs.getString(4))?" ":rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6))));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            return _productsList;
+            return products;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -315,7 +315,6 @@ public class ProductController {
         return false;
     }
 
-
     public ArrayList<Product> findProduct(Product product) {
         Connection conn = null;
         PreparedStatement prestate = null;
@@ -326,7 +325,7 @@ public class ProductController {
         String queryTypeID = " _typeID = '" + product.getTypeOfProductID() + "'";
         String queryName = " _name like N'%" + product.getProductName() + "%'";
         String queryInformation = " _information like N'%" + product.getInformation() + "%'";
-        String queryStatus = " _status like N'%" + product.getStatus() + "%'"; 
+        String queryStatus = " _status like N'%" + product.getStatus() + "%'";
 
         if (!CheckSupport.isEmpty(product.getProductID())) {
             query2 += " WHERE " + queryId;
@@ -443,15 +442,15 @@ public class ProductController {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             rs = prestate.executeQuery();
-            _productsList = new ArrayList<>();
+            products = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    _productsList.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new TypeOfProduct(findTypeOfProduct("_id", rs.getString(5)))));
+                    products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), CheckSupport.isEmpty(rs.getString(4))?" ":rs.getString(4), new TypeOfProduct(findTypeOfProduct("_id", rs.getString(5)))));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            return _productsList;
+            return products;
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -471,5 +470,21 @@ public class ProductController {
             }
         }
         return null;
+    }
+
+    public String CreateNewTypeOfProductID() {
+        typeOfProducts = getTypeOfProductList();
+        if (typeOfProducts.size() == 0) {
+            return "LHH0000001";
+        }
+        return Support.FormatStringID(typeOfProducts.get(typeOfProducts.size() - 1).getTypeOfProductID());
+    }
+
+    public String CreateNewProductID() {
+        products = getProductList();
+        if (products.size() == 0) {
+            return "HH00000001";
+        }
+        return Support.FormatStringID(products.get(products.size() - 1).getProductID());
     }
 }

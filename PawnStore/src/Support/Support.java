@@ -5,17 +5,18 @@
 package Support;
 
 import View.JLoginForm;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Label;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -47,11 +48,11 @@ public class Support {
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
     }
-
-    public static void ScaleImage(JButton button, URL url) {
+    
+    public static void ScaleImage(JPanel jpanel, URL url) {
         ImageIcon imageIcon = new ImageIcon(url);
-        Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_SMOOTH);
-        button.setIcon(new ImageIcon(imageScale));
+        Image imageScale = imageIcon.getImage().getScaledInstance(jpanel.getWidth(), jpanel.getHeight(), Image.SCALE_SMOOTH);
+        jpanel.add(new JLabel(new ImageIcon(imageScale)));
     }
 
     public static void CloseJFrame(Component parent, String title, String content, JFrame jrame) {
@@ -108,10 +109,18 @@ public class Support {
         }
     }
 
-    public static Date stringToDate(String str) {
+    public static String getDateFormat() {
+        return "dd-MM-yyyy";
+    }
+
+    public static String getDateTimeFormat() {
+        return "dd-MM-yyyy ~ HH:mm:ss";
+    }
+
+    public static Date stringToDate(String str, String dateFormat) {
         if (!CheckSupport.isEmpty(str)) {
             try {
-                return new SimpleDateFormat("yyyy-MM-dd").parse(str);
+                return new SimpleDateFormat(dateFormat).parse(str);
             } catch (ParseException ex) {
                 Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -119,20 +128,11 @@ public class Support {
         return null;
     }
 
-    public static String dateToString(Date date) {
-        if ((date == null) || (date.compareTo(stringToDate("1900-01-01")) == 0)) {
+    public static String dateToString(Date date, String dateFormat) {
+        if (date == null) {
             return "";
         }
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
-    
-
-    public static Date getToday() {
-        return new Date();
-    }
-
-    public static String getStringToday() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(getToday());
+        return new SimpleDateFormat(dateFormat).format(date);
     }
 
     public static void setDataTableCenter(JTable table) {
@@ -146,30 +146,85 @@ public class Support {
         }
     }
 
-    public static String format(float value) {
-        DecimalFormat df = new DecimalFormat("###,###,###.00");
-        return df.format(value);
+    public static long subtractDate(String strDate1, String strDate2) {
+        Date d1 = stringToDate(strDate1, getDateFormat());
+        Date d2 = stringToDate(strDate2, getDateFormat());
+        return TimeUnit.MILLISECONDS.toDays(d2.getTime() - d1.getTime());
     }
-    
-    public static long subtractDate(Date date1, Date date2){
-        return TimeUnit.MILLISECONDS.toDays(date2.getTime() - date1.getTime());
-    }
-    
-    public static Date addDate(Date date, int days){
+
+    public static String addDate(String strDate, int days) {
         Calendar c = Calendar.getInstance();
+        Date date = stringToDate(strDate, getDateFormat());
         c.setTime(date);
         c.add(Calendar.DATE, days);
-        return c.getTime();
+        return dateToString(c.getTime(), getDateFormat());
     }
-    
-    public static void FormatTableHeader(JTable jTable){
+
+    public static void FormatTableHeader(JTable jTable) {
         JTableHeader jTableHeader = jTable.getTableHeader();
         jTableHeader.setBackground(Color.WHITE);
         jTableHeader.setForeground(Color.BLACK);
         jTableHeader.setFont(new Font("Times New Roman", Font.BOLD, 14));
     }
-    
-    public static String BigFloatToString(float f){
-        return new BigDecimal(String.format("%.0f",f)).stripTrailingZeros().toPlainString();
+
+    public static String BigFloatToString(float f) {
+        return new BigDecimal(String.format("%.0f", f)).stripTrailingZeros().toPlainString();
+    }
+
+    public static String FormatStringID(String lastID) {
+        String pattern = "";
+        for (int i = 0; i < lastID.length(); i++) {
+            if (!('0' <= lastID.charAt(i) && lastID.charAt(i) <= '9')) {
+                pattern += lastID.charAt(i);
+            }
+        }
+        String id = pattern;
+        int maxIDLength = 10;
+        int patternLength = pattern.length();
+        lastID = lastID.substring(patternLength, lastID.length());
+        int lastNumericalOrder = Integer.parseInt(lastID);
+        int newID = lastNumericalOrder + 1;
+        int newIDLength = String.valueOf(newID).length();
+        for (int i = 1; i <= maxIDLength - patternLength - newIDLength; i++) {
+            id += "0";
+        }
+        id += String.valueOf(newID);
+        return id;
+    }
+
+    public static void getClock(JLabel jLabel, boolean status) {
+        if (status) {
+            Thread t = new Thread() {
+                public void run() {
+                    while (true) {
+                        jLabel.setText(dateToString(new Date(), getDateTimeFormat()));
+                        try {
+                            Thread.sleep(1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            t.start();
+        }
+    }
+
+    public static void getClock(JDateChooser jDateChooser, boolean status) {
+        if (status) {
+            Thread t = new Thread() {
+                public void run() {
+                    while (true) {
+                        jDateChooser.setDate(stringToDate(dateToString(new Date(), getDateTimeFormat()), getDateTimeFormat()));
+                        try {
+                            Thread.sleep(1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            t.start();
+        }
     }
 }

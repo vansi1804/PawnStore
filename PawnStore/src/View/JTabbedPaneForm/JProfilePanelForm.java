@@ -10,6 +10,7 @@ import Model.User;
 import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
+import View.JHomePageForm;
 
 /**
  *
@@ -253,6 +254,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                 if (_profileController.save(User.getCurrentInstance().getUsername(), User.getCurrentInstance().getPassword(), User.getCurrentInstance().getFullname())) {
                     MessageSupport.Show(null, "Thông báo", "Lưu thành công");
                     Load();
+                    JHomePageForm.setProfileName(User.getCurrentInstance().getFullname());
                 }
             }
         }

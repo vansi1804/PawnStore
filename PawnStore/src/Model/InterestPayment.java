@@ -16,7 +16,7 @@ public class InterestPayment {
     public InterestPayment() {
     }
 
-    public InterestPayment(PawnCoupon _pawnCoupon, int _times, Date _paymentDate, Date _paymentUntilDate, float _money, float _debt, String _note) {
+    public InterestPayment(PawnCoupon _pawnCoupon, int _times, String _paymentDate, String _paymentUntilDate, float _money, float _debt, String _note) {
         this._pawnCoupon = _pawnCoupon;
         this._times = _times;
         this._paymentDate = _paymentDate;
@@ -42,19 +42,19 @@ public class InterestPayment {
         this._times = _times;
     }
 
-    public Date getPaymentDate() {
+    public String getPaymentDate() {
         return _paymentDate;
     }
 
-    public void setPaymentDate(Date _paymentDate) {
+    public void setPaymentDate(String _paymentDate) {
         this._paymentDate = _paymentDate;
     }
 
-    public Date getPaymentUntilDate() {
+    public String getPaymentUntilDate() {
         return _paymentUntilDate;
     }
 
-    public void setPaymentUntilDate(Date _paymentUntilDate) {
+    public void setPaymentUntilDate(String _paymentUntilDate) {
         this._paymentUntilDate = _paymentUntilDate;
     }
 
@@ -84,8 +84,8 @@ public class InterestPayment {
 
     private PawnCoupon _pawnCoupon;
     private int _times;
-    private Date _paymentDate;
-    private Date _paymentUntilDate;
+    private String _paymentDate;
+    private String _paymentUntilDate;
     private float _money;
     private float _debt;
     private String _note;

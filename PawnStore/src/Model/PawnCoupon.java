@@ -22,11 +22,11 @@ public class PawnCoupon {
         this._id = _id;
     }
 
-    public Date getPawnDate() {
+    public String getPawnDate() {
         return _pawnDate;
     }
 
-    public void setPawnDate(Date _pawnDate) {
+    public void setPawnDate(String _pawnDate) {
         this._pawnDate = _pawnDate;
     }
 
@@ -70,11 +70,11 @@ public class PawnCoupon {
         this._interestRate = _interestRate;
     }
 
-    public Date getRedeemingDate() {
+    public String getRedeemingDate() {
         return _redeemingDate;
     }
 
-    public void setRedeemingDate(Date _ransomDate) {
+    public void setRedeemingDate(String _ransomDate) {
         this._redeemingDate = _ransomDate;
     }
 
@@ -97,7 +97,7 @@ public class PawnCoupon {
     public PawnCoupon() {
     }
 
-    public PawnCoupon(String _id, Date _pawnDate, Customer _customer, Product _prouct, int _amount, float _price, float _interestRate, Date _ransomDate, String _status, User _user) {
+    public PawnCoupon(String _id, String _pawnDate, Customer _customer, Product _prouct, int _amount, float _price, float _interestRate, String _ransomDate, String _status, User _user) {
         this._id = _id;
         this._pawnDate = _pawnDate;
         this._customer = _customer;
@@ -111,13 +111,13 @@ public class PawnCoupon {
     }
 
     private String _id;
-    private Date _pawnDate;
+    private String _pawnDate;
     private Customer _customer;
     private Product _product;
     private int _amount;
     private float _price;
     private float _interestRate;
-    private Date _redeemingDate;
+    private String _redeemingDate;
     private String _status;
     private User _user;
 }
