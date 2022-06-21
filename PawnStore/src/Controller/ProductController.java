@@ -22,7 +22,7 @@ public class ProductController {
     public ArrayList<TypeOfProduct> typeOfProducts = null;
     public ArrayList<Product> products = null;
 
-    public ArrayList<TypeOfProduct> getTypeOfProductList() {
+    public ArrayList<TypeOfProduct> getTypesOfProductList() {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -61,7 +61,7 @@ public class ProductController {
         return null;
     }
 
-    public ArrayList<Product> getProductList() {
+    public ArrayList<Product> getProductsList() {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -75,12 +75,51 @@ public class ProductController {
             while (rs.next()) {
                 try {
                     products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3),
-                            CheckSupport.isEmpty(rs.getString(4))?" ":rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6))));
+                            CheckSupport.isEmpty(rs.getString(4)) ? " " : rs.getString(4)
+                            , new TypeOfProduct(rs.getString(5), rs.getString(6))));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             return products;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (prestate != null) {
+                try {
+                    prestate.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return null;
+    }
+
+    public TypeOfProduct findTypeOfProductByProperty(String property, String value) {
+        Connection conn = null;
+        PreparedStatement prestate = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM TypeOfProduct WHERE " + property + " = ?";
+        try {
+            conn = DBConnectionSupport.getConnection();
+            prestate = conn.prepareStatement(query);
+            prestate.setString(1, value);
+            rs = prestate.executeQuery();
+            while (rs.next()) {
+                try {
+                    return new TypeOfProduct(rs.getString(1), rs.getString(2));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -115,46 +154,8 @@ public class ProductController {
             rs = prestate.executeQuery();
             while (rs.next()) {
                 try {
-                    return new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), new TypeOfProduct(rs.getString(5), rs.getString(6)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public TypeOfProduct findTypeOfProduct(String property, String value) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM TypeOfProduct WHERE " + property + " = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, value);
-            rs = prestate.executeQuery();
-            while (rs.next()) {
-                try {
-                    return new TypeOfProduct(rs.getString(1), rs.getString(2));
+                    return new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)
+                            , new TypeOfProduct(rs.getString(5), rs.getString(6)));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -247,16 +248,15 @@ public class ProductController {
         return false;
     }
 
-    public boolean editTypeOfProduct(TypeOfProduct _typeOfProduct, String id) {
+    public boolean editTypeOfProduct(TypeOfProduct _typeOfProduct) {
         Connection conn = null;
         PreparedStatement prestate = null;
-        String query = "Update TypeOfProduct set _id = ?, _name = ? Where _id = ?";
+        String query = "Update TypeOfProduct set _name = ? Where _id = ?";
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, _typeOfProduct.getTypeOfProductID());
-            prestate.setString(2, _typeOfProduct.getTypeOfProductName());
-            prestate.setString(3, id);
+            prestate.setString(1, _typeOfProduct.getTypeOfProductName());
+            prestate.setString(2, _typeOfProduct.getTypeOfProductID());
             prestate.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -435,7 +435,6 @@ public class ProductController {
                 }
             }
         }
-
         String query = " SELECT * FROM Product " + query2;
 
         try {
@@ -445,7 +444,9 @@ public class ProductController {
             products = new ArrayList<>();
             while (rs.next()) {
                 try {
-                    products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3), CheckSupport.isEmpty(rs.getString(4))?" ":rs.getString(4), new TypeOfProduct(findTypeOfProduct("_id", rs.getString(5)))));
+                    products.add(new Product(rs.getString(1), rs.getString(2), rs.getString(3)
+                            , CheckSupport.isEmpty(rs.getString(4)) ? " " : rs.getString(4)
+                            , new TypeOfProduct(findTypeOfProductByProperty("_id", rs.getString(5)))));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -473,7 +474,7 @@ public class ProductController {
     }
 
     public String CreateNewTypeOfProductID() {
-        typeOfProducts = getTypeOfProductList();
+        typeOfProducts = getTypesOfProductList();
         if (typeOfProducts.size() == 0) {
             return "LHH0000001";
         }
@@ -481,7 +482,7 @@ public class ProductController {
     }
 
     public String CreateNewProductID() {
-        products = getProductList();
+        products = getProductsList();
         if (products.size() == 0) {
             return "HH00000001";
         }

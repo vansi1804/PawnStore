@@ -25,11 +25,11 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
     public JAccountPanelForm() {
         initComponents();
-        setAccount(null);
+        setAccountDefault(null);
         Support.FormatTableHeader(jtblAccountList);
     }
 
-    public void setAccount(Account account) {
+    public void setAccountDefault(Account account) {
         if (account == null) {
             jtfFullname.setText(null);
             jtfFullname.setEditable(false);
@@ -359,7 +359,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                     } else {
                         if (_accountController.addNewAccount(account)) {
                             MessageSupport.Show(null, "Thông báo", "Thêm mới thành công. Mật khẩu mặc định là 1.");
-                            setAccount(null);
+                            setAccountDefault(null);
                         }
                     }
                 }
@@ -377,12 +377,12 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             JTable table = (JTable) evt.getSource();
             String username = (table.getModel().getValueAt(row, 1)).toString();
             Account account = _accountController.findAccountByUsername(username);
-            setAccount(account);
+            setAccountDefault(account);
         }
     }//GEN-LAST:event_jtblAccountListMouseClicked
 
     public void jbtnCreateNewActionPerformed() {
-        setAccount(null);
+        setAccountDefault(null);
         jtfUsername.setEditable(true);
         jtfFullname.setEditable(true);
         jbtnAdd.setEnabled(true);
@@ -409,7 +409,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                         if (MessageSupport.Confirm(null, "Xác nhận", "Xác nhận cài đặt mật khẩu mặc định?") == JOptionPane.YES_OPTION) {
                             if (_accountController.resetPassword(existingAccount)) {
                                 MessageSupport.Show(null, "Thông báo", "Mật khẩu mặc định của tài khoản là: 1");
-                                setAccount(null);
+                                setAccountDefault(null);
                             }
                         }
                     }

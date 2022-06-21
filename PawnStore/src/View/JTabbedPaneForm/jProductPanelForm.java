@@ -22,38 +22,60 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
     public JProductPanelForm() {
         initComponents();
-        loadTypeOfProduct();
-        loadProduct(_productController.getProductList());
-        loadCombobox();
-        setProductDefault();
-        setTypeOfProductDefault();
+        setProductDefault(null);
+        setTypeOfProductDefault(null);
         Support.FormatTableHeader(jtblProduct);
         Support.FormatTableHeader(jtblTypeOfProduct);
     }
 
-    public void setProductDefault() {
-        jtfProductID.setEditable(true);
-        jtfProductID.setText("");
-        jtfProductName.setText("");
-        jtaInformation.setText("");
-        jrbAll.setSelected(true);
-        jcbTypeOfProduct.setSelectedIndex(0);
-        jbtnAddProduct.setEnabled(false);
-        jbtnEditProduct.setEnabled(false);
-        jbtnFindProduct.setEnabled(true);
+    public void setProductDefault(Product product) {
+        if (product == null) {
+            jtfProductID.setText("");
+            jtfProductID.setEditable(true);
+            jtfProductName.setText("");
+            loadTypesOfProductCombobox();
+            jcbTypeOfProduct.setSelectedIndex(0);
+            jtaInformation.setText("");
+            setChangeableStatus(true);
+            setStatus("Tất cả");
+            jbtnAddProduct.setEnabled(false);
+            jbtnEditProduct.setEnabled(false);
+            jbtnFindProduct.setEnabled(true);
+            loadProductsList(_productController.getProductsList());
+        } else {
+            jtfProductID.setText(product.getProductID());
+            jtfProductID.setEditable(false);
+            jtfProductName.setText(product.getProductName());
+            jcbTypeOfProduct.setSelectedItem(product.getTypeOfProductName());
+            jtaInformation.setText(product.getInformation());
+            setChangeableStatus(false);
+            setStatus(product.getStatus());
+            jbtnAddProduct.setEnabled(false);
+            jbtnEditProduct.setEnabled(true);
+            jbtnFindProduct.setEnabled(false);
+        }
     }
 
-    public void setTypeOfProductDefault() {
-        jtfTypeOfProductID.setEditable(false);
-        jtfTypeOfProductID.setText("");
-        jtfTypeOfProductName.setEditable(false);
-        jtfTypeOfProductName.setText("");
-        jbtnAddTypeOfProduct.setEnabled(false);
-        jbtnEditTypeOfProduct.setEnabled(false);
+    public void setTypeOfProductDefault(TypeOfProduct typeOfProduct) {
+        if (typeOfProduct == null) {
+            jtfTypeOfProductID.setText("");
+            jtfTypeOfProductID.setEditable(false);
+            jtfTypeOfProductName.setText("");
+            jtfTypeOfProductName.setEditable(false);
+            jbtnAddTypeOfProduct.setEnabled(false);
+            jbtnEditTypeOfProduct.setEnabled(false);
+            loadTypesOfProductList(_productController.getTypesOfProductList());
+        } else {
+            jtfTypeOfProductID.setText(typeOfProduct.getTypeOfProductID());
+            jtfTypeOfProductName.setText(typeOfProduct.getTypeOfProductName());
+            jtfTypeOfProductName.setEditable(true);
+            jbtnAddTypeOfProduct.setEnabled(false);
+            jbtnEditTypeOfProduct.setEnabled(true);
+        }
     }
 
-    public void loadCombobox() {
-        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeOfProductList();
+    public void loadTypesOfProductCombobox() {
+        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypesOfProductList();
         ArrayList<String> _typeOfProductsNameList = new ArrayList<>();
         for (TypeOfProduct typeOfProduct : _typeOfProductsList) {
             _typeOfProductsNameList.add(typeOfProduct.getTypeOfProductName());
@@ -61,7 +83,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         Support.loadCombobox(_typeOfProductsNameList, jcbTypeOfProduct);
     }
 
-    public void loadProduct(ArrayList<Product> list) {
+    public void loadProductsList(ArrayList<Product> list) {
         DefaultTableModel model = (DefaultTableModel) jtblProduct.getModel();
         model.setRowCount(0);
         Object rowData[] = new Object[6];
@@ -78,16 +100,15 @@ public class JProductPanelForm extends javax.swing.JPanel {
         Support.setDataTableCenter(jtblProduct);
     }
 
-    public void loadTypeOfProduct() {
+    public void loadTypesOfProductList(ArrayList<TypeOfProduct> typeOfProducts) {
         DefaultTableModel model = (DefaultTableModel) jtblTypeOfProduct.getModel();
         model.setRowCount(0);
-        ArrayList<TypeOfProduct> _typeOfProductsList = _productController.getTypeOfProductList();
         Object rowData[] = new Object[3];
         int STT = 1;
-        for (int i = 0; i < _typeOfProductsList.size(); i++) {
+        for (int i = 0; i < typeOfProducts.size(); i++) {
             rowData[0] = String.valueOf(STT++);
-            rowData[1] = _typeOfProductsList.get(i).getTypeOfProductID();
-            rowData[2] = _typeOfProductsList.get(i).getTypeOfProductName();
+            rowData[1] = typeOfProducts.get(i).getTypeOfProductID();
+            rowData[2] = typeOfProducts.get(i).getTypeOfProductName();
             model.addRow(rowData);
         }
         Support.setDataTableCenter(jtblTypeOfProduct);
@@ -95,6 +116,15 @@ public class JProductPanelForm extends javax.swing.JPanel {
 
     public String getComboBoxValue() {
         return jcbTypeOfProduct.getSelectedItem().toString();
+    }
+
+    public void setChangeableStatus(boolean b) {
+        jrbNotRedeemed.setEnabled(b);
+        jrbRedeemed.setEnabled(b);
+        jrbLate.setEnabled(b);
+        jrbNeedToLiquidate.setEnabled(b);
+        jrbLiquidated.setEnabled(b);
+        jrbAll.setEnabled(b);
     }
 
     public void setStatus(String status) {
@@ -138,7 +168,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         if (CheckSupport.equals(jcbTypeOfProduct.getSelectedItem().toString(), "Tất cả")) {
             typeOfProduct = new TypeOfProduct(" ", " ");
         } else {
-            typeOfProduct = _productController.findTypeOfProduct("_name", getComboBoxValue());
+            typeOfProduct = _productController.findTypeOfProductByProperty("_name", getComboBoxValue());
         }
         return new Product(jtfProductID.getText(), jtfProductName.getText(), jtaInformation.getText(), getStatus(), typeOfProduct);
     }
@@ -729,36 +759,24 @@ public class JProductPanelForm extends javax.swing.JPanel {
         if (evt.getClickCount() == 2 && row != -1) {
             jtfProductID.setEditable(false);
             JTable table = (JTable) evt.getSource();
-            jtfProductID.setText((table.getModel().getValueAt(row, 1)).toString());
-            jtfProductName.setText((table.getModel().getValueAt(row, 2)).toString());
-            jcbTypeOfProduct.getModel().setSelectedItem((table.getModel().getValueAt(row, 3)).toString());
-            jtaInformation.setText((table.getModel().getValueAt(row, 4)).toString());
-            String status = CheckSupport.isEmpty((table.getModel().getValueAt(row, 5)).toString()) ? " " : (table.getModel().getValueAt(row, 5)).toString();
-            setStatus(status);
-            jbtnAddProduct.setEnabled(false);
-            jbtnEditProduct.setEnabled(true);
-            jbtnFindProduct.setEnabled(false);
+            String id = (table.getModel().getValueAt(row, 1)).toString();
+            Product product = _productController.findProductByID(id);
+            setProductDefault(product);
         }
     }//GEN-LAST:event_jtblProductMouseClicked
 
     private void jbtnAddTypeOfProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddTypeOfProductActionPerformed
-        TypeOfProduct _typeOfProduct = getTypeOfProductFromForm();
-        if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductID())) {
-            MessageSupport.ShowError(null, "Lỗi", "Mã loại hàng không được để trống.");
-        } else if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
+        TypeOfProduct typeOfProduct = getTypeOfProductFromForm();
+        if (CheckSupport.isEmpty(typeOfProduct.getTypeOfProductName())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
-        } else {
-            if (_productController.addTypeOfProduct(_typeOfProduct)) {
-                MessageSupport.Show(null, "Thông báo", "Thêm mới thành công..");
-                setTypeOfProductDefault();
-                loadTypeOfProduct();
-                loadCombobox();
-            }
+        } else if (_productController.addTypeOfProduct(typeOfProduct)) {
+            MessageSupport.Show(null, "Thông báo", "Thêm mới thành công..");
+            setTypeOfProductDefault(null);
         }
     }//GEN-LAST:event_jbtnAddTypeOfProductActionPerformed
 
     private void jbtnCreateNewTypeOfProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateNewTypeOfProductActionPerformed
-        setTypeOfProductDefault();
+        setTypeOfProductDefault(null);
         jtfTypeOfProductID.setText(_productController.CreateNewTypeOfProductID());
         jtfTypeOfProductID.setEditable(false);
         jtfTypeOfProductName.setEditable(true);
@@ -767,59 +785,54 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnCreateNewTypeOfProductActionPerformed
 
     private void jbtnEditTypeOfProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditTypeOfProductActionPerformed
-        TypeOfProduct _typeOfProduct = getTypeOfProductFromForm();
-        if (CheckSupport.isEmpty(_typeOfProduct.getTypeOfProductName())) {
+        TypeOfProduct typeOfProduct = getTypeOfProductFromForm();
+        if (CheckSupport.isEmpty(typeOfProduct.getTypeOfProductName())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên loại hàng hóa không được để trống.");
         } else {
-            if (_productController.editTypeOfProduct(_typeOfProduct, jtfTypeOfProductID.getText())) {
+            if (_productController.editTypeOfProduct(typeOfProduct)) {
                 MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                setTypeOfProductDefault();
-                loadTypeOfProduct();
-                loadCombobox();
+                setTypeOfProductDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnEditTypeOfProductActionPerformed
 
     private void jbtnCreateNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateNewProductActionPerformed
-        setProductDefault();
+        setProductDefault(null);
         jtfProductID.setText(_productController.CreateNewProductID());
         jtfProductID.setEditable(false);
         jbtnAddProduct.setEnabled(true);
         jbtnEditProduct.setEnabled(false);
         jbtnFindProduct.setEnabled(false);
-        jrbNotRedeemed.setSelected(true);
+        setStatus("Chưa chuộc");
+        setChangeableStatus(false);
     }//GEN-LAST:event_jbtnCreateNewProductActionPerformed
 
     private void jbtnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddProductActionPerformed
-        Product _product = getProductFromForm();
-        if (CheckSupport.isEmpty(_product.getProductName())) {
+        Product product = getProductFromForm();
+        if (CheckSupport.isEmpty(product.getProductName())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
-        } else if (CheckSupport.isEmpty(_product.getTypeOfProductName())) {
+        } else if (CheckSupport.isEmpty(product.getTypeOfProductName())) {
             MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
-        } else {
-            if (_productController.addProduct(_product)) {
-                MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
-                setProductDefault();
-                loadProduct(_productController.getProductList());
-            }
+        } else if (CheckSupport.isEmpty(product.getInformation())) {
+            MessageSupport.ShowError(null, "Lỗi", "Thông tin chi tiết của hàng hóa không được để trống.");
+        } else if (_productController.addProduct(product)) {
+            MessageSupport.Show(null, "Thông báo", "Thêm thành công.");
+            setProductDefault(null);
         }
+
     }//GEN-LAST:event_jbtnAddProductActionPerformed
 
     private void jbtnEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditProductActionPerformed
-        Product _product = getProductFromForm();
-        if (CheckSupport.isEmpty(_product.getProductName())) {
+        Product product = getProductFromForm();
+        if (CheckSupport.isEmpty(product.getProductName())) {
             MessageSupport.ShowError(null, "Lỗi", "Tên hàng hóa không được để trống.");
-        } else {
-            if (CheckSupport.isEmpty(_product.getTypeOfProductName())) {
-                MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
-            } else if (!CheckSupport.equals(_productController.findProductByID(_product.getProductID()).getStatus(), getStatus())) {
-                MessageSupport.ShowError(null, "Lỗi", "Không thể sửa trạng thái của sản phầm. Trạng thái của sản phẩm phụ thuộc vào trạng thái của hợp đồng");
-                setStatus(_productController.findProductByID(_product.getProductID()).getStatus());
-            } else if (_productController.editProduct(_product)) {
-                MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
-                setProductDefault();
-                loadProduct(_productController.getProductList());
-            }
+        } else if (CheckSupport.isEmpty(product.getTypeOfProductName())) {
+            MessageSupport.ShowError(null, "Lỗi", "Chọn loại hàng hóa.");
+        } else if (CheckSupport.isEmpty(product.getInformation())) {
+            MessageSupport.ShowError(null, "Lỗi", "Thông tin chi tiết của hàng hóa không được để trống.");
+        } else if (_productController.editProduct(product)) {
+            MessageSupport.Show(null, "Thông báo", "Sửa thành công.");
+            setProductDefault(null);
         }
     }//GEN-LAST:event_jbtnEditProductActionPerformed
 
@@ -827,20 +840,17 @@ public class JProductPanelForm extends javax.swing.JPanel {
         if (jbtnFindProduct.getText() == "Tìm") {
             jbtnFindProduct.setText("Hủy");
             Product product = getProductFromForm();
-            loadProduct(_productController.findProduct(product));
+            loadProductsList(_productController.findProduct(product));
         } else {
             jbtnFindProduct.setText("Tìm");
-            loadProduct(_productController.getProductList());
-            setProductDefault();
+            loadProductsList(_productController.getProductsList());
+            setProductDefault(null);
         }
     }//GEN-LAST:event_jbtnFindProductActionPerformed
 
     private void jbtnReloadAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadAllActionPerformed
-        loadTypeOfProduct();
-        loadProduct(_productController.getProductList());
-        loadCombobox();
-        setProductDefault();
-        setTypeOfProductDefault();
+        setTypeOfProductDefault(null);
+        setProductDefault(null);
     }//GEN-LAST:event_jbtnReloadAllActionPerformed
 
 

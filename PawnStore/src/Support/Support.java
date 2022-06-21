@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Label;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
@@ -26,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -47,6 +47,12 @@ public class Support {
         ImageIcon imageIcon = new ImageIcon(url);
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
+    }
+    
+    public static void ScaleImage(JButton button, URL url) {
+        ImageIcon imageIcon = new ImageIcon(url);
+        Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(imageScale));
     }
     
     public static void ScaleImage(JPanel jpanel, URL url) {
@@ -114,7 +120,7 @@ public class Support {
     }
 
     public static String getDateTimeFormat() {
-        return "dd-MM-yyyy ~ HH:mm:ss";
+        return "dd-MM-yyyy HH:mm:ss";
     }
 
     public static Date stringToDate(String str, String dateFormat) {

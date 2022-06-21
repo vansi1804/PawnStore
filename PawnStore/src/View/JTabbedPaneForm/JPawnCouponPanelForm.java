@@ -217,7 +217,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     }
 
     public void loadProductComboBox() {
-        ArrayList<Product> _products = _pawncouponController.getProductController().getProductList();
+        ArrayList<Product> _products = _pawncouponController.getProductController().getProductsList();
         ArrayList<String> productIDs = new ArrayList<>();
         for (Product product : _products) {
             productIDs.add(product.getProductID());
