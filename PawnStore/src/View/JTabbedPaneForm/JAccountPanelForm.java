@@ -25,30 +25,32 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
     public JAccountPanelForm() {
         initComponents();
-        setDefault();
-        loadData();
+        setAccount(null);
         Support.FormatTableHeader(jtblAccountList);
     }
 
-    public void setDefault() {
-        jpfPassword.setEchoChar('*');
-        jpfConfirmPassword.setEchoChar('*');
-        jtfUsername.setText(null);
-        jtfFullname.setText(null);
-        jpfPassword.setText(null);
-        jpfConfirmPassword.setText(null);
-        setEditable(false);
+    public void setAccount(Account account) {
+        if (account == null) {
+            jtfFullname.setText(null);
+            jtfFullname.setEditable(false);
+            jtfUsername.setText(null);
+            jtfUsername.setEditable(false);
+            jpfPassword.setText(null);
+            jpfPassword.setEchoChar('*');
+            jpfConfirmPassword.setText(null);
+            jpfConfirmPassword.setEchoChar('*');
+            jbtnAdd.setEnabled(false);
+            loadAccountsList();
+        } else {
+            jtfFullname.setText(account.getFullname());
+            jtfUsername.setText(account.getUsername());
+        }
     }
 
-    public void setEditable(boolean bool) {
-        jtfFullname.setEditable(bool);
-        jtfUsername.setEditable(bool);
-    }
-
-    public void loadData() {
+    public void loadAccountsList() {
         DefaultTableModel model = (DefaultTableModel) jtblAccountList.getModel();
         model.setRowCount(0);
-        ArrayList<Account> list = new ArrayList<>(_accountController.getList());
+        ArrayList<Account> list = new ArrayList<>(_accountController.getAccountsList());
         Object rowData[] = new Object[3];
         int STT = 1;
         for (int i = 0; i < list.size(); i++) {
@@ -63,20 +65,6 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     public Account getDataFromForm() {
         String username = jtfUsername.getText();
         String fullname = jtfFullname.getText();
-        if (CheckSupport.isEmpty(fullname) || CheckSupport.isEmpty(username)) {
-            MessageSupport.ShowError(null, "Lỗi", "Họ và tên hoặc tên đăng nhập không được để trống.");
-            return null;
-        } else {
-            if (CheckSupport.containsWhiteSpace(username)) {
-                MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không được chứa khoảng trống.");
-                return null;
-            } else {
-                if (CheckSupport.containsSpescialChar(username)) {
-                    MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không được chứa ký tự đặc biệt.");
-                    return null;
-                }
-            }
-        }
         return new Account(username, "1", fullname);
     }
 
@@ -351,72 +339,86 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
     }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
 
-    private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
+    public void jbtnAddActionPerformed() {
         Account account = getDataFromForm();
         if (account != null) {
-            if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), User.getCurrentInstance().getPassword())) {
+            if (CheckSupport.isEmpty(account.getFullname()) || CheckSupport.isEmpty(account.getUsername())) {
+                MessageSupport.ShowError(null, "Lỗi", "Họ và tên hoặc tên đăng nhập không được để trống.");
+            } else if (CheckSupport.containsWhiteSpace(account.getUsername())) {
+                MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không được chứa khoảng trống.");
+            } else if (CheckSupport.containsSpescialChar(account.getUsername())) {
+                MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không được chứa ký tự đặc biệt.");
+            } else if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), User.getCurrentInstance().getPassword())) {
                 MessageSupport.ShowError(null, "Lỗi", "Sai mật khẩu của admin");
             } else {
                 if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), String.valueOf(jpfConfirmPassword.getPassword()))) {
                     MessageSupport.ShowError(null, "Lỗi", "Xác nhận mật khẩu không khớp");
                 } else {
-                    if (_accountController.checkExistingAccount(account.getUsername())) {
+                    if (_accountController.findAccountByUsername(account.getUsername()) != null) {
                         MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập đã tồn tại.");
                     } else {
-                        if (_accountController.add(account)) {
+                        if (_accountController.addNewAccount(account)) {
                             MessageSupport.Show(null, "Thông báo", "Thêm mới thành công. Mật khẩu mặc định là 1.");
-                            setDefault();
-                            loadData();
+                            setAccount(null);
                         }
                     }
                 }
             }
         }
+    }
+
+    private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
+        jbtnAddActionPerformed();
     }//GEN-LAST:event_jbtnAddActionPerformed
 
     private void jtblAccountListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblAccountListMouseClicked
-        setEditable(false);
         int row = jtblAccountList.getSelectedRow();
         if (evt.getClickCount() == 2 && row != -1) {
             JTable table = (JTable) evt.getSource();
-            jtfUsername.setText((table.getModel().getValueAt(row, 1)).toString());
-            jtfFullname.setText((table.getModel().getValueAt(row, 2)).toString());
+            String username = (table.getModel().getValueAt(row, 1)).toString();
+            Account account = _accountController.findAccountByUsername(username);
+            setAccount(account);
         }
     }//GEN-LAST:event_jtblAccountListMouseClicked
 
-    private void jbtnCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateNewActionPerformed
-        setEditable(true);
-        setDefault();
-        jpfPassword.setEchoChar('*');
-        jpfConfirmPassword.setEchoChar('*');
+    public void jbtnCreateNewActionPerformed() {
+        setAccount(null);
         jtfUsername.setEditable(true);
         jtfFullname.setEditable(true);
-
+        jbtnAdd.setEnabled(true);
+    }
+    private void jbtnCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreateNewActionPerformed
+        jbtnCreateNewActionPerformed();
     }//GEN-LAST:event_jbtnCreateNewActionPerformed
 
-    private void jlbResetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbResetPasswordMouseClicked
+    public void jlbResetPasswordMouseClicked() {
         Account account = getDataFromForm();
         if (account != null) {
-            if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), User.getCurrentInstance().getPassword())) {
+            Account existingAccount = _accountController.findAccountByUsername(account.getUsername());
+            if (existingAccount == null) {
+                MessageSupport.ShowError(null, "Lỗi", "Tài khoản không tồn tại.");
+            } else if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), User.getCurrentInstance().getPassword())) {
                 MessageSupport.ShowError(null, "Lỗi", "Sai mật khẩu của admin");
             } else {
                 if (!CheckSupport.equals(String.valueOf(jpfPassword.getPassword()), String.valueOf(jpfConfirmPassword.getPassword()))) {
                     MessageSupport.ShowError(null, "Lỗi", "Xác nhận mật khẩu không khớp");
                 } else {
-                    if (!_accountController.checkExistingAccount(account.getUsername())) {
+                    if (_accountController.findAccountByUsername(account.getUsername()) == null) {
                         MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không tồn tại.");
                     } else {
                         if (MessageSupport.Confirm(null, "Xác nhận", "Xác nhận cài đặt mật khẩu mặc định?") == JOptionPane.YES_OPTION) {
-                            if (_accountController.resetPassword(jtfUsername.getText())) {
+                            if (_accountController.resetPassword(existingAccount)) {
                                 MessageSupport.Show(null, "Thông báo", "Mật khẩu mặc định của tài khoản là: 1");
-                                setDefault();
-                                loadData();
+                                setAccount(null);
                             }
                         }
                     }
                 }
             }
         }
+    }
+    private void jlbResetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbResetPasswordMouseClicked
+        jlbResetPasswordMouseClicked();
     }//GEN-LAST:event_jlbResetPasswordMouseClicked
 
 

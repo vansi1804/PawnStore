@@ -16,7 +16,7 @@ public class AccountController {
 
     private ArrayList<Account> _accountList = null;
 
-    public ArrayList<Account> getList() {
+    public ArrayList<Account> getAccountsList() {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
@@ -56,7 +56,7 @@ public class AccountController {
         return null;
     }
 
-    public boolean add(Account _account) {
+    public boolean addNewAccount(Account _account) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Insert into Account(_username,_password,_fullname) values (?,?,?)";
@@ -89,11 +89,11 @@ public class AccountController {
         return false;
     }
 
-    public boolean remove(String _username) {
-        return Support.removeData("Account", "_username", Encoding.encrypt(_username));
+    public boolean removeAccount(Account account) {
+        return Support.removeData("Account", "_username", Encoding.encrypt(account.getUsername()));
     }
 
-    public boolean resetPassword(String _username) {
+    public boolean resetPassword(Account account ) {
         Connection conn = null;
         PreparedStatement prestate = null;
         String query = "Update Account set _password = ? Where _username = ?";
@@ -101,7 +101,7 @@ public class AccountController {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
             prestate.setString(1, Encoding.encrypt("1"));
-            prestate.setString(2, Encoding.encrypt(_username));
+            prestate.setString(2, Encoding.encrypt(account.getUsername()));
             prestate.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -125,15 +125,19 @@ public class AccountController {
         return false;
     }
 
-    public Account findByUsername(String id) {
+    public Account findAccountByUsername(String username) {
+        return findAccountByProperty("_username", username);
+    }
+    
+    public Account findAccountByProperty(String property, String value) {
         Connection conn = null;
         PreparedStatement prestate = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM Account where _username = ?";
+        String query = "SELECT * FROM Account where "+ property+" = ?";
         try {
             conn = DBConnectionSupport.getConnection();
             prestate = conn.prepareStatement(query);
-            prestate.setString(1, id);
+            prestate.setString(1, Encoding.encrypt(value));
             rs = prestate.executeQuery();
             if (rs.next()) {
                 try {
@@ -162,9 +166,5 @@ public class AccountController {
             }
         }
         return null;
-    }
-
-    public boolean checkExistingAccount(String _username) {
-        return findByUsername(_username) != null;
     }
 }

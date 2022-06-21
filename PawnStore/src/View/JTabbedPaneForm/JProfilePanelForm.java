@@ -21,16 +21,15 @@ public class JProfilePanelForm extends javax.swing.JPanel {
     private ProfileController _profileController = new ProfileController();
     public JProfilePanelForm() {
         initComponents();
-        Load();
+        setProfileUser(User.getCurrentInstance());
     }
 
-    public void Load() {
-        jtfFullname.setText(User.getCurrentInstance().getFullname());
-        jtfUsername.setText(User.getCurrentInstance().getUsername());
+    public void setProfileUser(User user) {
+        jtfFullname.setText(user.getFullname());
+        jtfUsername.setText(user.getUsername());
         jtfUsername.setEditable(false);
-        jpfPassword.setText(User.getCurrentInstance().getPassword());
+        jpfPassword.setText(user.getPassword());
         jpfConfirmPassword.setText(null);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -237,7 +236,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelActionPerformed
-        Load();
+        setProfileUser(User.getCurrentInstance());
     }//GEN-LAST:event_jbtnCancelActionPerformed
 
     private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
@@ -255,7 +254,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                 User.setCurrentInstance(jtfUsername.getText(), String.valueOf(jpfPassword.getPassword()), jtfFullname.getText());
                 if (_profileController.save(User.getCurrentInstance().getUsername(), User.getCurrentInstance().getPassword(), User.getCurrentInstance().getFullname())) {
                     MessageSupport.Show(null, "Thông báo", "Lưu thành công");
-                    Load();
+                    setProfileUser(User.getCurrentInstance());
                     JHomePageForm.setProfileName(User.getCurrentInstance().getFullname());
                 }
             }

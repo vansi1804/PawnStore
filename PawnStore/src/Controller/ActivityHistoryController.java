@@ -41,7 +41,7 @@ public class ActivityHistoryController {
             while (rs.next()) {
                 try {
                     _activityHistorys.add(new ActivityHistory(rs.getString("_activeTime")
-                            , new Account(_accountController.findByUsername(Encoding.decrypt(rs.getString("_username"))))
+                            , new Account(_accountController.findAccountByUsername(Encoding.decrypt(rs.getString("_username"))))
                             , rs.getString("_activity")));
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -30,7 +30,7 @@ public class CheckSupport {
     }
 
     public static boolean containsSpescialChar(String str) {
-        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(str);
         return m.find();
     }
@@ -38,6 +38,7 @@ public class CheckSupport {
     public static boolean equals(String str1, String str2) {
         return str1.equals(str2);
     }
+    
 
     public static boolean isValidPhonenumber(String str) {
         String reg = "(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b";

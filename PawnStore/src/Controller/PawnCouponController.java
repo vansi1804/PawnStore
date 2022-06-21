@@ -70,7 +70,7 @@ public class PawnCouponController {
                     float interestRate = Float.parseFloat(rs.getString(7));
                     String redeemingDate = rs.getString(8);
                     String status = rs.getString(9);
-                    Account acc = _accountController.findByUsername(rs.getString(10));
+                    Account acc = _accountController.findAccountByUsername(rs.getString(10));
                     User user = new User(acc.getUsername(), acc.getPassword(), acc.getFullname());
                     PawnCoupon pawnCoupon = new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, status, user);
                     pawnCoupons.add(pawnCoupon);
@@ -2008,7 +2008,7 @@ public class PawnCouponController {
                     float interestRate = Float.parseFloat(rs.getString(7));
                     String redeemingDate = rs.getString(8);
                     String status = rs.getString(9);
-                    Account acc = _accountController.findByUsername(rs.getString(10));
+                    Account acc = _accountController.findAccountByUsername(rs.getString(10));
                     User user = new User(acc.getUsername(), acc.getPassword(), acc.getFullname());
                     pawnCoupons.add(new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, status, user));
                 } catch (Exception e) {
@@ -2058,7 +2058,7 @@ public class PawnCouponController {
                     float interestRate = Float.parseFloat(rs.getString(7));
                     String redeemingDate = rs.getString(8);
                     String status = rs.getString(9);
-                    Account acc = _accountController.findByUsername(rs.getString(10));
+                    Account acc = _accountController.findAccountByUsername(rs.getString(10));
                     User user = new User(acc.getUsername(), acc.getPassword(), acc.getFullname());
                     return new PawnCoupon(id, pawnDate, customer, product, amount, price, interestRate, redeemingDate, status, user);
                 } catch (Exception e) {
