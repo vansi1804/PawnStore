@@ -54,7 +54,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -76,11 +76,12 @@ public class JProfilePanelForm extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnCancel.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCancel.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jbtnCancel.setForeground(new java.awt.Color(0, 0, 0));
         jbtnCancel.setText("Hủy");
@@ -90,6 +91,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnSave.setBackground(new java.awt.Color(0, 255, 255));
         jbtnSave.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jbtnSave.setForeground(new java.awt.Color(0, 0, 0));
         jbtnSave.setText("Lưu");

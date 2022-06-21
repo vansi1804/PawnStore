@@ -76,7 +76,7 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
 
         jButton1.setText("jButton1");
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -96,7 +96,9 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
             .addComponent(jLabel1)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(51, 255, 255));
+
+        jPanel4.setBackground(new java.awt.Color(51, 255, 255));
 
         jtblActivityHistory.setBackground(new java.awt.Color(255, 255, 255));
         jtblActivityHistory.setForeground(new java.awt.Color(0, 0, 0));
@@ -136,7 +138,10 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +188,7 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
         jtaActivity.setRows(5);
         jScrollPane2.setViewportView(jtaActivity);
 
-        jbtnFind.setBackground(new java.awt.Color(153, 153, 153));
+        jbtnFind.setBackground(new java.awt.Color(0, 255, 255));
         jbtnFind.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jbtnFind.setForeground(new java.awt.Color(0, 0, 0));
         jbtnFind.setText("Tìm");
@@ -224,7 +229,7 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jchbEnableTime)))
-                .addContainerGap(327, Short.MAX_VALUE))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +259,10 @@ public class JActivityHistoryPanelForm extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

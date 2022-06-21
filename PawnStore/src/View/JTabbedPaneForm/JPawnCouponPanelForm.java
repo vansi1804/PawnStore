@@ -13,7 +13,6 @@ import Model.Product;
 import Model.TypeOfProduct;
 import Model.User;
 import Support.*;
-import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -475,7 +474,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
         jTextField6.setText("jTextField2");
 
-        setBackground(new java.awt.Color(102, 102, 102));
+        setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel8.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -495,7 +494,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -558,6 +557,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jtfInterestRate.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfInterestRate.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnCreateNew.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCreateNew.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnCreateNew.setForeground(new java.awt.Color(0, 0, 0));
         jbtnCreateNew.setText("Tạo mới");
@@ -670,6 +670,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addComponent(jrbAll))
         );
 
+        jbtnFindPawnCoupon.setBackground(new java.awt.Color(0, 255, 255));
         jbtnFindPawnCoupon.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnFindPawnCoupon.setForeground(new java.awt.Color(0, 0, 0));
         jbtnFindPawnCoupon.setText("Tìm");
@@ -679,6 +680,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnAddPawnCoupon.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAddPawnCoupon.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnAddPawnCoupon.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAddPawnCoupon.setText("Thêm");
@@ -688,6 +690,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnEditPawnCoupon.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEditPawnCoupon.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnEditPawnCoupon.setForeground(new java.awt.Color(0, 0, 0));
         jbtnEditPawnCoupon.setText("Sửa");
@@ -853,6 +856,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jtanote.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(jtanote);
 
+        jbtnEditInterestPaymentHistory.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEditInterestPaymentHistory.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnEditInterestPaymentHistory.setForeground(new java.awt.Color(0, 0, 0));
         jbtnEditInterestPaymentHistory.setText("Sửa");
@@ -862,6 +866,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnAddInterestPaymentHistory.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAddInterestPaymentHistory.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnAddInterestPaymentHistory.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAddInterestPaymentHistory.setText("Thêm");
@@ -1004,6 +1009,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jtfTotalHaveToPay.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfTotalHaveToPay.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnReloadAll.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReloadAll.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jbtnReloadAll.setForeground(new java.awt.Color(0, 0, 0));
         jbtnReloadAll.setText("Tải lại");
@@ -1056,7 +1062,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnReloadAll, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addComponent(jScrollPane3)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1183,11 +1189,11 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1261, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1196,11 +1202,13 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1227,9 +1235,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1316,8 +1322,11 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

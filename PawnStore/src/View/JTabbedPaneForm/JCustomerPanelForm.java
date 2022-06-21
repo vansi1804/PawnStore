@@ -144,7 +144,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblCustomersList = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -164,7 +164,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -200,6 +200,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jtaAdress.setCursor(new java.awt.Cursor(java.awt.Cursor.SE_RESIZE_CURSOR));
         jScrollPane3.setViewportView(jtaAdress);
 
+        jbtnCreateNew.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCreateNew.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnCreateNew.setForeground(new java.awt.Color(0, 0, 0));
         jbtnCreateNew.setText("Tạo mới");
@@ -258,6 +259,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
+        jbtnAdd.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAdd.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnAdd.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAdd.setText("Thêm");
@@ -267,6 +269,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnEdit.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEdit.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnEdit.setForeground(new java.awt.Color(0, 0, 0));
         jbtnEdit.setText("Sửa");
@@ -279,6 +282,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnFind.setBackground(new java.awt.Color(0, 255, 255));
         jbtnFind.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnFind.setForeground(new java.awt.Color(0, 0, 0));
         jbtnFind.setText("Tìm");
@@ -398,6 +402,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtblHistory.getColumnModel().getColumn(2).setMaxWidth(200);
         }
 
+        jbtnReload.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReload.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnReload.setForeground(new java.awt.Color(0, 0, 0));
         jbtnReload.setText("Tải lại");
@@ -416,7 +421,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnReload)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1198, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,7 +482,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,12 +493,14 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(

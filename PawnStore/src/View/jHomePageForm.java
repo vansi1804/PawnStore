@@ -50,7 +50,6 @@ public class JHomePageForm extends javax.swing.JFrame {
     public JHomePageForm(JFrame jfparrent) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
-        Support.ScaleImage(jHomePagePanel, getClass().getResource("/Image/HomePageImage.png"));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -170,12 +169,14 @@ public class JHomePageForm extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(153, 153, 153));
         jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuBar1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jSystemMenu.setBackground(new java.awt.Color(204, 204, 204));
         jSystemMenu.setForeground(new java.awt.Color(0, 0, 0));
         jSystemMenu.setText("Hệ thống");
 
-        jLogOutMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jLogOutMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jLogOutMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLogOutMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jLogOutMenuItem.setText("Đăng xuất");
         jLogOutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +186,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jSystemMenu.add(jLogOutMenuItem);
 
-        jActiveHistoryMenuItem.setBackground(new java.awt.Color(102, 102, 102));
+        jActiveHistoryMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jActiveHistoryMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jActiveHistoryMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jActiveHistoryMenuItem.setText("Lịch sử hoạt động");
         jActiveHistoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +203,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         jManagermentMenu.setForeground(new java.awt.Color(0, 0, 0));
         jManagermentMenu.setText("Quản lý");
 
-        jAccountMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jAccountMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jAccountMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jAccountMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jAccountMenuItem.setText("Tài khoản");
         jAccountMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +214,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jAccountMenuItem);
 
-        jCustomerMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jCustomerMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jCustomerMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jCustomerMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jCustomerMenuItem.setText("Khách hàng");
         jCustomerMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +225,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jCustomerMenuItem);
 
-        jProductMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jProductMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jProductMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jProductMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jProductMenuItem.setText("Hàng hóa");
         jProductMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +236,8 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jProductMenuItem);
 
-        jPawnCouponMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jPawnCouponMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jPawnCouponMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jPawnCouponMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jPawnCouponMenuItem.setText("Hợp đồng");
         jPawnCouponMenuItem.addActionListener(new java.awt.event.ActionListener() {

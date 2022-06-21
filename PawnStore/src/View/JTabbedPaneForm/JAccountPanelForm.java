@@ -114,7 +114,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel2.setText("Tên đăng nhập");
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBackground(new java.awt.Color(0, 255, 255));
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -168,6 +168,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnAdd.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAdd.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jbtnAdd.setForeground(new java.awt.Color(51, 51, 51));
         jbtnAdd.setText("Thêm");
@@ -234,6 +235,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jpfConfirmPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jpfConfirmPassword.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnCreateNew.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCreateNew.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jbtnCreateNew.setForeground(new java.awt.Color(51, 51, 51));
         jbtnCreateNew.setText("Tạo mới");
@@ -312,7 +314,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                         .addComponent(jlbResetPassword)
                         .addGap(12, 12, 12)
                         .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -330,8 +332,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

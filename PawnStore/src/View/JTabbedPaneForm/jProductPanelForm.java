@@ -191,7 +191,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblProduct = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -212,7 +212,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(51, 255, 255));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
@@ -258,6 +258,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jcbTypeOfProduct.setForeground(new java.awt.Color(0, 0, 0));
         jcbTypeOfProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jbtnCreateNewProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCreateNewProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnCreateNewProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnCreateNewProduct.setText("Tạo mới");
@@ -347,6 +348,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
                 .addComponent(jrbAll))
         );
 
+        jbtnEditProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEditProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnEditProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnEditProduct.setText("Sửa");
@@ -356,6 +358,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnAddProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAddProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnAddProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAddProduct.setText("Thêm");
@@ -365,6 +368,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnFindProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnFindProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnFindProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnFindProduct.setText("Tìm");
@@ -499,6 +503,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jtfTypeOfProductID.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfTypeOfProductID.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnEditTypeOfProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEditTypeOfProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnEditTypeOfProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnEditTypeOfProduct.setText("Sửa");
@@ -508,6 +513,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnAddTypeOfProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnAddTypeOfProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnAddTypeOfProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnAddTypeOfProduct.setText("Thêm");
@@ -521,6 +527,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Loại hàng hóa");
 
+        jbtnCreateNewTypeOfProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnCreateNewTypeOfProduct.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jbtnCreateNewTypeOfProduct.setForeground(new java.awt.Color(0, 0, 0));
         jbtnCreateNewTypeOfProduct.setText("Tạo mới");
@@ -530,6 +537,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jbtnReloadAll.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReloadAll.setForeground(new java.awt.Color(0, 0, 0));
         jbtnReloadAll.setText("Tải lại");
         jbtnReloadAll.addActionListener(new java.awt.event.ActionListener() {
@@ -647,7 +655,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -660,11 +668,13 @@ public class JProductPanelForm extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
