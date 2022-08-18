@@ -7,6 +7,7 @@ package pawnstore;
 import View.JLoginForm;
 import java.awt.EventQueue;
 
+@SuppressWarnings("ClassWithoutLogger")
 public class Main {
 
     public static void main(String[] args) {
@@ -17,6 +18,5 @@ public class Main {
              } catch (Exception e) {
              }
          });
-    }
-    
+    } 
 }

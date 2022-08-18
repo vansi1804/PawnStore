@@ -1,44 +1,56 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
 
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class TypeOfProduct {
+
+    private String id;
+    private String name;
+    private boolean deleteflag;
 
     public TypeOfProduct() {
     }
 
-    public TypeOfProduct(String id, String name) {
+    public TypeOfProduct(String id, String name, boolean deleteflag) {
         this.id = id;
         this.name = name;
-    }
-    
-    public TypeOfProduct(TypeOfProduct typeOfProduct) {
-        this.id = typeOfProduct.getTypeOfProductID();
-        this.name = typeOfProduct.getTypeOfProductName();
+        this.deleteflag = deleteflag;
     }
 
-    public String getTypeOfProductID() {
+    public String getId() {
         return id;
     }
 
-    public void setTypeOfProductID(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getTypeOfProductName() {
+    public String getName() {
         return name;
     }
 
-    public void setTypeOfProductName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
-    protected String id;
-    protected String name;
+
+    public boolean getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(boolean deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + name + " - " + (deleteflag ? "Ngưng phục vụ" : "Phục vụ");
+    }
+
 }

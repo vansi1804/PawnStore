@@ -1,56 +1,80 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
 
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class Account {
+
+    private String username;
+    private String password;
+    private String fullname;
+    private boolean deleteflag;
 
     public Account() {
     }
 
-    public Account(String _username, String _password, String _fullname) {
-        this._username = _username;
-        this._password = _password;
-        this._fullname = _fullname;
+    public Account(String username, String password, String fullname, boolean deleteflag) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.deleteflag = deleteflag;
     }
-    public Account(Account _account) {
-        this._username = _account.getUsername();
-        this._password = _account.getPassword();
-        this._fullname = _account.getFullname();
+
+    public Account(Account account) {
+        this.username = account.getUsername();
+        this.password = account.getPassword();
+        this.fullname = account.getFullname();
+        this.deleteflag = account.getDeleteflag();
+    }
+
+    public boolean equal(Account account) {
+        return this.username.equals(account.getUsername())
+                && this.password.equals(account.getPassword())
+                && this.fullname.equals(account.getFullname());
     }
 
     public String getUsername() {
-        return _username;
+        return username;
     }
 
-    public void setUsername(String _username) {
-        this._username = _username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return _password;
+        return password;
     }
 
-    public void setPassword(String _password) {
-        this._password = _password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFullname() {
-        return _fullname;
+        return fullname;
     }
 
-    public void setFullname(String _fullname) {
-        this._fullname = _fullname;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
-    private String _username;
-    private String _password;
-    private String _fullname;
 
-    
+    public boolean getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(boolean deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    @Override
+    public String toString() {
+        return username
+                + " - " + fullname
+                + (deleteflag ? " - Khóa" : " - Mở khóa");
+    }
 }

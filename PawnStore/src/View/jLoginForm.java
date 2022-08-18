@@ -4,28 +4,32 @@
  */
 package View;
 
+import Controller.ActivityHistoryController;
 import Controller.LoginController;
-import Support.*;
-import javax.swing.*;
+import Model.Account;
+import Model.ActivityHistory;
+import Model.StaticUser;
+import Support.MessageSupport;
+import Support.Support;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.util.Date;
+import javax.swing.JFrame;
 
+@SuppressWarnings("ClassWithoutLogger")
 public class JLoginForm extends JFrame {
 
-    LoginController loginController = new LoginController();
+    private static final long serialVersionUID = 1L;
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public JLoginForm() {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
-        jtfUsername.setText(Encoding.decrypt("XOgeo1KhuegHhb4yJ/+OJg=="));
-        jpfPassword.setText(Encoding.decrypt("XOgeo1KhuegHhb4yJ/+OJg=="));
+        jtfUsername.setText("admin");
+        jpfPassword.setText("admin");
         jpfPassword.setEchoChar('*');
-    }
-
-    public static void setDefaultPassword() {
-        jpfPassword.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -83,7 +87,7 @@ public class JLoginForm extends JFrame {
         jbtnLogin.setText("Đăng nhập");
         jbtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Login(evt);
+                jbtnLoginActionPerformed(evt);
             }
         });
 
@@ -95,9 +99,9 @@ public class JLoginForm extends JFrame {
         jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jchbShowHirePassword.setForeground(new java.awt.Color(0, 0, 0));
         jchbShowHirePassword.setText("Hiện mật khẩu");
-        jchbShowHirePassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jchbShowHirePasswordMouseClicked(evt);
+        jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jchbShowHirePasswordActionPerformed(evt);
             }
         });
 
@@ -108,14 +112,14 @@ public class JLoginForm extends JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jchbShowHirePassword)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbUserName)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jbtnLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jpfPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(jtfUsername))))
                 .addGap(184, 184, 184))
@@ -160,7 +164,7 @@ public class JLoginForm extends JFrame {
                 .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jlbLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -180,30 +184,30 @@ public class JLoginForm extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @SuppressWarnings({"CallToPrintStackTrace", "IncompatibleEquals"})
-
-
-    private void Login(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Login
-        if (CheckSupport.isEmpty(jtfUsername.getText())) {
-            MessageSupport.ShowError(null, "Lỗi", "Tên đăng nhập không hợp lệ.");
-            return;
-        }
-
+    private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
         String username = jtfUsername.getText();
         String password = String.valueOf(jpfPassword.getPassword());
-
-        if (loginController.login(username, password)) {
-            JHomePageForm jHomePageForm = new JHomePageForm(this);
-            jHomePageForm.setVisible(true);
-            this.setVisible(false);
-        } else {
-            MessageSupport.ShowError(null, "Đăng nhập thất bại!", "Tên đăng nhâp hoặc mật khẩu không đúng.!");
+        Account account = LoginController.getCurrentInstance().login(username, password);
+        if (account != null) {
+            if (!account.getDeleteflag()) {
+                ActivityHistoryController.getCurrentInstance().insert(
+                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
+                                account, "Đăng nhập", "", ""));
+                StaticUser.setCurrentInstanceUser(account);
+                JHomePageForm homePageForm = new JHomePageForm(this);
+                homePageForm.setVisible(true);
+                this.dispose();
+            } else {
+                MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa.");
+            }
         }
-    }//GEN-LAST:event_Login
+    }//GEN-LAST:event_jbtnLoginActionPerformed
 
-    private void jchbShowHirePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordMouseClicked
+    private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
         Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
-    }//GEN-LAST:event_jchbShowHirePasswordMouseClicked
+    }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
+
+    @SuppressWarnings({"CallToPrintStackTrace", "IncompatibleEquals"})
 
     /**
      * @param args the command line arguments

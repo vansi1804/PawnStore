@@ -1,92 +1,94 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
 
-import java.util.Date;
+import Support.CheckSupport;
 
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class InterestPayment {
+
+    private PawnCoupon pawnCoupon;
+    private int times;
+    private String paymentDate;
+    private int money;
+    private int debt;
+    private String note;
 
     public InterestPayment() {
     }
 
-    public InterestPayment(PawnCoupon _pawnCoupon, int _times, String _paymentDate, String _paymentUntilDate, float _money, float _debt, String _note) {
-        this._pawnCoupon = _pawnCoupon;
-        this._times = _times;
-        this._paymentDate = _paymentDate;
-        this._paymentUntilDate = _paymentUntilDate;
-        this._money = _money;
-        this._debt = _debt;
-        this._note = _note;
+    public InterestPayment(PawnCoupon pawnCoupon, int times, String paymentDate, int money, int debt, String note) {
+        this.pawnCoupon = pawnCoupon;
+        this.times = times;
+        this.paymentDate = paymentDate;
+        this.money = money;
+        this.debt = debt;
+        this.note = note;
     }
 
     public PawnCoupon getPawnCoupon() {
-        return _pawnCoupon;
+        return pawnCoupon;
     }
 
-    public void setPawnCoupon(PawnCoupon _pawnCoupon) {
-        this._pawnCoupon = _pawnCoupon;
+    public void setPawnCoupon(PawnCoupon pawnCoupon) {
+        this.pawnCoupon = pawnCoupon;
     }
 
     public int getTimes() {
-        return _times;
+        return times;
     }
 
-    public void setTimes(int _times) {
-        this._times = _times;
+    public void setTimes(int times) {
+        this.times = times;
     }
 
     public String getPaymentDate() {
-        return _paymentDate;
+        return paymentDate;
     }
 
-    public void setPaymentDate(String _paymentDate) {
-        this._paymentDate = _paymentDate;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public String getPaymentUntilDate() {
-        return _paymentUntilDate;
+    public int getMoney() {
+        return money;
     }
 
-    public void setPaymentUntilDate(String _paymentUntilDate) {
-        this._paymentUntilDate = _paymentUntilDate;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public float getMoney() {
-        return _money;
+    public int getDebt() {
+        return debt;
     }
 
-    public void setMoney(float _money) {
-        this._money = _money;
-    }
-
-    public float getDebt() {
-        return _debt;
-    }
-
-    public void setDebt(float _debt) {
-        this._debt = _debt;
+    public void setDebt(int debt) {
+        this.debt = debt;
     }
 
     public String getNote() {
-        return _note;
+        return note;
     }
 
-    public void setNote(String _note) {
-        this._note = _note;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    private PawnCoupon _pawnCoupon;
-    private int _times;
-    private String _paymentDate;
-    private String _paymentUntilDate;
-    private float _money;
-    private float _debt;
-    private String _note;
+    
+    @Override
+    public String toString() {
+        return pawnCoupon.getId()
+                + " - " + times
+                + " - " + paymentDate
+                + " - " + money
+                + " - " + debt
+                + (!CheckSupport.isBlank(note) ? (" - " + note) : "");
+
+    }
 }

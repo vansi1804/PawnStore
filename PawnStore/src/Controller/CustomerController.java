@@ -1,349 +1,102 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controller;
 
-import java.util.ArrayList;
 import Model.Customer;
-import Model.PawnCoupon;
-import Support.*;
-import Support.DBConnectionSupport;
-import View.JLoginForm;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Service.ICustomerService;
+import Service.impl.CustomerService;
+import java.util.ArrayList;
 
+/**
+ *
+ * @author NVS
+ */
+@SuppressWarnings("ClassWithoutLogger")
 public class CustomerController {
 
-    public static boolean remove(String id) {
-        return Support.removeData("Customer", "_id", id);
+    private static CustomerController instance;
+
+    public static CustomerController getCurrentInstance() {
+        if (instance == null) {
+            instance = new CustomerController();
+        }
+        return instance;
     }
 
-    public ArrayList<Customer> _customersList = null;
+    private final ICustomerService customerService = new CustomerService();
 
     public ArrayList<Customer> getList() {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM Customer";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            rs = prestate.executeQuery();
-            _customersList = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    _customersList.add(new Customer(rs.getString("_id"), rs.getString("_fullname"), rs.getString("_gender"), rs.getString("_phonenumber"), rs.getString("_address")));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return _customersList;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+        return customerService.getList();
     }
 
-    public boolean checkExistedCustomer(String customerID) {
-        return findByID(customerID) != null;
+    public Customer getCustomer(String id) {
+        return customerService.getCustomer(id);
     }
 
-    public boolean add(Customer customer) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "Insert into Customer(_id,_fullname,_gender,_phonenumber,_address) values (?,?,?,?,?)";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, customer.getId());
-            prestate.setString(2, customer.getFullname());
-            prestate.setString(3, customer.getGender());
-            prestate.setString(4, customer.getPhonenumber());
-            prestate.setString(5, customer.getAddress());
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    public boolean insert(Customer customer) {
+        return customerService.insert(customer);
     }
 
-    public boolean edit(Customer customer) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "Update Customer set _fullname = ?, _gender = ?, _phonenumber = ?, _address = ? Where _id = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, customer.getFullname());
-            prestate.setString(2, customer.getGender());
-            prestate.setString(3, customer.getPhonenumber());
-            prestate.setString(4, customer.getAddress());
-            prestate.setString(5, customer.getId());
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    public boolean update(Customer customer) {
+        return customerService.update(customer);
     }
 
-    public ArrayList<Customer> find(Customer customer) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-
-        String query2 = "";
-        String queryId = " _id like '%" + customer.getId() +"%'";
-        String queryFullname = " _fullname like N'%" + customer.getFullname()+"%'";
-        String queryGender = " _gender like N'%" + customer.getGender()+"%'";
-        String queryPhonenumber = " _phonenumber like '%" + customer.getPhonenumber()+"%'";
-        String queryAddress = " _address like N'%" + customer.getAddress()+"%'";
-        if (!CheckSupport.isEmpty(customer.getId())) {
-                query2 += " WHERE " + queryId;
-            if (!CheckSupport.isEmpty(customer.getFullname())) {
-                query2 += " and " + queryFullname;
-                if (!CheckSupport.isEmpty(customer.getGender())) {
-                    query2 += " and " + queryGender;
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                } else {
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                }
-            }else{
-                if (!CheckSupport.isEmpty(customer.getGender())) {
-                    query2 += " and " + queryGender;
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                } else {
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                }
-            }
-        }else{
-            if (!CheckSupport.isEmpty(customer.getFullname())) {
-                query2 += " WHERE " + queryFullname;
-                if (!CheckSupport.isEmpty(customer.getGender())) {
-                    query2 += " and " + queryGender;
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                } else {
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                }
-            }else{
-                if (!CheckSupport.isEmpty(customer.getGender())) {
-                    query2 += " WHERE " + queryGender;
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " and " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    }
-                } else {
-                    if (!CheckSupport.isEmpty(customer.getPhonenumber())) {
-                        query2 += " WHERE " + queryPhonenumber;
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " and " + queryAddress;
-                        }
-                    } else {
-                        if (!CheckSupport.isEmpty(customer.getAddress())) {
-                            query2 += " WHERE " + queryAddress;
-                        }
-                    }
-                }
-            }
-        }
-        String query = " SELECT * FROM Customer " + query2;
-
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            rs = prestate.executeQuery();
-            _customersList = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    _customersList.add(new Customer(rs.getString("_id"), rs.getString("_fullname"), rs.getString("_gender"), rs.getString("_phonenumber"), rs.getString("_address")));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return _customersList;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+    public boolean delete(Customer customer) {
+        return customerService.delete(customer);
     }
 
-    public Customer findByID(String id) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM Customer where _id = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, id);
-            rs = prestate.executeQuery();
-            _customersList = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    return new Customer(rs.getString("_id"), rs.getString("_fullname"), rs.getString("_gender"), rs.getString("_phonenumber"), rs.getString("_address"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+    public ArrayList<Customer> findCustomerByIDKey(ArrayList<Customer> customers, String idKey) {
+        return customerService.findCustomerByIDKey(customers, idKey);
     }
 
-    public ArrayList<PawnCoupon> getPawnHistory(String customerID) {
-        PawnCouponController couponController = new PawnCouponController();
-        ArrayList<PawnCoupon> list = couponController.getPawnCouponList();
-        ArrayList<PawnCoupon> listPawnHistory = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            if (CheckSupport.equals(list.get(i).getCustomer().getId(), customerID)) {
-                listPawnHistory.add(list.get(i));
-            }
-        }
-        return listPawnHistory;
+    public ArrayList<Customer> findCustomerByNameKey(ArrayList<Customer> customers, String nameKey) {
+        return customerService.findCustomerByNameKey(customers, nameKey);
     }
-   
 
+    public ArrayList<Customer> findCustomerByGenderKey(ArrayList<Customer> customers, String gender) {
+        return customerService.findCustomerByGenderKey(customers, gender);
+    }
+
+    public ArrayList<Customer> findCustomerByPhonenumberKey(ArrayList<Customer> customers, String phonenumberKey) {
+        return customerService.findCustomerByPhonenumberKey(customers, phonenumberKey);
+    }
+
+    public ArrayList<Customer> findCustomerByAddressKey(ArrayList<Customer> customers, String addressKey) {
+        return customerService.findCustomerByAddressKey(customers, addressKey);
+    }
+
+    public ArrayList<Customer> findCustomerByDeleteFlagKey(ArrayList<Customer> customers, boolean deleteflag) {
+        return customerService.findCustomerByDeleteFlagKey(customers, deleteflag);
+    }
+
+    public ArrayList<Customer> findCustomerByIDKey(String idKey) {
+        return customerService.findCustomerByIDKey(idKey);
+    }
+
+    public ArrayList<Customer> findCustomerByFullnameKey(String fullnameKey) {
+        return customerService.findCustomerByFullnameKey(fullnameKey);
+    }
+
+    public ArrayList<Customer> findCustomerByGenderKey(String genderKey) {
+        return customerService.findCustomerByGenderKey(genderKey);
+    }
+
+    public ArrayList<Customer> findCustomerByPhonenumberKey(String phonenumberKey) {
+        return customerService.findCustomerByPhonenumberKey(phonenumberKey);
+    }
+
+    public ArrayList<Customer> findCustomerByAddressKey(String addressKey) {
+        return customerService.findCustomerByAddressKey(addressKey);
+    }
+
+    public ArrayList<Customer> findCustomerByDeleteflagKey(String deleteflagKey) {
+        return customerService.findCustomerByDeleteflagKey(deleteflagKey);
+    }
+
+    public ArrayList<Customer> findCustomerByKey(String idKey, String fullnameKey,
+            String genderKey, String phonenumberKey, String addressKey, String deleteflagKey) {
+        return customerService.findCustomerByKey(idKey, fullnameKey, genderKey, phonenumberKey, addressKey, deleteflagKey);
+    }
 }

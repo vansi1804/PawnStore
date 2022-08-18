@@ -4,47 +4,76 @@
  */
 package Model;
 
-import java.util.Date;
-
 /**
  *
  * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class ActivityHistory {
+
+    private String time;
+    private Account account;
+    private String activity;
+    private String objectname;
+    private String infor;
 
     public ActivityHistory() {
     }
 
-    public ActivityHistory(String _activeTime, Account _account, String _active) {
-        this._activeTime = _activeTime;
-        this._account = _account;
-        this._active = _active;
+    public ActivityHistory(String time, Account account, String activity, String objectname, String infor) {
+        this.time = time;
+        this.account = account;
+        this.activity = activity;
+        this.objectname = objectname;
+        this.infor = infor;
     }
 
-    public String getActiveTime() {
-        return _activeTime;
+    public void copy(ActivityHistory activityHistory){
+        time = activityHistory.getTime();
+        account = activityHistory.getAccount();
+        activity = activityHistory.getActivity();
+        objectname = activityHistory.getObjectname();
+        infor = activityHistory.getInfor();
+    }
+    
+    public String getTime() {
+        return time;
     }
 
-    public void setActiveTime(String _activeTime) {
-        this._activeTime = _activeTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Account getAccount() {
-        return _account;
+        return account;
     }
 
-    public void setAccount(Account _account) {
-        this._account = _account;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public String getActive() {
-        return _active;
+    public String getActivity() {
+        return activity;
     }
 
-    public void setActive(String _active) {
-        this._active = _active;
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
-    private String _activeTime;
-    private Account _account;
-    private String _active;
+
+    public String getObjectname() {
+        return objectname;
+    }
+
+    public void setObjectname(String objectname) {
+        this.objectname = objectname;
+    }
+
+    public String getInfor() {
+        return infor;
+    }
+
+    public void setInfor(String infor) {
+        this.infor = infor;
+    }
+
 }

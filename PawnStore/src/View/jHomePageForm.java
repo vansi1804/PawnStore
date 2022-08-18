@@ -4,16 +4,22 @@
  */
 package View;
 
-import Model.*;
+import Controller.ActivityHistoryController;
+import Model.ActivityHistory;
+import Model.StaticUser;
+import Support.MessageSupport;
+import Support.Support;
 import View.JTabbedPaneForm.JAccountPanelForm;
-import javax.swing.JFrame;
-import Support.*;
-import View.JTabbedPaneForm.JActivityHistoryPanelForm;
 import View.JTabbedPaneForm.JCustomerPanelForm;
 import View.JTabbedPaneForm.JPawnCouponPanelForm;
 import View.JTabbedPaneForm.JProductPanelForm;
 import View.JTabbedPaneForm.JProfilePanelForm;
+import View.JTabbedPaneForm.JStatisticPanelForm;
 import java.awt.Toolkit;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -21,53 +27,64 @@ import javax.swing.JPanel;
  *
  * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class JHomePageForm extends javax.swing.JFrame {
-
+    
+    private static final long serialVersionUID = 1L;
+    private static int index = 1;
+    
     private static JFrame jfparrent = null;
     private JPanel jaccounttab = null;
     private JPanel jprofiletab = null;
     private JPanel jcustomertab = null;
     private JPanel jproducttab = null;
     private JPanel jpawncoupontab = null;
-    private JPanel jactivehistorytab = null;
+    private JPanel jstatistictab = null;
     
     public JHomePageForm() {
         initComponents();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
-        Support.ScaleImage(jHomePagePanel, getClass().getResource("/Image/HomePageImage.png"));
-        this.jfparrent = jfparrent;
-        this.setLocationRelativeTo(null);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setProfileName(User.getCurrentInstance().getUsername());
-        Support.getClock(jlblClock,true);
-        if (CheckSupport.equals(User.getCurrentInstance().getUsername(), "admin")) {
-            isAdmin(true);
-        }else{
-            isAdmin(false);
-        }
     }
     
+    @SuppressWarnings({"static-access", "OverridableMethodCallInConstructor", "SleepWhileInLoop"})
     public JHomePageForm(JFrame jfparrent) {
         initComponents();
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                ActivityHistoryController.getCurrentInstance().insert(
+                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
+                                StaticUser.getCurrentInstanceUser(), "Đăng xuất", "", ""));
+            }
+        });
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setProfileName(User.getCurrentInstance().getFullname());
-        Support.getClock(jlblClock,true);
-        if (CheckSupport.equals(User.getCurrentInstance().getUsername(), "admin")) {
+        if (StaticUser.getCurrentInstanceUser().getUsername().equals("admin")) {
             isAdmin(true);
-        }else{
+        } else {
             isAdmin(false);
         }
+        Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePageImage0.png"));
+        @SuppressWarnings("CollectionWithoutInitialCapacity")
+        ArrayList<URL> imagesList = new ArrayList<>();
+        imagesList.add(getClass().getResource("/Image/HomePageImage0.png"));
+        imagesList.add(getClass().getResource("/Image/HomePageImage1.png"));
+        imagesList.add(getClass().getResource("/Image/HomePageImage2.jpg"));
+        imagesList.add(getClass().getResource("/Image/HomePageImage3.png"));
+        imagesList.add(getClass().getResource("/Image/HomePageImage4.png"));
+        imagesList.add(getClass().getResource("/Image/HomePageImage5.jpg"));
+        Support.setSlideImage(jlbHomePage, imagesList);
+        
+        Support.getClock(jlblClock, true);
+        setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
     }
-
+    
     public static void setProfileName(String fullname) {
-        jlblProfile.setText(fullname);
+        jlblProfile.setText(fullname + "     ");
     }
     
-    
-    public void isAdmin(boolean b){
+    public void isAdmin(boolean b) {
         jAccountMenuItem.setEnabled(b);
     }
 
@@ -80,56 +97,61 @@ public class JHomePageForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jHomePagePanel = new javax.swing.JPanel();
-        jHomePageTabbedPane = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jlblProfile = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlblProfile1 = new javax.swing.JLabel();
         jlblClock = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jHomePageTabbedPane = new javax.swing.JTabbedPane();
+        jlbHomePage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jSystemMenu = new javax.swing.JMenu();
         jLogOutMenuItem = new javax.swing.JMenuItem();
-        jActiveHistoryMenuItem = new javax.swing.JMenuItem();
         jManagermentMenu = new javax.swing.JMenu();
         jAccountMenuItem = new javax.swing.JMenuItem();
         jCustomerMenuItem = new javax.swing.JMenuItem();
         jProductMenuItem = new javax.swing.JMenuItem();
         jPawnCouponMenuItem = new javax.swing.JMenuItem();
-        jReportMenuItem = new javax.swing.JMenu();
+        jStatisticMenu = new javax.swing.JMenu();
+        jStatisticMenuItem = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phầm mềm quản lý cầm dùm đồ");
         setBackground(new java.awt.Color(102, 102, 102));
 
-        jHomePagePanel.setBackground(new java.awt.Color(204, 204, 204));
+        jHomePagePanel.setBackground(new java.awt.Color(0, 255, 255));
         jHomePagePanel.setForeground(new java.awt.Color(255, 255, 255));
 
-        jHomePageTabbedPane.setBackground(new java.awt.Color(204, 204, 204));
-        jHomePageTabbedPane.setForeground(new java.awt.Color(0, 0, 0));
-        jHomePageTabbedPane.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jPanel3.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(0, 255, 255));
         jPanel3.setForeground(new java.awt.Color(0, 0, 0));
 
         jlblProfile.setBackground(new java.awt.Color(204, 204, 204));
-        jlblProfile.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlblProfile.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
         jlblProfile.setForeground(new java.awt.Color(255, 0, 0));
-        jlblProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblProfile.setText("Họ và tên");
+        jlblProfile.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblProfile.setText("Họ và tên     ");
+        jlblProfile.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jlblProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlblProfileMouseClicked(evt);
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Hôm nay:      ");
+        jlblProfile1.setBackground(new java.awt.Color(204, 204, 204));
+        jlblProfile1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jlblProfile1.setForeground(new java.awt.Color(255, 0, 0));
+        jlblProfile1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblProfile1.setText("Hôm nay :");
+        jlblProfile1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jlblClock.setBackground(new java.awt.Color(204, 204, 204));
-        jlblClock.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlblClock.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jlblClock.setForeground(new java.awt.Color(255, 0, 0));
+        jlblClock.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlblClock.setText("Clock");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -137,45 +159,52 @@ public class JHomePageForm extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(jlblProfile1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlblClock, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addComponent(jlblProfile)
-                .addContainerGap())
+                .addComponent(jlblClock, javax.swing.GroupLayout.PREFERRED_SIZE, 898, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlblProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jlblClock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jlblProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlblProfile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jlblClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlblProfile1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jHomePageTabbedPane.setBackground(new java.awt.Color(204, 204, 204));
+        jHomePageTabbedPane.setForeground(new java.awt.Color(0, 0, 0));
+        jHomePageTabbedPane.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jPanel1.add(jHomePageTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 630));
+        jPanel1.add(jlbHomePage, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 30, 1270, 600));
 
         javax.swing.GroupLayout jHomePagePanelLayout = new javax.swing.GroupLayout(jHomePagePanel);
         jHomePagePanel.setLayout(jHomePagePanelLayout);
         jHomePagePanelLayout.setHorizontalGroup(
             jHomePagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jHomePageTabbedPane)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jHomePagePanelLayout.setVerticalGroup(
             jHomePagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jHomePagePanelLayout.createSequentialGroup()
-                .addComponent(jHomePageTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(153, 153, 153));
         jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuBar1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jMenuBar1.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
 
-        jSystemMenu.setBackground(new java.awt.Color(204, 204, 204));
+        jSystemMenu.setBackground(new java.awt.Color(153, 153, 153));
         jSystemMenu.setForeground(new java.awt.Color(0, 0, 0));
         jSystemMenu.setText("Hệ thống");
 
-        jLogOutMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jLogOutMenuItem.setBackground(new java.awt.Color(204, 204, 204));
         jLogOutMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jLogOutMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jLogOutMenuItem.setText("Đăng xuất");
@@ -186,24 +215,13 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jSystemMenu.add(jLogOutMenuItem);
 
-        jActiveHistoryMenuItem.setBackground(new java.awt.Color(255, 255, 255));
-        jActiveHistoryMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
-        jActiveHistoryMenuItem.setForeground(new java.awt.Color(0, 0, 0));
-        jActiveHistoryMenuItem.setText("Lịch sử hoạt động");
-        jActiveHistoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jActiveHistoryMenuItemActionPerformed(evt);
-            }
-        });
-        jSystemMenu.add(jActiveHistoryMenuItem);
-
         jMenuBar1.add(jSystemMenu);
 
-        jManagermentMenu.setBackground(new java.awt.Color(204, 204, 204));
+        jManagermentMenu.setBackground(new java.awt.Color(153, 153, 153));
         jManagermentMenu.setForeground(new java.awt.Color(0, 0, 0));
         jManagermentMenu.setText("Quản lý");
 
-        jAccountMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jAccountMenuItem.setBackground(new java.awt.Color(204, 204, 204));
         jAccountMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jAccountMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jAccountMenuItem.setText("Tài khoản");
@@ -214,7 +232,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jAccountMenuItem);
 
-        jCustomerMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jCustomerMenuItem.setBackground(new java.awt.Color(204, 204, 204));
         jCustomerMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jCustomerMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jCustomerMenuItem.setText("Khách hàng");
@@ -225,7 +243,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jCustomerMenuItem);
 
-        jProductMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jProductMenuItem.setBackground(new java.awt.Color(204, 204, 204));
         jProductMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jProductMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jProductMenuItem.setText("Hàng hóa");
@@ -236,7 +254,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         });
         jManagermentMenu.add(jProductMenuItem);
 
-        jPawnCouponMenuItem.setBackground(new java.awt.Color(255, 255, 255));
+        jPawnCouponMenuItem.setBackground(new java.awt.Color(204, 204, 204));
         jPawnCouponMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jPawnCouponMenuItem.setForeground(new java.awt.Color(0, 0, 0));
         jPawnCouponMenuItem.setText("Hợp đồng");
@@ -249,10 +267,22 @@ public class JHomePageForm extends javax.swing.JFrame {
 
         jMenuBar1.add(jManagermentMenu);
 
-        jReportMenuItem.setBackground(new java.awt.Color(204, 204, 204));
-        jReportMenuItem.setForeground(new java.awt.Color(0, 0, 0));
-        jReportMenuItem.setText("Thống kê");
-        jMenuBar1.add(jReportMenuItem);
+        jStatisticMenu.setBackground(new java.awt.Color(153, 153, 153));
+        jStatisticMenu.setForeground(new java.awt.Color(0, 0, 0));
+        jStatisticMenu.setText("Thống kê");
+
+        jStatisticMenuItem.setBackground(new java.awt.Color(204, 204, 204));
+        jStatisticMenuItem.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
+        jStatisticMenuItem.setForeground(new java.awt.Color(0, 0, 0));
+        jStatisticMenuItem.setText("Thống kê");
+        jStatisticMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jStatisticMenuItemActionPerformed(evt);
+            }
+        });
+        jStatisticMenu.add(jStatisticMenuItem);
+
+        jMenuBar1.add(jStatisticMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -264,7 +294,7 @@ public class JHomePageForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jHomePagePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jHomePagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -278,12 +308,15 @@ public class JHomePageForm extends javax.swing.JFrame {
         }
         jHomePageTabbedPane.setSelectedComponent(jaccounttab);
     }//GEN-LAST:event_jAccountMenuItemActionPerformed
-
+    
+    @SuppressWarnings("static-access")
     private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
-        if (MessageSupport.Confirm(null, "Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
+        if (MessageSupport.MessageConfirm("Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
+            ActivityHistoryController.getCurrentInstance().insert(
+                    new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
+                            StaticUser.getCurrentInstanceUser(), "Đăng xuất", "", ""));
             this.dispose();
             this.jfparrent.setVisible(true);
-            JLoginForm.setDefaultPassword();
         }
     }//GEN-LAST:event_jLogOutMenuItemActionPerformed
 
@@ -323,14 +356,14 @@ public class JHomePageForm extends javax.swing.JFrame {
         jHomePageTabbedPane.setSelectedComponent(jpawncoupontab);
     }//GEN-LAST:event_jPawnCouponMenuItemActionPerformed
 
-    private void jActiveHistoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActiveHistoryMenuItemActionPerformed
-        String title = "Lịch sử hoạt động";
+    private void jStatisticMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStatisticMenuItemActionPerformed
+        String title = "Thống kê";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jactivehistorytab = new JActivityHistoryPanelForm();
-            jHomePageTabbedPane.addTab(title, jactivehistorytab);
+            jstatistictab = new JStatisticPanelForm();
+            jHomePageTabbedPane.addTab(title, jstatistictab);
         }
-        jHomePageTabbedPane.setSelectedComponent(jactivehistorytab);
-    }//GEN-LAST:event_jActiveHistoryMenuItemActionPerformed
+        jHomePageTabbedPane.setSelectedComponent(jstatistictab);
+    }//GEN-LAST:event_jStatisticMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,29 +394,30 @@ public class JHomePageForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JHomePageForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new JHomePageForm().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jAccountMenuItem;
-    private javax.swing.JMenuItem jActiveHistoryMenuItem;
     private javax.swing.JMenuItem jCustomerMenuItem;
     private javax.swing.JPanel jHomePagePanel;
-    private javax.swing.JTabbedPane jHomePageTabbedPane;
-    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JTabbedPane jHomePageTabbedPane;
     private javax.swing.JMenuItem jLogOutMenuItem;
     private javax.swing.JMenu jManagermentMenu;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem jPawnCouponMenuItem;
     private javax.swing.JMenuItem jProductMenuItem;
-    private javax.swing.JMenu jReportMenuItem;
+    private javax.swing.JMenu jStatisticMenu;
+    private javax.swing.JMenuItem jStatisticMenuItem;
     private javax.swing.JMenu jSystemMenu;
-    private javax.swing.JLabel jlblClock;
+    private javax.swing.JLabel jlbHomePage;
+    public static javax.swing.JLabel jlblClock;
     public static javax.swing.JLabel jlblProfile;
+    public static javax.swing.JLabel jlblProfile1;
     // End of variables declaration//GEN-END:variables
 }

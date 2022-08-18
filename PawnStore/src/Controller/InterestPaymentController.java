@@ -1,142 +1,51 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Controller;
 
 import Model.InterestPayment;
 import Model.PawnCoupon;
-import Support.DBConnectionSupport;
-import Support.Support;
-import View.JLoginForm;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Service.IInterestPaymentService;
+import Service.impl.InterestPaymentService;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ *
+ * @author NVS
+ */
+@SuppressWarnings({"ClassMayBeInterface", "ClassWithoutLogger"})
 public class InterestPaymentController {
 
-    public static ArrayList<InterestPayment> interestPayments = null;
+    private static InterestPaymentController instance;
+
+    public static InterestPaymentController getCurrentInstance() {
+        if (instance == null) {
+            instance = new InterestPaymentController();
+        }
+        return instance;
+    }
+    
+    private final IInterestPaymentService interestPaymentService = new InterestPaymentService();
 
     public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM InterestPayment WHERE _pawCouponID = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, pawnCoupon.getId());
-            rs = prestate.executeQuery();
-            interestPayments = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    int times = rs.getInt(2);
-                    String paymentDate = rs.getString(3);
-                    String paymentUntilDate = rs.getString(4);
-                    float money = rs.getFloat(5);
-                    float debt = rs.getFloat(6);
-                    String note = rs.getString(7);
-                    interestPayments.add(new InterestPayment(pawnCoupon, times, paymentDate, paymentUntilDate, money, debt, note));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return interestPayments;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+        return interestPaymentService.getList(pawnCoupon);
     }
 
-    public boolean add(InterestPayment interestPayment) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "INSERT INTO InterestPayment(_pawCouponID, _times, _paymentDate, _paymentUntilDate,_money, _debt, _note) VALUES (?,?,?,?,?,?,?)";
-
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, interestPayment.getPawnCoupon().getId());
-            prestate.setString(2, String.valueOf(interestPayment.getTimes()));
-            prestate.setString(3, interestPayment.getPaymentDate());
-            prestate.setString(4, interestPayment.getPaymentUntilDate());
-            prestate.setString(5, String.valueOf(interestPayment.getMoney()));
-            prestate.setString(6, String.valueOf(interestPayment.getDebt()));
-            prestate.setString(7, interestPayment.getNote());
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    public InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times) {
+        return interestPaymentService.getInterestPayment(pawnCoupon, times);
     }
 
-    public boolean edit(InterestPayment interestPayment) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "UPDATE InterestPayment SET _paymentDate = ?, _paymentUntilDate = ?, _money = ?, _debt = ?, _note = ? WHERE _pawCouponID = ? and _times = ?";
-
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, interestPayment.getPaymentDate());
-            prestate.setString(2, interestPayment.getPaymentUntilDate());
-            prestate.setString(3, String.valueOf(interestPayment.getMoney()));
-            prestate.setString(4, String.valueOf(interestPayment.getDebt()));
-            prestate.setString(5, interestPayment.getNote());
-            prestate.setString(6, interestPayment.getPawnCoupon().getId());
-            prestate.setString(7, String.valueOf(interestPayment.getTimes()));
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    public boolean insert(InterestPayment interestPayment) {
+        return interestPaymentService.insert(interestPayment);
     }
+
+    public boolean update(InterestPayment interestPayment) {
+        return interestPaymentService.update(interestPayment);
+    }
+
+    public boolean delete(InterestPayment interestPayment) {
+        return interestPaymentService.delete(interestPayment);
+    }
+
 }

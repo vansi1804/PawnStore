@@ -1,50 +1,63 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
 
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
-public class Product extends TypeOfProduct{
+@SuppressWarnings("ClassWithoutLogger")
+public class Product {
+
+    private String id;
+    private TypeOfProduct typeOfProduct;
+    private String name;
+    private String info;
+    private String status;
 
     public Product() {
-        super();
     }
 
-    public Product(String id, String name, String information,String status, TypeOfProduct typeOfProduct) {
-        super(typeOfProduct);
+    public Product(String id, TypeOfProduct typeOfProduct, String name, String info, String status) {
         this.id = id;
+        this.typeOfProduct = typeOfProduct;
         this.name = name;
-        this.information = information;
+        this.info = info;
         this.status = status;
     }
 
-    public String getProductID() {
+    public String getId() {
         return id;
     }
 
-    public void setProductID(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getProductName() {
+    public TypeOfProduct getTypeOfProduct() {
+        return typeOfProduct;
+    }
+
+    public void setTypeOfProduct(TypeOfProduct typeOfProduct) {
+        this.typeOfProduct = typeOfProduct;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setProductName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getInformation() {
-        return information;
+    public String getInfo() {
+        return info;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getStatus() {
@@ -54,10 +67,10 @@ public class Product extends TypeOfProduct{
     public void setStatus(String status) {
         this.status = status;
     }
-    
 
-    private String id;
-    private String name;
-    private String information;
-    private String status;
+    @Override
+    public String toString() {
+        return id + " - " + typeOfProduct.getId() + " - " + name 
+                + " - " + info + " - " + status;
+    }
 }

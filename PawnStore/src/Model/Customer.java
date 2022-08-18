@@ -1,70 +1,87 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
 
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class Customer {
 
-    public String getId() {
-        return _id;
-    }
-
-    public void setId(String _id) {
-        this._id = _id;
-    }
-
-    public String getFullname() {
-        return _fullname;
-    }
-
-    public void setFullname(String _fullname) {
-        this._fullname = _fullname;
-    }
-
-    public String getGender() {
-        return _gender;
-    }
-
-    public void setGender(String _gender) {
-        this._gender = _gender;
-    }
-
-    public String getAddress() {
-        return _address;
-    }
-
-    public void setAddress(String _address) {
-        this._address = _address;
-    }
-
-    public String getPhonenumber() {
-        return _phonenumber;
-    }
-
-    public void setPhonenumber(String _phonenumber) {
-        this._phonenumber = _phonenumber;
-    }
+    private String id;
+    private String fullname;
+    private String gender;
+    private String phonenumber;
+    private String address;
+    private boolean deleteflag;
 
     public Customer() {
     }
 
-    public Customer(String _id, String _fullname, String _gender, String _phonenumber,String _address) {
-        this._id = _id;
-        this._fullname = _fullname;
-        this._gender = _gender;
-        this._address = _address;
-        this._phonenumber = _phonenumber;
+    public Customer(String id, String fullname, String gender, String phonenumber, String address, boolean deleteflag) {
+        this.id = id;
+        this.fullname = fullname;
+        this.gender = gender;
+        this.phonenumber = phonenumber;
+        this.address = address;
+        this.deleteflag = deleteflag;
     }
 
-    private String _id;
-    private String _fullname;
-    private String _gender;
-    private String _address;
-    private String _phonenumber;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public boolean getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(boolean deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    @Override
+    public String toString() {
+        return id + " - " + fullname + " - " + gender + " - " + phonenumber
+                + " - " + address + (deleteflag ? " - Ngưng phục vụ" : " - Phục vụ");
+    }
+
 }

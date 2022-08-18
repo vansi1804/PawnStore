@@ -1,170 +1,66 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Controller;
 
 import Model.Account;
-import Support.*;
-import Support.DBConnectionSupport;
-import View.JLoginForm;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Service.IAccountService;
+import Service.impl.AccountService;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ *
+ * @author NVS
+ */
+@SuppressWarnings("ClassWithoutLogger")
 public class AccountController {
 
-    private ArrayList<Account> _accountList = null;
+    private static AccountController instance;
 
-    public ArrayList<Account> getAccountsList() {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM Account";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            rs = prestate.executeQuery();
-            _accountList = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    _accountList.add(new Account(Encoding.decrypt(rs.getString("_username")),
-                             Encoding.decrypt(rs.getString("_password")), rs.getString("_fullname")));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return _accountList;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+    public static AccountController getCurrentInstance() {
+        if (instance == null) {
+            instance = new AccountController();
         }
-        return null;
+        return instance;
     }
 
-    public boolean addNewAccount(Account _account) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "Insert into Account(_username,_password,_fullname) values (?,?,?)";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, Encoding.encrypt(_account.getUsername()));
-            prestate.setString(2, Encoding.encrypt(_account.getPassword()));
-            prestate.setString(3, _account.getFullname());
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    private final IAccountService accountService = new AccountService();
+
+    public ArrayList<Account> getList() {
+        return accountService.getList();
     }
 
-    public boolean removeAccount(Account account) {
-        return Support.removeData("Account", "_username", Encoding.encrypt(account.getUsername()));
+    public Account getAccount(String username) {
+        return accountService.getAccount(username);
     }
 
-    public boolean resetPassword(Account account ) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        String query = "Update Account set _password = ? Where _username = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, Encoding.encrypt("1"));
-            prestate.setString(2, Encoding.encrypt(account.getUsername()));
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
+    public boolean insert(Account account) {
+        return accountService.insert(account);
     }
 
-    public Account findAccountByUsername(String username) {
-        return findAccountByProperty("_username", username);
+    public boolean update(Account account) {
+        return accountService.update(account);
+    }
+
+    public boolean delete(Account account) {
+        return accountService.delete(account);
     }
     
-    public Account findAccountByProperty(String property, String value) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM Account where "+ property+" = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, Encoding.encrypt(value));
-            rs = prestate.executeQuery();
-            if (rs.next()) {
-                try {
-                    return new Account(Encoding.decrypt(rs.getString("_username")),
-                             Encoding.decrypt(rs.getString("_password")), rs.getString("_fullname"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+    public ArrayList<Account> findAccountByUsernameKey(String usernameKey) {
+        return accountService.findAccountByUsernameKey(usernameKey);
     }
+
+    public ArrayList<Account> findAccountByFullnameKey(String fullnameKey) {
+        return accountService.findAccountByFullnameKey(fullnameKey);
+    }
+
+    public ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflag) {
+        return accountService.findAccountByDeleteflagKey(deleteflag);
+    }
+
+    public ArrayList<Account> findAccountByDeleteFlag(boolean deleteflag) {
+        return accountService.findAccountByDeleteflagKey(deleteflag);
+    }
+
 }

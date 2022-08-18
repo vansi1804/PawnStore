@@ -4,68 +4,98 @@
  */
 package Controller;
 
-import Model.Account;
 import Model.ActivityHistory;
-import Support.DBConnectionSupport;
-import Support.Encoding;
-import View.JLoginForm;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import Service.IActivityHistoryService;
+import Service.impl.ActivityHistoryService;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import Support.*;
+import java.util.Date;
 
 /**
  *
  * @author NVS
  */
+@SuppressWarnings("ClassWithoutLogger")
 public class ActivityHistoryController {
-    
-    private AccountController _accountController = new AccountController();
-    
-     private ArrayList<ActivityHistory> _activityHistorys = null;
+
+    private static ActivityHistoryController instance;
+
+    public static ActivityHistoryController getCurrentInstance() {
+        if (instance == null) {
+            instance = new ActivityHistoryController();
+        }
+        return instance;
+    }
+
+    private final IActivityHistoryService activityHistoryService = new ActivityHistoryService();
 
     public ArrayList<ActivityHistory> getList() {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "SELECT * FROM Account";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            rs = prestate.executeQuery();
-            _activityHistorys = new ArrayList<>();
-            while (rs.next()) {
-                try {
-                    _activityHistorys.add(new ActivityHistory(rs.getString("_activeTime")
-                            , new Account(_accountController.findAccountByUsername(Encoding.decrypt(rs.getString("_username"))))
-                            , rs.getString("_activity")));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            return _activityHistorys;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return null;
+        return activityHistoryService.getList();
+    }
+
+    public ActivityHistory getActivityHistory(String time) {
+        return activityHistoryService.getActivityHistory(time);
+    }
+
+    public boolean insert(ActivityHistory activityHistory) {
+        return activityHistoryService.insert(activityHistory);
+    }
+
+    public boolean update(ActivityHistory activityHistory) {
+        return activityHistoryService.update(activityHistory);
+    }
+
+    public boolean delete(ActivityHistory activityHistory) {
+        return activityHistoryService.delete(activityHistory);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByTimeKey(ArrayList<ActivityHistory> activityHistorys,
+            Date fromTime, Date toTime) {
+        return activityHistoryService.findActivityHistoryByTimeKey(activityHistorys, fromTime, toTime);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByUsernameKey(ArrayList<ActivityHistory> activityHistorys, String usenameKey) {
+        return activityHistoryService.findActivityHistoryByUsernameKey(activityHistorys, usenameKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByActivityKey(ArrayList<ActivityHistory> activityHistorys, String activityKey) {
+        return activityHistoryService.findActivityHistoryByActivityKey(activityHistorys, activityKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByObjectnameKey(ArrayList<ActivityHistory> activityHistorys, String objectnameKey) {
+        return activityHistoryService.findActivityHistoryByObjectnameKey(activityHistorys, objectnameKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByInforKey(ArrayList<ActivityHistory> activityHistorys, String inforKey) {
+        return activityHistoryService.findActivityHistoryByInforKey(activityHistorys, inforKey);
+
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByKey(Date fromTime, Date toTime, String usenameKey, String activityKey, String objectnameKey, String inforKey) {
+        return activityHistoryService.findActivityHistoryByKey(fromTime, toTime, usenameKey, activityKey, objectnameKey, inforKey);
+    }
+    
+    public ArrayList<ActivityHistory> findActivityHistoryByTimeKey(String fromTime, String toTime) {
+        return activityHistoryService.findActivityHistoryByTimeKey(fromTime, toTime);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByUsernameKey(String usenameKey) {
+        return activityHistoryService.findActivityHistoryByUsernameKey(usenameKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByActivityKey(String activityKey) {
+        return activityHistoryService.findActivityHistoryByActivityKey(activityKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByObjectnameKey(String objectnameKey) {
+        return activityHistoryService.findActivityHistoryByObjectnameKey(objectnameKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByInforKey(String inforKey) {
+        return activityHistoryService.findActivityHistoryByInforKey(inforKey);
+    }
+
+    public ArrayList<ActivityHistory> findActivityHistoryByKey(String fromTime, String toTime,
+             String usenameKey, String activityKey, String objectnameKey, String inforKey) {
+        return activityHistoryService.findActivityHistoryByKey(fromTime, toTime, usenameKey, activityKey, objectnameKey, inforKey);
     }
 }

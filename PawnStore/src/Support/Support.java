@@ -4,18 +4,11 @@
  */
 package Support;
 
-import View.JLoginForm;
 import com.toedter.calendar.JDateChooser;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
 import java.awt.Image;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,22 +18,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author NVS
  */
+@SuppressWarnings({"UtilityClassWithoutPrivateConstructor", "ClassWithoutLogger"})
 public class Support {
 
     public static void ScaleImage(JLabel label, URL url) {
@@ -48,21 +35,9 @@ public class Support {
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
     }
-    
-    public static void ScaleImage(JButton button, URL url) {
-        ImageIcon imageIcon = new ImageIcon(url);
-        Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_SMOOTH);
-        button.setIcon(new ImageIcon(imageScale));
-    }
-    
-    public static void ScaleImage(JPanel jpanel, URL url) {
-        ImageIcon imageIcon = new ImageIcon(url);
-        Image imageScale = imageIcon.getImage().getScaledInstance(jpanel.getWidth(), jpanel.getHeight(), Image.SCALE_SMOOTH);
-        jpanel.add(new JLabel(new ImageIcon(imageScale)));
-    }
 
-    public static void CloseJFrame(Component parent, String title, String content, JFrame jrame) {
-        if (MessageSupport.Confirm(parent, title, content) == 0) {
+    public static void CloseJFrame(String title, String content, JFrame jrame) {
+        if (MessageSupport.MessageConfirm(title, content) == 0) {
             jrame.dispose();
         }
     }
@@ -75,56 +50,16 @@ public class Support {
         }
     }
 
-    public static boolean removeData(String objectName, String propertie, String values) {
-        Connection conn = null;
-        PreparedStatement prestate = null;
-        ResultSet rs = null;
-        String query = "Delete from " + objectName + " Where " + propertie + " = ?";
-        try {
-            conn = DBConnectionSupport.getConnection();
-            prestate = conn.prepareStatement(query);
-            prestate.setString(1, values);
-            prestate.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (prestate != null) {
-                try {
-                    prestate.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(JLoginForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        return false;
-    }
-
-    public static void loadCombobox(ArrayList<String> arrayList, JComboBox jComboBox) {
-        jComboBox.removeAllItems();
-        jComboBox.addItem("Tất cả");
-        for (int i = 0; i < arrayList.size(); i++) {
-            jComboBox.addItem(arrayList.get(i).toString());
-        }
-    }
-
     public static String getDateFormat() {
-        return "dd-MM-yyyy";
+        return "dd/MM/yyyy";
     }
 
     public static String getDateTimeFormat() {
-        return "dd-MM-yyyy HH:mm:ss";
+        return "dd/MM/yyyy HH:mm:ss";
     }
 
     public static Date stringToDate(String str, String dateFormat) {
-        if (!CheckSupport.isEmpty(str)) {
+        if (!CheckSupport.isBlank(str)) {
             try {
                 return new SimpleDateFormat(dateFormat).parse(str);
             } catch (ParseException ex) {
@@ -141,42 +76,43 @@ public class Support {
         return new SimpleDateFormat(dateFormat).format(date);
     }
 
-    public static void setDataTableCenter(JTable table) {
-        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        TableModel tableModel = table.getModel();
-
-        for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
-            table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
-        }
+    public static long subtractDate(String strDate1, String strDate2) {
+        Date date1 = stringToDate(strDate1, getDateFormat());
+        Date date2 = stringToDate(strDate2, getDateFormat());
+        return subtractDate(date1, date2);
     }
 
-    public static long subtractDate(String strDate1, String strDate2) {
-        Date d1 = stringToDate(strDate1, getDateFormat());
-        Date d2 = stringToDate(strDate2, getDateFormat());
-        return TimeUnit.MILLISECONDS.toDays(d2.getTime() - d1.getTime());
+    public static long subtractDate(Date date1, String strDate2) {
+        Date date2 = stringToDate(strDate2, getDateFormat());
+        return subtractDate(date1, date2);
+    }
+
+    public static long subtractDate(String strDate1, Date date2) {
+        Date date1 = stringToDate(strDate1, getDateFormat());
+        return subtractDate(date1, date2);
+    }
+
+    public static long subtractDate(Date date1, Date date2) {
+        return TimeUnit.MILLISECONDS.toDays(date1.getTime() - date2.getTime());
     }
 
     public static String addDate(String strDate, int days) {
-        Calendar c = Calendar.getInstance();
-        Date date = stringToDate(strDate, getDateFormat());
-        c.setTime(date);
-        c.add(Calendar.DATE, days);
-        return dateToString(c.getTime(), getDateFormat());
+        Date date = Support.stringToDate(strDate, Support.getDateFormat());
+        return dateToString(addDate(date, days), getDateFormat());
     }
 
-    public static void FormatTableHeader(JTable jTable) {
-        JTableHeader jTableHeader = jTable.getTableHeader();
-        jTableHeader.setBackground(Color.WHITE);
-        jTableHeader.setForeground(Color.BLACK);
-        jTableHeader.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    public static Date addDate(Date date, int days) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, days);
+        return c.getTime();
     }
 
     public static String BigFloatToString(float f) {
         return new BigDecimal(String.format("%.0f", f)).stripTrailingZeros().toPlainString();
     }
 
+    @SuppressWarnings("AssignmentToMethodParameter")
     public static String FormatStringID(String lastID) {
         String pattern = "";
         for (int i = 0; i < lastID.length(); i++) {
@@ -199,38 +135,87 @@ public class Support {
     }
 
     public static void getClock(JLabel jLabel, boolean status) {
-        if (status) {
-            Thread t = new Thread() {
-                public void run() {
-                    while (true) {
-                        jLabel.setText(dateToString(new Date(), getDateTimeFormat()));
+        Thread t = new Thread() {
+            @SuppressWarnings({"SleepWhileInLoop", "UseSpecificCatch", "BroadCatchBlock", "TooBroadCatch", "CallToPrintStackTrace"})
+            public void run() {
+                while (status) {
+                    jLabel.setText(dateToString(new Date(), getDateTimeFormat()));
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
+    }
+
+    public static void setSlideImage(JLabel jLabel, ArrayList<URL> imagesList) {
+        Thread t = new Thread() {
+            @SuppressWarnings({"SleepWhileInLoop", "UseSpecificCatch", "BroadCatchBlock", "TooBroadCatch", "CallToPrintStackTrace"})
+            public void run() {
+                while (true) {
+                    try {
+                        for (int i = 0; i < imagesList.size(); i++) {
+                            ScaleImage(jLabel, imagesList.get(i));
+                            Thread.sleep(10000);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
+    }
+
+    public static void getClock(JDateChooser jDateChooser, boolean status) {
+
+        Thread t = new Thread() {
+            @Override
+            @SuppressWarnings({"SleepWhileInLoop", "UseSpecificCatch", "BroadCatchBlock", "TooBroadCatch", "CallToPrintStackTrace"})
+            public void run() {
+                if (!status) {
+                    jDateChooser.setDate(null);
+                } else {
+                    while (status) {
                         try {
+                            jDateChooser.setDate(stringToDate(dateToString(new Date(), getDateTimeFormat()), getDateTimeFormat()));
                             Thread.sleep(1);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
-            };
+            }
+        };
+        if (status) {
             t.start();
         }
     }
 
-    public static void getClock(JDateChooser jDateChooser, boolean status) {
-        if (status) {
-            Thread t = new Thread() {
-                public void run() {
-                    while (true) {
-                        jDateChooser.setDate(stringToDate(dateToString(new Date(), getDateTimeFormat()), getDateTimeFormat()));
-                        try {
-                            Thread.sleep(1);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            };
-            t.start();
+    public static String getNewID(String lastID) {
+        String newID = "";
+        String pattern = "";
+        String strNumber = "";
+        for (int i = 0; i < lastID.length(); i++) {
+            if ('0' <= lastID.charAt(i) && lastID.charAt(i) <= '9') {
+                strNumber += lastID.charAt(i);
+            } else {
+                pattern += lastID.charAt(i);
+            }
         }
+        newID += pattern;
+        int number = Integer.parseInt(strNumber) + 1;
+        for (int i = 0; i < 12 - pattern.length() - String.valueOf(number).length(); i++) {
+            newID += '0';
+        }
+        newID += String.valueOf(number);
+        return newID;
+    }
+
+    public static String getFormatNumber(long num) {
+        return String.valueOf(NumberFormat.getInstance().format(num));
     }
 }

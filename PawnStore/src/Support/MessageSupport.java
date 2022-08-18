@@ -4,22 +4,22 @@
  */
 package Support;
 
-import java.awt.Component;
 import javax.swing.JOptionPane;
 
 
+@SuppressWarnings({"ClassWithoutLogger", "UtilityClassWithoutPrivateConstructor"})
 public class MessageSupport {
 
-    public static void Show(Component parent, String title, String content) {
-        JOptionPane.showMessageDialog(parent, content, title, JOptionPane.INFORMATION_MESSAGE);
+    public static void Message(String title, String content) {
+        JOptionPane.showMessageDialog(null, content, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void ShowError(Component parent, String title, String content) {
-        JOptionPane.showMessageDialog(parent, content, title, JOptionPane.ERROR_MESSAGE);
+    public static void ErrorMessage(String title, String content) {
+        JOptionPane.showMessageDialog(null, content, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    public static int Confirm(Component parent, String title, String content) {
-        int choose = JOptionPane.showConfirmDialog(parent, content, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    public static int MessageConfirm(String title, String content) {
+        int choose = JOptionPane.showConfirmDialog(null, content, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         return choose;
     }
 }
