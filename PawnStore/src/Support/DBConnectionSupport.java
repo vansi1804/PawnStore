@@ -8,7 +8,8 @@ import java.sql.SQLException;
 @SuppressWarnings({"ClassWithoutLogger", "UtilityClassWithoutPrivateConstructor"})
 public class DBConnectionSupport {
     
-    private static final String dbURL = EncodingSupport.decrypt("XhkyIDs7xAYcdL+nR/w/0mjEIUBLDYb3NjMKn9hXELtSb9bCUhpCQjDia7JqnWpFJLHOrAVyUXQb95zeIA65/APo73NKJWBsuXECEE+iW+Y=");
+    private static final String dbURL = EncodingSupport.decrypt("XhkyIDs7xAYcdL+nR/w/0mjEIUBLDYb3NjMKn9hXELtSb9bCUhpCQjDia7"
+            + "JqnWpFm3hg5IVGji8WqzHMQ+0HGpRARjiz0ht3O2TcDMn4Ccmyhog/ClLFatSiTrjKVHqbEkc9FJZgdY4JP/VVRu5sbtRPaZPwcUvlVMWbgsHY9mM=");
     private static final String Username = EncodingSupport.decrypt("KVsdBApkCcl1kSIlQ6Bung==");
     private static final String Password = EncodingSupport.decrypt("KVsdBApkCcl1kSIlQ6Bung==");
     
