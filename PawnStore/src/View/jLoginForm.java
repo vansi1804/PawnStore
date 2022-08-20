@@ -236,6 +236,8 @@ public class JLoginForm extends JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         EventQueue.invokeLater(() -> {

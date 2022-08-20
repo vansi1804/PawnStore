@@ -16,7 +16,6 @@ import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageForm;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
