@@ -17,12 +17,12 @@ import java.util.Date;
 import javax.swing.JFrame;
 
 @SuppressWarnings("ClassWithoutLogger")
-public class JLoginFrame extends JFrame {
+public class JLoginJFrameForm extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public JLoginFrame() {
+    public JLoginJFrameForm() {
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
@@ -194,7 +194,7 @@ public class JLoginFrame extends JFrame {
                         new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
                                 account, "Đăng nhập", "", ""));
                 StaticUser.setCurrentInstanceUser(account);
-                JHomePageFrame homePageForm = new JHomePageFrame(this);
+                JHomePageJFrameForm homePageForm = new JHomePageJFrameForm(this);
                 homePageForm.setVisible(true);
                 this.dispose();
             } else {
@@ -226,14 +226,30 @@ public class JLoginFrame extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JLoginJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JLoginJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JLoginJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JLoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JLoginJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -253,7 +269,7 @@ public class JLoginFrame extends JFrame {
 
         /* Create and display the form */
         EventQueue.invokeLater(() -> {
-            new JLoginFrame().setVisible(true);
+            new JLoginJFrameForm().setVisible(true);
         });
     }
 

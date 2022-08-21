@@ -4,7 +4,7 @@
  */
 package pawnstore;
 
-import View.JLoginFrame;
+import View.JLoginJFrameForm;
 import java.awt.EventQueue;
 
 @SuppressWarnings("ClassWithoutLogger")
@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
          EventQueue.invokeLater(() -> {
              try {
-                 JLoginFrame jloginform = new JLoginFrame();
+                 JLoginJFrameForm jloginform = new JLoginJFrameForm();
                  jloginform.setVisible(true);
              } catch (Exception e) {
              }

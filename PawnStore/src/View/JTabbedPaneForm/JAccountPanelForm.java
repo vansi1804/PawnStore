@@ -13,7 +13,7 @@ import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
 import Support.ColorFormatSupport;
-import View.JHomePageFrame;
+import View.JHomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -967,7 +967,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbAccountStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-       JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Tài khoản"));
+       JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

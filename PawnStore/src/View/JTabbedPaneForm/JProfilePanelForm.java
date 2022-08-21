@@ -11,7 +11,7 @@ import Model.StaticUser;
 import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageFrame;
+import View.JHomePageJFrameForm;
 
 /**
  *
@@ -355,7 +355,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Sửa thành công.");
                 setProfileDefault();
                 StaticUser.setCurrentInstanceUser(account);
-                JHomePageFrame.setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
+                JHomePageJFrameForm.setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
             } else {
                 MessageSupport.Message("Thông báo", "Sửa thất bại.");
             }
@@ -370,7 +370,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jlbChangePasswordMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
+        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

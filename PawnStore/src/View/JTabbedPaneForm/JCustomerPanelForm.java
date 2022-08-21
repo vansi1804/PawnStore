@@ -19,7 +19,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageFrame;
+import View.JHomePageJFrameForm;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JPanel;
@@ -996,27 +996,27 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             if (col == 1) {
                 PawnCoupon pawnCoupon = PawnCouponController.getCurrentInstance().getPawnCoupon(id);
                 String title = "Hợp đồng";
-                if (JHomePageFrame.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                    JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab(title));
+                if (JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                    JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
                 }
                 jPanel = new JPawnCouponPanelForm(pawnCoupon);
-                JHomePageFrame.jHomePageTabbedPane.addTab(title, jPanel);
-                JHomePageFrame.jHomePageTabbedPane.setSelectedComponent(jPanel);
+                JHomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+                JHomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
             } else if (col == 2) {
                 Product product = ProductController.getCurrentInstance().getProduct(id);
                 String title = "Hàng hóa";
-                if (JHomePageFrame.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                    JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab(title));
+                if (JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                    JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
                 }
                 jPanel = new JProductPanelForm(product);
-                JHomePageFrame.jHomePageTabbedPane.addTab(title, jPanel);
-                JHomePageFrame.jHomePageTabbedPane.setSelectedComponent(jPanel);
+                JHomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+                JHomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
             }
         }
     }//GEN-LAST:event_jtblPawningHistoryMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-       JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Khách hàng"));
+       JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 
