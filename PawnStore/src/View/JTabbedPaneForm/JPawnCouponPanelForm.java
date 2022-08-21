@@ -21,12 +21,17 @@ import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageJFrameForm;
+import View.PawnCouponPageBerJFrameForm;
 import java.awt.event.ItemEvent;
+import java.awt.print.PrinterException;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -192,6 +197,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
     private void setPawnCouponDefault(PawnCoupon pawnCoupon) {
         if (pawnCoupon == null) {
+            jbtnPawnCouponPrint.setEnabled(false);
             jbtnAddPawnCoupon.setEnabled(true);
             jbtnEditPawnCoupon.setEnabled(true);
             jtfID.setText("");
@@ -217,6 +223,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jbtnAddPawnCoupon.setEnabled(false);
             jbtnEditPawnCoupon.setEnabled(false);
         } else {
+            jbtnPawnCouponPrint.setEnabled(true);
             jbtnAddPawnCoupon.setEnabled(false);
             jbtnEditPawnCoupon.setEnabled(true);
             jtfID.setText(pawnCoupon.getId());
@@ -809,6 +816,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jrbAllStatus = new javax.swing.JRadioButton();
         jLabel19 = new javax.swing.JLabel();
         jtfLiquidatePrice = new javax.swing.JTextField();
+        jbtnPawnCouponPrint = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -1122,6 +1130,16 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jtfLiquidatePrice.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfLiquidatePrice.setForeground(new java.awt.Color(0, 0, 0));
 
+        jbtnPawnCouponPrint.setBackground(new java.awt.Color(0, 255, 255));
+        jbtnPawnCouponPrint.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jbtnPawnCouponPrint.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnPawnCouponPrint.setText("Xem");
+        jbtnPawnCouponPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPawnCouponPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -1165,8 +1183,10 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jtfLiquidatePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jbtnPawnCouponPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
                                     .addComponent(jbtnAddPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1257,7 +1277,8 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnAddPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnPawnCouponPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1947,6 +1968,12 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
+    private void jbtnPawnCouponPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPawnCouponPrintActionPerformed
+        PawnCoupon pawnCoupon = getPawnCouponFromForm();
+        PawnCouponPageBerJFrameForm pawnCouponPageBerJFrameForm = new PawnCouponPageBerJFrameForm(pawnCoupon);
+        pawnCouponPageBerJFrameForm.setVisible(true);
+    }//GEN-LAST:event_jbtnPawnCouponPrintActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -2003,6 +2030,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnDeleteTab;
     private javax.swing.JButton jbtnEditInterestPayment;
     private javax.swing.JButton jbtnEditPawnCoupon;
+    private javax.swing.JButton jbtnPawnCouponPrint;
     private javax.swing.JButton jbtnReload;
     private javax.swing.JComboBox<String> jcbCustomerID;
     private javax.swing.JComboBox<String> jcbProductID;

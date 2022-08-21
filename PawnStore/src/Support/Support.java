@@ -218,4 +218,100 @@ public class Support {
     public static String getFormatNumber(long num) {
         return String.valueOf(NumberFormat.getInstance().format(num));
     }
+
+    @SuppressWarnings("UnusedAssignment")
+    public static String getTextNumber(long num) {
+        @SuppressWarnings("MismatchedReadAndWriteOfArray")
+        String[] convertNumToText = {"KHÔNG", "MỘT", "HAI", "BA", "BỐN", "NĂM", "SÁU", "BẢY", "TÁM", "CHÍN"};
+        @SuppressWarnings("MismatchedReadAndWriteOfArray")
+        String[] devidefor3 = {"", " NGHÌN ", " TRIỆU ", " TỶ ", " TỶ TỶ ", " TỶ TỶ TỶ "};
+        String strNum = String.valueOf(num);
+        String pronounce = "";
+//100,000,000
+//10,000,000
+//1,000,000
+
+        int i = 0;
+        if (strNum.length() % 3 == 1) {
+            int firstValue = Integer.parseInt(String.valueOf(strNum.charAt(0)));
+            String textValue = convertNumToText[firstValue];
+            pronounce += textValue;
+            i = 1;
+            pronounce += devidefor3[strNum.length() / 3];
+        } else if (strNum.length() % 3 == 2) {
+            int firstValue = Integer.parseInt(String.valueOf(strNum.charAt(0)));
+            int secondValue = Integer.parseInt(String.valueOf(strNum.charAt(1)));
+            String textValue = "";
+            if (firstValue == 1) {
+                textValue = switch (secondValue) {
+                    case 0 ->
+                        " MƯỜI";
+                    case 1 ->
+                        " MƯỜI " + convertNumToText[secondValue];
+                    default ->
+                        convertNumToText[firstValue] + " MƯỜI " + convertNumToText[secondValue];
+                };
+            } else {
+                textValue = switch (secondValue) {
+                    case 0 ->
+                        " MƯƠI";
+                    case 1 ->
+                        " MƯƠI " + convertNumToText[secondValue];
+                    default ->
+                        convertNumToText[firstValue] + " MƯƠI " + convertNumToText[secondValue];
+                };
+            }
+
+            pronounce += textValue;
+            i = 2;
+            pronounce += devidefor3[strNum.length() / 3];
+        }
+
+        for (; i < strNum.length(); i += 3) {
+            String getpronounce = getPronounce(strNum.charAt(i), strNum.charAt(i + 1), strNum.charAt(i + 2));
+            if (!getpronounce.isEmpty()) {
+                pronounce += " " + getpronounce;
+                pronounce += devidefor3[((strNum.length() - i) / 3) -1];
+            }
+        }
+
+        return pronounce;
+    }
+
+    @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "UseSpecificCatch"})
+    public static String getPronounce(char strHundreds, char strDozens, char strUnits) {
+        @SuppressWarnings("MismatchedReadAndWriteOfArray")
+        String[] convertNumToText = {"KHÔNG", "MỘT", "HAI", "BA", "BỐN", "NĂM", "SÁU", "BẢY", "TÁM", "CHÍN"};
+        String pronounce = "";
+        int hundreds;
+        int dozens;
+        int units;
+        try {
+            hundreds = Integer.parseInt(String.valueOf(strHundreds));
+            dozens = Integer.parseInt(String.valueOf(strDozens));
+            units = Integer.parseInt(String.valueOf(strUnits));
+        } catch (Exception e) {
+            return null;
+        }
+        if (hundreds > 0 || dozens > 0 || units > 0) {
+            pronounce += convertNumToText[hundreds] + " TRĂM ";
+            if (dozens == 0 && units == 0) {
+                return pronounce;
+            }
+            switch (dozens) {
+                case 0 ->
+                    pronounce += " LẺ ";
+                case 1 ->
+                    pronounce += " MƯỜI ";
+                default ->
+                    pronounce += convertNumToText[dozens] + " MƯƠI ";
+            }
+            if (units > 0) {
+                pronounce += convertNumToText[units];
+            }
+        }
+
+        return pronounce;
+    }
+
 }

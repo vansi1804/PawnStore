@@ -129,8 +129,9 @@ public class PawnCoupon {
                 + " - " + Support.getFormatNumber(price)
                 + " - " + interestRate
                 + " - " + pawnDate
-                + " - " + redeem0rLiquidationDate
-                + " - " + (status.equals("Đã chuộc")? (liquidationPrice + " - " + status) : status);
+                + " - " + (status.equals("Đã chuộc") ? (redeem0rLiquidationDate + " - " + status) 
+                : (status.equals("Đã thanh lý") ? (redeem0rLiquidationDate + " - " + liquidationPrice + " - " + status) : status));
+
     }
 
 }
