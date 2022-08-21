@@ -15,7 +15,7 @@ import Model.PawnCoupon;
 import Model.TypeOfProduct;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageForm;
+import View.JHomePageFrame;
 import java.beans.PropertyChangeEvent;
 import java.util.Calendar;
 import java.util.Date;
@@ -1164,7 +1164,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jchbAllActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        JHomePageForm.jHomePageTabbedPane.remove(JHomePageForm.jHomePageTabbedPane.indexOfTab("Thống kê"));
+        JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Thống kê"));
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
 

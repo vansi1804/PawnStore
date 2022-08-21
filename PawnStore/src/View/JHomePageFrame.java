@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JHomePageForm extends javax.swing.JFrame {
+public class JHomePageFrame extends javax.swing.JFrame {
     
     private static final long serialVersionUID = 1L;
     private static int index = 1;
@@ -41,12 +41,12 @@ public class JHomePageForm extends javax.swing.JFrame {
     private JPanel jpawncoupontab = null;
     private JPanel jstatistictab = null;
     
-    public JHomePageForm() {
+    public JHomePageFrame() {
         initComponents();
     }
     
     @SuppressWarnings({"static-access", "OverridableMethodCallInConstructor", "SleepWhileInLoop"})
-    public JHomePageForm(JFrame jfparrent) {
+    public JHomePageFrame(JFrame jfparrent) {
         initComponents();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -382,20 +382,22 @@ public class JHomePageForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JHomePageForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JHomePageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JHomePageForm().setVisible(true);
+            new JHomePageFrame().setVisible(true);
         });
     }
 

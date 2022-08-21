@@ -15,7 +15,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageForm;
+import View.JHomePageFrame;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
@@ -1212,7 +1212,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbTypeOfProductStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageForm.jHomePageTabbedPane.remove(JHomePageForm.jHomePageTabbedPane.indexOfTab("Hàng hóa"));
+        JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Hàng hóa"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

@@ -20,7 +20,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageForm;
+import View.JHomePageFrame;
 import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -1944,7 +1944,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteInterestPaymentActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageForm.jHomePageTabbedPane.remove(JHomePageForm.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
+        JHomePageFrame.jHomePageTabbedPane.remove(JHomePageFrame.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 
