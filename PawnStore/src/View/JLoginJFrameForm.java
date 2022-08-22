@@ -24,6 +24,7 @@ public class JLoginJFrameForm extends JFrame {
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public JLoginJFrameForm() {
         initComponents();
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
