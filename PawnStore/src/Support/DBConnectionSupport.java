@@ -13,6 +13,14 @@ public class DBConnectionSupport {
     private static final String Username = EncodingSupport.decrypt("KVsdBApkCcl1kSIlQ6Bung==");
     private static final String Password = EncodingSupport.decrypt("KVsdBApkCcl1kSIlQ6Bung==");
     
+//    private static final String dbURL = "jdbc:sqlserver://localhost:1433;"
+//            + "databaseName=PawnStore;"
+//            + "encrypt=true;"
+//            + "trustServerCertificate=true;"
+//            + "sslProtocal=TLSv1.2";
+//    private static final String Username = "sa";
+//    private static final String Password = "sa";
+    
     @SuppressWarnings("CallToPrintStackTrace")
     public static Connection getConnection() {
         Connection conn = null;
