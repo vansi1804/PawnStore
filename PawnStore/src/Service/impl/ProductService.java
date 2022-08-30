@@ -128,8 +128,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey
-            , String nameKey, String inforKey, String statusKey) {
+    public ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey,
+            String nameKey, String inforKey, String statusKey) {
         return productDAO.findProductByKey(idKey, typeOfProductKey, nameKey, inforKey, statusKey);
     }
 
