@@ -10,9 +10,9 @@ import Model.Account;
 import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.CheckSupport;
+import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import Support.ColorFormatSupport;
 import View.JHomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -30,13 +30,12 @@ import javax.swing.table.DefaultTableModel;
 public class JAccountPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static boolean ActivityHistoryFindAble = false;
+    private static boolean ActivityHistoryFindAble;
 
     public JAccountPanelForm() {
         initComponents();
         setAccountDefault(null);
         setActivityHistoryFindEvent();
-        ActivityHistoryFindAble = true;
     }
 
     private void setAccountDefault(Account account) {
@@ -52,7 +51,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             jpfConfirmPassword.setText("");
             jlbResetPassword.setVisible(false);
             setAccountStatus("");
-            findAccount();
+            setAccountTable(AccountController.getCurrentInstance().getList());
         } else {
             jbtnAdd.setEnabled(false);
             jbtnLockOrUnlock.setEnabled(true);
@@ -155,6 +154,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         ActivityHistoryFindAble = false;
         jDCFromDate.setDate(null);
         jDCToDate.setDate(null);
+        jtfUsernameKey.setEditable(false);
         jtfUsernameKey.setText(null);
         jtfActivityKey.setText("");
         jtfObjectnameKey.setText("");
@@ -162,6 +162,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         setActivityHistoryTable(ActivityHistoryController.getCurrentInstance().getList());
         ActivityHistoryFindAble = true;
         if (account != null) {
+            jtfUsernameKey.setEditable(true);
             jtfUsernameKey.setText(account.getUsername());
         }
     }
@@ -934,6 +935,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jtblAccountMouseClicked
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
+
         Account account = getAccountFromForm();
         if (account != null) {
             Account existingAccount = AccountController.getCurrentInstance().getAccount(account.getUsername());
@@ -967,7 +969,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbAccountStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-       JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
+        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

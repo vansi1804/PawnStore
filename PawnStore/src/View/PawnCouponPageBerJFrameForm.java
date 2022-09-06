@@ -4,9 +4,7 @@ package View;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import Controller.PawnCouponController;
 import Model.PawnCoupon;
-import Support.MessageSupport;
 import Support.Support;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

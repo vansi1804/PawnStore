@@ -4,19 +4,12 @@
  */
 package View.JTabbedPaneForm;
 
-import Controller.ActivityHistoryController;
-import Controller.CustomerController;
-import Controller.InterestPaymentController;
-import Controller.PawnCouponController;
-import Controller.TypeOfProductController;
-import Model.Customer;
-import Model.InterestPayment;
-import Model.PawnCoupon;
-import Model.TypeOfProduct;
+import Controller.StatisticController;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -42,250 +35,43 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
     }
 
     private void setPawnCouponStatistics() {
-        int totalPawnCouponCount = 0;
-        long totalPawnCouponPrice = 0;
-        int totalNotRedeemedPawnCouponCount = 0;
-        long totalNotRedeemedPawnCouponPrice = 0;
-        int totalRedeemedPawnCouponCount = 0;
-        long totalRedeemedPawnCouponPrice = 0;
-        int totalLiquidationPawnCouponCount = 0;
-        long totalLiquidatedPawnCouponPawnPrice = 0;
-        int totalLiquidatedPawnCouponLiquidationPrice = 0;
-        long totalInterest = 0;
-
-        for (PawnCoupon pawnCoupon : PawnCouponController.getCurrentInstance().getList()) {
-            if (!jchbAll.isSelected()) {
-                Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
-                if (pawnDate.compareTo(jdcDateFrom.getDate()) >= 0 && pawnDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                    totalPawnCouponCount++;
-                    totalPawnCouponPrice += pawnCoupon.getPrice();
-                }
-            } else {
-                totalPawnCouponCount++;
-                totalPawnCouponPrice += pawnCoupon.getPrice();
-            }
-            switch (pawnCoupon.getStatus()) {
-                case "Đã chuộc" -> {
-                    if (!jchbAll.isSelected()) {
-                        Date redeemDate = Support.stringToDate(pawnCoupon.getRedeem0rLiquidationDate(), Support.getDateFormat());
-                        if (redeemDate.compareTo(jdcDateFrom.getDate()) >= 0 && redeemDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                            totalRedeemedPawnCouponCount++;
-                            totalRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                        }
-                    } else {
-                        totalNotRedeemedPawnCouponCount++;
-                        totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                        totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
-                    }
-                }
-                case "Chưa chuộc" -> {
-                    totalNotRedeemedPawnCouponCount++;
-                    totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                }
-                case "Trễ" -> {
-                    totalNotRedeemedPawnCouponCount++;
-                    totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                }
-                case "Cần thanh lý" -> {
-                    totalNotRedeemedPawnCouponCount++;
-                    totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                }
-                case "Đã thanh lý" -> {
-                    if (!jchbAll.isSelected()) {
-                        Date liquidationDate = Support.stringToDate(pawnCoupon.getRedeem0rLiquidationDate(), Support.getDateFormat());
-                        if (liquidationDate.compareTo(jdcDateFrom.getDate()) >= 0 && liquidationDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                            totalLiquidationPawnCouponCount++;
-                            totalLiquidatedPawnCouponPawnPrice += pawnCoupon.getPrice();
-                            totalLiquidatedPawnCouponLiquidationPrice += pawnCoupon.getLiquidationPrice();
-                            totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
-                        }
-                    } else {
-                        totalNotRedeemedPawnCouponCount++;
-                        totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
-                        totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
-                    }
-                }
-            }
-
-            for (InterestPayment interestPayment : InterestPaymentController.getCurrentInstance().getList(pawnCoupon)) {
-                if (!jchbAll.isSelected()) {
-                    Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Support.getDateFormat());
-                    if (paymentDate.compareTo(jdcDateFrom.getDate()) >= 0 && paymentDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                        totalInterest += interestPayment.getMoney();
-                    }
-                } else {
-                    totalInterest += interestPayment.getMoney();
-                }
-            }
-        }
-
-        jlb1_2.setText(Support.getFormatNumber(totalPawnCouponCount));
-        jlb1_3.setText(Support.getFormatNumber(totalPawnCouponPrice));
-        jlb2_2.setText(Support.getFormatNumber(totalNotRedeemedPawnCouponCount));
-        jlb2_3.setText(Support.getFormatNumber(totalNotRedeemedPawnCouponPrice));
-        jlb3_2.setText(Support.getFormatNumber(totalRedeemedPawnCouponCount));
-        jlb3_3.setText(Support.getFormatNumber(totalRedeemedPawnCouponPrice));
-        jlb4_2.setText(Support.getFormatNumber(totalLiquidationPawnCouponCount));
-        jlb4_3.setText(Support.getFormatNumber(totalLiquidatedPawnCouponPawnPrice));
-        jlb4_4.setText(Support.getFormatNumber(totalLiquidatedPawnCouponLiquidationPrice));
-        jlb5_2.setText(Support.getFormatNumber(totalInterest));
+        ArrayList<String> results = StatisticController.getCurrentInstance()
+                .getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        jlb1_2.setText(results.get(0));
+        jlb1_3.setText(results.get(1));
+        jlb2_2.setText(results.get(2));
+        jlb2_3.setText(results.get(3));
+        jlb3_2.setText(results.get(4));
+        jlb3_3.setText(results.get(5));
+        jlb4_2.setText(results.get(6));
+        jlb4_3.setText(results.get(7));
+        jlb4_4.setText(results.get(8));
+        jlb5_2.setText(results.get(9));
 
     }
 
     private void setCustomerStatistics() {
-        int totalCustomerCount = 0;
-        String bestPawnedCountCustomerName = "";
-        long bestCustomerInterestPayed = 0;
-        int bestCustomerPawnedCount = 0;
-        long bestCustomerPawnedPrice = 0;
-        int totalStopServingCustomerCount = 0;
-
-        for (Customer customer : CustomerController.getCurrentInstance().getList()) {
-            if (!jchbAll.isSelected()) {
-                if (!ActivityHistoryController.getCurrentInstance()
-                        .findActivityHistoryByKey(jdcDateFrom.getDate(), jdcDateTo.getDate(), null, "Thêm", "Khách hàng", customer.getId()).isEmpty()) {
-                    totalCustomerCount++;
-                }
-            } else {
-                totalCustomerCount++;
-            }
-            if (customer.getDeleteflag()) {
-                totalStopServingCustomerCount++;
-            }
-            int pawnedCount = 0;
-            long interestPayed = 0;
-            long pawnedPrice = 0;
-
-            for (PawnCoupon pawnCoupon : PawnCouponController.getCurrentInstance().findPawnCouponByCustomerKey(customer)) {
-                if (!jchbAll.isSelected()) {
-                    Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
-                    if (pawnDate.compareTo(jdcDateFrom.getDate()) >= 0 && pawnDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                        pawnedCount++;
-                        pawnedPrice += pawnCoupon.getPrice();
-                        for (InterestPayment interestPayment : InterestPaymentController.getCurrentInstance().getList(pawnCoupon)) {
-                            interestPayed += interestPayment.getMoney();
-                        }
-                    }
-                } else {
-                    pawnedCount++;
-                    pawnedPrice++;
-                    for (InterestPayment interestPayment : InterestPaymentController.getCurrentInstance().getList(pawnCoupon)) {
-                        interestPayed += interestPayment.getMoney();
-                    }
-                }
-            }
-            if (pawnedCount > bestCustomerPawnedCount) {
-                bestCustomerPawnedCount = pawnedCount;
-                bestCustomerPawnedPrice = pawnedPrice;
-                bestCustomerInterestPayed = interestPayed;
-                bestPawnedCountCustomerName = customer.getId() + "-" + customer.getFullname();
-            } else if (pawnedCount == bestCustomerPawnedCount && pawnedPrice > bestCustomerPawnedPrice) {
-                bestCustomerPawnedCount = pawnedCount;
-                bestCustomerPawnedPrice = pawnedPrice;
-                bestCustomerInterestPayed = interestPayed;
-                bestPawnedCountCustomerName = customer.getId() + "-" + customer.getFullname();
-            } else if (pawnedPrice == bestCustomerPawnedPrice && interestPayed > bestCustomerInterestPayed) {
-                bestCustomerPawnedCount = pawnedCount;
-                bestCustomerPawnedPrice = pawnedPrice;
-                bestCustomerInterestPayed = interestPayed;
-                bestPawnedCountCustomerName = customer.getId() + "-" + customer.getFullname();
-            } else if (interestPayed == bestCustomerInterestPayed) {
-                bestCustomerPawnedCount = pawnedCount;
-                bestCustomerPawnedPrice = pawnedPrice;
-                bestCustomerInterestPayed = interestPayed;
-                bestPawnedCountCustomerName += ", " + customer.getId() + "-" + customer.getFullname();
-            }
-            if (bestCustomerPawnedCount == 0) {
-                bestPawnedCountCustomerName = "";
-            }
-        }
-
-        jlb6_2.setText(Support.getFormatNumber(totalCustomerCount));
-        jlb7_2.setText(bestPawnedCountCustomerName);
-        jlb7_3.setText(Support.getFormatNumber(bestCustomerPawnedCount));
-        jlb7_4.setText(Support.getFormatNumber(bestCustomerPawnedPrice));
-        jlb7_5.setText(Support.getFormatNumber(bestCustomerInterestPayed));
-        jlb8_2.setText(Support.getFormatNumber(totalStopServingCustomerCount));
+        ArrayList<String> results = StatisticController.getCurrentInstance()
+                .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        jlb6_2.setText(results.get(0));
+        jlb7_2.setText(results.get(1));
+        jlb7_3.setText(results.get(2));
+        jlb7_4.setText(results.get(3));
+        jlb7_5.setText(results.get(4));
+        jlb8_2.setText(results.get(5));
     }
 
     @SuppressWarnings("UnusedAssignment")
     private void setTypeOfProductStatistics() {
-        int totalTypeOfProductCount = 0;
-        int totalProductCount = 0;
-        String bestTypeOfProductName = "";
-        int bestPawnedTypeOfProductCount = 0;
-        long bestTypeOfProductPawnedPrice = 0;
-        long bestTypeOfProductInterestPayed = 0;
-        int totalStopServingTypeOfProductCount = 0;
-
-        for (TypeOfProduct typeOfProduct : TypeOfProductController.getCurrentInstance().getList()) {
-            totalTypeOfProductCount++;
-            if (typeOfProduct.getDeleteflag()) {
-                totalStopServingTypeOfProductCount++;
-            }
-            if (!jchbAll.isSelected()) {
-                totalProductCount += ActivityHistoryController.getCurrentInstance()
-                        .findActivityHistoryByKey(jdcDateFrom.getDate(), jdcDateTo.getDate(),
-                                null, "Thêm", "Hàng hóa", typeOfProduct.getId()).size();
-            } else {
-                totalProductCount = PawnCouponController.getCurrentInstance().getList().size();
-            }
-
-            int pawnedTypeOfProductCount = 0;
-            long typeOfProductPawnedPrice = 0;
-            long typeOfProductInterestPayed = 0;
-            for (PawnCoupon pawnCoupon : PawnCouponController.getCurrentInstance().getList()) {
-                if (!jchbAll.isSelected()) {
-                    Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
-                    if (pawnDate.compareTo(jdcDateFrom.getDate()) >= 0 && pawnDate.compareTo(jdcDateTo.getDate()) <= 0) {
-                        if (pawnCoupon.getProduct().getTypeOfProduct().getId().equals(typeOfProduct.getId())) {
-                            pawnedTypeOfProductCount++;
-                            typeOfProductPawnedPrice += pawnCoupon.getPrice();
-                            for (InterestPayment interestPayment : InterestPaymentController.getCurrentInstance().getList(pawnCoupon)) {
-                                typeOfProductInterestPayed += interestPayment.getMoney();
-                            }
-                        }
-                    }
-                } else {
-                    if (pawnCoupon.getProduct().getTypeOfProduct().getId().equals(typeOfProduct.getId())) {
-                        pawnedTypeOfProductCount++;
-                        typeOfProductPawnedPrice += pawnCoupon.getPrice();
-                        for (InterestPayment interestPayment : InterestPaymentController.getCurrentInstance().getList(pawnCoupon)) {
-                            typeOfProductInterestPayed += interestPayment.getMoney();
-                        }
-                    }
-                }
-            }
-            if (pawnedTypeOfProductCount > bestPawnedTypeOfProductCount) {
-                bestPawnedTypeOfProductCount = pawnedTypeOfProductCount;
-                bestTypeOfProductPawnedPrice = typeOfProductPawnedPrice;
-                bestTypeOfProductInterestPayed = typeOfProductInterestPayed;
-                bestTypeOfProductName = typeOfProduct.getName();
-            } else if (pawnedTypeOfProductCount == bestPawnedTypeOfProductCount && typeOfProductPawnedPrice > bestTypeOfProductPawnedPrice) {
-                bestPawnedTypeOfProductCount = pawnedTypeOfProductCount;
-                bestTypeOfProductPawnedPrice = typeOfProductPawnedPrice;
-                bestTypeOfProductInterestPayed = typeOfProductInterestPayed;
-                bestTypeOfProductName = typeOfProduct.getName();
-            }else if (typeOfProductPawnedPrice == bestTypeOfProductPawnedPrice && typeOfProductInterestPayed > bestTypeOfProductInterestPayed) {
-                bestPawnedTypeOfProductCount = pawnedTypeOfProductCount;
-                bestTypeOfProductPawnedPrice = typeOfProductPawnedPrice;
-                bestTypeOfProductInterestPayed = typeOfProductInterestPayed;
-                bestTypeOfProductName = typeOfProduct.getName();
-            }else if (typeOfProductInterestPayed == bestTypeOfProductInterestPayed) {
-                bestPawnedTypeOfProductCount = pawnedTypeOfProductCount;
-                bestTypeOfProductPawnedPrice = typeOfProductPawnedPrice;
-                bestTypeOfProductInterestPayed = typeOfProductInterestPayed;
-                bestTypeOfProductName += ", "+ typeOfProduct.getName();
-            }
-        }
-
-        jlb9_3.setText(Support.getFormatNumber(totalTypeOfProductCount));
-        jlb9_2.setText(Support.getFormatNumber(totalProductCount));
-        jlb10_2.setText(bestTypeOfProductName);
-        jlb10_3.setText(Support.getFormatNumber(bestPawnedTypeOfProductCount));
-        jlb10_4.setText(Support.getFormatNumber(bestTypeOfProductPawnedPrice));
-        jlb10_5.setText(Support.getFormatNumber(bestTypeOfProductInterestPayed));
-        jlb11_2.setText(Support.getFormatNumber(totalStopServingTypeOfProductCount));
+        ArrayList<String> results = StatisticController.getCurrentInstance()
+                .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        jlb9_3.setText(results.get(0));
+        jlb9_2.setText(results.get(1));
+        jlb10_2.setText(results.get(2));
+        jlb10_3.setText(results.get(3));
+        jlb10_4.setText(results.get(4));
+        jlb10_5.setText(results.get(5));
+        jlb11_2.setText(results.get(6));
 
     }
 
@@ -497,7 +283,6 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jchbAll.setBackground(new java.awt.Color(204, 204, 204));
         jchbAll.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jchbAll.setForeground(new java.awt.Color(0, 0, 0));
-        jchbAll.setSelected(true);
         jchbAll.setText("Tất cả");
         jchbAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -928,9 +713,9 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb9_3, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
             .addComponent(jlb9_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jlb9_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlb9_2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+            .addComponent(jlb9_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1019,7 +804,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
                 .addComponent(jlb10_3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlb10_5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlb10_5, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addComponent(jlb10_4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -1068,7 +853,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1090,7 +875,8 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel23.setBackground(new java.awt.Color(0, 255, 255));
@@ -1099,6 +885,11 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Tải lại");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -1113,7 +904,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addComponent(jButton2)
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1166,6 +957,12 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
         JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thống kê"));
     }//GEN-LAST:event_jbtnDeleteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        setPawnCouponStatistics();
+        setCustomerStatistics();
+        setTypeOfProductStatistics();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

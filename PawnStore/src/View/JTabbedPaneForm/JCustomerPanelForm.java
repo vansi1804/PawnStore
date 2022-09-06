@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
 public class JCustomerPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-
+    
     public JCustomerPanelForm() {
         initComponents();
         setCustomerFindEvent();
@@ -1016,7 +1016,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jtblPawningHistoryMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-       JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
+        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 
