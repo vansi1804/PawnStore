@@ -64,6 +64,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jbtnEdit.setEnabled(false);
             jlbTotalPrice.setText("");
             jlTotalPayed.setText("");
+            jlbTotalDebt.setText("");
         } else {
             jbtnAdd.setEnabled(false);
             jbtnEdit.setEnabled(true);
@@ -166,35 +167,41 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     private void setPawnHistoryTable(Customer customer) {
         long totalPrice = 0;
         long totalPayed = 0;
+        long totalDebt = 0;
         ColorFormatSupport.setDataTableCenter(jtblPawningHistory);
         DefaultTableModel model = (DefaultTableModel) jtblPawningHistory.getModel();
         model.setRowCount(0);
         ArrayList<PawnCoupon> pawnCoupons = PawnCouponController.getCurrentInstance().findPawnCouponByCustomerKey(customer);
-        Object rowData[] = new Object[12];
+        Object rowData[] = new Object[11];
         for (int i = 0; i < pawnCoupons.size(); i++) {
             rowData[0] = String.valueOf(i + 1);
             rowData[1] = pawnCoupons.get(i).getId();
-            rowData[2] = pawnCoupons.get(i).getProduct().getId();
-            rowData[3] = Support.getFormatNumber(pawnCoupons.get(i).getAmount());
-            rowData[4] = Support.getFormatNumber(pawnCoupons.get(i).getPrice());
+            rowData[2] = pawnCoupons.get(i).getPawnDate();
+            rowData[3] = Support.getFormatNumber(pawnCoupons.get(i).getPrice());
             totalPrice += pawnCoupons.get(i).getPrice();
-            rowData[5] = pawnCoupons.get(i).getInterestRate();
+            rowData[4] = pawnCoupons.get(i).getInterestRate();
             ArrayList<InterestPayment> interestPayments = InterestPaymentController.getCurrentInstance().getList(pawnCoupons.get(i));
-            rowData[6] = interestPayments.size();
+            rowData[5] = interestPayments.size();
             long interestPayed = 0;
             for (InterestPayment interestPayment : interestPayments) {
                 interestPayed += interestPayment.getMoney();
             }
-            rowData[7] = interestPayed;
+            rowData[6] = interestPayed;
             totalPayed += interestPayed;
-            rowData[8] = pawnCoupons.get(i).getPawnDate();
-            rowData[9] = pawnCoupons.get(i).getRedeem0rLiquidationDate();
-            rowData[10] = Support.getFormatNumber(pawnCoupons.get(i).getLiquidationPrice());
-            rowData[11] = pawnCoupons.get(i).getStatus();
+            if (!interestPayments.isEmpty()) {
+                rowData[7] = interestPayments.get(interestPayments.size() - 1).getDebt();
+                totalDebt += interestPayments.get(interestPayments.size() - 1).getDebt();
+            }else{
+                rowData[7] = 0;
+            }
+            rowData[8] = pawnCoupons.get(i).getRedeem0rLiquidationDate();
+            rowData[9] = Support.getFormatNumber(pawnCoupons.get(i).getLiquidationPrice());
+            rowData[10] = pawnCoupons.get(i).getStatus();
             model.addRow(rowData);
         }
         jlbTotalPrice.setText(Support.getFormatNumber(totalPrice));
         jlTotalPayed.setText(Support.getFormatNumber(totalPayed));
+        jlbTotalDebt.setText(Support.getFormatNumber(totalDebt));
     }
 
     private Customer getCustomerFromForm() {
@@ -345,11 +352,11 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblPawningHistory = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
         jlbTotalPrice = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jlTotalPayed = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        jlbTotalDebt = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblCustomer = new javax.swing.JTable();
@@ -660,11 +667,11 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã Hợp đồng", "Mã hàng hóa", "Số lượng", "Giá", "Lãi xuất", "Số kỳ đóng", "Lãi đã đóng", "Ngày cầm", "Ngày chuộc/Thanh lý", "Giá thanh lý", "Trạng thái"
+                "STT", "Mã Hợp đồng", "Ngày cầm", "Giá", "Lãi xuất", "Số kỳ đóng", "Lãi đã đóng", "Nợ", "Ngày chuộc/Thanh lý", "Giá thanh lý", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -684,45 +691,38 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtblPawningHistory.getColumnModel().getColumn(1).setMinWidth(120);
             jtblPawningHistory.getColumnModel().getColumn(1).setPreferredWidth(120);
             jtblPawningHistory.getColumnModel().getColumn(1).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(2).setMinWidth(150);
-            jtblPawningHistory.getColumnModel().getColumn(2).setPreferredWidth(150);
-            jtblPawningHistory.getColumnModel().getColumn(2).setMaxWidth(150);
-            jtblPawningHistory.getColumnModel().getColumn(3).setMinWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(3).setPreferredWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(3).setMaxWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(4).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(4).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(4).setMaxWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(2).setMinWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(2).setMaxWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(3).setMinWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(3).setPreferredWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(3).setMaxWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(4).setMinWidth(70);
+            jtblPawningHistory.getColumnModel().getColumn(4).setPreferredWidth(70);
+            jtblPawningHistory.getColumnModel().getColumn(4).setMaxWidth(70);
             jtblPawningHistory.getColumnModel().getColumn(5).setMinWidth(70);
             jtblPawningHistory.getColumnModel().getColumn(5).setPreferredWidth(70);
             jtblPawningHistory.getColumnModel().getColumn(5).setMaxWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(6).setMinWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(6).setPreferredWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(6).setMaxWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(7).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(7).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(7).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(8).setMinWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(8).setPreferredWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(8).setMaxWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(6).setMinWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(6).setPreferredWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(6).setMaxWidth(120);
+            jtblPawningHistory.getColumnModel().getColumn(7).setMinWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(7).setPreferredWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(7).setMaxWidth(100);
+            jtblPawningHistory.getColumnModel().getColumn(8).setMinWidth(200);
+            jtblPawningHistory.getColumnModel().getColumn(8).setPreferredWidth(200);
+            jtblPawningHistory.getColumnModel().getColumn(8).setMaxWidth(200);
             jtblPawningHistory.getColumnModel().getColumn(9).setMinWidth(120);
             jtblPawningHistory.getColumnModel().getColumn(9).setPreferredWidth(120);
             jtblPawningHistory.getColumnModel().getColumn(9).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(10).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(10).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(10).setMaxWidth(120);
         }
 
         jPanel8.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Tổng  :");
-
         jlbTotalPrice.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbTotalPrice.setForeground(new java.awt.Color(0, 0, 0));
         jlbTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbTotalPrice.setText("Giá");
+        jlbTotalPrice.setText("0");
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -731,40 +731,42 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jlTotalPayed.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlTotalPayed.setForeground(new java.awt.Color(0, 0, 0));
         jlTotalPayed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlTotalPayed.setText("Lãi đã đóng");
+        jlTotalPayed.setText("0");
 
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTotalDebt.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jlbTotalDebt.setForeground(new java.awt.Color(0, 0, 0));
+        jlbTotalDebt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbTotalDebt.setText("0");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlTotalPayed, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlTotalPayed, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jlbTotalDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(505, 505, 505))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(jlbTotalPrice))
+                    .addComponent(jlbTotalPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlTotalPayed, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlTotalPayed)
+                        .addComponent(jlbTotalDebt))))
         );
+
+        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Tổng  :");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -776,7 +778,11 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -785,9 +791,11 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
@@ -872,7 +880,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1015,7 +1023,6 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1040,6 +1047,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnEdit;
     private javax.swing.JButton jbtnReload;
     private javax.swing.JLabel jlTotalPayed;
+    private javax.swing.JLabel jlbTotalDebt;
     private javax.swing.JLabel jlbTotalPrice;
     private javax.swing.JRadioButton jrbAllGender;
     private javax.swing.JRadioButton jrbAllStatus;

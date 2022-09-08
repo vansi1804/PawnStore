@@ -41,7 +41,6 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
         Support.ScaleImage(jlbLogo1, getClass().getResource("/Image/logo.png"));
-        Support.ScaleImage(jlbPrint, getClass().getResource("/Image/printImage.jpg"));
         this.pawnCoupon = pawnCoupon;
         setPawnCouponPageber(this.pawnCoupon);
     }
@@ -222,7 +221,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress44 = new javax.swing.JLabel();
         jlbCustomerAddress45 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jlbPrint = new javax.swing.JLabel();
+        jbtnPrint = new javax.swing.JButton();
 
         jLabel7.setText("jLabel7");
 
@@ -912,7 +911,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                 .addGroup(jFirstPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jFirstPanelLayout.setVerticalGroup(
@@ -1604,7 +1603,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                 .addGroup(jFirstPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jFirstPanel1Layout.setVerticalGroup(
@@ -1648,10 +1647,10 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(153, 153, 153));
 
-        jlbPrint.setBackground(new java.awt.Color(204, 204, 204));
-        jlbPrint.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlbPrintMouseClicked(evt);
+        jbtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/printImage.jpg"))); // NOI18N
+        jbtnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPrintActionPerformed(evt);
             }
         });
 
@@ -1659,12 +1658,12 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlbPrint, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(jbtnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jlbPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1686,8 +1685,8 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jlbPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbPrintMouseClicked
-        PrinterJob job = PrinterJob.getPrinterJob();
+    private void jbtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintActionPerformed
+       PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName(pawnCoupon.getId());
         job.setPrintable((Graphics pg, PageFormat pf, int pageNum) -> {
             pf.setOrientation(PageFormat.LANDSCAPE);
@@ -1709,7 +1708,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
             } catch (PrinterException ex) {
             }
         }
-    }//GEN-LAST:event_jlbPrintMouseClicked
+    }//GEN-LAST:event_jbtnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1813,6 +1812,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPawnCouponPageberJPanel;
+    private javax.swing.JButton jbtnPrint;
     private javax.swing.JLabel jlbCustomerAddress;
     private javax.swing.JLabel jlbCustomerAddress1;
     private javax.swing.JLabel jlbCustomerAddress10;
@@ -1885,7 +1885,6 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jlbPawnCouponPriceInText1;
     private javax.swing.JLabel jlbPawnDate;
     private javax.swing.JLabel jlbPawnDate1;
-    private javax.swing.JLabel jlbPrint;
     private javax.swing.JLabel jlbProductInformation;
     private javax.swing.JLabel jlbProductInformation1;
     private javax.swing.JLabel jlbProductName;

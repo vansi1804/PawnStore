@@ -13,6 +13,7 @@ import Support.MessageSupport;
 import Support.Support;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JFrame;
 
@@ -31,6 +32,23 @@ public class JLoginJFrameForm extends JFrame {
         jtfUsername.setText("admin");
         jpfPassword.setText("admin");
         jpfPassword.setEchoChar('*');
+    }
+
+    public void login(String username, String password) {
+        Account account = LoginController.getCurrentInstance().login(username, password);
+        if (account != null) {
+            if (!account.getDeleteflag()) {
+                ActivityHistoryController.getCurrentInstance().insert(
+                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
+                                account, "Đăng nhập", "", ""));
+                StaticUser.setCurrentInstanceUser(account);
+                JHomePageJFrameForm homePageForm = new JHomePageJFrameForm(this);
+                homePageForm.setVisible(true);
+                this.dispose();
+            } else {
+                MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa.");
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -77,6 +95,11 @@ public class JLoginJFrameForm extends JFrame {
         jtfUsername.setBackground(new java.awt.Color(255, 255, 255));
         jtfUsername.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jtfUsername.setForeground(new java.awt.Color(0, 0, 0));
+        jtfUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EventKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -95,6 +118,11 @@ public class JLoginJFrameForm extends JFrame {
         jpfPassword.setBackground(new java.awt.Color(255, 255, 255));
         jpfPassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jpfPassword.setForeground(new java.awt.Color(0, 0, 0));
+        jpfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EventKeyPressed(evt);
+            }
+        });
 
         jchbShowHirePassword.setBackground(new java.awt.Color(204, 204, 204));
         jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
@@ -103,6 +131,11 @@ public class JLoginJFrameForm extends JFrame {
         jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jchbShowHirePasswordActionPerformed(evt);
+            }
+        });
+        jchbShowHirePassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EventKeyPressed(evt);
             }
         });
 
@@ -127,7 +160,7 @@ public class JLoginJFrameForm extends JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbUserName)
                     .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,9 +170,9 @@ public class JLoginJFrameForm extends JFrame {
                     .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jchbShowHirePassword)
-                .addGap(31, 31, 31)
+                .addGap(20, 20, 20)
                 .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -152,10 +185,10 @@ public class JLoginJFrameForm extends JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
             .addComponent(lbLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -164,12 +197,12 @@ public class JLoginJFrameForm extends JFrame {
                 .addComponent(lbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(jlbLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jlbLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,27 +220,18 @@ public class JLoginJFrameForm extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
-        String username = jtfUsername.getText();
-        String password = String.valueOf(jpfPassword.getPassword());
-        Account account = LoginController.getCurrentInstance().login(username, password);
-        if (account != null) {
-            if (!account.getDeleteflag()) {
-                ActivityHistoryController.getCurrentInstance().insert(
-                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                account, "Đăng nhập", "", ""));
-                StaticUser.setCurrentInstanceUser(account);
-                JHomePageJFrameForm homePageForm = new JHomePageJFrameForm(this);
-                homePageForm.setVisible(true);
-                this.dispose();
-            } else {
-                MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa.");
-            }
-        }
+        login(jtfUsername.getText(), String.valueOf(jpfPassword.getPassword()));
     }//GEN-LAST:event_jbtnLoginActionPerformed
 
     private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
         Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
     }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
+
+    private void EventKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EventKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login(jtfUsername.getText(), String.valueOf(jpfPassword.getPassword()));
+        }
+    }//GEN-LAST:event_EventKeyPressed
 
     @SuppressWarnings({"CallToPrintStackTrace", "IncompatibleEquals"})
 

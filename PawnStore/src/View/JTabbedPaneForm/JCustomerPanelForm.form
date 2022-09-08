@@ -127,7 +127,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel5" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
@@ -639,7 +639,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jPanel8" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel14" min="-2" pref="248" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -648,12 +653,15 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="53" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="65" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -689,16 +697,15 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="12" rowCount="0">
+                          <Table columnCount="11" rowCount="0">
                             <Column editable="false" title="STT" type="java.lang.Object"/>
                             <Column editable="false" title="M&#xe3; H&#x1ee3;p &#x111;&#x1ed3;ng" type="java.lang.Object"/>
-                            <Column editable="false" title="M&#xe3; h&#xe0;ng h&#xf3;a" type="java.lang.Object"/>
-                            <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
+                            <Column editable="false" title="Ng&#xe0;y c&#x1ea7;m" type="java.lang.Object"/>
                             <Column editable="false" title="Gi&#xe1;" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xe3;i xu&#x1ea5;t" type="java.lang.Object"/>
                             <Column editable="false" title="S&#x1ed1; k&#x1ef3; &#x111;&#xf3;ng" type="java.lang.Object"/>
                             <Column editable="false" title="L&#xe3;i &#x111;&#xe3; &#x111;&#xf3;ng" type="java.lang.Object"/>
-                            <Column editable="false" title="Ng&#xe0;y c&#x1ea7;m" type="java.lang.Object"/>
+                            <Column editable="false" title="N&#x1ee3;" type="java.lang.Object"/>
                             <Column editable="false" title="Ng&#xe0;y chu&#x1ed9;c/Thanh l&#xfd;" type="java.lang.Object"/>
                             <Column editable="false" title="Gi&#xe1; thanh l&#xfd;" type="java.lang.Object"/>
                             <Column editable="false" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
@@ -716,12 +723,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
-                            <Column maxWidth="70" minWidth="70" prefWidth="70" resizable="true">
+                            <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -751,7 +753,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="120" minWidth="120" prefWidth="120" resizable="true">
+                            <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -789,16 +791,14 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel14" min="-2" pref="361" max="-2" attributes="0"/>
+                              <Component id="jlbTotalPrice" min="-2" pref="110" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlbTotalPrice" min="-2" pref="126" max="-2" attributes="0"/>
+                              <Component id="jLabel16" min="-2" pref="144" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel16" min="-2" pref="129" max="-2" attributes="0"/>
+                              <Component id="jlTotalPayed" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlTotalPayed" min="-2" pref="117" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel18" min="-2" pref="425" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jlbTotalDebt" min="-2" pref="94" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="505" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -807,30 +807,18 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jlbTotalPrice" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jlbTotalPrice" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel16" alignment="1" min="-2" pref="17" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="1" min="-2" pref="17" max="-2" attributes="0"/>
-                                  <Component id="jlTotalPayed" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="jlTotalPayed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jlbTotalDebt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel14">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Times New Roman" size="14" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="0" green="0" red="0" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="T&#x1ed5;ng  :"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jlbTotalPrice">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -840,7 +828,7 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Gi&#xe1;"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel16">
@@ -863,10 +851,10 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="L&#xe3;i &#x111;&#xe3; &#x111;&#xf3;ng"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel18">
+                    <Component class="javax.swing.JLabel" name="jlbTotalDebt">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="14" style="3"/>
@@ -875,10 +863,22 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
+                        <Property name="text" type="java.lang.String" value="0"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="jLabel14">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Times New Roman" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="T&#x1ed5;ng  :"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel6">

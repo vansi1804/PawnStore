@@ -201,7 +201,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -250,11 +253,11 @@
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="jbtnPrintPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jbtnAddPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jbtnEditPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jbtnPrintPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -328,7 +331,6 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel27" min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jrbNotRedeemingStatus" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -344,14 +346,15 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jrbAllStatus" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jLabel27" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="7" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jbtnEditPawnCoupon" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jbtnAddPawnCoupon" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jbtnPrintPawnCoupon" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -918,25 +921,24 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jtfTimes" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfLastDebt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jdcPaymentDate" alignment="0" pref="140" max="32767" attributes="0"/>
-                                          <Component id="jtfAmountOfDays" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfInterest" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfFine" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfTheMoneyHaveToPay" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfTheMoneyPayment" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jtfNewDebt" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jdcPaymentDate" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfAmountOfDays" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfInterest" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfFine" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfTheMoneyHaveToPay" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfTheMoneyPayment" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfNewDebt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           <Component id="jLabel30" min="-2" pref="21" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jbtnEditInterestPayment" min="-2" pref="90" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                                           <Component id="jLabel31" min="-2" pref="21" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jtfTimes" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jtfLastDebt" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -1729,15 +1731,15 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel28" min="-2" pref="538" max="-2" attributes="0"/>
+                              <Component id="jLabel28" min="-2" pref="591" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlbTotalPrice" min="-2" pref="112" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlbTotalInterest" min="-2" pref="118" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel33" min="-2" pref="315" max="-2" attributes="0"/>
+                              <Component id="jLabel33" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlbTotalLiquidationPrice" min="-2" pref="120" max="-2" attributes="0"/>
+                              <Component id="jlbTotalLiquidationPrice" min="-2" pref="119" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1746,8 +1748,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jlbTotalLiquidationPrice" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel33" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jlbTotalInterest" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jlbTotalPrice" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="jlbTotalPrice" alignment="3" max="32767" attributes="0"/>
+                              <Component id="jlbTotalInterest" alignment="3" max="32767" attributes="0"/>
+                          </Group>
                           <Component id="jLabel28" alignment="1" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
