@@ -1,10 +1,13 @@
-﻿use master
+﻿
+use master
 go
-drop database PawnStore
+RESTORE DATABASE PawnStores WITH RECOVERY
 go
-create database PawnStore
+drop database PawnStores
 go
-use PawnStore
+create database PawnStores
+go
+use PawnStores
 go
 set dateformat dmy
 go

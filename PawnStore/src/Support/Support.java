@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,6 +35,11 @@ public class Support {
         ImageIcon imageIcon = new ImageIcon(url);
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
+    }
+    public static void ScaleImage(JButton button, URL url) {
+        ImageIcon imageIcon = new ImageIcon(url);
+        Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_DEFAULT);
+        button.setIcon(new ImageIcon(imageScale));
     }
 
     public static void CloseJFrame(String title, String content, JFrame jrame) {

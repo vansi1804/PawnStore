@@ -26,7 +26,7 @@ public class ColorFormatSupport {
         JTableHeader jTableHeader = table.getTableHeader();
         jTableHeader.setBackground(Color.WHITE);
         jTableHeader.setForeground(Color.BLACK);
-        jTableHeader.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        jTableHeader.setFont(new Font("Times New Roman", Font.BOLD, 16));
     }
 
     public static void setDataTableCenter(JTable table) {
@@ -36,7 +36,6 @@ public class ColorFormatSupport {
         for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
             table.getColumnModel().getColumn(columnIndex).setCellRenderer(renderer);
         }
-        FormatTableHeader(table);
     }
 
     public static void setColorFormatEnable(JDateChooser jdaChooser, boolean isEnable, Color backgroundColor, Color foregrountColor) {

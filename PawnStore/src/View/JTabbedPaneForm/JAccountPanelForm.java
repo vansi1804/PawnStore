@@ -107,6 +107,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }
 
     private void setAccountTable(ArrayList<Account> accounts) {
+        ColorFormatSupport.FormatTableHeader(jtblAccount);
         ColorFormatSupport.setDataTableCenter(jtblAccount);
         DefaultTableModel model = (DefaultTableModel) jtblAccount.getModel();
         model.setRowCount(0);
@@ -169,6 +170,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
     @SuppressWarnings("AssignmentToMethodParameter")
     private void setActivityHistoryTable(ArrayList<ActivityHistory> activityHistorys) {
+        ColorFormatSupport.FormatTableHeader(jtblActivityHistory);
         ColorFormatSupport.setDataTableCenter(jtblActivityHistory);
         DefaultTableModel model = (DefaultTableModel) jtblActivityHistory.getModel();
         model.setRowCount(0);
@@ -374,12 +376,14 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnDeleteTab))
+                .addComponent(jbtnDeleteTab)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jbtnDeleteTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbtnDeleteTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(0, 255, 255));
@@ -388,7 +392,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jtblAccount.setBackground(new java.awt.Color(255, 255, 255));
-        jtblAccount.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jtblAccount.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jtblAccount.setForeground(new java.awt.Color(0, 0, 0));
         jtblAccount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -426,7 +430,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
         jrbLocked.setBackground(new java.awt.Color(204, 204, 204));
         buttonGroup1.add(jrbLocked);
-        jrbLocked.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jrbLocked.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jrbLocked.setForeground(new java.awt.Color(0, 0, 0));
         jrbLocked.setText("Đã khóa");
         jrbLocked.addActionListener(new java.awt.event.ActionListener() {
@@ -437,7 +441,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
         jrbUnlocked.setBackground(new java.awt.Color(204, 204, 204));
         buttonGroup1.add(jrbUnlocked);
-        jrbUnlocked.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jrbUnlocked.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jrbUnlocked.setForeground(new java.awt.Color(0, 0, 0));
         jrbUnlocked.setSelected(true);
         jrbUnlocked.setText("Đang hoạt động");
@@ -449,7 +453,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
 
         jrbAll.setBackground(new java.awt.Color(204, 204, 204));
         buttonGroup1.add(jrbAll);
-        jrbAll.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jrbAll.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jrbAll.setForeground(new java.awt.Color(0, 0, 0));
         jrbAll.setText("Tất cả");
         jrbAll.addActionListener(new java.awt.event.ActionListener() {
@@ -458,10 +462,10 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             }
         });
 
-        jbtnReload.setBackground(new java.awt.Color(0, 255, 255));
+        jbtnReload.setBackground(new java.awt.Color(204, 204, 204));
         jbtnReload.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jbtnReload.setForeground(new java.awt.Color(51, 51, 51));
-        jbtnReload.setText("Tải lại");
+        jbtnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload (1).png"))); // NOI18N
         jbtnReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnReloadActionPerformed(evt);
@@ -479,15 +483,15 @@ public class JAccountPanelForm extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbLocked, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jrbUnlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jrbLocked)
+                        .addGap(13, 13, 13)
+                        .addComponent(jrbUnlocked, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jrbAll)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -525,19 +529,19 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jLabel7.setText("Xác nhận mật khẩu");
 
         jtfFullname.setBackground(new java.awt.Color(255, 255, 255));
-        jtfFullname.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jtfFullname.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jtfFullname.setForeground(new java.awt.Color(0, 0, 0));
 
         jtfusername.setBackground(new java.awt.Color(255, 255, 255));
-        jtfusername.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jtfusername.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jtfusername.setForeground(new java.awt.Color(0, 0, 0));
 
         jpfPassword.setBackground(new java.awt.Color(255, 255, 255));
-        jpfPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jpfPassword.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jpfPassword.setForeground(new java.awt.Color(0, 0, 0));
 
         jchbShowHirePassword.setBackground(new java.awt.Color(204, 204, 204));
-        jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jchbShowHirePassword.setForeground(new java.awt.Color(0, 0, 0));
         jchbShowHirePassword.setText("Hiện mật khẩu");
         jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -547,10 +551,10 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         });
 
         jpfConfirmPassword.setBackground(new java.awt.Color(255, 255, 255));
-        jpfConfirmPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jpfConfirmPassword.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jpfConfirmPassword.setForeground(new java.awt.Color(0, 0, 0));
 
-        jlbResetPassword.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jlbResetPassword.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jlbResetPassword.setForeground(new java.awt.Color(255, 0, 0));
         jlbResetPassword.setText("Đặt lại mật khẩu");
         jlbResetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -695,7 +699,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         jLabel16.setText("Thông tin");
 
         jtblActivityHistory.setBackground(new java.awt.Color(255, 255, 255));
-        jtblActivityHistory.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jtblActivityHistory.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jtblActivityHistory.setForeground(new java.awt.Color(0, 0, 0));
         jtblActivityHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -721,9 +725,9 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             jtblActivityHistory.getColumnModel().getColumn(1).setMinWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setPreferredWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setMaxWidth(140);
-            jtblActivityHistory.getColumnModel().getColumn(2).setMinWidth(100);
-            jtblActivityHistory.getColumnModel().getColumn(2).setPreferredWidth(100);
-            jtblActivityHistory.getColumnModel().getColumn(2).setMaxWidth(100);
+            jtblActivityHistory.getColumnModel().getColumn(2).setMinWidth(150);
+            jtblActivityHistory.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jtblActivityHistory.getColumnModel().getColumn(2).setMaxWidth(200);
             jtblActivityHistory.getColumnModel().getColumn(3).setPreferredWidth(100);
             jtblActivityHistory.getColumnModel().getColumn(3).setMaxWidth(100);
             jtblActivityHistory.getColumnModel().getColumn(4).setPreferredWidth(100);

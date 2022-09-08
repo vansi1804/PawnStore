@@ -65,15 +65,15 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
         } else {
             isAdmin(false);
         }
-        Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePageImage0.png"));
+        Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePage/HomePageImage0.png"));
         @SuppressWarnings("CollectionWithoutInitialCapacity")
         ArrayList<URL> imagesList = new ArrayList<>();
-        imagesList.add(getClass().getResource("/Image/HomePageImage0.png"));
-        imagesList.add(getClass().getResource("/Image/HomePageImage1.png"));
-        imagesList.add(getClass().getResource("/Image/HomePageImage2.jpg"));
-        imagesList.add(getClass().getResource("/Image/HomePageImage3.png"));
-        imagesList.add(getClass().getResource("/Image/HomePageImage4.png"));
-        imagesList.add(getClass().getResource("/Image/HomePageImage5.jpg"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage0.png"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage1.png"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage2.jpg"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage3.png"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage4.png"));
+        imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage5.jpg"));
         Support.setSlideImage(jlbHomePage, imagesList);
         
         Support.getClock(jlblClock, true);
