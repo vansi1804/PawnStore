@@ -781,8 +781,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -841,7 +840,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtblCustomer.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
-        jbtnReload.setBackground(new java.awt.Color(204, 204, 204));
+        jbtnReload.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReload.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jbtnReload.setForeground(new java.awt.Color(0, 0, 0));
         jbtnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload (1).png"))); // NOI18N

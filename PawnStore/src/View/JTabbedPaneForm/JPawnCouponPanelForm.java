@@ -1447,7 +1447,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             }
         });
 
-        jbtnReload.setBackground(new java.awt.Color(204, 204, 204));
+        jbtnReload.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReload.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jbtnReload.setForeground(new java.awt.Color(0, 0, 0));
         jbtnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload (1).png"))); // NOI18N

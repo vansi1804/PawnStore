@@ -55,7 +55,7 @@
                   <Component id="jlbLogo" min="-2" pref="186" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" pref="360" max="-2" attributes="0"/>
-                  <EmptySpace pref="79" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Component id="lbLogin" alignment="1" max="32767" attributes="0"/>
           </Group>
