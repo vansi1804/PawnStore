@@ -1,13 +1,13 @@
 ﻿
 use master
 go
-RESTORE DATABASE PawnStores WITH RECOVERY
+RESTORE DATABASE PawnStore WITH RECOVERY
 go
-drop database PawnStores
+drop database PawnStore
 go
-create database PawnStores
+create database PawnStore
 go
-use PawnStores
+use PawnStore
 go
 set dateformat dmy
 go
@@ -20,6 +20,9 @@ create table Account(
 	_deleteflag bit default 0
 )
 go
+delete from Account
+
+go
 drop table Customer
 go
 create table Customer(
@@ -31,6 +34,9 @@ create table Customer(
 	_deleteFlag bit
 )
 go
+delete from Customer
+
+go
 drop table TypeOfProduct
 go 
 create table TypeOfProduct(
@@ -38,6 +44,8 @@ create table TypeOfProduct(
 	_name nvarchar(MAX),
 	_deleteflag bit
 )
+go
+delete from TypeOfProduct
 
 go
 drop table Product
@@ -49,6 +57,9 @@ create table Product(
 	_information nvarchar(max),
 	_status nvarchar(max),
 )
+go
+delete from Product
+
 
 go
 drop table PawnCoupon
@@ -66,6 +77,9 @@ create table PawnCoupon(
 	_status nvarchar(max)
 )
 go
+delete from PawnCoupon
+
+go
 drop table InterestPayment
 go
 create table InterestPayment(
@@ -77,6 +91,8 @@ create table InterestPayment(
 	_debt int,
 	_note nvarchar(200)
 )
+go
+delete from InterestPayment
 
 go
 drop table ActivityHistory
@@ -88,7 +104,8 @@ create table ActivityHistory(
 	_objectname nvarchar(Max),
 	_infor nvarchar(Max)
 )
-
+go
+delete from ActivityHistory
 
 GO
 insert into Account values ('admin','admin','Admin',0)

@@ -1210,7 +1210,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
             jbtnAddProduct.setEnabled(true);
             jtfProductID.setText(ProductController.getCurrentInstance().getNewID());
             jtfProductID.setEditable(false);
-            setProductStatus("0");
+            setProductStatus("Mới");
         }
     }//GEN-LAST:event_jbtnAddNewProductMouseClicked
 

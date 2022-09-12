@@ -14,7 +14,7 @@ public class DBConnectionSupport {
 //    private static final String Password = EncodingSupport.decrypt("KVsdBApkCcl1kSIlQ6Bung==");
     
     private static final String dbURL = "jdbc:sqlserver://localhost:1433;"
-            + "databaseName=PawnStores;"
+            + "databaseName=PawnStore;"
             + "encrypt=true;"
             + "trustServerCertificate=true;"
             + "sslProtocal=TLSv1.2";
