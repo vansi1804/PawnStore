@@ -64,8 +64,8 @@ public class JAccountPanelForm extends javax.swing.JPanel {
             jtfFullname.setEditable(false);
             jtfusername.setText(account.getUsername());
             jtfusername.setEditable(false);
-            jpfPassword.setText(null);
-            jpfConfirmPassword.setText(null);
+            jpfPassword.setText("");
+            jpfConfirmPassword.setText("");
             jlbResetPassword.setVisible(true);
         }
         setActivityHistoryDefault(account);
@@ -155,15 +155,13 @@ public class JAccountPanelForm extends javax.swing.JPanel {
         ActivityHistoryFindAble = false;
         jDCFromDate.setDate(null);
         jDCToDate.setDate(null);
-        jtfUsernameKey.setEditable(false);
-        jtfUsernameKey.setText(null);
+        jtfUsernameKey.setText("");
         jtfActivityKey.setText("");
         jtfObjectnameKey.setText("");
         jtfInforKey.setText("");
         setActivityHistoryTable(ActivityHistoryController.getCurrentInstance().getList());
         ActivityHistoryFindAble = true;
         if (account != null) {
-            jtfUsernameKey.setEditable(true);
             jtfUsernameKey.setText(account.getUsername());
         }
     }

@@ -18,23 +18,22 @@ import java.awt.print.PrinterJob;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
+public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
     private PawnCoupon pawnCoupon = null;
 
     /**
-     * Creates new form PawnCouponPageBer
+     * Creates new form PawnCouponPaper
      *
-     * @param pawnCoupon
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public PawnCouponPageBerJFrameForm() {
+    public PawnCouponPaperJFrameForm() {
         initComponents();
     }
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public PawnCouponPageBerJFrameForm(PawnCoupon pawnCoupon) {
+    public PawnCouponPaperJFrameForm(PawnCoupon pawnCoupon) {
         initComponents();
         this.setSize(jFirstPanel.getWidth() + 120, jFirstPanel.getHeight() - 340);
         this.setResizable(false);
@@ -46,7 +45,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
     }
 
     private void setPawnCouponPageber(PawnCoupon pawnCoupon) {
-        String space = "        ";
+        String space = "\t";
         jlbPawnCouponID.setText(space + pawnCoupon.getId());
         jlbPawnCouponID1.setText(jlbPawnCouponID.getText());
         jlbCustomerName.setText(space + pawnCoupon.getCustomer().getFullname());
@@ -238,38 +237,38 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Dịch vụ cầm dùm đồ");
         jLabel3.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("CÒN THỞ LÀ CÒN GỠ");
         jLabel2.setToolTipText("");
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("STK: 040081697886");
         jLabel4.setToolTipText("");
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("NH:   Sacombank");
         jLabel5.setToolTipText("");
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Độc lập - Tự do - Hạnh phúc");
         jLabel9.setToolTipText("");
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM");
@@ -286,20 +285,20 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jLabel11.setToolTipText("");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("~~~~~~~~~~~~~~~~~~~~~~o0o~~~~~~~~~~~~~~~~~~~~~~");
+        jLabel12.setText("~~~~~~~~~~~~~~~~~o0o~~~~~~~~~~~~~~~~~");
         jLabel12.setToolTipText("");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("SĐT: 0917672477");
         jLabel10.setToolTipText("");
 
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Đ/C: 26 đường số 34, Linh Đông, Thủ Đức");
@@ -317,7 +316,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jLabel16.setText("Số hợp đồng: ");
         jLabel16.setToolTipText("");
 
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel17.setText("Chủ TK:    Nguyễn Văn Sĩ");
@@ -336,10 +335,10 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -565,7 +564,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jlbPawnDate.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
         jlbPawnDate.setForeground(new java.awt.Color(0, 0, 0));
         jlbPawnDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnDate.setText(".............................................................................................................................................");
+        jlbPawnDate.setText("................................................đến..................................................");
         jlbPawnDate.setToolTipText("");
 
         jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
@@ -759,8 +758,8 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(162, 162, 162)
-                            .addComponent(jlbCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addComponent(jlbCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel26))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
@@ -930,38 +929,38 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Dịch vụ cầm dùm đồ");
         jLabel15.setToolTipText("");
 
-        jLabel18.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("CÒN THỞ LÀ CÒN GỠ");
         jLabel18.setToolTipText("");
 
-        jLabel19.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("STK: 040081697886");
         jLabel19.setToolTipText("");
 
-        jLabel20.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel20.setText("NH:   Sacombank");
         jLabel20.setToolTipText("");
 
-        jLabel21.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Độc lập - Tự do - Hạnh phúc");
         jLabel21.setToolTipText("");
         jLabel21.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM");
@@ -978,20 +977,20 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jLabel23.setToolTipText("");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel24.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("~~~~~~~~~~~~~~~~~~~~~~o0o~~~~~~~~~~~~~~~~~~~~~~");
+        jLabel24.setText("~~~~~~~~~~~~~~~~~~~~~~o0o~~~~~~~~~~~~~~~~~");
         jLabel24.setToolTipText("");
         jLabel24.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel25.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel25.setText("SĐT: 0917672477");
         jLabel25.setToolTipText("");
 
-        jLabel29.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel29.setText("Đ/C: 26 đường số 34, Linh Đông, Thủ Đức");
@@ -1009,7 +1008,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jLabel30.setText("Số hợp đồng: ");
         jLabel30.setToolTipText("");
 
-        jLabel31.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Times New Roman", 3, 15)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(0, 0, 0));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel31.setText("Chủ TK:    Nguyễn Văn Sĩ");
@@ -1028,10 +1027,10 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel20))
+                        .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1257,7 +1256,7 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
         jlbPawnDate1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
         jlbPawnDate1.setForeground(new java.awt.Color(0, 0, 0));
         jlbPawnDate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnDate1.setText(".............................................................................................................................................");
+        jlbPawnDate1.setText("................................................đến..................................................");
         jlbPawnDate1.setToolTipText("");
 
         jLabel48.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
@@ -1451,8 +1450,8 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel7Layout.createSequentialGroup()
                             .addGap(162, 162, 162)
-                            .addComponent(jlbCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addComponent(jlbCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel34))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                             .addContainerGap()
@@ -1727,21 +1726,23 @@ public class PawnCouponPageBerJFrameForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPageBerJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPageBerJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPageBerJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPageBerJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PawnCouponPageBerJFrameForm().setVisible(true);
+                new PawnCouponPaperJFrameForm().setVisible(true);
             }
         });
     }

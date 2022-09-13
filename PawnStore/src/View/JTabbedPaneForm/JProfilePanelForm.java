@@ -12,10 +12,9 @@ import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageJFrameForm;
-
 /**
  *
- * @author Bau Kien
+ * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
 public class JProfilePanelForm extends javax.swing.JPanel {
@@ -37,11 +36,11 @@ public class JProfilePanelForm extends javax.swing.JPanel {
         if (StaticUser.getCurrentInstanceUser().getUsername().equals("admin")) {
             jpfOldPassword.setText(StaticUser.getCurrentInstanceUser().getPassword());
         } else {
-            jpfOldPassword.setText(null);
+            jpfOldPassword.setText("");
         }
-        jpfNewPassword.setText(null);
+        jpfNewPassword.setText("");
         jpfNewPassword.setEditable(false);
-        jpfConfirmPassword.setText(null);
+        jpfConfirmPassword.setText("");
     }
 
     private Account getAccountFromForm() {
@@ -264,7 +263,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                                 .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jpfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jlbChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addContainerGap(444, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

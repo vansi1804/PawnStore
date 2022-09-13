@@ -21,7 +21,7 @@ import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageJFrameForm;
-import View.PawnCouponPageBerJFrameForm;
+import View.PawnCouponPaperJFrameForm;
 import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                     jrbRedeemedStatus.setEnabled(true);
                     jrbNeedToLiquidateStatus.setEnabled(true);
                     jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(true);
+                    jrbLateStatus.setEnabled(false);
                     jrbAllStatus.setEnabled(false);
                 }
                 case "Đã chuộc" -> {
@@ -112,7 +112,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                     jrbRedeemedStatus.setSelected(true);
                     jrbNeedToLiquidateStatus.setEnabled(true);
                     jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(true);
+                    jrbLateStatus.setEnabled(false);
                     jrbAllStatus.setEnabled(false);
                 }
                 case "Trễ" -> {
@@ -130,7 +130,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                     jrbNeedToLiquidateStatus.setEnabled(true);
                     jrbNeedToLiquidateStatus.setSelected(true);
                     jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(true);
+                    jrbLateStatus.setEnabled(false);
                     jrbAllStatus.setEnabled(false);
                 }
                 case "Đã thanh lý" -> {
@@ -139,7 +139,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                     jrbNeedToLiquidateStatus.setEnabled(true);
                     jrbLiquidatedStatus.setEnabled(true);
                     jrbLiquidatedStatus.setSelected(true);
-                    jrbLateStatus.setEnabled(true);
+                    jrbLateStatus.setEnabled(false);
                     jrbAllStatus.setEnabled(false);
                 }
             }
@@ -508,6 +508,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             rowData[5] = interestPayments.get(i).getNote();
             model.addRow(rowData);
         }
+        jlbInterestPaymentSum.setText("Tổng:");
         jlbToTalInterest.setText(Support.getFormatNumber(totalInterest));
         jlbToTalTheMoneyPayed.setText(Support.getFormatNumber(totalTheMoneyPayed));
         jlbLastDebt.setText(Support.getFormatNumber(lastDebt));
@@ -1163,7 +1164,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1198,16 +1199,15 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                                             .addComponent(jrbAllStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jrbRedeemedStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jrbLiquidatedStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jtfID, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jtfID, javax.swing.GroupLayout.Alignment.LEADING)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbtnPrintPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jbtnAddPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtnPrintPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1580,8 +1580,8 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtfTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfLastDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1700,21 +1700,21 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Tổng  :");
 
-        jlbTotalPrice.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
+        jlbTotalPrice.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbTotalPrice.setForeground(new java.awt.Color(0, 0, 0));
         jlbTotalPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalPrice.setText("0");
         jlbTotalPrice.setToolTipText("");
         jlbTotalPrice.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jlbTotalInterest.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
+        jlbTotalInterest.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbTotalInterest.setForeground(new java.awt.Color(0, 0, 0));
         jlbTotalInterest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalInterest.setText("0");
         jlbTotalInterest.setToolTipText("");
         jlbTotalInterest.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jlbTotalLiquidationPrice.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
+        jlbTotalLiquidationPrice.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbTotalLiquidationPrice.setForeground(new java.awt.Color(0, 0, 0));
         jlbTotalLiquidationPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalLiquidationPrice.setText("0");
@@ -1769,7 +1769,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1976,7 +1976,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
     private void jbtnPrintPawnCouponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintPawnCouponActionPerformed
         PawnCoupon pawnCoupon = getPawnCouponFromForm();
-        PawnCouponPageBerJFrameForm pawnCouponPageBerJFrameForm = new PawnCouponPageBerJFrameForm(pawnCoupon);
+        PawnCouponPaperJFrameForm pawnCouponPageBerJFrameForm = new PawnCouponPaperJFrameForm(pawnCoupon);
         pawnCouponPageBerJFrameForm.setVisible(true);
     }//GEN-LAST:event_jbtnPrintPawnCouponActionPerformed
 

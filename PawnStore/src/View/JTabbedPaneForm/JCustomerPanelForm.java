@@ -62,9 +62,6 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             setCustomerTable(CustomerController.getCurrentInstance().findCustomerByDeleteflagKey(getCustomerStatus()));
             jbtnAdd.setEnabled(false);
             jbtnEdit.setEnabled(false);
-            jlbTotalPrice.setText("");
-            jlTotalPayed.setText("");
-            jlbTotalDebt.setText("");
         } else {
             jbtnAdd.setEnabled(false);
             jbtnEdit.setEnabled(true);
@@ -75,8 +72,8 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jtfPhonenumber.setText(customer.getPhonenumber());
             jtaAddress.setText(customer.getAddress());
             setCustomerStatus(customer.getDeleteflag() ? "1" : "0");
-            setPawnHistoryTable(customer);
         }
+        setPawnHistoryTable(customer);
     }
 
     private void setGender(String gender) {
@@ -171,37 +168,45 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         ColorFormatSupport.setDataTableCenter(jtblPawningHistory);
         DefaultTableModel model = (DefaultTableModel) jtblPawningHistory.getModel();
         model.setRowCount(0);
-        ArrayList<PawnCoupon> pawnCoupons = PawnCouponController.getCurrentInstance().findPawnCouponByCustomerKey(customer);
-        Object rowData[] = new Object[11];
-        for (int i = 0; i < pawnCoupons.size(); i++) {
-            rowData[0] = String.valueOf(i + 1);
-            rowData[1] = pawnCoupons.get(i).getId();
-            rowData[2] = pawnCoupons.get(i).getPawnDate();
-            rowData[3] = Support.getFormatNumber(pawnCoupons.get(i).getPrice());
-            totalPrice += pawnCoupons.get(i).getPrice();
-            rowData[4] = pawnCoupons.get(i).getInterestRate();
-            ArrayList<InterestPayment> interestPayments = InterestPaymentController.getCurrentInstance().getList(pawnCoupons.get(i));
-            rowData[5] = interestPayments.size();
-            long interestPayed = 0;
-            for (InterestPayment interestPayment : interestPayments) {
-                interestPayed += interestPayment.getMoney();
+        if (customer == null) {
+            jlbTotalPawnedHistory.setText("");
+            jlbTotalPrice.setText("");
+            jlTotalPayed.setText("");
+            jlbTotalDebt.setText("");
+        } else {
+            ArrayList<PawnCoupon> pawnCoupons = PawnCouponController.getCurrentInstance().findPawnCouponByCustomerKey(customer);
+            Object rowData[] = new Object[11];
+            for (int i = 0; i < pawnCoupons.size(); i++) {
+                rowData[0] = String.valueOf(i + 1);
+                rowData[1] = pawnCoupons.get(i).getId();
+                rowData[2] = pawnCoupons.get(i).getPawnDate();
+                rowData[3] = Support.getFormatNumber(pawnCoupons.get(i).getPrice());
+                totalPrice += pawnCoupons.get(i).getPrice();
+                rowData[4] = pawnCoupons.get(i).getInterestRate();
+                ArrayList<InterestPayment> interestPayments = InterestPaymentController.getCurrentInstance().getList(pawnCoupons.get(i));
+                rowData[5] = interestPayments.size();
+                long interestPayed = 0;
+                for (InterestPayment interestPayment : interestPayments) {
+                    interestPayed += interestPayment.getMoney();
+                }
+                rowData[6] = interestPayed;
+                totalPayed += interestPayed;
+                if (!interestPayments.isEmpty()) {
+                    rowData[7] = interestPayments.get(interestPayments.size() - 1).getDebt();
+                    totalDebt += interestPayments.get(interestPayments.size() - 1).getDebt();
+                } else {
+                    rowData[7] = 0;
+                }
+                rowData[8] = pawnCoupons.get(i).getRedeem0rLiquidationDate();
+                rowData[9] = Support.getFormatNumber(pawnCoupons.get(i).getLiquidationPrice());
+                rowData[10] = pawnCoupons.get(i).getStatus();
+                model.addRow(rowData);
+                jlbTotalPawnedHistory.setText("Tổng:");
+                jlbTotalPrice.setText(Support.getFormatNumber(totalPrice));
+                jlTotalPayed.setText(Support.getFormatNumber(totalPayed));
+                jlbTotalDebt.setText(Support.getFormatNumber(totalDebt));
             }
-            rowData[6] = interestPayed;
-            totalPayed += interestPayed;
-            if (!interestPayments.isEmpty()) {
-                rowData[7] = interestPayments.get(interestPayments.size() - 1).getDebt();
-                totalDebt += interestPayments.get(interestPayments.size() - 1).getDebt();
-            }else{
-                rowData[7] = 0;
-            }
-            rowData[8] = pawnCoupons.get(i).getRedeem0rLiquidationDate();
-            rowData[9] = Support.getFormatNumber(pawnCoupons.get(i).getLiquidationPrice());
-            rowData[10] = pawnCoupons.get(i).getStatus();
-            model.addRow(rowData);
         }
-        jlbTotalPrice.setText(Support.getFormatNumber(totalPrice));
-        jlTotalPayed.setText(Support.getFormatNumber(totalPayed));
-        jlbTotalDebt.setText(Support.getFormatNumber(totalDebt));
     }
 
     private Customer getCustomerFromForm() {
@@ -356,7 +361,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jlTotalPayed = new javax.swing.JLabel();
         jlbTotalDebt = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jlbTotalPawnedHistory = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblCustomer = new javax.swing.JTable();
@@ -764,9 +769,9 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                         .addComponent(jlbTotalDebt))))
         );
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel14.setText("Tổng  :");
+        jlbTotalPawnedHistory.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlbTotalPawnedHistory.setForeground(new java.awt.Color(0, 0, 0));
+        jlbTotalPawnedHistory.setText("Tổng  :");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -779,7 +784,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbTotalPawnedHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
@@ -794,7 +799,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)))
+                    .addComponent(jlbTotalPawnedHistory)))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
@@ -867,7 +872,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1020,7 +1025,6 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1047,6 +1051,7 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnReload;
     private javax.swing.JLabel jlTotalPayed;
     private javax.swing.JLabel jlbTotalDebt;
+    private javax.swing.JLabel jlbTotalPawnedHistory;
     private javax.swing.JLabel jlbTotalPrice;
     private javax.swing.JRadioButton jrbAllGender;
     private javax.swing.JRadioButton jrbAllStatus;
