@@ -45,6 +45,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     }
 
     private void setPawnCouponPageber(PawnCoupon pawnCoupon) {
+        jbtnPrint.setEnabled(!pawnCoupon.getStatus().equals("Đã chuộc") && !pawnCoupon.getStatus().equals("Đã thanh lý"));
         String space = "          ";
         jlbPawnCouponID.setText(space + pawnCoupon.getId());
         jlbPawnCouponID1.setText(jlbPawnCouponID.getText());
@@ -226,7 +227,6 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel.setBackground(new java.awt.Color(204, 204, 204));
