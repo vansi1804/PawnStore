@@ -16,12 +16,11 @@ import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
 import Model.StaticUser;
-import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.JHomePageJFrameForm;
-import View.PawnCouponPaperJFrameForm;
+import View.PawnCouponInPaperJFrameForm;
 import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
@@ -86,62 +85,61 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 : ProductController.getCurrentInstance().getProduct(jcbProductID.getSelectedItem().toString());
     }
 
-    private void setPawnCouponStatus(String status) {
-        if (CheckSupport.isBlank(status)) {
-            jrbNotRedeemingStatus.setEnabled(true);
-            jrbNotRedeemingStatus.setSelected(true);
-            jrbRedeemedStatus.setEnabled(true);
-            jrbNeedToLiquidateStatus.setEnabled(true);
-            jrbLiquidatedStatus.setEnabled(true);
-            jrbLateStatus.setEnabled(true);
-            jrbAllStatus.setEnabled(true);
-        } else {
-            switch (status) {
-                case "Chưa chuộc" -> {
-                    jrbNotRedeemingStatus.setEnabled(true);
-                    jrbNotRedeemingStatus.setSelected(true);
-                    jrbRedeemedStatus.setEnabled(true);
-                    jrbNeedToLiquidateStatus.setEnabled(true);
-                    jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                }
-                case "Đã chuộc" -> {
-                    jrbNotRedeemingStatus.setEnabled(true);
-                    jrbRedeemedStatus.setEnabled(true);
-                    jrbRedeemedStatus.setSelected(true);
-                    jrbNeedToLiquidateStatus.setEnabled(true);
-                    jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                }
-                case "Trễ" -> {
-                    jrbNotRedeemingStatus.setEnabled(true);
-                    jrbRedeemedStatus.setEnabled(true);
-                    jrbNeedToLiquidateStatus.setEnabled(true);
-                    jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(true);
-                    jrbLateStatus.setSelected(true);
-                    jrbAllStatus.setEnabled(false);
-                }
-                case "Cần thanh lý" -> {
-                    jrbNotRedeemingStatus.setEnabled(true);
-                    jrbRedeemedStatus.setEnabled(true);
-                    jrbNeedToLiquidateStatus.setEnabled(true);
-                    jrbNeedToLiquidateStatus.setSelected(true);
-                    jrbLiquidatedStatus.setEnabled(true);
-                    jrbLateStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                }
-                case "Đã thanh lý" -> {
-                    jrbNotRedeemingStatus.setEnabled(true);
-                    jrbRedeemedStatus.setEnabled(true);
-                    jrbNeedToLiquidateStatus.setEnabled(true);
-                    jrbLiquidatedStatus.setEnabled(true);
-                    jrbLiquidatedStatus.setSelected(true);
-                    jrbLateStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                }
+    private void setPawnCouponStatus(String status, boolean enableOthers) {
+        switch (status) {
+            case "Chưa chuộc" -> {
+                jrbNotRedeemingStatus.setEnabled(true);
+                jrbNotRedeemingStatus.setSelected(true);
+                jrbRedeemedStatus.setEnabled(enableOthers);
+                jrbNeedToLiquidateStatus.setEnabled(enableOthers);
+                jrbLiquidatedStatus.setEnabled(enableOthers);
+                jrbLateStatus.setEnabled(false);
+                jrbAllStatus.setEnabled(false);
+            }
+            case "Đã chuộc" -> {
+                jrbNotRedeemingStatus.setEnabled(enableOthers);
+                jrbRedeemedStatus.setEnabled(true);
+                jrbRedeemedStatus.setSelected(true);
+                jrbNeedToLiquidateStatus.setEnabled(enableOthers);
+                jrbLiquidatedStatus.setEnabled(enableOthers);
+                jrbLateStatus.setEnabled(false);
+                jrbAllStatus.setEnabled(false);
+            }
+            case "Trễ" -> {
+                jrbNotRedeemingStatus.setEnabled(enableOthers);
+                jrbRedeemedStatus.setEnabled(enableOthers);
+                jrbNeedToLiquidateStatus.setEnabled(enableOthers);
+                jrbLiquidatedStatus.setEnabled(enableOthers);
+                jrbLateStatus.setEnabled(true);
+                jrbLateStatus.setSelected(true);
+                jrbAllStatus.setEnabled(false);
+            }
+            case "Cần thanh lý" -> {
+                jrbNotRedeemingStatus.setEnabled(enableOthers);
+                jrbRedeemedStatus.setEnabled(enableOthers);
+                jrbNeedToLiquidateStatus.setEnabled(true);
+                jrbNeedToLiquidateStatus.setSelected(true);
+                jrbLiquidatedStatus.setEnabled(enableOthers);
+                jrbLateStatus.setEnabled(false);
+                jrbAllStatus.setEnabled(false);
+            }
+            case "Đã thanh lý" -> {
+                jrbNotRedeemingStatus.setEnabled(enableOthers);
+                jrbRedeemedStatus.setEnabled(enableOthers);
+                jrbNeedToLiquidateStatus.setEnabled(enableOthers);
+                jrbLiquidatedStatus.setEnabled(true);
+                jrbLiquidatedStatus.setSelected(true);
+                jrbLateStatus.setEnabled(false);
+                jrbAllStatus.setEnabled(false);
+            }
+            default -> {
+                jrbNotRedeemingStatus.setEnabled(enableOthers);
+                jrbNotRedeemingStatus.setSelected(enableOthers);
+                jrbRedeemedStatus.setEnabled(enableOthers);
+                jrbNeedToLiquidateStatus.setEnabled(enableOthers);
+                jrbLiquidatedStatus.setEnabled(enableOthers);
+                jrbLateStatus.setEnabled(enableOthers);
+                jrbAllStatus.setEnabled(enableOthers);
             }
         }
     }
@@ -196,13 +194,13 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
 
     private void setPawnCouponDefault(PawnCoupon pawnCoupon) {
         if (pawnCoupon == null) {
-            jbtnPrintPawnCoupon.setEnabled(false);
             jbtnAddPawnCoupon.setEnabled(true);
-            jbtnEditPawnCoupon.setEnabled(true);
             jtfID.setText("");
             jtfID.setEditable(true);
             setCBCustomer(CustomerController.getCurrentInstance().getList());
+            jcbCustomerID.setEnabled(true);
             setCBProduct(ProductController.getCurrentInstance().getList());
+            jcbProductID.setEnabled(true);
             jtfAmount.setText("");
             jtfAmount.setEditable(true);
             jtfPrice.setText("");
@@ -217,14 +215,17 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jdcRedeemOrLiquidateDate.setEnabled(true);
             jtfLiquidatePrice.setText("");
             jtfLiquidatePrice.setEditable(true);
-            setPawnCouponStatus("");
+            setPawnCouponStatus("", true);
             setPawnCouponTable(PawnCouponController.getCurrentInstance().findPawnCouponByStatusKey(getPawnCouponStatus()));
+            jbtnViewPawnCouponInPaper.setEnabled(false);
             jbtnAddPawnCoupon.setEnabled(false);
             jbtnEditPawnCoupon.setEnabled(false);
+            jbtnRepawn.setEnabled(false);
         } else {
-            jbtnPrintPawnCoupon.setEnabled(true);
+            jbtnViewPawnCouponInPaper.setEnabled(true);
             jbtnAddPawnCoupon.setEnabled(false);
             jbtnEditPawnCoupon.setEnabled(true);
+            jbtnRepawn.setEnabled(false);
             jtfID.setText(pawnCoupon.getId());
             jtfID.setEditable(false);
             jcbCustomerID.setSelectedItem(pawnCoupon.getCustomer().getId());
@@ -241,7 +242,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jdcRedeemOrLiquidateDate.setEnabled(false);
             jtfLiquidatePrice.setText(String.valueOf(pawnCoupon.getLiquidationPrice()));
             jtfLiquidatePrice.setEditable(false);
-            setPawnCouponStatus(pawnCoupon.getStatus());
+            setPawnCouponStatus(pawnCoupon.getStatus(), true);
             if (pawnCoupon.getStatus().equals("Đã chuộc") || pawnCoupon.getStatus().equals("Đã thanh lý")) {
                 jcbCustomerID.setEnabled(false);
                 jcbProductID.setEnabled(false);
@@ -253,22 +254,11 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 jdcTheNextInterestPaymentDate.setDate(null);
                 jdcRedeemOrLiquidateDate.setEnabled(false);
                 jtfLiquidatePrice.setEditable(false);
+                setPawnCouponStatus(pawnCoupon.getStatus(), false);
+                jbtnViewPawnCouponInPaper.setEnabled(true);
                 jbtnAddPawnCoupon.setEnabled(false);
                 jbtnEditPawnCoupon.setEnabled(false);
-                jbtnPrintPawnCoupon.setEnabled(false);
-                if (pawnCoupon.getStatus().equals("Đã chuộc")) {
-                    jrbNotRedeemingStatus.setEnabled(false);
-                    jrbLateStatus.setEnabled(false);
-                    jrbNeedToLiquidateStatus.setEnabled(false);
-                    jrbLiquidatedStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                } else if (pawnCoupon.getStatus().equals("Đã thanh lý")) {
-                    jrbNotRedeemingStatus.setEnabled(false);
-                    jrbRedeemedStatus.setEnabled(false);
-                    jrbLateStatus.setEnabled(false);
-                    jrbNeedToLiquidateStatus.setEnabled(false);
-                    jrbAllStatus.setEnabled(false);
-                }
+                jbtnRepawn.setEnabled(true);
             }
         }
     }
@@ -824,7 +814,8 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jrbAllStatus = new javax.swing.JRadioButton();
         jLabel19 = new javax.swing.JLabel();
         jtfLiquidatePrice = new javax.swing.JTextField();
-        jbtnPrintPawnCoupon = new javax.swing.JButton();
+        jbtnViewPawnCouponInPaper = new javax.swing.JButton();
+        jbtnRepawn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -986,11 +977,6 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jcbProductID.setBackground(new java.awt.Color(255, 255, 255));
         jcbProductID.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jcbProductID.setForeground(new java.awt.Color(0, 0, 0));
-        jcbProductID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbProductIDActionPerformed(evt);
-            }
-        });
 
         jtfAmount.setBackground(new java.awt.Color(255, 255, 255));
         jtfAmount.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
@@ -1143,13 +1129,23 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         jtfLiquidatePrice.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfLiquidatePrice.setForeground(new java.awt.Color(0, 0, 0));
 
-        jbtnPrintPawnCoupon.setBackground(new java.awt.Color(0, 255, 255));
-        jbtnPrintPawnCoupon.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jbtnPrintPawnCoupon.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnPrintPawnCoupon.setText("Xem");
-        jbtnPrintPawnCoupon.addActionListener(new java.awt.event.ActionListener() {
+        jbtnViewPawnCouponInPaper.setBackground(new java.awt.Color(0, 255, 255));
+        jbtnViewPawnCouponInPaper.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jbtnViewPawnCouponInPaper.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnViewPawnCouponInPaper.setText("Xem");
+        jbtnViewPawnCouponInPaper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnPrintPawnCouponActionPerformed(evt);
+                jbtnViewPawnCouponInPaperActionPerformed(evt);
+            }
+        });
+
+        jbtnRepawn.setBackground(new java.awt.Color(0, 255, 255));
+        jbtnRepawn.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jbtnRepawn.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnRepawn.setText("Cầm lại");
+        jbtnRepawn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRepawnActionPerformed(evt);
             }
         });
 
@@ -1164,7 +1160,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1199,16 +1195,19 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                                             .addComponent(jrbAllStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jrbRedeemedStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jrbLiquidatedStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jtfID, javax.swing.GroupLayout.Alignment.LEADING)))
+                                    .addComponent(jtfID, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jbtnPrintPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jbtnViewPawnCouponInPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbtnAddPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbtnRepawn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1278,7 +1277,8 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnEditPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnAddPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnPrintPawnCoupon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnViewPawnCouponInPaper, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnRepawn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1974,15 +1974,11 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
-    private void jbtnPrintPawnCouponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPrintPawnCouponActionPerformed
+    private void jbtnViewPawnCouponInPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnViewPawnCouponInPaperActionPerformed
         PawnCoupon pawnCoupon = getPawnCouponFromForm();
-        PawnCouponPaperJFrameForm pawnCouponPageBerJFrameForm = new PawnCouponPaperJFrameForm(pawnCoupon);
+        PawnCouponInPaperJFrameForm pawnCouponPageBerJFrameForm = new PawnCouponInPaperJFrameForm(pawnCoupon);
         pawnCouponPageBerJFrameForm.setVisible(true);
-    }//GEN-LAST:event_jbtnPrintPawnCouponActionPerformed
-
-    private void jcbProductIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbProductIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbProductIDActionPerformed
+    }//GEN-LAST:event_jbtnViewPawnCouponInPaperActionPerformed
 
     private void jbtnAddNewPawnCouponMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAddNewPawnCouponMouseClicked
         if (evt.getClickCount() == 2) {
@@ -1990,19 +1986,43 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
             jbtnAddPawnCoupon.setEnabled(true);
             jtfID.setText(PawnCouponController.getCurrentInstance().getNewID());
             jtfID.setEditable(false);
+            jtfAmount.setText("1");
             jtfInterestRate.setText("0.3");
             jdcPawnDate.setDate(new Date());
+            jdcPawnDate.setEnabled(false);
             jdcTheNextInterestPaymentDate.setDate(Support.addDate(jdcPawnDate.getDate(), 14));
+            jdcTheNextInterestPaymentDate.setEnabled(false);
+            jdcRedeemOrLiquidateDate.setEnabled(false);
             jtfLiquidatePrice.setText("0");
             jtfLiquidatePrice.setEditable(false);
-            setPawnCouponStatus("Chưa chuộc");
-            jrbRedeemedStatus.setEnabled(false);
-            jrbLateStatus.setEnabled(false);
-            jrbNeedToLiquidateStatus.setEnabled(false);
-            jrbLiquidatedStatus.setEnabled(false);
-            jrbAllStatus.setEnabled(false);
+            setPawnCouponStatus("Chưa chuộc", false);
+            setInterestPaymentDefault(null, null);
         }
     }//GEN-LAST:event_jbtnAddNewPawnCouponMouseClicked
+
+    private void jbtnRepawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRepawnActionPerformed
+        String customerID = jcbCustomerID.getSelectedItem().toString();
+        String priductID = jcbProductID.getSelectedItem().toString();
+        String oldPawnPrice = jtfPrice.getText();
+        setPawnCouponDefault(null);
+        jbtnAddPawnCoupon.setEnabled(true);
+        jtfID.setText(PawnCouponController.getCurrentInstance().getNewID());
+        jtfID.setEditable(false);
+        jcbCustomerID.setSelectedItem(customerID);
+        jcbProductID.setSelectedItem(priductID);
+        jtfAmount.setText("1");
+        jtfPrice.setText(oldPawnPrice);
+        jtfInterestRate.setText("0.3");
+        jdcPawnDate.setDate(new Date());
+        jdcPawnDate.setEnabled(false);
+        jdcTheNextInterestPaymentDate.setDate(Support.addDate(jdcPawnDate.getDate(), 14));
+        jdcTheNextInterestPaymentDate.setEnabled(false);
+        jdcRedeemOrLiquidateDate.setEnabled(false);
+        jtfLiquidatePrice.setText("0");
+        jtfLiquidatePrice.setEditable(false);
+        setPawnCouponStatus("Chưa chuộc", false);
+        setInterestPaymentDefault(null, null);
+    }//GEN-LAST:event_jbtnRepawnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2062,8 +2082,9 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnDeleteTab;
     private javax.swing.JButton jbtnEditInterestPayment;
     private javax.swing.JButton jbtnEditPawnCoupon;
-    private javax.swing.JButton jbtnPrintPawnCoupon;
     private javax.swing.JButton jbtnReload;
+    private javax.swing.JButton jbtnRepawn;
+    private javax.swing.JButton jbtnViewPawnCouponInPaper;
     private javax.swing.JComboBox<String> jcbCustomerID;
     private javax.swing.JComboBox<String> jcbProductID;
     private com.toedter.calendar.JDateChooser jdcPawnDate;

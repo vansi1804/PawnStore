@@ -18,7 +18,7 @@ import java.awt.print.PrinterJob;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
+public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
     private PawnCoupon pawnCoupon = null;
@@ -28,12 +28,12 @@ public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
      *
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public PawnCouponPaperJFrameForm() {
+    public PawnCouponInPaperJFrameForm() {
         initComponents();
     }
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public PawnCouponPaperJFrameForm(PawnCoupon pawnCoupon) {
+    public PawnCouponInPaperJFrameForm(PawnCoupon pawnCoupon) {
         initComponents();
         this.setSize(jFirstPanel.getWidth() + 120, jFirstPanel.getHeight() - 340);
         this.setResizable(false);
@@ -45,7 +45,7 @@ public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
     }
 
     private void setPawnCouponPageber(PawnCoupon pawnCoupon) {
-        String space = "\t";
+        String space = "          ";
         jlbPawnCouponID.setText(space + pawnCoupon.getId());
         jlbPawnCouponID1.setText(jlbPawnCouponID.getText());
         jlbCustomerName.setText(space + pawnCoupon.getCustomer().getFullname());
@@ -1726,14 +1726,18 @@ public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponInPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponInPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponInPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PawnCouponPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PawnCouponInPaperJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1742,7 +1746,7 @@ public class PawnCouponPaperJFrameForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PawnCouponPaperJFrameForm().setVisible(true);
+                new PawnCouponInPaperJFrameForm().setVisible(true);
             }
         });
     }
