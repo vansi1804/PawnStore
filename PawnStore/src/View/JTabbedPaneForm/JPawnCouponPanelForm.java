@@ -1839,7 +1839,6 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
                                 StaticUser.getCurrentInstanceUser(), "Thêm mới", "Hợp đồng", pawnCoupon.toString()));
-                jbtnAddPawnCoupon.setEnabled(true);
                 setPawnCouponDefault(null);
                 setInterestPaymentDefault(null, null);
             }
@@ -1860,11 +1859,8 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
                                 StaticUser.getCurrentInstanceUser(), "Sửa", "Hợp đồng", pawnCoupon.toString()));
-                jbtnEditPawnCoupon.setEnabled(true);
                 setPawnCouponDefault(null);
                 setInterestPaymentDefault(null, null);
-            } else {
-                MessageSupport.Message("Thông báo", "Sửa hợp đồng thất bại.");
             }
         }
     }//GEN-LAST:event_jbtnEditPawnCouponActionPerformed

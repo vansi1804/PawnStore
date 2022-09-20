@@ -8,7 +8,6 @@ import Model.Customer;
 import Model.PawnCoupon;
 import Model.Product;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *

@@ -70,7 +70,7 @@ create table PawnCoupon(
 	_productID varchar(12) foreign key references Product(_id) on update cascade,
 	_amount int,
 	_price int,
-	_interestRate float,
+	_interestRate float(2),
 	_pawnDate varchar(20),
 	_redeemOrLiquidationDate varchar(20),
 	_liquidationPrice int,
@@ -107,19 +107,23 @@ create table ActivityHistory(
 go
 delete from ActivityHistory
 
-GO
+go
 insert into Account values ('admin','admin','Admin',0)
 
-
+GO
+Drop Trigger trgg_PawnCoupon
 GO
 CREATE TRIGGER trgg_PawnCoupon ON PawnCoupon
 AFTER INSERT, UPDATE
 AS
 BEGIN
-	UPDATE Product SET Product._status = PawnCoupon._status
-	from Product inner join PawnCoupon on Product._id = PawnCoupon._productID
+	UPDATE Product 
+	SET _status = (Select Top(1) PawnCoupon._status 
+							From PawnCoupon
+							Where PawnCoupon._productID = Product._id
+							Order By _id DESC)
+	from Product
 END
-
 
 GO
 CREATE TRIGGER trgg_Product ON Product
@@ -129,3 +133,4 @@ BEGIN
 	UPDATE Product SET _status = N'Chưa chuộc'
 	WHERE _status = N'Trễ'
 END
+
