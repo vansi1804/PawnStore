@@ -19,7 +19,7 @@ import Model.StaticUser;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 import View.PawnCouponInPaperJFrameForm;
 import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeEvent;
@@ -33,11 +33,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("ClassWithoutLogger")
-public class JPawnCouponPanelForm extends javax.swing.JPanel {
+public class PawnCouponJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public JPawnCouponPanelForm() {
+    public PawnCouponJPanelForm() {
         initComponents();
         setFindPawnCouponEvent();
         setInterestPaymentEvent();
@@ -45,7 +45,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         setInterestPaymentDefault(null, null);
     }
 
-    public JPawnCouponPanelForm(PawnCoupon pawnCoupon) {
+    public PawnCouponJPanelForm(PawnCoupon pawnCoupon) {
         initComponents();
         setFindPawnCouponEvent();
         setInterestPaymentEvent();
@@ -53,6 +53,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
         setInterestPaymentDefault(null, null);
         setPawnCouponDefault(pawnCoupon);
         setInterestPaymentDefault(pawnCoupon, null);
+        Support.setRowTableSelection(jtblPawnCoupon, 1, pawnCoupon.getId());
     }
 
     private void setCBCustomer(ArrayList<Customer> customers) {
@@ -1882,22 +1883,22 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
                 String customerId = (table.getModel().getValueAt(row, 2)).toString();
                 Customer customer = CustomerController.getCurrentInstance().getCustomer(customerId);
                 String title = "Khách hàng";
-                if (JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                    JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+                if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                    HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
                 }
-                JPanel jPanel = new JCustomerPanelForm(customer);
-                JHomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-                JHomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+                JPanel jPanel = new CustomerJPanelForm(customer);
+                HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+                HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
             } else if (jtblPawnCoupon.getSelectedColumn() == 3) {
                 String productId = (table.getModel().getValueAt(row, 3)).toString();
                 Product product = ProductController.getCurrentInstance().getProduct(productId);
                 String title = "Hàng hóa";
-                if (JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                    JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+                if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                    HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
                 }
-                JPanel jPanel = new JProductPanelForm(product);
-                JHomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-                JHomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+                JPanel jPanel = new ProductJPanelForm(product);
+                HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+                HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
             }
         }
     }//GEN-LAST:event_jtblPawnCouponMouseClicked
@@ -1967,7 +1968,7 @@ public class JPawnCouponPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteInterestPaymentActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hợp đồng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnViewPawnCouponInPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnViewPawnCouponInPaperActionPerformed

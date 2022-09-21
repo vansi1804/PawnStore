@@ -20,7 +20,7 @@ create table Account(
 	_deleteflag bit default 0
 )
 go
-delete from Account
+delete from Account where _username <> 'admin'
 
 go
 drop table Customer
@@ -107,9 +107,6 @@ create table ActivityHistory(
 go
 delete from ActivityHistory
 
-go
-insert into Account values ('admin','admin','Admin',0)
-
 GO
 Drop Trigger trgg_PawnCoupon
 GO
@@ -134,3 +131,6 @@ BEGIN
 	WHERE _status = N'Trễ'
 END
 
+
+go
+insert into Account values ('admin','admin','Admin',0)

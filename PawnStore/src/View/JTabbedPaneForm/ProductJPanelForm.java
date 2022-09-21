@@ -15,7 +15,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
@@ -28,11 +28,11 @@ import javax.swing.table.DefaultTableModel;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JProductPanelForm extends javax.swing.JPanel {
+public class ProductJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public JProductPanelForm() {
+    public ProductJPanelForm() {
         initComponents();
         setTypeOfProductFindEvent();
         setFindProductEvent();
@@ -40,7 +40,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
         setProductDefault(null);
     }
 
-    public JProductPanelForm(Product product) {
+    public ProductJPanelForm(Product product) {
         initComponents();
         setTypeOfProductFindEvent();
         setFindProductEvent();
@@ -49,6 +49,8 @@ public class JProductPanelForm extends javax.swing.JPanel {
         setProductTable(ProductController.getCurrentInstance().getList());
         setCBTypeOfProduct(TypeOfProductController.getCurrentInstance().getList());
         setProductDefault(product);
+        Support.setRowTableSelection(jtblProduct, 1, product.getId());
+        Support.setRowTableSelection(jtblTypeOfProduct, 1, product.getTypeOfProduct().getId());
     }
 
     private void setTypeOfProductDefault(TypeOfProduct typeOfProduct) {
@@ -1046,8 +1048,8 @@ public class JProductPanelForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1190,7 +1192,7 @@ public class JProductPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbTypeOfProductStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hàng hóa"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hàng hóa"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnAddNewTypeOfProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAddNewTypeOfProductMouseClicked

@@ -7,7 +7,7 @@ package View.JTabbedPaneForm;
 import Controller.StatisticController;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,16 +18,27 @@ import java.util.Date;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JStatisticPanelForm extends javax.swing.JPanel {
+public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
+    private static final Date defaultDateFrom = Support.stringToDate(
+            String.valueOf(Calendar.getInstance().getActualMinimum(Calendar.DATE))
+            + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
+            + "/2022",
+            Support.getDateFormat());
+    private static final Date defaultDateTo = Support.stringToDate(
+            String.valueOf(Calendar.getInstance().getActualMaximum(Calendar.DATE))
+            + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
+            + "/2022",
+            Support.getDateFormat());
 
     /**
      * Creates new form jStatisticPanelForm
      */
-    public JStatisticPanelForm() {
+    public StatisticJPanelForm() {
         initComponents();
-        jchbAll.setSelected(true);
+        jdcDateFrom.setDate(defaultDateFrom);
+        jdcDateTo.setDate(defaultDateTo);
         setPawnCouponStatistics();
         setCustomerStatistics();
         setTypeOfProductStatistics();
@@ -273,13 +284,11 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jdcDateFrom.setBackground(new java.awt.Color(204, 204, 204));
         jdcDateFrom.setForeground(new java.awt.Color(0, 0, 0));
         jdcDateFrom.setDateFormatString("dd/MM/yyyy");
-        jdcDateFrom.setEnabled(false);
         jdcDateFrom.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
 
         jdcDateTo.setBackground(new java.awt.Color(204, 204, 204));
         jdcDateTo.setForeground(new java.awt.Color(0, 0, 0));
         jdcDateTo.setDateFormatString("dd/MM/yyyy");
-        jdcDateTo.setEnabled(false);
         jdcDateTo.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
 
         jchbAll.setBackground(new java.awt.Color(204, 204, 204));
@@ -563,7 +572,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb5_2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+            .addComponent(jlb5_2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
             .addComponent(jlb5_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel18Layout.setVerticalGroup(
@@ -873,7 +882,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -898,7 +907,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                .addContainerGap(1183, Short.MAX_VALUE)
+                .addContainerGap(1173, Short.MAX_VALUE)
                 .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -928,19 +937,9 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
     private void jchbAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbAllActionPerformed
         if (!jchbAll.isSelected()) {
             jdcDateFrom.setEnabled(true);
-            Date dateFrom = Support.stringToDate(
-                    String.valueOf(Calendar.getInstance().getActualMinimum(Calendar.DATE))
-                    + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
-                    + "/2022",
-                    Support.getDateFormat());
-            jdcDateFrom.setDate(dateFrom);
+            jdcDateFrom.setDate(defaultDateFrom);
             jdcDateTo.setEnabled(true);
-            Date dateTo = Support.stringToDate(
-                    String.valueOf(Calendar.getInstance().getActualMaximum(Calendar.DATE))
-                    + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
-                    + "/2022",
-                    Support.getDateFormat());
-            jdcDateTo.setDate(dateTo);
+            jdcDateTo.setDate(defaultDateTo);
             jlb1_1.setText("Mới");
             jlb6_1.setText("Mới");
             jlb9_1.setText("Mới");
@@ -956,7 +955,7 @@ public class JStatisticPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jchbAllActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thống kê"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thống kê"));
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadActionPerformed

@@ -17,7 +17,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JPanel;
@@ -31,21 +31,22 @@ import javax.swing.table.DefaultTableModel;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JCustomerPanelForm extends javax.swing.JPanel {
+public class CustomerJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public JCustomerPanelForm() {
+    public CustomerJPanelForm() {
         initComponents();
         setCustomerFindEvent();
         setCustomerDefault(null);
     }
 
-    public JCustomerPanelForm(Customer customer) {
+    public CustomerJPanelForm(Customer customer) {
         initComponents();
         setCustomerFindEvent();
         setCustomerDefault(null);
         setCustomerDefault(customer);
+        Support.setRowTableSelection(jtblCustomer, 1, customer.getId());
     }
 
     private void setCustomerDefault(Customer customer) {
@@ -995,17 +996,17 @@ public class JCustomerPanelForm extends javax.swing.JPanel {
             JPanel jPanel = null;
             PawnCoupon pawnCoupon = PawnCouponController.getCurrentInstance().getPawnCoupon(id);
             String title = "Hợp đồng";
-            if (JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+            if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
             }
-            jPanel = new JPawnCouponPanelForm(pawnCoupon);
-            JHomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-            JHomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+            jPanel = new PawnCouponJPanelForm(pawnCoupon);
+            HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+            HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
         }
     }//GEN-LAST:event_jtblPawningHistoryMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnAddNewCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAddNewCustomerMouseClicked

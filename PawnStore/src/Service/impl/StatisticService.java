@@ -76,8 +76,8 @@ public class StatisticService implements IStatisticService {
                             totalRedeemedPawnCouponPrice += pawnCoupon.getPrice();
                         }
                     } else {
-                        totalNotRedeemedPawnCouponCount++;
-                        totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
+                        totalRedeemedPawnCouponCount++;
+                        totalRedeemedPawnCouponPrice += pawnCoupon.getPrice();
                     }
                 }
                 case "Chưa chuộc" -> {
@@ -102,8 +102,8 @@ public class StatisticService implements IStatisticService {
                             totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
                         }
                     } else {
-                        totalNotRedeemedPawnCouponCount++;
-                        totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
+                        totalLiquidationPawnCouponCount++;
+                        totalLiquidatedPawnCouponPawnPrice += pawnCoupon.getPrice();
                         totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
                     }
                 }

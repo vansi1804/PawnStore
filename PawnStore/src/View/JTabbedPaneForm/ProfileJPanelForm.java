@@ -11,19 +11,19 @@ import Model.StaticUser;
 import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 /**
  *
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JProfilePanelForm extends javax.swing.JPanel {
+public class ProfileJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
     private final AccountController accountController = new AccountController();
 
-    public JProfilePanelForm() {
+    public ProfileJPanelForm() {
         initComponents();
         jtfUserName.setEditable(false);
         setProfileDefault();
@@ -263,7 +263,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                                 .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jpfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jlbChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(444, Short.MAX_VALUE))
+                .addContainerGap(407, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,7 +356,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Sửa thành công.");
                 setProfileDefault();
                 StaticUser.setCurrentInstanceUser(account);
-                JHomePageJFrameForm.setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
+                HomePageJFrameForm.setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
             } else {
                 MessageSupport.Message("Thông báo", "Sửa thất bại.");
             }
@@ -371,7 +371,7 @@ public class JProfilePanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jlbChangePasswordMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

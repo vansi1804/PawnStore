@@ -13,7 +13,7 @@ import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
-import View.JHomePageJFrameForm;
+import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,12 +27,12 @@ import javax.swing.table.DefaultTableModel;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JAccountPanelForm extends javax.swing.JPanel {
+public class AccountJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
     private static boolean ActivityHistoryFindAble;
 
-    public JAccountPanelForm() {
+    public AccountJPanelForm() {
         initComponents();
         setAccountDefault(null);
         setActivityHistoryFindEvent();
@@ -971,7 +971,7 @@ public class JAccountPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbAccountStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        JHomePageJFrameForm.jHomePageTabbedPane.remove(JHomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
+        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
 

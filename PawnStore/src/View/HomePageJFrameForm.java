@@ -9,12 +9,12 @@ import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
-import View.JTabbedPaneForm.JAccountPanelForm;
-import View.JTabbedPaneForm.JCustomerPanelForm;
-import View.JTabbedPaneForm.JPawnCouponPanelForm;
-import View.JTabbedPaneForm.JProductPanelForm;
-import View.JTabbedPaneForm.JProfilePanelForm;
-import View.JTabbedPaneForm.JStatisticPanelForm;
+import View.JTabbedPaneForm.AccountJPanelForm;
+import View.JTabbedPaneForm.CustomerJPanelForm;
+import View.JTabbedPaneForm.PawnCouponJPanelForm;
+import View.JTabbedPaneForm.ProductJPanelForm;
+import View.JTabbedPaneForm.ProfileJPanelForm;
+import View.JTabbedPaneForm.StatisticJPanelForm;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import javax.swing.JPanel;
  * @author NVS
  */
 @SuppressWarnings("ClassWithoutLogger")
-public class JHomePageJFrameForm extends javax.swing.JFrame {
+public class HomePageJFrameForm extends javax.swing.JFrame {
     
     private static final long serialVersionUID = 1L;
     private static int index = 1;
@@ -41,12 +41,12 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private JPanel jpawncoupontab = null;
     private JPanel jstatistictab = null;
     
-    public JHomePageJFrameForm() {
+    public HomePageJFrameForm() {
         initComponents();
     }
     
     @SuppressWarnings({"static-access", "OverridableMethodCallInConstructor", "SleepWhileInLoop"})
-    public JHomePageJFrameForm(JFrame jfparrent) {
+    public HomePageJFrameForm(JFrame jfparrent) {
         initComponents();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -303,7 +303,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAccountMenuItemActionPerformed
         String title = "Tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jaccounttab = new JAccountPanelForm();
+            jaccounttab = new AccountJPanelForm();
             jHomePageTabbedPane.addTab(title, jaccounttab);
         }
         jHomePageTabbedPane.setSelectedComponent(jaccounttab);
@@ -323,7 +323,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jlblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblProfileMouseClicked
         String title = "Thông tin tài khoản";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jprofiletab = new JProfilePanelForm();
+            jprofiletab = new ProfileJPanelForm();
             jHomePageTabbedPane.addTab(title, jprofiletab);
         }
         jHomePageTabbedPane.setSelectedComponent(jprofiletab);
@@ -332,7 +332,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jCustomerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerMenuItemActionPerformed
         String title = "Khách hàng";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jcustomertab = new JCustomerPanelForm();
+            jcustomertab = new CustomerJPanelForm();
             jHomePageTabbedPane.addTab(title, jcustomertab);
         }
         jHomePageTabbedPane.setSelectedComponent(jcustomertab);
@@ -341,7 +341,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jProductMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProductMenuItemActionPerformed
         String title = "Hàng hóa";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jproducttab = new JProductPanelForm();
+            jproducttab = new ProductJPanelForm();
             jHomePageTabbedPane.addTab(title, jproducttab);
         }
         jHomePageTabbedPane.setSelectedComponent(jproducttab);
@@ -350,7 +350,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jPawnCouponMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPawnCouponMenuItemActionPerformed
         String title = "Hợp đồng";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jpawncoupontab = new JPawnCouponPanelForm();
+            jpawncoupontab = new PawnCouponJPanelForm();
             jHomePageTabbedPane.addTab(title, jpawncoupontab);
         }
         jHomePageTabbedPane.setSelectedComponent(jpawncoupontab);
@@ -359,7 +359,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
     private void jStatisticMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStatisticMenuItemActionPerformed
         String title = "Thống kê";
         if (jHomePageTabbedPane.indexOfTab(title) == -1) {
-            jstatistictab = new JStatisticPanelForm();
+            jstatistictab = new StatisticJPanelForm();
             jHomePageTabbedPane.addTab(title, jstatistictab);
         }
         jHomePageTabbedPane.setSelectedComponent(jstatistictab);
@@ -382,14 +382,22 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JHomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JHomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JHomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JHomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomePageJFrameForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -401,7 +409,7 @@ public class JHomePageJFrameForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new JHomePageJFrameForm().setVisible(true);
+            new HomePageJFrameForm().setVisible(true);
         });
     }
 

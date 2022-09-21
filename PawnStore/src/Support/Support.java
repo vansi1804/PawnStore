@@ -23,6 +23,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 
 /**
  *
@@ -320,4 +321,12 @@ public class Support {
         return pronounce;
     }
 
+    public static void setRowTableSelection(JTable jTable, int col , String value){
+        for (int row = 0; row < jTable.getRowCount(); row++) {
+            if (jTable.getValueAt(row, col).toString().equals(value)) {
+                jTable.setRowSelectionInterval(row, row);
+            }
+        }
+    }
+    
 }
