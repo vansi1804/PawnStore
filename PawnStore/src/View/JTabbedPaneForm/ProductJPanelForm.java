@@ -817,7 +817,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jbtnReloadAll.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReloadAll.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jbtnReloadAll.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnReloadAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload (1).png"))); // NOI18N
+        jbtnReloadAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload.png"))); // NOI18N
         jbtnReloadAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnReloadAllActionPerformed(evt);
@@ -1176,6 +1176,8 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             String id = (table.getModel().getValueAt(row, 1)).toString();
             Product product = ProductController.getCurrentInstance().getProduct(id);
             setProductDefault(product);
+            setTypeOfProductDefault(product.getTypeOfProduct());
+            Support.setRowTableSelection(jtblTypeOfProduct, 1, product.getTypeOfProduct().getId());
         }
     }//GEN-LAST:event_jtblProductMouseClicked
 

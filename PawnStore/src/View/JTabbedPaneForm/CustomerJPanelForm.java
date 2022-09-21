@@ -849,7 +849,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jbtnReload.setBackground(new java.awt.Color(0, 255, 255));
         jbtnReload.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jbtnReload.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload (1).png"))); // NOI18N
+        jbtnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/reload.png"))); // NOI18N
         jbtnReload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnReloadActionPerformed(evt);
