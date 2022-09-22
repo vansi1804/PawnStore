@@ -61,9 +61,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             jtaAddress.setText("");
             setCustomerStatus("");
             setCustomerTable(CustomerController.getCurrentInstance().findCustomerByDeleteflagKey(getCustomerStatus()));
+            jbtnPawn.setEnabled(false);
             jbtnAdd.setEnabled(false);
             jbtnEdit.setEnabled(false);
         } else {
+            jbtnPawn.setEnabled(true);
             jbtnAdd.setEnabled(false);
             jbtnEdit.setEnabled(true);
             jtfID.setText(customer.getId());
@@ -353,6 +355,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jrbAllStatus = new javax.swing.JRadioButton();
         jPanel10 = new javax.swing.JPanel();
         jbtnAddNewCustomer = new javax.swing.JButton();
+        jbtnPawn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -587,6 +590,16 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             .addComponent(jbtnAddNewCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)
         );
 
+        jbtnPawn.setBackground(new java.awt.Color(0, 255, 255));
+        jbtnPawn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jbtnPawn.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnPawn.setText("Cầm");
+        jbtnPawn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPawnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -599,7 +612,8 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnPawn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -655,7 +669,8 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnPawn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1019,6 +1034,23 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtnAddNewCustomerMouseClicked
 
+    private void jbtnPawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPawnActionPerformed
+        Customer customer = getCustomerFromForm();
+        if (customer.getDeleteflag()) {
+            MessageSupport.Message("Thông báo!", "Khách hàng đã ngưng phục vụ, không thể tiếp tục cầm");
+        } else {
+            @SuppressWarnings("UnusedAssignment")
+            JPanel jPanel = null;
+            String title = "Hợp đồng";
+            if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+            }
+            jPanel = new PawnCouponJPanelForm(customer);
+            HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+            HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+        }
+    }//GEN-LAST:event_jbtnPawnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1049,6 +1081,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnAddNewCustomer;
     private javax.swing.JButton jbtnDeleteTab;
     private javax.swing.JButton jbtnEdit;
+    private javax.swing.JButton jbtnPawn;
     private javax.swing.JButton jbtnReload;
     private javax.swing.JLabel jlTotalPayed;
     private javax.swing.JLabel jlbTotalDebt;

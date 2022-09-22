@@ -56,6 +56,27 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         Support.setRowTableSelection(jtblPawnCoupon, 1, pawnCoupon.getId());
     }
 
+    public PawnCouponJPanelForm(Customer customer) {
+        initComponents();
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
+        setPawnCouponDefault(null);
+        setInterestPaymentDefault(null, null);
+        setPawnCouponDefault(null);
+        setInterestPaymentDefault(null, null);
+        setNewPawnCouponDefault(customer, null);
+    }
+    public PawnCouponJPanelForm(Product product) {
+        initComponents();
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
+        setPawnCouponDefault(null);
+        setInterestPaymentDefault(null, null);
+        setPawnCouponDefault(null);
+        setInterestPaymentDefault(null, null);
+        setNewPawnCouponDefault(null, product);
+    }
+
     private void setCBCustomer(ArrayList<Customer> customers) {
         jcbCustomerID.removeAllItems();
         jcbCustomerID.addItem("Tất cả");
@@ -499,7 +520,6 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             rowData[5] = interestPayments.get(i).getNote();
             model.addRow(rowData);
         }
-        jlbInterestPaymentSum.setText("Tổng:");
         jlbToTalInterest.setText(Support.getFormatNumber(totalInterest));
         jlbToTalTheMoneyPayed.setText(Support.getFormatNumber(totalTheMoneyPayed));
         jlbLastDebt.setText(Support.getFormatNumber(lastDebt));
@@ -590,6 +610,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                     }
                     jtfTheMoneyPayment.setText("0");
                     setInterestPaymentTable(interestPayments);
+                    jlbInterestPaymentSum.setText("Tổng:");
                 }
             } else {
                 if (pawnCoupon.getStatus().equals("Đã chuộc") || pawnCoupon.getStatus().equals("Đã thanh lý")) {
@@ -763,6 +784,30 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    private void setNewPawnCouponDefault(Customer customer, Product product) {
+        setPawnCouponDefault(null);
+        jbtnAddPawnCoupon.setEnabled(true);
+        jtfID.setText(PawnCouponController.getCurrentInstance().getNewID());
+        jtfID.setEditable(false);
+        if (customer != null) {
+            jcbCustomerID.setSelectedItem(customer.getId());
+        }
+        if (product != null) {
+            jcbProductID.setSelectedItem(product.getId());
+        }
+        jtfAmount.setText("1");
+        jtfInterestRate.setText("0.3");
+        jdcPawnDate.setDate(new Date());
+        jdcPawnDate.setEnabled(false);
+        jdcTheNextInterestPaymentDate.setDate(Support.addDate(jdcPawnDate.getDate(), 14));
+        jdcTheNextInterestPaymentDate.setEnabled(false);
+        jdcRedeemOrLiquidateDate.setEnabled(false);
+        jtfLiquidatePrice.setText("0");
+        jtfLiquidatePrice.setEditable(false);
+        setPawnCouponStatus("Chưa chuộc", false);
+        setInterestPaymentDefault(null, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -1979,46 +2024,14 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
 
     private void jbtnAddNewPawnCouponMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAddNewPawnCouponMouseClicked
         if (evt.getClickCount() == 2) {
-            setPawnCouponDefault(null);
-            jbtnAddPawnCoupon.setEnabled(true);
-            jtfID.setText(PawnCouponController.getCurrentInstance().getNewID());
-            jtfID.setEditable(false);
-            jtfAmount.setText("1");
-            jtfInterestRate.setText("0.3");
-            jdcPawnDate.setDate(new Date());
-            jdcPawnDate.setEnabled(false);
-            jdcTheNextInterestPaymentDate.setDate(Support.addDate(jdcPawnDate.getDate(), 14));
-            jdcTheNextInterestPaymentDate.setEnabled(false);
-            jdcRedeemOrLiquidateDate.setEnabled(false);
-            jtfLiquidatePrice.setText("0");
-            jtfLiquidatePrice.setEditable(false);
-            setPawnCouponStatus("Chưa chuộc", false);
-            setInterestPaymentDefault(null, null);
+            setNewPawnCouponDefault(null, null);
         }
     }//GEN-LAST:event_jbtnAddNewPawnCouponMouseClicked
 
     private void jbtnRepawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRepawnActionPerformed
-        String customerID = jcbCustomerID.getSelectedItem().toString();
-        String priductID = jcbProductID.getSelectedItem().toString();
-        String oldPawnPrice = jtfPrice.getText();
-        setPawnCouponDefault(null);
-        jbtnAddPawnCoupon.setEnabled(true);
-        jtfID.setText(PawnCouponController.getCurrentInstance().getNewID());
-        jtfID.setEditable(false);
-        jcbCustomerID.setSelectedItem(customerID);
-        jcbProductID.setSelectedItem(priductID);
-        jtfAmount.setText("1");
-        jtfPrice.setText(oldPawnPrice);
-        jtfInterestRate.setText("0.3");
-        jdcPawnDate.setDate(new Date());
-        jdcPawnDate.setEnabled(false);
-        jdcTheNextInterestPaymentDate.setDate(Support.addDate(jdcPawnDate.getDate(), 14));
-        jdcTheNextInterestPaymentDate.setEnabled(false);
-        jdcRedeemOrLiquidateDate.setEnabled(false);
-        jtfLiquidatePrice.setText("0");
-        jtfLiquidatePrice.setEditable(false);
-        setPawnCouponStatus("Chưa chuộc", false);
-        setInterestPaymentDefault(null, null);
+        PawnCoupon oldPawnCoupon = getPawnCouponFromForm();
+        setNewPawnCouponDefault(oldPawnCoupon.getCustomer(), oldPawnCoupon.getProduct());
+        jtfPrice.setText(String.valueOf(oldPawnCoupon.getPrice()));
     }//GEN-LAST:event_jbtnRepawnActionPerformed
 
 
