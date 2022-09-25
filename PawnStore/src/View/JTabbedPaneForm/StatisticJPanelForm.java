@@ -46,8 +46,16 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     }
 
     private void setPawnCouponStatistics() {
-        ArrayList<String> results = StatisticController.getCurrentInstance()
-                .getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
+        ArrayList<String> results = new ArrayList<>();
+        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
+            results = StatisticController.getCurrentInstance()
+                    .getPawnCouponStatistic(Support.stringToDate("01/01/1000", Support.getDateFormat())
+                            , Support.stringToDate("31/12/9999", Support.getDateFormat()));
+        }else{
+            results = StatisticController.getCurrentInstance()
+                    .getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        }
         jlb1_2.setText(results.get(0));
         jlb1_3.setText(results.get(1));
         jlb2_2.setText(results.get(2));
@@ -62,8 +70,16 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     }
 
     private void setCustomerStatistics() {
-        ArrayList<String> results = StatisticController.getCurrentInstance()
-                .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
+        ArrayList<String> results = new ArrayList<>();
+        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
+            results = StatisticController.getCurrentInstance()
+                    .getCustomerStatistic(Support.stringToDate("01/01/1000", Support.getDateFormat())
+                            , Support.stringToDate("31/12/9999", Support.getDateFormat()));
+        }else{
+            results = StatisticController.getCurrentInstance()
+                    .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        }
         jlb6_2.setText(results.get(0));
         jlb7_2.setText(results.get(1));
         jlb7_3.setText(results.get(2));
@@ -74,8 +90,16 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
     @SuppressWarnings("UnusedAssignment")
     private void setTypeOfProductStatistics() {
-        ArrayList<String> results = StatisticController.getCurrentInstance()
-                .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+       @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
+        ArrayList<String> results = new ArrayList<>();
+        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
+            results = StatisticController.getCurrentInstance()
+                    .getTypeOfProductStatistic(Support.stringToDate("01/01/2000", Support.getDateFormat())
+                            , Support.stringToDate("31/12/2100", Support.getDateFormat()));
+        }else{
+            results = StatisticController.getCurrentInstance()
+                    .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+        }
         jlb9_3.setText(results.get(0));
         jlb9_2.setText(results.get(1));
         jlb10_2.setText(results.get(2));
@@ -279,7 +303,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
         jPanel9.setBackground(new java.awt.Color(0, 255, 255));
 
-        jPanel8.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel5.setBackground(new java.awt.Color(0, 255, 255));
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
@@ -298,7 +322,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
 
-        jPanel11.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel11.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel6.setBackground(new java.awt.Color(0, 255, 255));
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
@@ -314,10 +338,10 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
 
-        jPanel12.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel12.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel8.setBackground(new java.awt.Color(0, 255, 255));
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
@@ -333,7 +357,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -351,8 +375,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBackground(new java.awt.Color(0, 255, 255));
@@ -815,7 +838,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -869,7 +892,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -881,8 +904,9 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                         .addComponent(jdcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jchbAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -890,19 +914,18 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jdcDateTo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jdcDateFrom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jchbAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcDateTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jchbAll, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbtnReload, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcDateFrom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
