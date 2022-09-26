@@ -16,6 +16,7 @@ import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
 import Model.StaticUser;
+import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
@@ -62,16 +63,13 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         setInterestPaymentEvent();
         setPawnCouponDefault(null);
         setInterestPaymentDefault(null, null);
-        setPawnCouponDefault(null);
-        setInterestPaymentDefault(null, null);
         setNewPawnCouponDefault(customer, null);
     }
+
     public PawnCouponJPanelForm(Product product) {
         initComponents();
         setFindPawnCouponEvent();
         setInterestPaymentEvent();
-        setPawnCouponDefault(null);
-        setInterestPaymentDefault(null, null);
         setPawnCouponDefault(null);
         setInterestPaymentDefault(null, null);
         setNewPawnCouponDefault(null, product);
@@ -182,8 +180,14 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         }
     }
 
-    @SuppressWarnings("MalformedFormatString")
+    @SuppressWarnings({"MalformedFormatString", "AssignmentToMethodParameter", "null"})
     private void setPawnCouponTable(ArrayList<PawnCoupon> pawnCoupons) {
+        if (pawnCoupons == null) {
+            if (!CheckSupport.isBlank(jtfID.getText())) {
+                pawnCoupons = PawnCouponController.getCurrentInstance()
+                        .findPawnCouponByStatusKey(PawnCouponController.getCurrentInstance().getPawnCoupon(jtfID.getText()).getStatus());
+            }
+        }
         ColorFormatSupport.FormatTableHeader(jtblPawnCoupon);
         ColorFormatSupport.setDataTableCenter(jtblPawnCoupon);
         DefaultTableModel model = (DefaultTableModel) jtblPawnCoupon.getModel();
@@ -386,7 +390,6 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             String pawnDate = Support.dateToString(jdcPawnDate.getDate(), Support.getDateFormat());
             String redeemOrLiquidationDate = Support.dateToString(jdcRedeemOrLiquidateDate.getDate(), Support.getDateFormat());
             String status = getPawnCouponStatus();
-
             ArrayList<PawnCoupon> results = PawnCouponController.getCurrentInstance()
                     .findPawnCouponByKey(id, customer, product, amount, price, interestRate, pawnDate, redeemOrLiquidationDate, status);
             @SuppressWarnings("CollectionWithoutInitialCapacity")
