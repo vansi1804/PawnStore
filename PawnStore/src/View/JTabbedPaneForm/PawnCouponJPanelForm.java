@@ -40,38 +40,36 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
 
     public PawnCouponJPanelForm() {
         initComponents();
-        setFindPawnCouponEvent();
-        setInterestPaymentEvent();
         setPawnCouponDefault(null);
         setInterestPaymentDefault(null, null);
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
     }
 
     public PawnCouponJPanelForm(PawnCoupon pawnCoupon) {
         initComponents();
-        setFindPawnCouponEvent();
-        setInterestPaymentEvent();
-        setPawnCouponDefault(null);
-        setInterestPaymentDefault(null, null);
         setPawnCouponDefault(pawnCoupon);
         setInterestPaymentDefault(pawnCoupon, null);
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
     }
 
     public PawnCouponJPanelForm(Customer customer) {
         initComponents();
-        setFindPawnCouponEvent();
-        setInterestPaymentEvent();
         setPawnCouponDefault(null);
         setInterestPaymentDefault(null, null);
         setNewPawnCouponDefault(customer, null);
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
     }
 
     public PawnCouponJPanelForm(Product product) {
         initComponents();
-        setFindPawnCouponEvent();
-        setInterestPaymentEvent();
         setPawnCouponDefault(null);
         setInterestPaymentDefault(null, null);
         setNewPawnCouponDefault(null, product);
+        setFindPawnCouponEvent();
+        setInterestPaymentEvent();
     }
 
     private void setCBCustomer(ArrayList<Customer> customers) {
@@ -182,10 +180,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
     @SuppressWarnings({"MalformedFormatString", "AssignmentToMethodParameter", "null"})
     private void setPawnCouponTable(ArrayList<PawnCoupon> pawnCoupons) {
         if (pawnCoupons == null) {
-            if (!CheckSupport.isBlank(jtfID.getText())) {
-                pawnCoupons = PawnCouponController.getCurrentInstance()
-                        .findPawnCouponByStatusKey(PawnCouponController.getCurrentInstance().getPawnCoupon(jtfID.getText()).getStatus());
-            }
+            return;
         }
         ColorFormatSupport.FormatTableHeader(jtblPawnCoupon);
         ColorFormatSupport.setDataTableCenter(jtblPawnCoupon);
@@ -255,7 +250,9 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             jbtnRepawn.setEnabled(false);
             jtfID.setText(pawnCoupon.getId());
             jtfID.setEditable(false);
+            setCBCustomer(CustomerController.getCurrentInstance().getList());
             jcbCustomerID.setSelectedItem(pawnCoupon.getCustomer().getId());
+            setCBProduct(ProductController.getCurrentInstance().getList());
             jcbProductID.setSelectedItem(pawnCoupon.getProduct().getId());
             jtfAmount.setText(String.valueOf(pawnCoupon.getAmount()));
             jtfPrice.setText(String.valueOf(pawnCoupon.getPrice()));
@@ -270,6 +267,8 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             jtfLiquidatePrice.setText(String.valueOf(pawnCoupon.getLiquidationPrice()));
             jtfLiquidatePrice.setEditable(false);
             setPawnCouponStatus(pawnCoupon.getStatus(), true);
+            setPawnCouponTable(PawnCouponController.getCurrentInstance().findPawnCouponByStatusKey(getPawnCouponStatus()));
+            Support.setRowTableSelection(jtblPawnCoupon, 1, pawnCoupon.getId());
             if (pawnCoupon.getStatus().equals("Đã chuộc") || pawnCoupon.getStatus().equals("Đã thanh lý")) {
                 jcbCustomerID.setEnabled(false);
                 jcbProductID.setEnabled(false);
@@ -408,7 +407,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 return;
             }
             setPawnCouponTable(results);
-        }
+        } 
     }
 
     private void setFindPawnCouponEvent() {
@@ -1891,7 +1890,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Thêm mới hợp đồng thành công.");
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Thêm mới", "Hợp đồng", pawnCoupon.toString()));
+                                StaticUser.getCurrentInstance(), "Thêm mới", "Hợp đồng", pawnCoupon.toString()));
                 setPawnCouponDefault(null);
                 setInterestPaymentDefault(null, null);
             }
@@ -1911,7 +1910,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Sửa hợp đồng thành công.");
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Sửa", "Hợp đồng", pawnCoupon.toString()));
+                                StaticUser.getCurrentInstance(), "Sửa", "Hợp đồng", pawnCoupon.toString()));
                 setPawnCouponDefault(null);
                 setInterestPaymentDefault(null, null);
             }
@@ -1989,7 +1988,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Thêm mới kỳ đóng lãi thành công.");
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Thêm mới", "Kỳ đóng lãi", interestPayment.toString()));
+                                StaticUser.getCurrentInstance(), "Thêm mới", "Kỳ đóng lãi", interestPayment.toString()));
                 setInterestPaymentDefault(PawnCouponController.getCurrentInstance().getPawnCoupon(jtfID.getText()), null);
             }
         }
@@ -2001,7 +2000,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             MessageSupport.Message("Thông báo", "Sửa kỳ đóng lãi thành công.");
             ActivityHistoryController.getCurrentInstance()
                     .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                            StaticUser.getCurrentInstanceUser(), "Sửa", "Kỳ đóng lãi", interestPayment.toString()));
+                            StaticUser.getCurrentInstance(), "Sửa", "Kỳ đóng lãi", interestPayment.toString()));
             setInterestPaymentDefault(getPawnCouponFromForm(), null);
         }
     }//GEN-LAST:event_jbtnEditInterestPaymentActionPerformed
@@ -2013,7 +2012,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Xóa kỳ đóng lãi thành công.");
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Xóa", "Kỳ đóng lãi", interestPayment.toString()));
+                                StaticUser.getCurrentInstance(), "Xóa", "Kỳ đóng lãi", interestPayment.toString()));
                 setInterestPaymentDefault(getPawnCouponFromForm(), null);
             }
         }

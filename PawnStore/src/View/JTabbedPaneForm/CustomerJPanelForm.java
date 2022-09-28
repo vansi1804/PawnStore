@@ -44,20 +44,21 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     public CustomerJPanelForm(Customer customer) {
         initComponents();
         setCustomerDefault(customer);
-        Support.setRowTableSelection(jtblCustomer, 1, customer.getId());
         setCustomerFindEvent();
     }
 
     private void setCustomerDefault(Customer customer) {
         if (customer == null) {
             jbtnAdd.setEnabled(true);
-            jbtnEdit.setEnabled(true);
             jtfID.setText("");
             jtfID.setEditable(true);
             jtfFullname.setText("");
+            jtfFullname.setEditable(true);
             setGender("");
             jtfPhonenumber.setText("");
+            jtfPhonenumber.setEditable(true);
             jtaAddress.setText("");
+            jtaAddress.setEditable(true);
             setCustomerStatus("");
             setCustomerTable(CustomerController.getCurrentInstance().findCustomerByDeleteflagKey(getCustomerStatus()));
             jbtnPawn.setEnabled(false);
@@ -75,6 +76,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             jtaAddress.setText(customer.getAddress());
             setCustomerStatus(customer.getDeleteflag() ? "1" : "0");
             setCustomerTable(CustomerController.getCurrentInstance().findCustomerByDeleteflagKey(getCustomerStatus()));
+            Support.setRowTableSelection(jtblCustomer, 1, customer.getId());
         }
         setPawnHistoryTable(customer);
     }
@@ -148,6 +150,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     }
 
     private void setCustomerTable(ArrayList<Customer> customers) {
+        if (customers == null) {
+            return;
+        }
         ColorFormatSupport.FormatTableHeader(jtblCustomer);
         ColorFormatSupport.setDataTableCenter(jtblCustomer);
         DefaultTableModel model = (DefaultTableModel) jtblCustomer.getModel();
@@ -964,7 +969,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                     MessageSupport.Message("Thông báo", "Thêm mới khách hàng thành công.");
                     ActivityHistoryController.getCurrentInstance().insert(
                             new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                    StaticUser.getCurrentInstanceUser(), "Thêm mới", "Khách hàng", customer.toString()));
+                                    StaticUser.getCurrentInstance(), "Thêm mới", "Khách hàng", customer.toString()));
                     setCustomerDefault(null);
                 } else {
                     MessageSupport.ErrorMessage("Lỗi", "Thêm mới khách hàng thất bại.");
@@ -986,7 +991,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Sửa thông tin khách hàng thành công.");
                 ActivityHistoryController.getCurrentInstance().insert(
                         new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Sửa", "Khách hàng", customer.toString()));
+                                StaticUser.getCurrentInstance(), "Sửa", "Khách hàng", customer.toString()));
                 setCustomerDefault(null);
             } else {
                 MessageSupport.ErrorMessage("Lỗi", "Sửa thông tin khách hàng thất bại.");

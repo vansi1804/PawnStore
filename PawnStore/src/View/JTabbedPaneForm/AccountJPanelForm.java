@@ -862,8 +862,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
 
     private void jlbResetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbResetPasswordMouseClicked
-        if (!StaticUser.getCurrentInstanceUser().getUsername().equals(jtfusername.getText())) {
-            if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstanceUser().getPassword())) {
+        if (!StaticUser.getCurrentInstance().getUsername().equals(jtfusername.getText())) {
+            if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstance().getPassword())) {
                 if (String.valueOf(jpfPassword.getPassword()).equals(String.valueOf(jpfConfirmPassword.getPassword()))) {
                     Account existingAccount = AccountController.getCurrentInstance().getAccount(jtfusername.getText());
                     existingAccount.setPassword("1");
@@ -871,7 +871,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                         MessageSupport.Message("Thông báo", "Mật khẩu đã được đặt lại mặc định là 1.");
                         ActivityHistoryController.getCurrentInstance().insert(
                                 new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                        StaticUser.getCurrentInstanceUser(), "Đặt lại mật khẩu", "Tài khoản", existingAccount.toString()));
+                                        StaticUser.getCurrentInstance(), "Đặt lại mật khẩu", "Tài khoản", existingAccount.toString()));
                         setAccountDefault(null);
                     }
                 } else {
@@ -895,7 +895,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             MessageSupport.Message("Thông báo", "Tài khoản của quản trị viên là bất tử, không thể khóa.");
             return;
         }
-        if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstanceUser().getPassword())) {
+        if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstance().getPassword())) {
             if (String.valueOf(jpfPassword.getPassword()).equals(String.valueOf(jpfConfirmPassword.getPassword()))) {
                 if (jbtnLockOrUnlock.getText().equals("Khóa")) {
                     Account existingAccount = AccountController.getCurrentInstance().getAccount(jtfusername.getText());
@@ -904,7 +904,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                         MessageSupport.Message("Thông báo", "Tài khoản đã khóa.");
                         ActivityHistoryController.getCurrentInstance().insert(
                                 new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                        StaticUser.getCurrentInstanceUser(), "Khóa", "Tài khoản", existingAccount.toString()));
+                                        StaticUser.getCurrentInstance(), "Khóa", "Tài khoản", existingAccount.toString()));
                         setAccountDefault(null);
                     }
                 } else {
@@ -915,7 +915,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                         MessageSupport.Message("Thông báo", "Tài khoản đã được mở khóa.");
                         ActivityHistoryController.getCurrentInstance().insert(
                                 new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                        StaticUser.getCurrentInstanceUser(), "Mở khóa", "Tài khoản", account.toString()));
+                                        StaticUser.getCurrentInstance(), "Mở khóa", "Tài khoản", account.toString()));
                         setAccountDefault(null);
                     }
                 }
@@ -943,13 +943,13 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         if (account != null) {
             Account existingAccount = AccountController.getCurrentInstance().getAccount(account.getUsername());
             if (existingAccount == null) {
-                if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstanceUser().getPassword())) {
+                if (String.valueOf(jpfPassword.getPassword()).equals(StaticUser.getCurrentInstance().getPassword())) {
                     if (String.valueOf(jpfPassword.getPassword()).equals(String.valueOf(jpfConfirmPassword.getPassword()))) {
                         if (AccountController.getCurrentInstance().insert(account)) {
                             MessageSupport.Message("Thông báo", "Thêm thành công. Mật khẩu mặc định là 1.");
                             ActivityHistoryController.getCurrentInstance().insert(
                                     new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                            StaticUser.getCurrentInstanceUser(), "Thêm mới", "Tài khoản", account.toString()));
+                                            StaticUser.getCurrentInstance(), "Thêm mới", "Tài khoản", account.toString()));
                             setAccountDefault(null);
                         } else {
                             MessageSupport.Message("Thông báo", "Thêm thất bại.");

@@ -31,10 +31,10 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
     }
 
     private void setProfileDefault() {
-        jtfFullName.setText(StaticUser.getCurrentInstanceUser().getFullname());
-        jtfUserName.setText(StaticUser.getCurrentInstanceUser().getUsername());
-        if (StaticUser.getCurrentInstanceUser().getUsername().equals("admin")) {
-            jpfOldPassword.setText(StaticUser.getCurrentInstanceUser().getPassword());
+        jtfFullName.setText(StaticUser.getCurrentInstance().getFullname());
+        jtfUserName.setText(StaticUser.getCurrentInstance().getUsername());
+        if (StaticUser.getCurrentInstance().getUsername().equals("admin")) {
+            jpfOldPassword.setText(StaticUser.getCurrentInstance().getPassword());
         } else {
             jpfOldPassword.setText("");
         }
@@ -59,7 +59,7 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
         String oldPassword = String.valueOf(jpfOldPassword.getPassword());
         String newPassword = String.valueOf(jpfNewPassword.getPassword());
         String passwordConfirm = String.valueOf(jpfConfirmPassword.getPassword());
-        boolean status = StaticUser.getCurrentInstanceUser().getDeleteflag();
+        boolean status = StaticUser.getCurrentInstance().getDeleteflag();
         if (!jpfNewPassword.isEditable()) {
             if (oldPassword.equals(passwordConfirm)) {
                 return new Account(username, oldPassword, fullname, status);
@@ -68,7 +68,7 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
                 return null;
             }
         } else {
-            if (oldPassword.equals(StaticUser.getCurrentInstanceUser().getPassword())) {
+            if (oldPassword.equals(StaticUser.getCurrentInstance().getPassword())) {
                 if (CheckSupport.isBlank(newPassword)) {
                     MessageSupport.ErrorMessage("Lỗi", "Mật khẩu không được để trống hoặc toàn ký tự trắng.");
                     return null;
@@ -355,8 +355,8 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
             if (accountController.update(account)) {
                 MessageSupport.Message("Thông báo", "Sửa thành công.");
                 setProfileDefault();
-                StaticUser.setCurrentInstanceUser(account);
-                HomePageJFrameForm.setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
+                StaticUser.setCurrentInstance(account);
+                HomePageJFrameForm.setProfileName(StaticUser.getCurrentInstance().getFullname());
             } else {
                 MessageSupport.Message("Thông báo", "Sửa thất bại.");
             }

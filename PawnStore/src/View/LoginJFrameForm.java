@@ -41,7 +41,7 @@ public class LoginJFrameForm extends JFrame {
                 ActivityHistoryController.getCurrentInstance().insert(
                         new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
                                 account, "Đăng nhập", "", ""));
-                StaticUser.setCurrentInstanceUser(account);
+                StaticUser.setCurrentInstance(account);
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
                 this.dispose();

@@ -13,11 +13,11 @@ public class StaticUser extends Account {
 
     private static Account currentUser;
 
-    public static void setCurrentInstanceUser(Account account) {
+    public static void setCurrentInstance(Account account) {
         currentUser = new Account(account.getUsername(), account.getPassword(), account.getFullname(), account.getDeleteflag());
     }
 
-    public static Account getCurrentInstanceUser() {
+    public static Account getCurrentInstance() {
         if (currentUser == null) {
             return new StaticUser();
         }

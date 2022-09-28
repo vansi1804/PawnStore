@@ -45,8 +45,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         initComponents();
         setTypeOfProductDefault(product.getTypeOfProduct());
         setProductDefault(product);
-        Support.setRowTableSelection(jtblProduct, 1, product.getId());
-        Support.setRowTableSelection(jtblTypeOfProduct, 1, product.getTypeOfProduct().getId());
         setTypeOfProductFindEvent();
         setFindProductEvent();
     }
@@ -54,10 +52,10 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     private void setTypeOfProductDefault(TypeOfProduct typeOfProduct) {
         if (typeOfProduct == null) {
             jbtnAddTypeOfProduct.setEnabled(true);
-            jbtnEditTypeOfProduct.setEnabled(true);
             jtfTypeOfProductID.setText("");
             jtfTypeOfProductID.setEditable(true);
             jtfTypeOfProductName.setText("");
+            jtfTypeOfProductName.setEditable(true);
             setTypeOfProductStatus("");
             setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findTypeOfProductByDeleteflagKey(getTypeOfProductStatus()));
             jbtnAddTypeOfProduct.setEnabled(false);
@@ -70,6 +68,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jtfTypeOfProductName.setText(typeOfProduct.getName());
             setTypeOfProductStatus(typeOfProduct.getDeleteflag() ? "1" : "0");
             setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findTypeOfProductByDeleteflagKey(getTypeOfProductStatus()));
+            Support.setRowTableSelection(jtblTypeOfProduct, 1, typeOfProduct.getId());
         }
     }
 
@@ -108,6 +107,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     }
 
     private void setTypeOfProductTable(ArrayList<TypeOfProduct> typeOfProducts) {
+        if (typeOfProducts == null) {
+            return;
+        }
         ColorFormatSupport.FormatTableHeader(jtblTypeOfProduct);
         ColorFormatSupport.setDataTableCenter(jtblTypeOfProduct);
         DefaultTableModel model = (DefaultTableModel) jtblTypeOfProduct.getModel();
@@ -178,10 +180,10 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     private void setProductDefault(Product product) {
         if (product == null) {
             jbtnAddProduct.setEnabled(true);
-            jbtnEditProduct.setEnabled(true);
             jtfProductID.setText("");
             jtfProductID.setEditable(true);
             jtfProductName.setText("");
+            jtfProductName.setEditable(true);
             setCBTypeOfProduct(TypeOfProductController.getCurrentInstance().getList());
             jtaInformation.setText("");
             setProductStatus("");
@@ -200,6 +202,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jtaInformation.setText(product.getInfo());
             setProductStatus(product.getStatus());
             setProductTable(ProductController.getCurrentInstance().findProductByStatusKey(getProductStatus()));
+            Support.setRowTableSelection(jtblProduct, 1, product.getId());
         }
     }
 
@@ -298,6 +301,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     }
 
     private void setProductTable(ArrayList<Product> products) {
+        if (products == null) {
+            return;
+        }
         ColorFormatSupport.FormatTableHeader(jtblProduct);
         ColorFormatSupport.setDataTableCenter(jtblProduct);
         DefaultTableModel model = (DefaultTableModel) jtblProduct.getModel();
@@ -1112,7 +1118,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                         MessageSupport.Message("Thông báo", "Thêm mới thành công.");
                         ActivityHistoryController.getCurrentInstance().insert(
                                 new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                        StaticUser.getCurrentInstanceUser(), "Thêm mới", "Loại hàng hóa", typeOfProduct.toString()));
+                                        StaticUser.getCurrentInstance(), "Thêm mới", "Loại hàng hóa", typeOfProduct.toString()));
                         setTypeOfProductDefault(null);
                         setCBTypeOfProduct(TypeOfProductController.getCurrentInstance()
                                 .findTypeOfProductByDeleteFlag(TypeOfProductController.getCurrentInstance().getList(), false));
@@ -1134,7 +1140,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                     MessageSupport.Message("Thông báo", "Sửa thành công.");
                     ActivityHistoryController.getCurrentInstance().insert(
                             new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                    StaticUser.getCurrentInstanceUser(), "Sửa", "Loại hàng hóa", typeOfProduct.toString()));
+                                    StaticUser.getCurrentInstance(), "Sửa", "Loại hàng hóa", typeOfProduct.toString()));
                     setTypeOfProductDefault(null);
                     setCBTypeOfProduct(TypeOfProductController.getCurrentInstance()
                             .findTypeOfProductByDeleteFlag(TypeOfProductController.getCurrentInstance().getList(), false));
@@ -1156,7 +1162,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                         MessageSupport.Message("Thông báo", "Thêm mới thành công.");
                         ActivityHistoryController.getCurrentInstance().insert(
                                 new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                        StaticUser.getCurrentInstanceUser(), "Thêm mới", "Hàng hóa", product.toString()));
+                                        StaticUser.getCurrentInstance(), "Thêm mới", "Hàng hóa", product.toString()));
                         setProductDefault(null);
                     }
                 } else {
@@ -1176,7 +1182,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                     MessageSupport.Message("Thông báo", "Sửa thành công.");
                     ActivityHistoryController.getCurrentInstance().insert(
                             new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                    StaticUser.getCurrentInstanceUser(), "Sửa", "Hàng hóa", product.toString()));
+                                    StaticUser.getCurrentInstance(), "Sửa", "Hàng hóa", product.toString()));
                     setProductDefault(null);
                 }
             } else {

@@ -53,14 +53,14 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 ActivityHistoryController.getCurrentInstance().insert(
                         new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstanceUser(), "Đăng xuất", "", ""));
+                                StaticUser.getCurrentInstance(), "Đăng xuất", "", ""));
             }
         });
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        if (StaticUser.getCurrentInstanceUser().getUsername().equals("admin")) {
+        if (StaticUser.getCurrentInstance().getUsername().equals("admin")) {
             isAdmin(true);
         } else {
             isAdmin(false);
@@ -77,7 +77,7 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         Support.setSlideImage(jlbHomePage, imagesList);
         
         Support.getClock(jlblClock, true);
-        setProfileName(StaticUser.getCurrentInstanceUser().getFullname());
+        setProfileName(StaticUser.getCurrentInstance().getFullname());
     }
     
     public static void setProfileName(String fullname) {
@@ -314,7 +314,7 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         if (MessageSupport.MessageConfirm("Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
             ActivityHistoryController.getCurrentInstance().insert(
                     new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                            StaticUser.getCurrentInstanceUser(), "Đăng xuất", "", ""));
+                            StaticUser.getCurrentInstance(), "Đăng xuất", "", ""));
             this.dispose();
             this.jfparrent.setVisible(true);
         }
