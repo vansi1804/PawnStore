@@ -67,6 +67,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             jpfPassword.setText("");
             jpfConfirmPassword.setText("");
             jlbResetPassword.setVisible(true);
+            setAccountTable(AccountController.getCurrentInstance().getList());
+            Support.setRowTableSelection(jtblAccount, 1, account.getUsername());
         }
         setActivityHistoryDefault(account);
     }

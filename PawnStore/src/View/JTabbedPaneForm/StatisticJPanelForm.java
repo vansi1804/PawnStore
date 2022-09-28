@@ -21,6 +21,9 @@ import java.util.Date;
 public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Date nullDefaultDateFrom = Support.stringToDate("01/01/1000", Support.getDateFormat());
+    private static final Date nullDefaultDateTo = Support.stringToDate("31/12/9999", Support.getDateFormat());
     private static final Date defaultDateFrom = Support.stringToDate(
             String.valueOf(Calendar.getInstance().getActualMinimum(Calendar.DATE))
             + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
@@ -32,9 +35,6 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
             + "/2022",
             Support.getDateFormat());
 
-    /**
-     * Creates new form jStatisticPanelForm
-     */
     public StatisticJPanelForm() {
         initComponents();
         jdcDateFrom.setDate(defaultDateFrom);
@@ -50,11 +50,9 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         ArrayList<String> results = new ArrayList<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
             results = StatisticController.getCurrentInstance()
-                    .getPawnCouponStatistic(Support.stringToDate("01/01/1000", Support.getDateFormat())
-                            , Support.stringToDate("31/12/9999", Support.getDateFormat()));
-        }else{
-            results = StatisticController.getCurrentInstance()
-                    .getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
+                    .getPawnCouponStatistic(nullDefaultDateFrom,nullDefaultDateTo);
+        } else {
+            results = StatisticController.getCurrentInstance().getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         }
         jlb1_2.setText(results.get(0));
         jlb1_3.setText(results.get(1));
@@ -73,10 +71,8 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
         ArrayList<String> results = new ArrayList<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
-            results = StatisticController.getCurrentInstance()
-                    .getCustomerStatistic(Support.stringToDate("01/01/1000", Support.getDateFormat())
-                            , Support.stringToDate("31/12/9999", Support.getDateFormat()));
-        }else{
+            results = StatisticController.getCurrentInstance().getCustomerStatistic(nullDefaultDateFrom,nullDefaultDateTo);
+        } else {
             results = StatisticController.getCurrentInstance()
                     .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         }
@@ -90,13 +86,11 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
     @SuppressWarnings("UnusedAssignment")
     private void setTypeOfProductStatistics() {
-       @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
+        @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
         ArrayList<String> results = new ArrayList<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
-            results = StatisticController.getCurrentInstance()
-                    .getTypeOfProductStatistic(Support.stringToDate("01/01/2000", Support.getDateFormat())
-                            , Support.stringToDate("31/12/2100", Support.getDateFormat()));
-        }else{
+            results = StatisticController.getCurrentInstance().getTypeOfProductStatistic(nullDefaultDateFrom,nullDefaultDateTo);
+        } else {
             results = StatisticController.getCurrentInstance()
                     .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         }

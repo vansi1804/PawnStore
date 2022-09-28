@@ -5,7 +5,6 @@
 package View.JTabbedPaneForm;
 
 import Controller.ActivityHistoryController;
-import Controller.PawnCouponController;
 import Controller.ProductController;
 import Controller.TypeOfProductController;
 import Model.ActivityHistory;
@@ -44,15 +43,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
 
     public ProductJPanelForm(Product product) {
         initComponents();
-        setTypeOfProductFindEvent();
-        setFindProductEvent();
-        setTypeOfProductTable(TypeOfProductController.getCurrentInstance().getList());
         setTypeOfProductDefault(product.getTypeOfProduct());
-        setProductTable(ProductController.getCurrentInstance().getList());
-        setCBTypeOfProduct(TypeOfProductController.getCurrentInstance().getList());
         setProductDefault(product);
         Support.setRowTableSelection(jtblProduct, 1, product.getId());
         Support.setRowTableSelection(jtblTypeOfProduct, 1, product.getTypeOfProduct().getId());
+        setTypeOfProductFindEvent();
+        setFindProductEvent();
     }
 
     private void setTypeOfProductDefault(TypeOfProduct typeOfProduct) {
@@ -73,6 +69,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jtfTypeOfProductID.setEditable(false);
             jtfTypeOfProductName.setText(typeOfProduct.getName());
             setTypeOfProductStatus(typeOfProduct.getDeleteflag() ? "1" : "0");
+            setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findTypeOfProductByDeleteflagKey(getTypeOfProductStatus()));
         }
     }
 
@@ -197,9 +194,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jtfProductID.setText(product.getId());
             jtfProductID.setEditable(false);
             jcbTypeOfProduct.setSelectedItem(product.getTypeOfProduct().getName());
+            setCBTypeOfProduct(TypeOfProductController.getCurrentInstance().getList());
+            jcbTypeOfProduct.setSelectedItem(product.getTypeOfProduct().getName());
             jtfProductName.setText(product.getName());
             jtaInformation.setText(product.getInfo());
             setProductStatus(product.getStatus());
+            setProductTable(ProductController.getCurrentInstance().findProductByStatusKey(getProductStatus()));
         }
     }
 

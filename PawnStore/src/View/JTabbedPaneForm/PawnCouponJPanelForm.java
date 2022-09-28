@@ -54,7 +54,6 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         setInterestPaymentDefault(null, null);
         setPawnCouponDefault(pawnCoupon);
         setInterestPaymentDefault(pawnCoupon, null);
-        Support.setRowTableSelection(jtblPawnCoupon, 1, pawnCoupon.getId());
     }
 
     public PawnCouponJPanelForm(Customer customer) {
@@ -215,6 +214,9 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         jlbTotalPrice.setText(Support.getFormatNumber(totalPrice));
         jlbTotalInterest.setText(Support.getFormatNumber(totalInterest));
         jlbTotalLiquidationPrice.setText(Support.getFormatNumber(totalLiquidationPrice));
+        if (!CheckSupport.isBlank(jtfID.getText())) {
+            Support.setRowTableSelection(jtblPawnCoupon, 1, jtfID.getText());
+        }
     }
 
     private void setPawnCouponDefault(PawnCoupon pawnCoupon) {

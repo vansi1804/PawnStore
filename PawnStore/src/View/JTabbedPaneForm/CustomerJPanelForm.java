@@ -37,16 +37,15 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
 
     public CustomerJPanelForm() {
         initComponents();
-        setCustomerFindEvent();
         setCustomerDefault(null);
+        setCustomerFindEvent();
     }
 
     public CustomerJPanelForm(Customer customer) {
         initComponents();
-        setCustomerFindEvent();
-        setCustomerDefault(null);
         setCustomerDefault(customer);
         Support.setRowTableSelection(jtblCustomer, 1, customer.getId());
+        setCustomerFindEvent();
     }
 
     private void setCustomerDefault(Customer customer) {
@@ -75,6 +74,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             jtfPhonenumber.setText(customer.getPhonenumber());
             jtaAddress.setText(customer.getAddress());
             setCustomerStatus(customer.getDeleteflag() ? "1" : "0");
+            setCustomerTable(CustomerController.getCurrentInstance().findCustomerByDeleteflagKey(getCustomerStatus()));
         }
         setPawnHistoryTable(customer);
     }
