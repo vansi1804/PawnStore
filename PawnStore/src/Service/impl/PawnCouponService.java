@@ -13,6 +13,7 @@ import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
 import Service.IPawnCouponService;
+import Support.MessageSupport;
 import Support.Support;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +30,7 @@ public class PawnCouponService implements IPawnCouponService {
 
     @Override
     public ArrayList<PawnCoupon> getList() {
-        ArrayList<PawnCoupon> pawnCoupons = pawnCouponDAO.getList();
-        for (PawnCoupon pawnCoupon : pawnCoupons) {
+        for (PawnCoupon pawnCoupon : pawnCouponDAO.getList()) {
             if (checkForLate(pawnCoupon)) {
                 pawnCoupon.setStatus("Trễ");
                 pawnCouponDAO.update(pawnCoupon);
@@ -66,6 +66,12 @@ public class PawnCouponService implements IPawnCouponService {
 
     @Override
     public ArrayList<PawnCoupon> findPawnCouponByStatusKey(String statusKey) {
+        for (PawnCoupon pawnCoupon : pawnCouponDAO.getList()) {
+            if (checkForLate(pawnCoupon)) {
+                pawnCoupon.setStatus("Trễ");
+                pawnCouponDAO.update(pawnCoupon);
+            }
+        }
         return pawnCouponDAO.findPawnCouponByStatusKey(statusKey);
     }
 
@@ -97,7 +103,7 @@ public class PawnCouponService implements IPawnCouponService {
 
     @Override
     public boolean checkForLate(PawnCoupon pawnCoupon) {
-        return Support.stringToDate(getTheNextPaymentDate(pawnCoupon), Support.getDateFormat()).compareTo(new Date()) < 0;
+        return pawnCoupon.getStatus().equals("Chưa chuộc") && Support.subtractDate(getTheNextPaymentDate(pawnCoupon), new Date()) < 0;
     }
 
     @Override

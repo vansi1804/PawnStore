@@ -150,7 +150,6 @@ public class PawnCouponDAO extends ADAO<PawnCoupon> implements IPawnCouponDAO {
         if (!isStatusKeyEmpty) {
             query += " PawnCoupon._status = N'" + statusKey + "'";
         }
-        //MessageSupport.Message("query", query);
         return getList(query, new PawnCouponMapper());
     }
 

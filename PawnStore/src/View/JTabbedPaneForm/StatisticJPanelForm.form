@@ -132,9 +132,8 @@
                           <Component id="jdcDateTo" min="-2" pref="200" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jchbAll" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jbtnReload" min="-2" pref="48" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -150,7 +149,7 @@
                       <Component id="jPanel10" min="-2" pref="462" max="-2" attributes="0"/>
                       <Component id="jPanel9" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel3" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jdcDateTo" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>

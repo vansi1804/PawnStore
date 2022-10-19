@@ -29,10 +29,9 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("ClassWithoutLogger")
 public class HomePageJFrameForm extends javax.swing.JFrame {
-    
+
     private static final long serialVersionUID = 1L;
-    private static int index = 1;
-    
+
     private static JFrame jfparrent = null;
     private JPanel jaccounttab = null;
     private JPanel jprofiletab = null;
@@ -40,11 +39,11 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
     private JPanel jproducttab = null;
     private JPanel jpawncoupontab = null;
     private JPanel jstatistictab = null;
-    
+
     public HomePageJFrameForm() {
         initComponents();
     }
-    
+
     @SuppressWarnings({"static-access", "OverridableMethodCallInConstructor", "SleepWhileInLoop"})
     public HomePageJFrameForm(JFrame jfparrent) {
         initComponents();
@@ -75,15 +74,15 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage4.png"));
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage5.jpg"));
         Support.setSlideImage(jlbHomePage, imagesList);
-        
+
         Support.getClock(jlblClock, true);
         setProfileName(StaticUser.getCurrentInstance().getFullname());
     }
-    
+
     public static void setProfileName(String fullname) {
         jlblProfile.setText(fullname + "     ");
     }
-    
+
     public void isAdmin(boolean b) {
         jAccountMenuItem.setEnabled(b);
     }
@@ -308,13 +307,10 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         }
         jHomePageTabbedPane.setSelectedComponent(jaccounttab);
     }//GEN-LAST:event_jAccountMenuItemActionPerformed
-    
+
     @SuppressWarnings("static-access")
     private void jLogOutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutMenuItemActionPerformed
         if (MessageSupport.MessageConfirm("Đăng xuất", "Xác nhận đăng xuất?") == JOptionPane.YES_OPTION) {
-            ActivityHistoryController.getCurrentInstance().insert(
-                    new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                            StaticUser.getCurrentInstance(), "Đăng xuất", "", ""));
             this.dispose();
             this.jfparrent.setVisible(true);
         }

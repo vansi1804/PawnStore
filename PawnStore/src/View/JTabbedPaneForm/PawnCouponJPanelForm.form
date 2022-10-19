@@ -166,8 +166,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel6" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jPanel4" min="-2" pref="440" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel5" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -200,79 +200,78 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel19" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
+                                  <Component id="jbtnViewPawnCouponInPaper" min="-2" pref="130" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel14" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel15" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel19" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jbtnViewPawnCouponInPaper" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jcbCustomerID" max="32767" attributes="0"/>
+                                      <Component id="jcbProductID" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfAmount" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfPrice" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfInterestRate" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jdcPawnDate" alignment="0" pref="185" max="32767" attributes="0"/>
+                                      <Component id="jdcTheNextInterestPaymentDate" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jdcRedeemOrLiquidateDate" max="32767" attributes="0"/>
+                                      <Component id="jtfID" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jcbCustomerID" max="32767" attributes="0"/>
-                                              <Component id="jcbProductID" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jtfAmount" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jtfPrice" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jtfInterestRate" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jdcPawnDate" alignment="0" pref="185" max="32767" attributes="0"/>
-                                              <Component id="jdcTheNextInterestPaymentDate" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jdcRedeemOrLiquidateDate" max="32767" attributes="0"/>
-                                              <Component id="jtfID" max="32767" attributes="0"/>
-                                          </Group>
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel29" min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="jLabel30" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="jrbLateStatus" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                                              <Component id="jrbNeedToLiquidateStatus" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jPanel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel27" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jrbRedeemedStatus" min="-2" pref="101" max="-2" attributes="0"/>
                                                       <Component id="jrbNotRedeemingStatus" min="-2" pref="101" max="-2" attributes="0"/>
-                                                      <Component id="jrbNeedToLiquidateStatus" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                                                      <Component id="jrbRedeemedStatus" min="-2" pref="101" max="-2" attributes="0"/>
                                                       <Component id="jrbLiquidatedStatus" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                                                      <Component id="jrbLateStatus" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                                                      <Component id="jrbAllStatus" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
+                                              <Component id="jrbAllStatus" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jtfLiquidatePrice" alignment="0" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jbtnAddPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jbtnEditPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel27" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jbtnRepawn" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jtfLiquidatePrice" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jbtnAddPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jbtnEditPawnCoupon" min="-2" pref="90" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jbtnRepawn" min="-2" pref="90" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -288,13 +287,16 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel7" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jcbCustomerID" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jcbCustomerID" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="jLabel27" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jcbProductID" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jLabel27" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jLabel29" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -306,7 +308,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel10" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jtfPrice" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="jrbRedeemedStatus" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jrbLateStatus" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -319,24 +321,24 @@
                               <Component id="jdcRedeemOrLiquidateDate" min="-2" pref="20" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jdcTheNextInterestPaymentDate" min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel30" min="-2" pref="20" max="-2" attributes="0"/>
                                               <Component id="jdcPawnDate" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                               <Component id="jLabel12" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
-                                              <Component id="jrbLiquidatedStatus" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel14" min="-2" pref="20" max="-2" attributes="0"/>
-                                              <Component id="jrbLateStatus" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Component id="jLabel14" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Component id="jrbRedeemedStatus" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="jdcTheNextInterestPaymentDate" min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel15" min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="jrbAllStatus" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="jrbLiquidatedStatus" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -344,6 +346,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jtfLiquidatePrice" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="jLabel19" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jrbAllStatus" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -730,7 +733,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Ch&#x1b0;a chu&#x1ed9;c"/>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#xfa;ng h&#x1ea1;n"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbPawnCouponStatusPerformed"/>
@@ -875,7 +878,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Xem"/>
+                    <Property name="text" type="java.lang.String" value="Xem v&#xe0; in"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnViewPawnCouponInPaperActionPerformed"/>
@@ -897,6 +900,34 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnRepawnActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel29">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Times New Roman" size="14" style="3"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Ch&#x1b0;a chu&#x1ed9;c:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel30">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Times New Roman" size="14" style="3"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#xe3; chu&#x1ed9;c:"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

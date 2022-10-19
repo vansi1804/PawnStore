@@ -4,17 +4,14 @@
  */
 package View;
 
-import Controller.ActivityHistoryController;
 import Controller.LoginController;
 import Model.Account;
-import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.Date;
 import javax.swing.JFrame;
 
 @SuppressWarnings("ClassWithoutLogger")
@@ -38,9 +35,6 @@ public class LoginJFrameForm extends JFrame {
         Account account = LoginController.getCurrentInstance().login(username, password);
         if (account != null) {
             if (!account.getDeleteflag()) {
-                ActivityHistoryController.getCurrentInstance().insert(
-                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                account, "Đăng nhập", "", ""));
                 StaticUser.setCurrentInstance(account);
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
@@ -48,6 +42,8 @@ public class LoginJFrameForm extends JFrame {
             } else {
                 MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa.");
             }
+        } else {
+            MessageSupport.ErrorMessage("Lỗi", "Tài khoản hoặc mật khẩu không đúng.");
         }
     }
 
