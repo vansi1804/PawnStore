@@ -13,8 +13,7 @@ public class Main {
     public static void main(String[] args) {
          EventQueue.invokeLater(() -> {
              try {
-                 LoginJFrameForm jloginform = new LoginJFrameForm();
-                 jloginform.setVisible(true);
+                 new LoginJFrameForm().setVisible(true);
              } catch (Exception e) {
              }
          });

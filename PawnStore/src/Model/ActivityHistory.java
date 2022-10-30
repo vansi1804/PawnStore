@@ -28,14 +28,14 @@ public class ActivityHistory {
         this.infor = infor;
     }
 
-    public void copy(ActivityHistory activityHistory){
-        time = activityHistory.getTime();
-        account = activityHistory.getAccount();
-        activity = activityHistory.getActivity();
-        objectname = activityHistory.getObjectname();
-        infor = activityHistory.getInfor();
+    public ActivityHistory(String time, String activity) {
+        this.time = time;
+        this.account = StaticUser.getCurrentInstance();
+        this.activity = activity;
+        this.objectname = "";
+        this.infor = "";
     }
-    
+
     public String getTime() {
         return time;
     }

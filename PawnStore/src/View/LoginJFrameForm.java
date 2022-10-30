@@ -4,14 +4,17 @@
  */
 package View;
 
+import Controller.ActivityHistoryController;
 import Controller.LoginController;
 import Model.Account;
+import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import javax.swing.JFrame;
 
 @SuppressWarnings("ClassWithoutLogger")
@@ -36,6 +39,8 @@ public class LoginJFrameForm extends JFrame {
         if (account != null) {
             if (!account.getDeleteflag()) {
                 StaticUser.setCurrentInstance(account);
+                ActivityHistoryController.getCurrentInstance()
+                        .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()), "Đăng nhập"));
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
                 this.dispose();

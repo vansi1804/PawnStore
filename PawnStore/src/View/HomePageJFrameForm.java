@@ -4,8 +4,6 @@
  */
 package View;
 
-import Controller.ActivityHistoryController;
-import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
@@ -18,7 +16,6 @@ import View.JTabbedPaneForm.StatisticJPanelForm;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -47,24 +44,10 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
     @SuppressWarnings({"static-access", "OverridableMethodCallInConstructor", "SleepWhileInLoop"})
     public HomePageJFrameForm(JFrame jfparrent) {
         initComponents();
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                ActivityHistoryController.getCurrentInstance().insert(
-                        new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()),
-                                StaticUser.getCurrentInstance(), "Đăng xuất", "", ""));
-            }
-        });
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        if (StaticUser.getCurrentInstance().getUsername().equals("admin")) {
-            isAdmin(true);
-        } else {
-            isAdmin(false);
-        }
-        Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePage/HomePageImage0.png"));
         @SuppressWarnings("CollectionWithoutInitialCapacity")
         ArrayList<URL> imagesList = new ArrayList<>();
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage0.png"));
@@ -77,14 +60,11 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
 
         Support.getClock(jlblClock, true);
         setProfileName(StaticUser.getCurrentInstance().getFullname());
+        jAccountMenuItem.setEnabled(StaticUser.getCurrentInstance().getUsername().equals("admin"));
     }
 
     public static void setProfileName(String fullname) {
         jlblProfile.setText(fullname + "     ");
-    }
-
-    public void isAdmin(boolean b) {
-        jAccountMenuItem.setEnabled(b);
     }
 
     /**
