@@ -48,6 +48,7 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         this.jfparrent = jfparrent;
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePage/HomePageImage6.png"));
         @SuppressWarnings("CollectionWithoutInitialCapacity")
         ArrayList<URL> imagesList = new ArrayList<>();
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage0.png"));
@@ -128,10 +129,11 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         jlblProfile1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jlblClock.setBackground(new java.awt.Color(204, 204, 204));
-        jlblClock.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jlblClock.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jlblClock.setForeground(new java.awt.Color(255, 0, 0));
         jlblClock.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jlblClock.setText("Clock");
+        jlblClock.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

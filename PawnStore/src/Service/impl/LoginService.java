@@ -22,17 +22,12 @@ public class LoginService implements ILoginService {
     @Override
     public Account Login(String username, String password) {
         Account account = accountDAO.getAccount(username);
-        if (account != null) {
-            if (account.getPassword().equals(password)) {
-                return account;
-            } else {
-                MessageSupport.Message("Lỗi", "Mật khẩu không đúng.");
-                return null;
-            }
+        if (account != null && account.getPassword().equals(password)) {
+            return account;
         } else {
-            MessageSupport.Message("Lỗi", "Tên đăng nhập không tồn tại.");
             return null;
         }
+
     }
 
 }

@@ -133,4 +133,6 @@ END
 
 
 go
-insert into Account values ('admin','admin','Admin',0)
+insert into Account values ('admin',N'21232f297a57a5a743894a0e4a801fc3Khi bạn muốn bỏ cuộc, hãy nghĩ đến lý do bắt đầu','Admin',0)
+
+select * from Account

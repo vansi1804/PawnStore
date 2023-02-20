@@ -9,6 +9,7 @@ import Controller.LoginController;
 import Model.Account;
 import Model.ActivityHistory;
 import Model.StaticUser;
+import Support.EncodingSupport;
 import Support.MessageSupport;
 import Support.Support;
 import java.awt.EventQueue;
@@ -50,6 +51,9 @@ public class LoginJFrameForm extends JFrame {
         } else {
             MessageSupport.ErrorMessage("Lỗi", "Tài khoản hoặc mật khẩu không đúng.");
         }
+
+        System.out.println(EncodingSupport.getMd5(password));
+
     }
 
     @SuppressWarnings("unchecked")

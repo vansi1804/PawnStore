@@ -165,8 +165,8 @@ public class Support {
                 while (true) {
                     try {
                         for (int i = 0; i < imagesList.size(); i++) {
-                            ScaleImage(jLabel, imagesList.get(i));
                             Thread.sleep(10000);
+                            ScaleImage(jLabel, imagesList.get(i));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

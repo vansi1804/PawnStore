@@ -4,17 +4,9 @@
  */
 package Support;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Base64;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -22,50 +14,33 @@ import javax.crypto.spec.SecretKeySpec;
  */
 @SuppressWarnings({"ClassWithoutLogger", "UtilityClassWithoutPrivateConstructor"})
 public class EncodingSupport {
-
-    private static SecretKeySpec secretKey;
-    @SuppressWarnings("FieldMayBeFinal")
-    private static String defaultSecretKey = "Ye^uGiangS07nCang\\Ye^uMy~Nha^n";
-    private static byte[] key;
-
-    public static void setKey(final String myKey) {
-        MessageDigest sha = null;
-        try {
-            key = myKey.getBytes("UTF-8");
-            sha = MessageDigest.getInstance("SHA-1");
-            key = sha.digest(key);
-            key = Arrays.copyOf(key, 16);
-            secretKey = new SecretKeySpec(key, "AES");
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-        }
+    
+    private static final String SECRET_WORD = "Khi bạn muốn bỏ cuộc, hãy nghĩ đến lý do bắt đầu";
+    
+     public static String getMd5(String input) 
+    { 
+        try { 
+            // Static getInstance method is called with hashing MD5 
+            MessageDigest md = MessageDigest.getInstance("MD5"); 
+  
+            // digest() method is called to calculate message digest 
+            //  of an input digest() return array of byte 
+            byte[] messageDigest = md.digest(input.getBytes()); 
+  
+            // Convert byte array into signum representation 
+            BigInteger no = new BigInteger(1, messageDigest); 
+  
+            // Convert message digest into hex value 
+            String hashtext = no.toString(16); 
+            while (hashtext.length() < 32) { 
+                hashtext = "0" + hashtext; 
+            } 
+            return hashtext.concat(SECRET_WORD); 
+        }  
+        // For specifying wrong message digest algorithms 
+        catch (NoSuchAlgorithmException e) { 
+            throw new RuntimeException(e); 
+        } 
     }
-
-    public static String encrypt(final String strToEncrypt) {
-        try {
-            setKey(defaultSecretKey);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            return Base64.getEncoder()
-                    .encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException 
-                | IllegalBlockSizeException | NoSuchPaddingException e) {
-            System.out.println("Error while encrypting: " + e.toString());
-        }
-        return null;
-    }
-
-    public static String decrypt(final String strToDecrypt) {
-        try {
-            setKey(defaultSecretKey);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return new String(cipher.doFinal(Base64.getDecoder()
-                    .decode(strToDecrypt)));
-        } catch (InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException
-                | NoSuchPaddingException e) {
-            System.out.println("Error while decrypting: " + e.toString());
-        }
-        return null;
-    }
-
+    
 }

@@ -8,6 +8,7 @@ import DAO.IAccountDAO;
 import DAO.impl.AccountDAO;
 import Model.Account;
 import Service.IAccountService;
+import Support.EncodingSupport;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public boolean insert(Account account) {
+        account.setPassword(EncodingSupport.getMd5(account.getPassword()));
         return accountDAO.insert(account);
     }
 

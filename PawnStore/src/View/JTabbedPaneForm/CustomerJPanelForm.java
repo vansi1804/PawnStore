@@ -704,6 +704,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jtblPawningHistory.setRowHeight(20);
         jtblPawningHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtblPawningHistoryMouseClicked(evt);
@@ -844,6 +845,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jtblCustomer.setRowHeight(20);
         jtblCustomer.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
