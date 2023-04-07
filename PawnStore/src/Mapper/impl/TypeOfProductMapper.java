@@ -21,9 +21,9 @@ public class TypeOfProductMapper implements IObjectMapper<TypeOfProduct> {
     @Override
     public TypeOfProduct mapObject(ResultSet rs) {
         try {
-            String id = rs.getString("_id");
-            String name = rs.getString("_name");
-            boolean deleteflag = rs.getBoolean("_deleteflag");
+            String id = rs.getString(1);
+            String name = rs.getString(2);
+            boolean deleteflag = rs.getBoolean(3);
             return new TypeOfProduct(id, name, deleteflag);
         } catch (SQLException ex) {
             Logger.getLogger(AccountMapper.class.getName()).log(Level.SEVERE, null, ex);

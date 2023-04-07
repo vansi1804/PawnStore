@@ -8,7 +8,7 @@ import DAO.ICustomerDAO;
 import Mapper.impl.CustomerMapper;
 import Model.Customer;
 import Support.CheckSupport;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,123 +17,52 @@ import java.util.ArrayList;
 @SuppressWarnings("ClassWithoutLogger")
 public class CustomerDAO extends ADAO<Customer> implements ICustomerDAO {
 
-    private static final String SELECTQUERY = "Select _id, _fullname, _gender, _phonenumber, _address, _deleteflag From Customer";
-    private static final String UPDATEQUERY = "Update Customer Set _fullname = ?, _gender = ?, _phonenumber = ?, _address = ?, _deleteflag = ? Where _id = ?";
-    private static final String INSERTQUERY = "Insert Into Customer(_id, _fullname, _gender, _phonenumber, _address, _deleteflag) Values(?,?,?,?,?,?)";
-    private static final String DELETEQUERY = "Delete from Customer Where _id = ?";
+    private static final String SELECTQUERY = "Select id, fullname, gender, phone_number, address, delete_flag From customer";
+    private static final String INSERTQUERY = "Insert Into customer(id, fullname, gender, phone_number, address, delete_flag) Values(?,?,?,?,?,?)";
+    private static final String UPDATEQUERY = "Update customer Set fullname = ?, gender = ?, phone_number = ?, address = ?, delete_flag = ? Where id = ?";
 
     @Override
-    public ArrayList<Customer> getList() {
-        return getList(SELECTQUERY, new CustomerMapper());
+    public List<Customer> findAll() {
+        return findAll(SELECTQUERY, new CustomerMapper());
     }
 
     @Override
-    public Customer getCustomer(String id) {
-        String query = SELECTQUERY + " Where _id = ?";
-        return getObject(query, new CustomerMapper(), id);
+    public List<Customer> findAllServing() {
+        String query = SELECTQUERY
+                + " Where delete_flag = 0";
+        return findAll(query, new CustomerMapper());
+    }
+
+    @Override
+    public Customer findOneById(String id) {
+        String query = SELECTQUERY + " Where id = ?";
+        return findOne(query, new CustomerMapper(), id);
     }
 
     @Override
     public boolean insert(Customer customer) {
-        return insert(INSERTQUERY, customer.getId(), customer.getFullname(), customer.getGender(), customer.getPhonenumber(),
-                customer.getAddress(), customer.getDeleteflag());
+        return insert(INSERTQUERY, customer.getId(), customer.getFullname(), customer.getGender(), customer.getPhoneNumber(),
+                customer.getAddress(), customer.getDeleteFlag());
     }
 
     @Override
     public boolean update(Customer customer) {
-        return update(UPDATEQUERY, customer.getFullname(), customer.getGender(), customer.getPhonenumber(), customer.getAddress(),
-                customer.getDeleteflag(), customer.getId());
+        return update(UPDATEQUERY, customer.getFullname(), customer.getGender(), customer.getPhoneNumber(), customer.getAddress(),
+                customer.getDeleteFlag(), customer.getId());
     }
 
     @Override
-    public boolean delete(Customer customer) {
-        return delete(DELETEQUERY, customer.getId());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByIDKey(String idKey) {
-        String query = SELECTQUERY + " Where _id like N'%" + idKey + "%'";
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByFullnameKey(String fullnameKey) {
-        String query = SELECTQUERY + " Where _fullname like N'%" + fullnameKey + "%'";
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByGenderKey(String genderKey) {
-        String query = SELECTQUERY + " Where _gender = N'" + genderKey + "' ";
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByPhonenumberKey(String phonenumberKey) {
-        String query = SELECTQUERY + " Where _phonenumber like N'%" + phonenumberKey + "%'";
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByAddressKey(String addressKey) {
-        String query = SELECTQUERY + " Where _address like N'%" + addressKey + "%'";
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByDeleteflagKey(String deleteflagKey) {
-        String query = SELECTQUERY + " Where _deleteflag = " + deleteflagKey;
-        return getList(query, new CustomerMapper());
-    }
-
-    @Override
-    public ArrayList<Customer> findCustomerByKey(String idKey, String fullnameKey,
-            String genderKey, String phonenumberKey, String addressKey, String deleteflagKey) {
-
-        String query = SELECTQUERY;
-        boolean isIDKeyEmpty = CheckSupport.isBlank(idKey);
-        boolean isFullnameKeyEmpty = CheckSupport.isBlank(fullnameKey);
-        boolean isGenderKeyEmpty = CheckSupport.isBlank(genderKey);
-        boolean isPhonenumberKeyEmpty = CheckSupport.isBlank(phonenumberKey);
-        boolean isAddressKeyEmpty = CheckSupport.isBlank(addressKey);
-        boolean isDeleteflagKeyEmpty = CheckSupport.isBlank(deleteflagKey);
-        if (!isIDKeyEmpty || !isFullnameKeyEmpty || !isGenderKeyEmpty || !isPhonenumberKeyEmpty || !isAddressKeyEmpty || !isDeleteflagKeyEmpty) {
-            query += " Where ";
-        }
-        if (!isIDKeyEmpty) {
-            query += " _id like N'%" + idKey + "%' ";
-        }
-        if (!isIDKeyEmpty && (!isFullnameKeyEmpty || !isGenderKeyEmpty || !isPhonenumberKeyEmpty || !isAddressKeyEmpty || !isDeleteflagKeyEmpty)) {
-            query += " And ";
-        }
-        if (!isFullnameKeyEmpty) {
-            query += " _fullname like N'%" + fullnameKey + "%' ";
-        }
-        if (!isFullnameKeyEmpty && (!isGenderKeyEmpty || !isPhonenumberKeyEmpty || !isAddressKeyEmpty || !isDeleteflagKeyEmpty)) {
-            query += " And ";
-        }
-        if (!isGenderKeyEmpty) {
-            query += " _gender = N'" + genderKey + "' ";
-        }
-        if (!isGenderKeyEmpty && (!isPhonenumberKeyEmpty || !isAddressKeyEmpty || !isDeleteflagKeyEmpty)) {
-            query += " And ";
-        }
-        if (!isPhonenumberKeyEmpty) {
-            query += " _phonenumber like N'%" + phonenumberKey + "%' ";
-        }
-        if (!isPhonenumberKeyEmpty && (!isAddressKeyEmpty || !isDeleteflagKeyEmpty)) {
-            query += " And ";
-        }
-        if (!isAddressKeyEmpty) {
-            query += " _address like N'%" + addressKey + "%' ";
-        }
-        if (!isAddressKeyEmpty && !isDeleteflagKeyEmpty) {
-            query += " And ";
-        }
-        if (!isDeleteflagKeyEmpty) {
-            query += " _deleteflag = " + deleteflagKey;
-        }
-        return getList(query, new CustomerMapper());
+    public List<Customer> filterByKey(String idKey, String fullnameKey, String gender,
+            String phoneNumberKey, String addressKey, Boolean deleteFlagKey) {
+        String query = SELECTQUERY
+                + " Where 1 = 1"
+                + (CheckSupport.isNullOrBlank(idKey) ? "" : " And id Like '%" + idKey + "%'")
+                + (CheckSupport.isNullOrBlank(fullnameKey) ? "" : " And fullname Like '%" + fullnameKey + "%'")
+                + (CheckSupport.isNullOrBlank(gender) ? "" : " And gender = N'" + gender + "'")
+                + (CheckSupport.isNullOrBlank(phoneNumberKey) ? "" : " And phone_number Like '%" + phoneNumberKey + "%'")
+                + (CheckSupport.isNullOrBlank(addressKey) ? "" : " And address Like '%" + addressKey + "%'")
+                + (deleteFlagKey == null ? "" : " And delete_flag = " + deleteFlagKey);
+        return findAll(query, new CustomerMapper());
     }
 
 }

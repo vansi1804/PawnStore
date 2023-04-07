@@ -20,7 +20,7 @@ public class PawnCoupon {
     private int price;
     private float interestRate;
     private String pawnDate;
-    private String redeem0rLiquidationDate;
+    private String redemption0rLiquidationDate;
     private int liquidationPrice;
     private String status;
 
@@ -35,7 +35,7 @@ public class PawnCoupon {
         this.price = price;
         this.interestRate = interestRate;
         this.pawnDate = pawnDate;
-        this.redeem0rLiquidationDate = redeem0rLiquidationDate;
+        this.redemption0rLiquidationDate = redeem0rLiquidationDate;
         this.liquidationPrice = liquidationPrice;
         this.status = status;
     }
@@ -96,12 +96,12 @@ public class PawnCoupon {
         this.pawnDate = pawnDate;
     }
 
-    public String getRedeem0rLiquidationDate() {
-        return redeem0rLiquidationDate;
+    public String getRedemption0rLiquidationDate() {
+        return redemption0rLiquidationDate;
     }
 
-    public void setRedeem0rLiquidationDate(String redeem0rLiquidationDate) {
-        this.redeem0rLiquidationDate = redeem0rLiquidationDate;
+    public void setRedemption0rLiquidationDate(String redemption0rLiquidationDate) {
+        this.redemption0rLiquidationDate = redemption0rLiquidationDate;
     }
 
     public int getLiquidationPrice() {
@@ -129,8 +129,8 @@ public class PawnCoupon {
                 + " - " + Support.getFormatNumber(price)
                 + " - " + interestRate
                 + " - " + pawnDate
-                + " - " + (status.equals("Đã chuộc") ? (redeem0rLiquidationDate + " - " + status) 
-                : (status.equals("Đã thanh lý") ? (redeem0rLiquidationDate + " - " + liquidationPrice + " - " + status) : status));
+                + " - " + (status.equals("Đã chuộc") ? (redemption0rLiquidationDate + " - " + status) 
+                : (status.equals("Đã thanh lý") ? (redemption0rLiquidationDate + " - " + liquidationPrice + " - " + status) : status));
 
     }
 

@@ -22,7 +22,7 @@ import Model.PawnCoupon;
 import Model.TypeOfProduct;
 import Service.IStatisticService;
 import Support.Support;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -42,9 +42,9 @@ public class StatisticService implements IStatisticService {
     private final IProductDAO productDAO = new ProductDAO();
 
     @Override
-    public ArrayList<String> getPawnCouponStatistic(Date dateFrom, Date dateTo) {
+    public List<String> getPawnCouponStatistic(Date dateFrom, Date dateTo) {
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        ArrayList<String> results = new ArrayList<>();
+        List<String> results = new List<>();
         int totalPawnCouponCount = 0;
         long totalPawnCouponPrice = 0;
         int totalNotRedeemedPawnCouponCount = 0;
@@ -56,14 +56,14 @@ public class StatisticService implements IStatisticService {
         int totalLiquidatedPawnCouponLiquidationPrice = 0;
         long totalInterest = 0;
 
-        for (PawnCoupon pawnCoupon : pawnCouponDAO.getList()) {
+        for (PawnCoupon pawnCoupon : pawnCouponDAO.findAll()) {
             Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
             if (dateFrom.compareTo(pawnDate) <= dateTo.compareTo(pawnDate)) {
                 totalPawnCouponCount++;
                 totalPawnCouponPrice += pawnCoupon.getPrice();
             }
             if (pawnCoupon.getStatus().equals("Đã chuộc") || pawnCoupon.getStatus().equals("Đã thanh lý")) {
-                Date redeemOrLiquidateDate = Support.stringToDate(pawnCoupon.getRedeem0rLiquidationDate(), Support.getDateFormat());
+                Date redeemOrLiquidateDate = Support.stringToDate(pawnCoupon.getRedemption0rLiquidationDate(), Support.getDateFormat());
                 if (dateFrom.compareTo(redeemOrLiquidateDate) <= dateTo.compareTo(redeemOrLiquidateDate)) {
                     if (pawnCoupon.getStatus().equals("Đã chuộc")) {
                         totalRedeemedPawnCouponCount++;
@@ -105,7 +105,7 @@ public class StatisticService implements IStatisticService {
 
     @Override
     @SuppressWarnings("null")
-    public ArrayList<String> getCustomerStatistic(Date dateFrom, Date dateTo) {
+    public List<String> getCustomerStatistic(Date dateFrom, Date dateTo) {
         int totalCustomer = 0;
         String bestCustomerName = "";
         int bestCustomerPawnedCount = 0;
@@ -114,8 +114,8 @@ public class StatisticService implements IStatisticService {
         int totalStopServiceCount = 0;
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        ArrayList<String> results = new ArrayList<>();
-        for (Customer customer : customerDAO.getList()) {
+        List<String> results = new List<>();
+        for (Customer customer : customerDAO.findAllServing()) {
             String strDateFrom = Support.dateToString(dateFrom, Support.getDateFormat());
             String strDateTo = Support.dateToString(dateTo, Support.getDateFormat());
             if (!activityHistoryDAO.findActivityHistoryByKey(strDateFrom, strDateTo, null, "Thêm mới", "Khách hàng", null).isEmpty()) {
@@ -172,7 +172,7 @@ public class StatisticService implements IStatisticService {
     }
 
     @Override
-    public ArrayList<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo) {
+    public List<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo) {
 
         int typeOfProductCount = 0;
         int productCount = 0;
@@ -183,9 +183,9 @@ public class StatisticService implements IStatisticService {
         int totalStopServiceCount = 0;
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        ArrayList<String> results = new ArrayList<>();
+        List<String> results = new List<>();
 
-        for (TypeOfProduct typeOfProduct : typeOfProductDAO.getList()) {
+        for (TypeOfProduct typeOfProduct : typeOfProductDAO.findAllServing()) {
             typeOfProductCount++;
             String strDateFrom = Support.dateToString(dateFrom, Support.getDateFormat());
             String strDateTo = Support.dateToString(dateTo, Support.getDateFormat());
@@ -195,7 +195,7 @@ public class StatisticService implements IStatisticService {
             int totalPawnedCount = 0;
             long totalPawnedPrice = 0;
             long totalInterestPayed = 0;
-            for (PawnCoupon pawnCoupon : pawnCouponDAO.getList()) {
+            for (PawnCoupon pawnCoupon : pawnCouponDAO.findAll()) {
                 if (typeOfProduct.getId().equals(pawnCoupon.getProduct().getTypeOfProduct().getId())) {
                     Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
                     if (dateFrom.compareTo(pawnDate) <= dateTo.compareTo(pawnDate)) {

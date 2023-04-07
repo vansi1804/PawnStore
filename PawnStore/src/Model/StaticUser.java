@@ -14,7 +14,7 @@ public class StaticUser extends Account {
     private static Account currentUser;
 
     public static void setCurrentInstance(Account account) {
-        currentUser = new Account(account.getUsername(), account.getPassword(), account.getFullname(), account.getDeleteflag());
+        currentUser = new Account(account.getUsername(), account.getPassword(), account.getFullname(), account.getDeleteFlag());
     }
 
     public static Account getCurrentInstance() {

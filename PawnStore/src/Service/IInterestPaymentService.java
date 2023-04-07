@@ -6,14 +6,14 @@ package Service;
 
 import Model.InterestPayment;
 import Model.PawnCoupon;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author NVS
  */
 public interface IInterestPaymentService {
-    ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon);
+    List<InterestPayment> getList(PawnCoupon pawnCoupon);
 
     InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times);
 

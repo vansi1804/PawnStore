@@ -17,15 +17,14 @@ import java.util.logging.Logger;
  */
 @SuppressWarnings("ClassWithoutLogger")
 public class AccountMapper implements IObjectMapper<Account> {
-    
+
     @Override
     public Account mapObject(ResultSet rs) {
         try {
-            String username = rs.getString("_username");
-            String password = rs.getString("_password");
-            String fullname = rs.getString("_fullname");
-            boolean deleteflag = rs.getBoolean("_deleteflag");
-            return new Account(username, password, fullname, deleteflag);
+            String username = rs.getString(1);
+            String fullname = rs.getString(2);
+            boolean deleteflag = rs.getBoolean(3);
+            return new Account(username, null, fullname, deleteflag);
         } catch (SQLException ex) {
             Logger.getLogger(AccountMapper.class.getName()).log(Level.SEVERE, null, ex);
             return null;

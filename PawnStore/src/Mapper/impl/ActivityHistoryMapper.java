@@ -23,10 +23,10 @@ public class ActivityHistoryMapper implements IObjectMapper<ActivityHistory> {
     public ActivityHistory mapObject(ResultSet rs) {
         try {
             String time = rs.getString(1);
-            Account account = new Account(rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5));
-            String activity = rs.getString(6);
-            String objectname = rs.getString(7);
-            String infor = rs.getString(8);
+            Account account = new Account(rs.getString(2), null, null, true);
+            String activity = rs.getString(3);
+            String objectname = rs.getString(4);
+            String infor = rs.getString(5);
             return new ActivityHistory(time, account, activity, objectname, infor);
         } catch (SQLException ex) {
             Logger.getLogger(AccountMapper.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,10 +4,8 @@
  */
 package Service;
 
-import Model.Customer;
 import Model.PawnCoupon;
-import Model.Product;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,7 +14,9 @@ import java.util.ArrayList;
 @SuppressWarnings("MarkerInterface")
 public interface IPawnCouponService {
 
-    ArrayList<PawnCoupon> getList();
+    List<PawnCoupon> findAll();
+
+    List<PawnCoupon> findAllByStatus(String status);
 
     PawnCoupon getPawnCoupon(String id);
 
@@ -24,20 +24,8 @@ public interface IPawnCouponService {
 
     boolean update(PawnCoupon pawnCoupon);
 
-    boolean delete(PawnCoupon pawnCoupon);
-
-    ArrayList<PawnCoupon> findPawnCouponByCustomerKey(Customer customer);
-
-    ArrayList<PawnCoupon> findPawnCouponByStatusKey(String statusKey);
-
-    ArrayList<PawnCoupon> findPawnCouponByTime(String dateFrom, String dateTo);
-    
-    ArrayList<PawnCoupon> findPawnCouponByKey(String idKey, Customer customer, Product productKey, int amountKey, int priceKey,
-            float interestRateKey, String pawnDate, String redeemDate, String status);
-
     String getNewID();
 
     String getTheNextPaymentDate(PawnCoupon pawnCoupon);
-    
-    boolean checkForLate(PawnCoupon pawnCoupon);
+
 }

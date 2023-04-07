@@ -5,7 +5,7 @@
 package DAO;
 
 import Model.Account;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,20 +13,18 @@ import java.util.ArrayList;
  */
 public interface IAccountDAO extends IGenericDAO<Account> {
 
-    ArrayList<Account> getList();
+    List<Account> findAll();
 
-    Account getAccount(String username);
+    Account findOneByUsername(String username);
+
+    Account findOneByUsernameAndPassword(String username, String password);
 
     boolean insert(Account account);
 
     boolean update(Account account);
 
-    boolean delete(Account account);
+    boolean lockOrUnlock(String username);
 
-    ArrayList<Account> findAccountByUsernameKey(String usernameKey);
-
-    ArrayList<Account> findAccountByFullnameKey(String fullnameKey);
-
-    ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflagKey);
+    public List<Account> findAllByDeleteFlag(Boolean deleteflag);
 
 }

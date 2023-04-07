@@ -6,10 +6,9 @@ package Controller;
 
 import Model.Customer;
 import Model.PawnCoupon;
-import Model.Product;
 import Service.IPawnCouponService;
 import Service.impl.PawnCouponService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,8 +28,12 @@ public class PawnCouponController {
 
     private final IPawnCouponService pawnCouponService = new PawnCouponService();
 
-    public ArrayList<PawnCoupon> getList() {
-        return pawnCouponService.getList();
+    public List<PawnCoupon> findAll() {
+        return pawnCouponService.findAll();
+    }
+
+    public List<PawnCoupon> findAllByStatus(String status) {
+        return pawnCouponService.findAllByStatus(status);
     }
 
     public PawnCoupon getPawnCoupon(String id) {
@@ -45,34 +48,15 @@ public class PawnCouponController {
         return pawnCouponService.update(pawnCoupon);
     }
 
-    public boolean delete(PawnCoupon pawnCoupon) {
-        return pawnCouponService.delete(pawnCoupon);
-    }
-
-    public ArrayList<PawnCoupon> findPawnCouponByCustomerKey(Customer customer) {
-        return pawnCouponService.findPawnCouponByCustomerKey(customer);
-    }
-    
-    public ArrayList<PawnCoupon> findPawnCouponByStatusKey(String statusKey) {
-        return pawnCouponService.findPawnCouponByStatusKey(statusKey);
-    }
-
-    public ArrayList<PawnCoupon> findPawnCouponByTime(String dateFrom, String dateTo){
-        return pawnCouponService.findPawnCouponByTime(dateFrom, dateTo);
-    }
-    
-    
-    public ArrayList<PawnCoupon> findPawnCouponByKey(String idKey, Customer customer, Product productKey,
-            int amountKey, int priceKey, float interestRateKey, String pawnDate, String redeemDate, String status) {
-        return pawnCouponService.findPawnCouponByKey(idKey, customer, productKey,
-                amountKey, priceKey, interestRateKey, pawnDate, redeemDate, status);
-    }
-
     public String getNewID() {
         return pawnCouponService.getNewID();
     }
 
     public String getTheNextPaymentDate(PawnCoupon pawnCoupon) {
         return pawnCouponService.getTheNextPaymentDate(pawnCoupon);
+    }
+
+    public List<PawnCoupon> findPawnCouponByCustomerKey(Customer customer) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

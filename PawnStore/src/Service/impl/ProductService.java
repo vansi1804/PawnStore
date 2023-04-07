@@ -5,13 +5,15 @@
 package Service.impl;
 
 import DAO.IProductDAO;
+import DAO.ITypeOfProductDAO;
 import DAO.impl.ProductDAO;
+import DAO.impl.TypeOfProductDAO;
 import Model.Product;
 import Model.TypeOfProduct;
 import Service.IProductService;
-import Support.CheckSupport;
+import Support.MessageSupport;
 import Support.Support;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,124 +23,61 @@ import java.util.ArrayList;
 public class ProductService implements IProductService {
 
     private final IProductDAO productDAO = new ProductDAO();
-
-    @Override
-    public ArrayList<Product> getList() {
-        return productDAO.getList();
+    private final ITypeOfProductDAO typeOfProductDAO = new TypeOfProductDAO();
+ @Override
+    public List<Product> findAll() {
+        return productDAO.findAll();
     }
 
     @Override
-    public Product getProduct(String id) {
-        return productDAO.getProduct(id);
+    public List<Product> findAllNotRedeemed() {
+        return productDAO.findAllNotRedeemed();
+    }
+
+    @Override
+    public Product findOneById(String id) {
+        return productDAO.findOneById(id);
     }
 
     @Override
     public boolean insert(Product product) {
+        Product productWithName = productDAO.findOneByName(product.getName());
+        if (productWithName != null
+                && productWithName.getName().endsWith(product.getName())
+                && productWithName.getInfo().equals(product.getInfo())) {
+            MessageSupport.ErrorMessage("Lỗi", "Hàng hóa đã tồn tại");
+            return false;
+        }
+        product.setTypeOfProduct(typeOfProductDAO.findOneByName(product.getTypeOfProduct().getName()));
         return productDAO.insert(product);
     }
 
     @Override
     public boolean update(Product product) {
+        Product productWithName = productDAO.findOneByName(product.getName());
+        if (productWithName != null
+                && !productWithName.getId().equals(product.getId())
+                && productWithName.getName().endsWith(product.getName())
+                && productWithName.getInfo().equals(product.getInfo())) {
+            MessageSupport.ErrorMessage("Lỗi", "Hàng hóa đã tồn tại");
+            return false;
+        }
+        product.setTypeOfProduct(typeOfProductDAO.findOneByName(product.getTypeOfProduct().getName()));
         return productDAO.update(product);
     }
 
     @Override
-    public boolean delete(Product product) {
-        return productDAO.delete(product);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByIDKey(ArrayList<Product> products, String idKey) {
-        ArrayList<Product> results = new ArrayList<>();
-        for (Product product : products) {
-            if (CheckSupport.constains(product.getId(), idKey)) {
-                results.add(product);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Product> findProductByNameKey(ArrayList<Product> products, String nameKey) {
-        ArrayList<Product> results = new ArrayList<>();
-        for (Product product : products) {
-            if (CheckSupport.constains(product.getName(), nameKey)) {
-                results.add(product);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Product> findProductByTypeNameKey(ArrayList<Product> products, String typeOfProductName) {
-        ArrayList<Product> results = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getTypeOfProduct().getName().equals(typeOfProductName)) {
-                results.add(product);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Product> findProductByInformationKey(ArrayList<Product> products, String inforKey) {
-        ArrayList<Product> results = new ArrayList<>();
-        for (Product product : products) {
-            if (CheckSupport.constains(product.getInfo(), inforKey)) {
-                results.add(product);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Product> findProductByStatusKey(ArrayList<Product> products, String statusKey) {
-        ArrayList<Product> results = new ArrayList<>();
-        for (Product product : products) {
-            if (product.getStatus().equals(statusKey)) {
-                results.add(product);
-            }
-        }
-        return results;
-    }
-
-    @Override
-    public ArrayList<Product> findProductByIDKey(String idKey) {
-        return productDAO.findProductByIDKey(idKey);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByTypeOfProductKey(TypeOfProduct typeOfProductKey) {
-        return productDAO.findProductByTypeOfProductKey(typeOfProductKey);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByNameKey(String nameKey) {
-        return productDAO.findProductByNameKey(nameKey);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByInforKey(String inforKey) {
-        return productDAO.findProductByInforKey(inforKey);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByStatusKey(String statusKey) {
-        return productDAO.findProductByStatusKey(statusKey);
-    }
-
-    @Override
-    public ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey,
+    public List<Product> filterByKey(String idKey, TypeOfProduct typeOfProductKey,
             String nameKey, String inforKey, String statusKey) {
-        return productDAO.findProductByKey(idKey, typeOfProductKey, nameKey, inforKey, statusKey);
+        return productDAO.filterByKey(idKey, typeOfProductKey, nameKey, inforKey, statusKey);
     }
 
     @Override
-    public String getNewID() {
-        ArrayList<Product> products = productDAO.getList();
+    public String createNewId() {
+        List<Product> products = productDAO.findAllNotRedeemed();
         if (products.isEmpty()) {
             return "HH0000000001";
         }
-        return Support.getNewID(products.get(products.size() - 1).getId());
+        return Support.createNewId(products.get(products.size() - 1).getId());
     }
 }

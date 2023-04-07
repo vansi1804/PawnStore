@@ -5,7 +5,7 @@
 package DAO;
 
 import Mapper.IObjectMapper;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,9 +14,9 @@ import java.util.ArrayList;
  */
 public interface IGenericDAO<T> {
 
-    <T> ArrayList<T> getList(String query, IObjectMapper<T> rowMapper, Object... parameters);
+    <T> List<T> findAll(String query, IObjectMapper<T> rowMapper, Object... parameters);
 
-    T getObject(String query, IObjectMapper<T> rowMapper, Object... parameters);
+    T findOne(String query, IObjectMapper<T> rowMapper, Object... parameters);
 
     boolean insert(String query, Object... parameters);
 

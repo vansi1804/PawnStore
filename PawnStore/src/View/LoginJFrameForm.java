@@ -4,12 +4,12 @@
  */
 package View;
 
+import Common.Default;
+import Controller.AccountController;
 import Controller.ActivityHistoryController;
-import Controller.LoginController;
 import Model.Account;
 import Model.ActivityHistory;
 import Model.StaticUser;
-import Support.EncodingSupport;
 import Support.MessageSupport;
 import Support.Support;
 import java.awt.EventQueue;
@@ -30,18 +30,19 @@ public class LoginJFrameForm extends JFrame {
         this.setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/logo.png")));
         Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
+        jpfPassword.setEchoChar('*');
+        //==========================================//
         jtfUsername.setText("admin");
         jpfPassword.setText("admin");
-        jpfPassword.setEchoChar('*');
     }
 
     public void login(String username, String password) {
-        Account account = LoginController.getCurrentInstance().login(username, password);
+        Account account = AccountController.getCurrentInstance().findOneByUsernameAndPassword(username, password);
         if (account != null) {
-            if (!account.getDeleteflag()) {
+            if (!account.getDeleteFlag()) {
                 StaticUser.setCurrentInstance(account);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Support.getDateTimeFormat()), "Đăng nhập"));
+                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT), "Đăng nhập"));
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
                 this.dispose();
@@ -51,9 +52,6 @@ public class LoginJFrameForm extends JFrame {
         } else {
             MessageSupport.ErrorMessage("Lỗi", "Tài khoản hoặc mật khẩu không đúng.");
         }
-
-        System.out.println(EncodingSupport.getMd5(password));
-
     }
 
     @SuppressWarnings("unchecked")

@@ -4,12 +4,15 @@
  */
 package Service.impl;
 
+import Common.Default;
 import DAO.IAccountDAO;
 import DAO.impl.AccountDAO;
 import Model.Account;
+import Model.StaticUser;
 import Service.IAccountService;
 import Support.EncodingSupport;
-import java.util.ArrayList;
+import Support.MessageSupport;
+import java.util.List;
 
 /**
  *
@@ -21,44 +24,76 @@ public class AccountService implements IAccountService {
     private final IAccountDAO accountDAO = new AccountDAO();
 
     @Override
-    public ArrayList<Account> getList() {
-        return accountDAO.getList();
+    public List<Account> findAll() {
+        return accountDAO.findAll();
     }
 
     @Override
-    public Account getAccount(String username) {
-        return accountDAO.getAccount(username);
+    public Account findOneByUsername(String username) {
+        return accountDAO.findOneByUsername(username);
     }
 
     @Override
-    public boolean insert(Account account) {
-        account.setPassword(EncodingSupport.getMd5(account.getPassword()));
+    public Account findOneByUsernameAndPassword(String username, String password) {
+        return accountDAO.findOneByUsernameAndPassword(username, EncodingSupport.getMd5(password));
+    }
+
+    @Override
+    public boolean insert(Account account, String adminPassword) {
+        if (this.findOneByUsernameAndPassword(StaticUser.getCurrentInstance().getUsername(), adminPassword) == null) { // check password of admin
+            MessageSupport.ErrorMessage("Lỗi", "Mật khẩu quản trị viên không đúng");
+            return false;
+        }
+        if (this.findOneByUsername(account.getUsername()) != null) {
+            MessageSupport.ErrorMessage("Lỗi", "Tên đăng nhập đã tồn tại");
+            return false;
+        }
+        account.setPassword(EncodingSupport.getMd5(Default.DEFAULT_PASSWORD));
         return accountDAO.insert(account);
     }
 
     @Override
-    public boolean update(Account account) {
+    public boolean updateProfile(Account account) {
+        if (this.findOneByUsernameAndPassword(account.getUsername(), account.getPassword()) == null) {
+            MessageSupport.ErrorMessage("Lỗi", "Mật khẩu không đúng");
+            return false;
+        }
+        account.setPassword(EncodingSupport.getMd5(account.getPassword()));
         return accountDAO.update(account);
     }
 
     @Override
-    public boolean delete(Account account) {
-        return accountDAO.delete(account);
+    public boolean changePassword(Account account, String newPassword) {
+        if (this.findOneByUsernameAndPassword(account.getUsername(), account.getPassword()) == null) {
+            MessageSupport.ErrorMessage("Lỗi", "Mật khẩu không đúng");
+            return false;
+        }
+        account.setPassword(EncodingSupport.getMd5(newPassword));
+        return accountDAO.update(account);
     }
 
     @Override
-    public ArrayList<Account> findAccountByUsernameKey(String usernameKey) {
-        return accountDAO.findAccountByUsernameKey(usernameKey);
+    public boolean resetPassword(Account account, String adminPassword) {
+        if (this.findOneByUsernameAndPassword(StaticUser.getCurrentInstance().getUsername(), adminPassword) == null) { // check password of admin
+            MessageSupport.ErrorMessage("Lỗi", "Mật khẩu quản trị viên không đúng");
+            return false;
+        }
+        account.setPassword(EncodingSupport.getMd5(Default.DEFAULT_PASSWORD));
+        return accountDAO.update(account);
     }
 
     @Override
-    public ArrayList<Account> findAccountByFullnameKey(String fullnameKey) {
-        return accountDAO.findAccountByFullnameKey(fullnameKey);
+    public boolean lockOrUnlock(Account account, String adminPassword) {
+       if (this.findOneByUsernameAndPassword(StaticUser.getCurrentInstance().getUsername(), adminPassword) == null) { // check password of admin
+            MessageSupport.ErrorMessage("Lỗi", "Mật khẩu quản trị viên không đúng");
+            return false;
+        }
+        return accountDAO.lockOrUnlock(account.getUsername());
     }
 
     @Override
-    public ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflag) {
-        return accountDAO.findAccountByDeleteflagKey(deleteflag);
+    public List<Account> findAllByDeleteFlag(Boolean deleteflag) {
+        return accountDAO.findAllByDeleteFlag(deleteflag);
     }
 
 }

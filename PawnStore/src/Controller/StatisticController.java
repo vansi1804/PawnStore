@@ -6,8 +6,8 @@ package Controller;
 
 import Service.IStatisticService;
 import Service.impl.StatisticService;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -29,15 +29,15 @@ public class StatisticController {
     
     private final IStatisticService statisticService = new StatisticService();
 
-    public ArrayList<String> getPawnCouponStatistic(Date dateFrom, Date dateTo) {
+    public List<String> getPawnCouponStatistic(Date dateFrom, Date dateTo) {
         return statisticService.getPawnCouponStatistic(dateFrom, dateTo);
     }
 
-    public ArrayList<String> getCustomerStatistic(Date dateFrom, Date dateTo) {
+    public List<String> getCustomerStatistic(Date dateFrom, Date dateTo) {
         return statisticService.getCustomerStatistic(dateFrom, dateTo);
     }
 
-    public ArrayList<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo){
+    public List<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo){
         return statisticService.getTypeOfProductStatistic(dateFrom, dateTo);
     }
 

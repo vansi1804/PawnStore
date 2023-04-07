@@ -8,7 +8,7 @@ import DAO.IInterestPaymentDAO;
 import Mapper.impl.InterestPaymentMapper;
 import Model.InterestPayment;
 import Model.PawnCoupon;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -37,15 +37,15 @@ public class InterestPaymentDAO extends ADAO<InterestPayment> implements IIntere
     private static final String DELETEQUERY = "Delete from InterestPayment Where _pawnCouponID = ? And _times = ?";
 
     @Override
-    public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon) {
+    public List<InterestPayment> getList(PawnCoupon pawnCoupon) {
         String query = SELECTQUERY + " Where InterestPayment._pawnCouponID = N'" + pawnCoupon.getId() + "'";
-        return getList(query, new InterestPaymentMapper());
+        return findAll(query, new InterestPaymentMapper());
     }
 
     @Override
     public InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times) {
         String query = SELECTQUERY + " Where InterestPayment._pawnCouponID = N'" + pawnCoupon.getId() + "' And InterestPayment._times = ?";
-        return getObject(query, new InterestPaymentMapper(), times);
+        return findOne(query, new InterestPaymentMapper(), times);
     }
 
     @Override

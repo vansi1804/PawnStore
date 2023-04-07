@@ -28,6 +28,14 @@ public class ActivityHistory {
         this.infor = infor;
     }
 
+    public ActivityHistory(String time, String activity, String objectname, String infor) {
+        this.time = time;
+        this.account = StaticUser.getCurrentInstance();
+        this.activity = activity;
+        this.objectname = objectname;
+        this.infor = infor;
+    }
+
     public ActivityHistory(String time, String activity) {
         this.time = time;
         this.account = StaticUser.getCurrentInstance();

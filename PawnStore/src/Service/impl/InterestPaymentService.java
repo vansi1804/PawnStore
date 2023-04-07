@@ -9,7 +9,7 @@ import DAO.impl.InterestPaymentDAO;
 import Model.InterestPayment;
 import Model.PawnCoupon;
 import Service.IInterestPaymentService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,7 +22,7 @@ public class InterestPaymentService implements IInterestPaymentService {
     private static IInterestPaymentDAO interestPaymentDAO = new InterestPaymentDAO();
 
     @Override
-    public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon) {
+    public List<InterestPayment> getList(PawnCoupon pawnCoupon) {
         return interestPaymentDAO.getList(pawnCoupon);
     }
 

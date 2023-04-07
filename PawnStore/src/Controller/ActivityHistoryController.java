@@ -7,8 +7,7 @@ package Controller;
 import Model.ActivityHistory;
 import Service.IActivityHistoryService;
 import Service.impl.ActivityHistoryService;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -28,7 +27,7 @@ public class ActivityHistoryController {
 
     private final IActivityHistoryService activityHistoryService = new ActivityHistoryService();
 
-    public ArrayList<ActivityHistory> getList() {
+    public List<ActivityHistory> getList() {
         return activityHistoryService.getList();
     }
 
@@ -40,62 +39,9 @@ public class ActivityHistoryController {
         return activityHistoryService.insert(activityHistory);
     }
 
-    public boolean update(ActivityHistory activityHistory) {
-        return activityHistoryService.update(activityHistory);
+    public List<ActivityHistory> filterByKey(String fromTime, String toTime,
+             String usernameKey, String activityKey, String objectNameKey, String infoKey) {
+        return activityHistoryService.filterByKey(fromTime, toTime, usernameKey, activityKey, objectNameKey, infoKey);
     }
 
-    public boolean delete(ActivityHistory activityHistory) {
-        return activityHistoryService.delete(activityHistory);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByTimeKey(ArrayList<ActivityHistory> activityHistorys,
-            Date fromTime, Date toTime) {
-        return activityHistoryService.findActivityHistoryByTimeKey(activityHistorys, fromTime, toTime);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByUsernameKey(ArrayList<ActivityHistory> activityHistorys, String usenameKey) {
-        return activityHistoryService.findActivityHistoryByUsernameKey(activityHistorys, usenameKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByActivityKey(ArrayList<ActivityHistory> activityHistorys, String activityKey) {
-        return activityHistoryService.findActivityHistoryByActivityKey(activityHistorys, activityKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByObjectnameKey(ArrayList<ActivityHistory> activityHistorys, String objectnameKey) {
-        return activityHistoryService.findActivityHistoryByObjectnameKey(activityHistorys, objectnameKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByInforKey(ArrayList<ActivityHistory> activityHistorys, String inforKey) {
-        return activityHistoryService.findActivityHistoryByInforKey(activityHistorys, inforKey);
-
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByKey(Date fromTime, Date toTime, String usenameKey, String activityKey, String objectnameKey, String inforKey) {
-        return activityHistoryService.findActivityHistoryByKey(fromTime, toTime, usenameKey, activityKey, objectnameKey, inforKey);
-    }
-    
-    public ArrayList<ActivityHistory> findActivityHistoryByTimeKey(String fromTime, String toTime) {
-        return activityHistoryService.findActivityHistoryByTimeKey(fromTime, toTime);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByUsernameKey(String usenameKey) {
-        return activityHistoryService.findActivityHistoryByUsernameKey(usenameKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByActivityKey(String activityKey) {
-        return activityHistoryService.findActivityHistoryByActivityKey(activityKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByObjectnameKey(String objectnameKey) {
-        return activityHistoryService.findActivityHistoryByObjectnameKey(objectnameKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByInforKey(String inforKey) {
-        return activityHistoryService.findActivityHistoryByInforKey(inforKey);
-    }
-
-    public ArrayList<ActivityHistory> findActivityHistoryByKey(String fromTime, String toTime,
-             String usenameKey, String activityKey, String objectnameKey, String inforKey) {
-        return activityHistoryService.findActivityHistoryByKey(fromTime, toTime, usenameKey, activityKey, objectnameKey, inforKey);
-    }
 }

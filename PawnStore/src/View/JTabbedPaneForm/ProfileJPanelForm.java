@@ -12,6 +12,11 @@ import Support.CheckSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
+import static View.HomePageJFrameForm.jlblProfile;
+import java.util.Arrays;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author NVS
@@ -21,64 +26,105 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private final AccountController accountController = new AccountController();
-
     public ProfileJPanelForm() {
         initComponents();
-        jtfUserName.setEditable(false);
-        setProfileDefault();
-        jpfOldPassword.setEchoChar('*');
+        jtfUsername.setEditable(false);
+        setProfileDefault(false);
+        jpfCurrentPassword.setEchoChar('*');
+        jpfNewPassword.setEchoChar('*');
+        jpfConfirmPassword.setEchoChar('*');
+        setErrorCatchEvent();
     }
 
-    private void setProfileDefault() {
-        jtfFullName.setText(StaticUser.getCurrentInstance().getFullname());
-        jtfUserName.setText(StaticUser.getCurrentInstance().getUsername());
-        jpfOldPassword.setText("");
-        jpfNewPassword.setText("");
-        jpfNewPassword.setEditable(false);
-        jpfConfirmPassword.setText("");
+    private void setProfileDefault(boolean isChangingPassword) {
+        jtfUsername.setText(StaticUser.getCurrentInstance().getUsername());
+        jtfUsername.setEditable(false);
+        jtfFullname.setText(StaticUser.getCurrentInstance().getFullname());
+        jtfFullname.setEditable(!isChangingPassword);
+        jlbInvalidFullname.setText(null);
+        jpfCurrentPassword.setText(null);
+        jpfNewPassword.setText(null);
+        jpfNewPassword.setEditable(isChangingPassword);
+        jlbInvalidNewPassword.setText(null);
+        jpfConfirmPassword.setText(null);
+        jpfConfirmPassword.setEditable(isChangingPassword);
+        jlbInvalidConfirmPassword.setText(null);
+        jlbChangePassword.setVisible(!isChangingPassword);
     }
 
-    private Account getAccountFromForm() {
-        String fullname = jtfFullName.getText();
-        if (CheckSupport.isBlank(fullname)) {
-            MessageSupport.ErrorMessage("Lỗi", "Họ và tên không được để trống.");
-            return null;
-        } else if (CheckSupport.doesContainsSpescialChar(fullname)) {
-            MessageSupport.ErrorMessage("Lỗi", "Họ và tên không chứa ký tự đặc biệt.");
-            return null;
-        } else if (CheckSupport.doesContainsNumber(fullname)) {
-            MessageSupport.ErrorMessage("Lỗi", "Họ và tên không chứa ký tự số.");
-            return null;
-        }
-        String username = jtfUserName.getText();
-        String oldPassword = String.valueOf(jpfOldPassword.getPassword());
-        String newPassword = String.valueOf(jpfNewPassword.getPassword());
-        String passwordConfirm = String.valueOf(jpfConfirmPassword.getPassword());
-        boolean status = StaticUser.getCurrentInstance().getDeleteflag();
-        if (!jpfNewPassword.isEditable()) {
-            if (oldPassword.equals(passwordConfirm)) {
-                return new Account(username, oldPassword, fullname, status);
-            } else {
-                MessageSupport.ErrorMessage("Lỗi", "Xác nhận mật khẩu không đúng.");
-                return null;
+    private void setErrorCatchEvent() {
+        jtfFullname.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jlbInvalidFullname.setText(!CheckSupport.isValidFullname(jtfFullname.getText()) ? "Họ tên không hợp lệ" : null);
             }
-        } else {
-            if (oldPassword.equals(StaticUser.getCurrentInstance().getPassword())) {
-                if (CheckSupport.isBlank(newPassword)) {
-                    MessageSupport.ErrorMessage("Lỗi", "Mật khẩu không được để trống hoặc toàn ký tự trắng.");
-                    return null;
-                } else if (newPassword.equals(passwordConfirm)) {
-                    return new Account(username, newPassword, fullname, status);
-                } else {
-                    MessageSupport.ErrorMessage("Lỗi", "Xác nhận mật khẩu không đúng.");
-                    return null;
-                }
-            } else {
-                MessageSupport.ErrorMessage("Lỗi", "Mật khẩu cũ không đúng.");
-                return null;
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jlbInvalidFullname.setText(!CheckSupport.isValidFullname(jtfFullname.getText()) ? "Họ tên không hợp lệ" : null);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                jlbInvalidFullname.setText(!CheckSupport.isValidFullname(jtfFullname.getText()) ? "Họ tên không hợp lệ" : null);
             }
         }
+        );
+        jpfNewPassword.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jlbInvalidNewPassword.setText((!jlbChangePassword.isVisible()
+                        && CheckSupport.isNullOrBlank(String.valueOf(jpfNewPassword.getPassword()))
+                        ? "Mật khẩu không được để trống" : null));
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jlbInvalidNewPassword.setText((!jlbChangePassword.isVisible()
+                        && CheckSupport.isNullOrBlank(String.valueOf(jpfNewPassword.getPassword()))
+                        ? "Mật khẩu không được để trống" : null));
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                jlbInvalidNewPassword.setText((!jlbChangePassword.isVisible()
+                        && CheckSupport.isNullOrBlank(String.valueOf(jpfNewPassword.getPassword()))
+                        ? "Mật khẩu không được để trống" : null));
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+        }
+        );
+        jpfConfirmPassword.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                jlbInvalidConfirmPassword.setText((!jlbChangePassword.isVisible()
+                        && !Arrays.equals(jpfConfirmPassword.getPassword(), jpfNewPassword.getPassword()))
+                        ? "Xác nhận mật khẩu không khớp" : null);
+            }
+        }
+        );
     }
 
     @SuppressWarnings("unchecked")
@@ -95,16 +141,19 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
         jbtnSave = new javax.swing.JButton();
         jpfConfirmPassword = new javax.swing.JPasswordField();
         jchbShowHirePassword = new javax.swing.JCheckBox();
-        jpfOldPassword = new javax.swing.JPasswordField();
-        jtfUserName = new javax.swing.JTextField();
-        jtfFullName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jpfCurrentPassword = new javax.swing.JPasswordField();
+        jtfUsername = new javax.swing.JTextField();
+        jtfFullname = new javax.swing.JTextField();
+        jlbFullname = new javax.swing.JLabel();
+        jlbUsername = new javax.swing.JLabel();
+        jlbCurrentPassword = new javax.swing.JLabel();
+        jlbConfirmPassword = new javax.swing.JLabel();
+        jlbNewPassword = new javax.swing.JLabel();
         jpfNewPassword = new javax.swing.JPasswordField();
         jlbChangePassword = new javax.swing.JLabel();
+        jlbInvalidFullname = new javax.swing.JLabel();
+        jlbInvalidConfirmPassword = new javax.swing.JLabel();
+        jlbInvalidNewPassword = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 255));
 
@@ -182,37 +231,37 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
             }
         });
 
-        jpfOldPassword.setBackground(new java.awt.Color(255, 255, 255));
-        jpfOldPassword.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
-        jpfOldPassword.setForeground(new java.awt.Color(0, 0, 0));
+        jpfCurrentPassword.setBackground(new java.awt.Color(255, 255, 255));
+        jpfCurrentPassword.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+        jpfCurrentPassword.setForeground(new java.awt.Color(0, 0, 0));
 
-        jtfUserName.setBackground(new java.awt.Color(255, 255, 255));
-        jtfUserName.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
-        jtfUserName.setForeground(new java.awt.Color(0, 0, 0));
+        jtfUsername.setBackground(new java.awt.Color(255, 255, 255));
+        jtfUsername.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+        jtfUsername.setForeground(new java.awt.Color(0, 0, 0));
 
-        jtfFullName.setBackground(new java.awt.Color(255, 255, 255));
-        jtfFullName.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
-        jtfFullName.setForeground(new java.awt.Color(0, 0, 0));
+        jtfFullname.setBackground(new java.awt.Color(255, 255, 255));
+        jtfFullname.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+        jtfFullname.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Họ và tên");
+        jlbFullname.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbFullname.setForeground(new java.awt.Color(0, 0, 0));
+        jlbFullname.setText("Họ và tên");
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Tên đăng nhập");
+        jlbUsername.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbUsername.setForeground(new java.awt.Color(0, 0, 0));
+        jlbUsername.setText("Tên đăng nhập");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Mật khẩu hiện tại");
+        jlbCurrentPassword.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbCurrentPassword.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCurrentPassword.setText("Mật khẩu hiện tại");
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Xác nhận mật khẩu");
+        jlbConfirmPassword.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbConfirmPassword.setForeground(new java.awt.Color(0, 0, 0));
+        jlbConfirmPassword.setText("Xác nhận mật khẩu");
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Mật khẩu mới");
+        jlbNewPassword.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbNewPassword.setForeground(new java.awt.Color(0, 0, 0));
+        jlbNewPassword.setText("Mật khẩu mới");
 
         jpfNewPassword.setBackground(new java.awt.Color(255, 255, 255));
         jpfNewPassword.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
@@ -228,71 +277,93 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
             }
         });
 
+        jlbInvalidFullname.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
+        jlbInvalidFullname.setForeground(new java.awt.Color(255, 0, 0));
+        jlbInvalidFullname.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbInvalidFullname.setText("Họ và tên không hợp lệ");
+
+        jlbInvalidConfirmPassword.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
+        jlbInvalidConfirmPassword.setForeground(new java.awt.Color(255, 0, 0));
+        jlbInvalidConfirmPassword.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbInvalidConfirmPassword.setText("Xác nhận mật khẩu không khớp");
+
+        jlbInvalidNewPassword.setFont(new java.awt.Font("Times New Roman", 2, 12)); // NOI18N
+        jlbInvalidNewPassword.setForeground(new java.awt.Color(255, 0, 0));
+        jlbInvalidNewPassword.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbInvalidNewPassword.setText("Mật khẩu không được trống");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jchbShowHirePassword)
-                            .addComponent(jpfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(362, 362, 362)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlbUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbCurrentPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jtfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jpfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jlbChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(407, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpfNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jtfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jpfCurrentPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jtfFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(jlbInvalidNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jlbInvalidConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jlbConfirmPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jpfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jbtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlbChangePassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jchbShowHirePassword, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(420, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(jlbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpfOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpfCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpfNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jlbInvalidNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jlbInvalidConfirmPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jchbShowHirePassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpfConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
                 .addComponent(jlbChangePassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(jbtnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -337,32 +408,44 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
-        Support.ShowHirePassword(jchbShowHirePassword, jpfOldPassword);
+        Support.ShowHirePassword(jchbShowHirePassword, jpfCurrentPassword);
         Support.ShowHirePassword(jchbShowHirePassword, jpfNewPassword);
+        Support.ShowHirePassword(jchbShowHirePassword, jpfConfirmPassword);
     }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
 
     private void jbtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelActionPerformed
-        setProfileDefault();
+        setProfileDefault(false);
     }//GEN-LAST:event_jbtnCancelActionPerformed
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
-        Account account = getAccountFromForm();
-        if (account != null) {
-            if (accountController.update(account)) {
-                MessageSupport.Message("Thông báo", "Sửa thành công.");
-                setProfileDefault();
-                StaticUser.setCurrentInstance(account);
-                HomePageJFrameForm.setProfileName(StaticUser.getCurrentInstance().getFullname());
-            } else {
-                MessageSupport.Message("Thông báo", "Sửa thất bại.");
+        if (jlbChangePassword.isVisible()) { // update profile
+            if (CheckSupport.isNullOrBlank(jlbInvalidFullname.getText())) {
+                Account account = new Account(jtfUsername.getText(),
+                        String.valueOf(jpfCurrentPassword.getPassword()), jtfFullname.getText(), false);
+                if (AccountController.getCurrentInstance().updateProfile(account)) {
+                    MessageSupport.Message("Thông báo", "Cập nhật thành công");
+                    StaticUser.setCurrentInstance(account);
+                    jlblProfile.setText(StaticUser.getCurrentInstance().getFullname()+"      ");
+                    setProfileDefault(false);
+                }
+            }
+        } else { // change password
+            if (CheckSupport.isNullOrBlank(jlbInvalidNewPassword.getText()) && CheckSupport.isNullOrBlank(jlbInvalidConfirmPassword.getText())) {
+                Account account = new Account(jtfUsername.getText(),
+                        String.valueOf(jpfCurrentPassword.getPassword()), jtfFullname.getText(), false);
+                if (AccountController.getCurrentInstance()
+                        .changePassword(account, String.valueOf(jpfNewPassword.getPassword()))) {
+                    MessageSupport.Message("Thông báo", "Cập nhật thành công");
+                    setProfileDefault(false);
+                }
             }
         }
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
     private void jlbChangePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlbChangePasswordMouseClicked
         if (evt.getClickCount() == 2) {
-            setProfileDefault();
-            jpfNewPassword.setEditable(true);
+            jlbChangePassword.setVisible(false);
+            setProfileDefault(true);
         }
     }//GEN-LAST:event_jlbChangePasswordMouseClicked
 
@@ -373,11 +456,6 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -387,10 +465,18 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnSave;
     private javax.swing.JCheckBox jchbShowHirePassword;
     private javax.swing.JLabel jlbChangePassword;
+    private javax.swing.JLabel jlbConfirmPassword;
+    private javax.swing.JLabel jlbCurrentPassword;
+    private javax.swing.JLabel jlbFullname;
+    private javax.swing.JLabel jlbInvalidConfirmPassword;
+    private javax.swing.JLabel jlbInvalidFullname;
+    private javax.swing.JLabel jlbInvalidNewPassword;
+    private javax.swing.JLabel jlbNewPassword;
+    private javax.swing.JLabel jlbUsername;
     private javax.swing.JPasswordField jpfConfirmPassword;
+    private javax.swing.JPasswordField jpfCurrentPassword;
     private javax.swing.JPasswordField jpfNewPassword;
-    private javax.swing.JPasswordField jpfOldPassword;
-    private javax.swing.JTextField jtfFullName;
-    private javax.swing.JTextField jtfUserName;
+    private javax.swing.JTextField jtfFullname;
+    private javax.swing.JTextField jtfUsername;
     // End of variables declaration//GEN-END:variables
 }

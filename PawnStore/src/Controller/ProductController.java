@@ -8,7 +8,7 @@ import Model.Product;
 import Model.TypeOfProduct;
 import Service.IProductService;
 import Service.impl.ProductService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,12 +28,16 @@ public class ProductController {
 
     private final IProductService productService = new ProductService();
 
-    public ArrayList<Product> getList() {
-        return productService.getList();
+    public List<Product> findAll() {
+        return productService.findAll();
     }
 
-    public Product getProduct(String id) {
-        return productService.getProduct(id);
+    public List<Product> findAllNotRedeemed() {
+        return productService.findAllNotRedeemed();
+    }
+
+    public Product findOneById(String id) {
+        return productService.findOneById(id);
     }
 
     public boolean insert(Product product) {
@@ -44,57 +48,13 @@ public class ProductController {
         return productService.update(product);
     }
 
-    public boolean delete(Product product) {
-        return productService.delete(product);
+    public List<Product> filterByKey(String idKey, TypeOfProduct typeOfProductKey,
+             String nameKey, String inforKey, String statusKey) {
+        return productService.filterByKey(idKey, typeOfProductKey, nameKey, inforKey, statusKey);
     }
 
-    public ArrayList<Product> findProductByIDKey(ArrayList<Product> products, String idKey) {
-        return productService.findProductByIDKey(products, idKey);
-    }
-
-    public ArrayList<Product> findProductByNameKey(ArrayList<Product> products, String nameKey) {
-        return productService.findProductByNameKey(products, nameKey);
-    }
-
-    public ArrayList<Product> findProductByTypeNameKey(ArrayList<Product> products, String typeOfProductName) {
-        return productService.findProductByTypeNameKey(products, typeOfProductName);
-    }
-
-    public ArrayList<Product> findProductByInformationKey(ArrayList<Product> products, String inforKey) {
-        return productService.findProductByInformationKey(products, inforKey);
-    }
-
-    public ArrayList<Product> findProductByStatusKey(ArrayList<Product> products, String status) {
-        return productService.findProductByStatusKey(products, status);
-    }
-
-    public ArrayList<Product> findProductByIDKey(String idKey){
-        return productService.findProductByIDKey(idKey);
-    }
-
-    public ArrayList<Product> findProductByTypeOfProductKey(TypeOfProduct typeOfProductKey){
-        return productService.findProductByTypeOfProductKey(typeOfProductKey);
-    }
-
-    public ArrayList<Product> findProductByNameKey(String nameKey){
-        return productService.findProductByNameKey(nameKey);
-    }
-
-    public ArrayList<Product> findProductByInforKey(String inforKey){
-        return productService.findProductByInforKey(inforKey);
-    }
-
-    public ArrayList<Product> findProductByStatusKey(String statusKey){
-        return productService.findProductByStatusKey(statusKey);
-    }
-
-    public ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey
-            , String nameKey, String inforKey, String statusKey){
-        return productService.findProductByKey(idKey, typeOfProductKey, nameKey, inforKey, statusKey);
-    }
-
-    public String getNewID() {
-        return productService.getNewID();
+    public String createNewId() {
+        return productService.createNewId();
     }
 
 }

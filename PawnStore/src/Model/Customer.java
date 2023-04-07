@@ -14,9 +14,9 @@ public class Customer {
     private String id;
     private String fullname;
     private String gender;
-    private String phonenumber;
+    private String phoneNumber;
     private String address;
-    private boolean deleteflag;
+    private boolean deleteFlag;
 
     public Customer() {
     }
@@ -25,9 +25,9 @@ public class Customer {
         this.id = id;
         this.fullname = fullname;
         this.gender = gender;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phonenumber;
         this.address = address;
-        this.deleteflag = deleteflag;
+        this.deleteFlag = deleteflag;
     }
 
     public String getId() {
@@ -54,12 +54,12 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
@@ -70,18 +70,18 @@ public class Customer {
         this.address = address;
     }
 
-    public boolean getDeleteflag() {
-        return deleteflag;
+    public boolean getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setDeleteflag(boolean deleteflag) {
-        this.deleteflag = deleteflag;
+    public void setDeleteFlag(boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override
     public String toString() {
-        return id + " - " + fullname + " - " + gender + " - " + phonenumber
-                + " - " + address + (deleteflag ? " - Ngưng phục vụ" : " - Phục vụ");
+        return id + " - " + fullname + " - " + gender + " - " + phoneNumber
+                + " - " + address + (deleteFlag ? " - Ngưng phục vụ" : " - Phục vụ");
     }
 
 }

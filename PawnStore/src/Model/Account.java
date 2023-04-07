@@ -14,23 +14,23 @@ public class Account {
     private String username;
     private String password;
     private String fullname;
-    private boolean deleteflag;
+    private boolean deleteFlag;
 
     public Account() {
     }
 
-    public Account(String username, String password, String fullname, boolean deleteflag) {
+    public Account(String username, String password, String fullname, boolean deleteFlag) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
-        this.deleteflag = deleteflag;
+        this.deleteFlag = deleteFlag;
     }
 
     public Account(Account account) {
         this.username = account.getUsername();
         this.password = account.getPassword();
         this.fullname = account.getFullname();
-        this.deleteflag = account.getDeleteflag();
+        this.deleteFlag = account.getDeleteFlag();
     }
 
     public boolean equal(Account account) {
@@ -63,18 +63,18 @@ public class Account {
         this.fullname = fullname;
     }
 
-    public boolean getDeleteflag() {
-        return deleteflag;
+    public boolean getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setDeleteflag(boolean deleteflag) {
-        this.deleteflag = deleteflag;
+    public void setDeleteFlag(boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override
     public String toString() {
         return username
                 + " - " + fullname
-                + (deleteflag ? " - Khóa" : " - Mở khóa");
+                + (deleteFlag ? " - Khóa" : " - Mở khóa");
     }
 }

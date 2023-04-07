@@ -4,6 +4,8 @@
  */
 package Support;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -12,7 +14,7 @@ package Support;
 @SuppressWarnings({"ClassWithoutLogger", "UtilityClassWithoutPrivateConstructor"})
 public class CheckSupport {
 
-    public static boolean isBlank(String str) {
+    public static boolean isNullOrBlank(String str) {
         return str == null || str.isBlank();
     }
 
@@ -29,14 +31,33 @@ public class CheckSupport {
         return false;
     }
 
-    public static boolean doesContainsSpescialChar(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if ((('a' > str.indexOf(i) && str.indexOf(i) > 'z') || ('A' > str.indexOf(i) && str.indexOf(i) > 'Z')) 
-                    && !doesContainsNumber(str)) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean containsSpecialCharacter(String str) {
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(str);
+        return m.find();
+    }
+
+    public static boolean isValidName(String str) {
+        // (hyphens are used for middle names)
+        String regex = "^[\\p{L} '-]+$";
+        // Compile the regular expression
+        Pattern pattern = Pattern.compile(regex);
+        // Check if the name matches the regular expression
+        Matcher matcher = pattern.matcher(str);
+
+        return matcher.matches();
+    }
+
+    public static boolean isValidFullname(String fullname) {
+        return !CheckSupport.isNullOrBlank(fullname)
+                && !CheckSupport.doesContainsNumber(fullname)
+                && CheckSupport.isValidName(fullname);
+    }
+
+    public static boolean isValidUsername(String username) {
+        return !CheckSupport.isNullOrBlank(username)
+                && !CheckSupport.doesContainsWhiteSpace(username)
+                && !CheckSupport.containsSpecialCharacter(username);
     }
 
     public static boolean isValidPhonenumber(String str) {
@@ -55,8 +76,8 @@ public class CheckSupport {
         }
         return false;
     }
-    
-    public static boolean constains(String s1, String s2){
+
+    public static boolean constains(String s1, String s2) {
         return s1.toLowerCase().contains(s2.toLowerCase());
     }
 }

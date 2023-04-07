@@ -8,7 +8,7 @@ import Model.InterestPayment;
 import Model.PawnCoupon;
 import Service.IInterestPaymentService;
 import Service.impl.InterestPaymentService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,7 +28,7 @@ public class InterestPaymentController {
     
     private final IInterestPaymentService interestPaymentService = new InterestPaymentService();
 
-    public ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon) {
+    public List<InterestPayment> getList(PawnCoupon pawnCoupon) {
         return interestPaymentService.getList(pawnCoupon);
     }
 

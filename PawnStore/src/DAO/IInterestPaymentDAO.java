@@ -6,7 +6,7 @@ package DAO;
 
 import Model.InterestPayment;
 import Model.PawnCoupon;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @SuppressWarnings("MarkerInterface")
 public interface IInterestPaymentDAO extends IGenericDAO<InterestPayment> {
 
-    ArrayList<InterestPayment> getList(PawnCoupon pawnCoupon);
+    List<InterestPayment> getList(PawnCoupon pawnCoupon);
 
     InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times);
 

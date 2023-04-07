@@ -7,7 +7,7 @@ package DAO.impl;
 import DAO.IAccountDAO;
 import Mapper.impl.AccountMapper;
 import Model.Account;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,55 +16,53 @@ import java.util.ArrayList;
 @SuppressWarnings("ClassWithoutLogger")
 public class AccountDAO extends ADAO<Account> implements IAccountDAO {
 
-    private static final String SELECTQUERY = "Select _username, _password, _fullname, _deleteflag From Account";
-    private static final String INSERTQUERY = "Insert Into Account(_username, _password, _fullname, _deleteflag) Values(?,?,?,?)";
-    private static final String UPDATEQUERY = "Update Account Set _password = ?, _fullname = ?, _deleteflag = ? Where _username = ?";
-    private static final String DELETEQUERY = "Delete From Account Where _username = ?";
+    private static final String SELECTQUERY = "Select username, fullname, delete_flag From account";
+    private static final String INSERTQUERY = "Insert Into account(username, password, fullname, delete_flag) Values(?,?,?,?)";
+    private static final String UPDATEQUERY = "Update account";
 
     @Override
-    public ArrayList<Account> getList() {
-        return getList(SELECTQUERY, new AccountMapper());
+    public List<Account> findAll() {
+        return findAll(SELECTQUERY, new AccountMapper());
     }
 
     @Override
-    public Account getAccount(String username) {
-        String query = SELECTQUERY + " Where _username = ?";
-        return getObject(query, new AccountMapper(), username);
+    public Account findOneByUsername(String username) {
+        String query = SELECTQUERY + " Where username = ?";
+        return findOne(query, new AccountMapper(), username);
+    }
+
+    @Override
+    public Account findOneByUsernameAndPassword(String username, String password) {
+        String query = SELECTQUERY + " Where username = ? And password = ?";
+        return findOne(query, new AccountMapper(), username, password);
     }
 
     @Override
     public boolean insert(Account account) {
         return insert(INSERTQUERY, account.getUsername(), account.getPassword(), account.getFullname(),
-                account.getDeleteflag());
+                account.getDeleteFlag());
     }
 
     @Override
     public boolean update(Account account) {
-        return update(UPDATEQUERY, account.getPassword(), account.getFullname(), account.getDeleteflag(),
-                account.getUsername());
+        String query = UPDATEQUERY
+                + " Set password = ?, fullname = ? Where username = ?";
+        return update(query, account.getPassword(), account.getFullname(), account.getUsername());
     }
 
     @Override
-    public boolean delete(Account account) {
-        return delete(DELETEQUERY, account.getUsername());
+    public boolean lockOrUnlock(String username) {
+        String query = UPDATEQUERY
+                + " Set delete_flag = !delete_flag Where username = ?";
+        return update(query, username);
     }
 
     @Override
-    public ArrayList<Account> findAccountByUsernameKey(String usernameKey) {
-        String query = SELECTQUERY + " Where _username like N'%" + usernameKey + "%'";
-        return getList(query, new AccountMapper());
-    }
-
-    @Override
-    public ArrayList<Account> findAccountByFullnameKey(String fullnameKey) {
-        String query = SELECTQUERY + " Where _fulname like N'%" + fullnameKey + "%'";
-        return getList(query, new AccountMapper());
-    }
-
-    @Override
-    public ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflagKey) {
-        String query = SELECTQUERY + " Where _deleteflag = ?";
-        return getList(query, new AccountMapper(), deleteflagKey);
+    public List<Account> findAllByDeleteFlag(Boolean deleteflag) {
+        String query = SELECTQUERY
+                + " Where 1 = 1"
+                + (deleteflag == null ? "" : " And delete_flag = ?");
+        return findAll(query, new AccountMapper(), deleteflag);
     }
 
 }

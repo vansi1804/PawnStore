@@ -5,7 +5,7 @@
 package DAO;
 
 import Model.Customer;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,28 +13,17 @@ import java.util.ArrayList;
  */
 public interface ICustomerDAO {
 
-    ArrayList<Customer> getList();
+    List<Customer> findAll();
 
-    Customer getCustomer(String id);
+    List<Customer> findAllServing();
+
+    Customer findOneById(String id);
 
     boolean insert(Customer customer);
 
     boolean update(Customer customer);
 
-    boolean delete(Customer customer);
+    List<Customer> filterByKey(String idKey, String fullnameKey, String gender,
+            String phoneNumberKey, String addressKey, Boolean deleteFlagKey);
 
-    ArrayList<Customer> findCustomerByIDKey(String idKey);
-
-    ArrayList<Customer> findCustomerByFullnameKey(String fullnameKey);
-
-    ArrayList<Customer> findCustomerByGenderKey(String genderKey);
-
-    ArrayList<Customer> findCustomerByPhonenumberKey(String phonenumberKey);
-
-    ArrayList<Customer> findCustomerByAddressKey(String addressKey);
-
-    ArrayList<Customer> findCustomerByDeleteflagKey(String deleteflagKey);
-    
-    ArrayList<Customer> findCustomerByKey(String idKey,String fullnameKey
-            ,String genderKey,String phonenumberKey,String addressKey,String deleteflagKey);
 }

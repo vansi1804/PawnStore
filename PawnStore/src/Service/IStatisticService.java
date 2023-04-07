@@ -4,7 +4,7 @@
  */
 package Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Date;
  * @author NVS
  */
 public interface IStatisticService {
-    ArrayList<String> getPawnCouponStatistic(Date dateFrom, Date dateTo);
-    ArrayList<String> getCustomerStatistic(Date dateFrom, Date dateTo);
-    ArrayList<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo);
+    List<String> getPawnCouponStatistic(Date dateFrom, Date dateTo);
+    List<String> getCustomerStatistic(Date dateFrom, Date dateTo);
+    List<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo);
 }

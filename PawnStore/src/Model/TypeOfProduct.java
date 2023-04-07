@@ -13,7 +13,7 @@ public class TypeOfProduct {
 
     private String id;
     private String name;
-    private boolean deleteflag;
+    private boolean deleteFlag;
 
     public TypeOfProduct() {
     }
@@ -21,7 +21,7 @@ public class TypeOfProduct {
     public TypeOfProduct(String id, String name, boolean deleteflag) {
         this.id = id;
         this.name = name;
-        this.deleteflag = deleteflag;
+        this.deleteFlag = deleteflag;
     }
 
     public String getId() {
@@ -40,17 +40,17 @@ public class TypeOfProduct {
         this.name = name;
     }
 
-    public boolean getDeleteflag() {
-        return deleteflag;
+    public boolean getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setDeleteflag(boolean deleteflag) {
-        this.deleteflag = deleteflag;
+    public void setDeleteFlag(boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override
     public String toString() {
-        return id + " - " + name + " - " + (deleteflag ? "Ngưng phục vụ" : "Phục vụ");
+        return id + " - " + name + " - " + (deleteFlag ? "Ngưng phục vụ" : "Phục vụ");
     }
 
 }

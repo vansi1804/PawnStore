@@ -7,7 +7,7 @@ package Controller;
 import Model.Account;
 import Service.IAccountService;
 import Service.impl.AccountService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,40 +27,40 @@ public class AccountController {
 
     private final IAccountService accountService = new AccountService();
 
-    public ArrayList<Account> getList() {
-        return accountService.getList();
+    public List<Account> findAll() {
+        return accountService.findAll();
     }
 
-    public Account getAccount(String username) {
-        return accountService.getAccount(username);
+    public Account findOneByUsername(String username) {
+        return accountService.findOneByUsername(username);
     }
 
-    public boolean insert(Account account) {
-        return accountService.insert(account);
+    public Account findOneByUsernameAndPassword(String username, String password) {
+        return accountService.findOneByUsernameAndPassword(username, password);
     }
 
-    public boolean update(Account account) {
-        return accountService.update(account);
+    public boolean insert(Account account, String adminPassword) {
+        return accountService.insert(account, adminPassword);
     }
 
-    public boolean delete(Account account) {
-        return accountService.delete(account);
-    }
-    
-    public ArrayList<Account> findAccountByUsernameKey(String usernameKey) {
-        return accountService.findAccountByUsernameKey(usernameKey);
+    public boolean updateProfile(Account account) {
+        return accountService.updateProfile(account);
     }
 
-    public ArrayList<Account> findAccountByFullnameKey(String fullnameKey) {
-        return accountService.findAccountByFullnameKey(fullnameKey);
+    public boolean changePassword(Account account, String newPassword) {
+        return accountService.changePassword(account, newPassword);
     }
 
-    public ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflag) {
-        return accountService.findAccountByDeleteflagKey(deleteflag);
+    public boolean resetPassword(Account account, String adminPassword) {
+        return accountService.resetPassword(account, adminPassword);
     }
 
-    public ArrayList<Account> findAccountByDeleteFlag(boolean deleteflag) {
-        return accountService.findAccountByDeleteflagKey(deleteflag);
+    public boolean lockOrUnlock(Account account, String adminPassword) {
+        return accountService.lockOrUnlock(account, adminPassword);
+    }
+
+    public List<Account> findAllByStatus(Boolean deleteflag) {
+        return accountService.findAllByDeleteFlag(deleteflag);
     }
 
 }

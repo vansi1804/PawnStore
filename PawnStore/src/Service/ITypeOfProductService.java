@@ -5,7 +5,7 @@
 package Service;
 
 import Model.TypeOfProduct;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,31 +13,17 @@ import java.util.ArrayList;
  */
 public interface ITypeOfProductService {
 
-    ArrayList<TypeOfProduct> getList();
+    List<TypeOfProduct> findAllServing();
 
-    TypeOfProduct getTypeOfProductByID(String id);
+    TypeOfProduct findOneById(String id);
 
-    TypeOfProduct getTypeOfProductByName(String name);
+    TypeOfProduct findOneByName(String name);
 
     boolean insert(TypeOfProduct typeOfProduct);
 
     boolean update(TypeOfProduct typeOfProduct);
 
-    boolean delete(TypeOfProduct typeOfProduct);
+    String createNewId();
 
-    ArrayList<TypeOfProduct> findAccountByIDKey(ArrayList<TypeOfProduct> typeOfProducts, String idKey);
-
-    ArrayList<TypeOfProduct> findAccountByNameKey(ArrayList<TypeOfProduct> typeOfProducts, String nameKey);
-
-    ArrayList<TypeOfProduct> findAccountByDeleteFlag(ArrayList<TypeOfProduct> typeOfProducts, boolean deleteflag);
-
-    ArrayList<TypeOfProduct> findTypeOfProductByIDKey(String idKey);
-
-    ArrayList<TypeOfProduct> findTypeOfProductByNameKey(String nameKey);
-
-    ArrayList<TypeOfProduct> findTypeOfProductByDeleteflagKey(String deleteflagKey);
-
-    ArrayList<TypeOfProduct> findTypeOfProductByKey(String idKey, String nameKey, String deleteflagKey);
-
-    String getNewID();
+    List<TypeOfProduct> filterByKey(String idKey, String nameKey, Boolean deleteflagKey);
 }

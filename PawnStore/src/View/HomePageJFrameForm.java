@@ -4,6 +4,9 @@
  */
 package View;
 
+import Common.Default;
+import Controller.ActivityHistoryController;
+import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
@@ -14,8 +17,12 @@ import View.JTabbedPaneForm.ProductJPanelForm;
 import View.JTabbedPaneForm.ProfileJPanelForm;
 import View.JTabbedPaneForm.StatisticJPanelForm;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +33,15 @@ import javax.swing.JPanel;
  */
 @SuppressWarnings("ClassWithoutLogger")
 public class HomePageJFrameForm extends javax.swing.JFrame {
+
+    private static HomePageJFrameForm instance;
+
+    public static HomePageJFrameForm getCurrentInstance() {
+        if (instance == null) {
+            instance = new HomePageJFrameForm();
+        }
+        return instance;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -50,7 +66,7 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Support.ScaleImage(jlbHomePage, getClass().getResource("/Image/HomePage/HomePageImage6.png"));
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        ArrayList<URL> imagesList = new ArrayList<>();
+        List<URL> imagesList = new ArrayList<>();
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage0.png"));
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage1.png"));
         imagesList.add(getClass().getResource("/Image/HomePage/HomePageImage2.jpg"));
@@ -60,12 +76,16 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         Support.setSlideImage(jlbHomePage, imagesList);
 
         Support.getClock(jlblClock, true);
-        setProfileName(StaticUser.getCurrentInstance().getFullname());
+        jlblProfile.setText(StaticUser.getCurrentInstance().getFullname() + "     ");
         jAccountMenuItem.setEnabled(StaticUser.getCurrentInstance().getUsername().equals("admin"));
-    }
 
-    public static void setProfileName(String fullname) {
-        jlblProfile.setText(fullname + "     ");
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                ActivityHistoryController.getCurrentInstance()
+                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT), "Đăng xuất"));
+            }
+        });
     }
 
     /**

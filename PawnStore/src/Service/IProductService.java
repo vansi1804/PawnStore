@@ -6,7 +6,7 @@ package Service;
 
 import Model.Product;
 import Model.TypeOfProduct;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,37 +14,18 @@ import java.util.ArrayList;
  */
 public interface IProductService {
 
-    ArrayList<Product> getList();
+    List<Product> findAll();
 
-    Product getProduct(String id);
+    List<Product> findAllNotRedeemed();
+
+    Product findOneById(String id);
 
     boolean insert(Product product);
 
     boolean update(Product product);
 
-    boolean delete(Product product);
+    List<Product> filterByKey(String idKey, TypeOfProduct typeOfProductKey, String nameKey, String inforKey, String statusKey);
 
-    ArrayList<Product> findProductByIDKey(ArrayList<Product> products, String idKey);
+    String createNewId();
 
-    ArrayList<Product> findProductByNameKey(ArrayList<Product> products, String nameKey);
-
-    ArrayList<Product> findProductByTypeNameKey(ArrayList<Product> products, String typeOfProductName);
-
-    ArrayList<Product> findProductByInformationKey(ArrayList<Product> products, String inforKey);
-
-    ArrayList<Product> findProductByStatusKey(ArrayList<Product> products, String statusKey);
-
-    ArrayList<Product> findProductByIDKey(String idKey);
-
-    ArrayList<Product> findProductByTypeOfProductKey(TypeOfProduct typeOfProductKey);
-
-    ArrayList<Product> findProductByNameKey(String nameKey);
-
-    ArrayList<Product> findProductByInforKey(String inforKey);
-
-    ArrayList<Product> findProductByStatusKey(String statusKey);
-
-    ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey, String nameKey, String inforKey, String statusKey);
-
-    String getNewID();
 }

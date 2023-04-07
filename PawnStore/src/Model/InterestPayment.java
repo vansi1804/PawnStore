@@ -88,7 +88,7 @@ public class InterestPayment {
                 + " - " + paymentDate
                 + " - " + money
                 + " - " + debt
-                + (!CheckSupport.isBlank(note) ? (" - " + note) : "");
+                + (!CheckSupport.isNullOrBlank(note) ? (" - " + note) : "");
 
     }
 }

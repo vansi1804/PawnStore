@@ -5,7 +5,7 @@
 package DAO;
 
 import Model.ActivityHistory;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,27 +13,13 @@ import java.util.ArrayList;
  */
 public interface IActivityHistoryDAO extends IGenericDAO<ActivityHistory> {
 
-    ArrayList<ActivityHistory> getList();
+    List<ActivityHistory> getList();
 
     ActivityHistory getActivityHistory(String time);
 
     boolean insert(ActivityHistory activityHistory);
 
-    boolean update(ActivityHistory activityHistory);
+    List<ActivityHistory> filterByKey(String fromTime, String toTime, String usernameKey,
+            String activityKey, String objectNameKey, String infoKey);
 
-    boolean delete(ActivityHistory activityHistory);
-
-    ArrayList<ActivityHistory> findActivityHistoryByTimeKey(String fromTime, String toTime);
-
-    ArrayList<ActivityHistory> findActivityHistoryByUsernameKey(String usenameKey);
-
-    ArrayList<ActivityHistory> findActivityHistoryByActivityKey(String activityKey);
-
-    ArrayList<ActivityHistory> findActivityHistoryByObjectnameKey(String objectnameKey);
-
-    ArrayList<ActivityHistory> findActivityHistoryByInforKey(String inforKey);
-    
-    ArrayList<ActivityHistory> findActivityHistoryByKey(String fromTime, String toTime, String usenameKey, String activityKey, String objectnameKey, String inforKey);
-    
-    
 }

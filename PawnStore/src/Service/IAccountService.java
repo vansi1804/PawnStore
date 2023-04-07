@@ -5,7 +5,7 @@
 package Service;
 
 import Model.Account;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,20 +13,22 @@ import java.util.ArrayList;
  */
 public interface IAccountService {
 
-    ArrayList<Account> getList();
+    List<Account> findAll();
 
-    Account getAccount(String username);
+    Account findOneByUsername(String username);
 
-    boolean insert(Account account);
+    public Account findOneByUsernameAndPassword(String username, String password);
 
-    boolean update(Account account);
+    boolean insert(Account account, String adminPassword);
 
-    boolean delete(Account account);
+    boolean updateProfile(Account account);
 
-    ArrayList<Account> findAccountByUsernameKey(String usernameKey);
+    public boolean changePassword(Account account, String newPassword);
 
-    ArrayList<Account> findAccountByFullnameKey(String fullnameKey);
+    public boolean resetPassword(Account account, String adminPassword);
 
-    ArrayList<Account> findAccountByDeleteflagKey(boolean deleteflag);
+    boolean lockOrUnlock(Account account, String adminPassword);
+
+    List<Account> findAllByDeleteFlag(Boolean deleteflag);
 
 }

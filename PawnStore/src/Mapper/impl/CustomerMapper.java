@@ -21,12 +21,12 @@ public class CustomerMapper implements IObjectMapper<Customer> {
     @Override
     public Customer mapObject(ResultSet rs) {
         try {
-            String id = rs.getString("_id");
-            String fullname = rs.getString("_fullname");
-            String gender = rs.getString("_gender");
-            String phonenumber = rs.getString("_phonenumber");
-            String address = rs.getString("_address");
-            boolean deleteflag = rs.getBoolean("_deleteflag");
+            String id = rs.getString(1);
+            String fullname = rs.getString(2);
+            String gender = rs.getString(3);
+            String phonenumber = rs.getString(4);
+            String address = rs.getString(5);
+            boolean deleteflag = rs.getBoolean(6);
             return new Customer(id, fullname, gender, phonenumber, address, deleteflag);
         } catch (SQLException ex) {
             Logger.getLogger(AccountMapper.class.getName()).log(Level.SEVERE, null, ex);

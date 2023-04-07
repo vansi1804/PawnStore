@@ -4,6 +4,7 @@
  */
 package Support;
 
+import Common.Default;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Image;
 import java.math.BigDecimal;
@@ -11,7 +12,9 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +40,7 @@ public class Support {
         Image imageScale = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         label.setIcon(new ImageIcon(imageScale));
     }
+
     public static void ScaleImage(JButton button, URL url) {
         ImageIcon imageIcon = new ImageIcon(url);
         Image imageScale = imageIcon.getImage().getScaledInstance(button.getWidth(), button.getHeight(), Image.SCALE_DEFAULT);
@@ -57,45 +61,35 @@ public class Support {
         }
     }
 
-    public static String getDateFormat() {
-        return "dd/MM/yyyy";
-    }
-
-    public static String getDateTimeFormat() {
-        return "dd/MM/yyyy HH:mm:ss";
-    }
-
     public static Date stringToDate(String str, String dateFormat) {
-        if (!CheckSupport.isBlank(str)) {
-            try {
-                return new SimpleDateFormat(dateFormat).parse(str);
-            } catch (ParseException ex) {
-                Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            return new SimpleDateFormat(dateFormat).parse(str);
+        } catch (ParseException e) {
+            return null;
         }
-        return null;
     }
 
     public static String dateToString(Date date, String dateFormat) {
-        if (date == null) {
-            return "";
-        }
-        return new SimpleDateFormat(dateFormat).format(date);
+        return date == null ? null : new SimpleDateFormat(dateFormat).format(date);
+    }
+
+    public static String LocalDateTimeToString(LocalDateTime dateTime) {
+        return dateTime == null ? null : dateTime.format(DateTimeFormatter.ofPattern(Default.DATE_TIME_FORMAT));
     }
 
     public static long subtractDate(String strDate1, String strDate2) {
-        Date date1 = stringToDate(strDate1, getDateFormat());
-        Date date2 = stringToDate(strDate2, getDateFormat());
+        Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
+        Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
         return subtractDate(date1, date2);
     }
 
     public static long subtractDate(Date date1, String strDate2) {
-        Date date2 = stringToDate(strDate2, getDateFormat());
+        Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
         return subtractDate(date1, date2);
     }
 
     public static long subtractDate(String strDate1, Date date2) {
-        Date date1 = stringToDate(strDate1, getDateFormat());
+        Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
         return subtractDate(date1, date2);
     }
 
@@ -104,8 +98,8 @@ public class Support {
     }
 
     public static String addDate(String strDate, int days) {
-        Date date = Support.stringToDate(strDate, Support.getDateFormat());
-        return dateToString(addDate(date, days), getDateFormat());
+        Date date = Support.stringToDate(strDate, Default.DATE_FORMAT);
+        return dateToString(addDate(date, days), Default.DATE_FORMAT);
     }
 
     public static Date addDate(Date date, int days) {
@@ -146,7 +140,7 @@ public class Support {
             @SuppressWarnings({"SleepWhileInLoop", "UseSpecificCatch", "BroadCatchBlock", "TooBroadCatch", "CallToPrintStackTrace"})
             public void run() {
                 while (status) {
-                    jLabel.setText(dateToString(new Date(), getDateTimeFormat()));
+                    jLabel.setText(dateToString(new Date(), Default.DATE_TIME_FORMAT));
                     try {
                         Thread.sleep(1);
                     } catch (Exception e) {
@@ -158,7 +152,7 @@ public class Support {
         t.start();
     }
 
-    public static void setSlideImage(JLabel jLabel, ArrayList<URL> imagesList) {
+    public static void setSlideImage(JLabel jLabel, List<URL> imagesList) {
         Thread t = new Thread() {
             @SuppressWarnings({"SleepWhileInLoop", "UseSpecificCatch", "BroadCatchBlock", "TooBroadCatch", "CallToPrintStackTrace"})
             public void run() {
@@ -188,7 +182,7 @@ public class Support {
                 } else {
                     while (status) {
                         try {
-                            jDateChooser.setDate(stringToDate(dateToString(new Date(), getDateTimeFormat()), getDateTimeFormat()));
+                            jDateChooser.setDate(stringToDate(dateToString(new Date(), Default.DATE_TIME_FORMAT), Default.DATE_TIME_FORMAT));
                             Thread.sleep(1);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,7 +196,7 @@ public class Support {
         }
     }
 
-    public static String getNewID(String lastID) {
+    public static String createNewId(String lastID) {
         String newID = "";
         String pattern = "";
         String strNumber = "";
@@ -278,7 +272,7 @@ public class Support {
             String getpronounce = getPronounce(strNum.charAt(i), strNum.charAt(i + 1), strNum.charAt(i + 2));
             if (!getpronounce.isEmpty()) {
                 pronounce += " " + getpronounce;
-                pronounce += devidefor3[((strNum.length() - i) / 3) -1];
+                pronounce += devidefor3[((strNum.length() - i) / 3) - 1];
             }
         }
 
@@ -321,12 +315,12 @@ public class Support {
         return pronounce;
     }
 
-    public static void setRowTableSelection(JTable jTable, int col , String value){
+    public static void setRowTableSelection(JTable jTable, int col, String value) {
         for (int row = 0; row < jTable.getRowCount(); row++) {
             if (jTable.getValueAt(row, col).toString().equals(value)) {
                 jTable.setRowSelectionInterval(row, row);
             }
         }
     }
-    
+
 }

@@ -8,7 +8,7 @@ import DAO.ITypeOfProductDAO;
 import Mapper.impl.TypeOfProductMapper;
 import Model.TypeOfProduct;
 import Support.CheckSupport;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,87 +17,46 @@ import java.util.ArrayList;
 @SuppressWarnings("ClassWithoutLogger")
 public class TypeOfProductDAO extends ADAO<TypeOfProduct> implements ITypeOfProductDAO {
 
-    private static final String SELECTQUERY = "Select _id, _name, _deleteflag From TypeOfProduct";
-    private static final String INSERTQUERY = "Insert Into TypeOfProduct(_id, _name, _deleteflag) Values(?,?,?)";
-    private static final String UPDATEQUERY = "Update TypeOfProduct Set _name = ?, _deleteflag = ? Where _id = ?";
-    private static final String DELETEQUERY = "Delete from TypeOfProduct Where _id = ?"; 
-    
+    private static final String SELECTQUERY = "Select id, name, delete_flag From type_of_product";
+    private static final String INSERTQUERY = "Insert Into type_of_product(id, name, delete_flag) Values(?,?,?)";
+    private static final String UPDATEQUERY = "Update type_of_product Set name = ?, delete_flag = ? Where id = ?";
+
     @Override
-    public ArrayList<TypeOfProduct> getList() {
-        return getList(SELECTQUERY, new TypeOfProductMapper());
+    public List<TypeOfProduct> findAllServing() {
+        String query = SELECTQUERY + " Where delete_flag = 0";
+        return findAll(query, new TypeOfProductMapper());
     }
 
     @Override
-    public TypeOfProduct getTypeOfProductByID(String id) {
-        String query = SELECTQUERY + " Where _id = ?";
-        return getObject(query, new TypeOfProductMapper(), id);
+    public TypeOfProduct findOneById(String id) {
+        String query = SELECTQUERY + " Where id = ?";
+        return findOne(query, new TypeOfProductMapper(), id);
     }
 
     @Override
-    public TypeOfProduct getTypeOfProductByName(String name) {
-        String query = SELECTQUERY + " Where _name = ?";
-        return getObject(query, new TypeOfProductMapper(), name);
+    public TypeOfProduct findOneByName(String name) {
+        String query = SELECTQUERY + " Where name = ?";
+        return findOne(query, new TypeOfProductMapper(), name);
     }
 
     @Override
     public boolean insert(TypeOfProduct typeOfProduct) {
-        return insert(INSERTQUERY, typeOfProduct.getId(), typeOfProduct.getName(), typeOfProduct.getDeleteflag());
+        return insert(INSERTQUERY, typeOfProduct.getId(), typeOfProduct.getName(), typeOfProduct.getDeleteFlag());
     }
 
     @Override
     public boolean update(TypeOfProduct typeOfProduct) {
-        return insert(UPDATEQUERY, typeOfProduct.getName(), typeOfProduct.getDeleteflag(), typeOfProduct.getId());
+        return insert(UPDATEQUERY, typeOfProduct.getName(), typeOfProduct.getDeleteFlag(), typeOfProduct.getId());
     }
 
     @Override
-    public boolean delete(TypeOfProduct typeOfProduct) {
-        return delete(DELETEQUERY, typeOfProduct.getId());
-    }
-
-    @Override
-    public ArrayList<TypeOfProduct> findTypeOfProductByIDKey(String idKey) {
-        String query = SELECTQUERY + " Where _id like N'%" + idKey + "%' ";
-        return getList(query, new TypeOfProductMapper());
-    }
-
-    @Override
-    public ArrayList<TypeOfProduct> findTypeOfProductByNameKey(String nameKey) {
-        String query = SELECTQUERY + " Where _name like N'%" + nameKey + "%' ";
-        return getList(query, new TypeOfProductMapper());
-    }
-
-    @Override
-    public ArrayList<TypeOfProduct> findTypeOfProductByDeleteflagKey(String deleteflagKey) {
-        String query = SELECTQUERY + " Where _deleteflag like N'%" + deleteflagKey + "%' ";
-        return getList(query, new TypeOfProductMapper());
-    }
-
-    @Override
-    public ArrayList<TypeOfProduct> findTypeOfProductByKey(String idKey, String nameKey, String deleteflagKey) {
-        String query = SELECTQUERY;
-        boolean isIDKeyEmpty = CheckSupport.isBlank(idKey);
-        boolean isNameKeyEmpty = CheckSupport.isBlank(nameKey);
-        boolean isDeleteflagKeyEmpty = CheckSupport.isBlank(deleteflagKey);
-
-        if (!isIDKeyEmpty || !isNameKeyEmpty || !isDeleteflagKeyEmpty) {
-            query += " Where ";
-        }
-        if (!isIDKeyEmpty) {
-            query += " _id like N'%" + idKey + "%' ";
-        }
-        if (!isIDKeyEmpty && (!isNameKeyEmpty || !isDeleteflagKeyEmpty)) {
-            query += " And ";
-        }
-        if (!isNameKeyEmpty) {
-            query += " _name like N'%" + nameKey + "%' ";
-        }
-        if (!isNameKeyEmpty && !isDeleteflagKeyEmpty) {
-            query += " And ";
-        }
-        if (!isDeleteflagKeyEmpty) {
-            query += " _deleteflag = " + deleteflagKey;
-        }
-        return getList(query, new TypeOfProductMapper());
+    public List<TypeOfProduct> filterByKey(String idKey, String nameKey, Boolean deleteflagKey) {
+        String query = SELECTQUERY
+                + " Where 1 = 1"
+                + (CheckSupport.isNullOrBlank(idKey) ? "" : " And id like '%" + idKey + "%'")
+                + (CheckSupport.isNullOrBlank(nameKey) ? "" : " And id like N'%" + nameKey + "%'")
+                + (deleteflagKey == null ? "" : " And delete_flag = " + deleteflagKey);
+        return findAll(query, new TypeOfProductMapper());
     }
 
 }

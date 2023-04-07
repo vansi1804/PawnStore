@@ -9,7 +9,7 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -47,7 +47,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private void setPawnCouponStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        ArrayList<String> results = new ArrayList<>();
+        List<String> results = new List<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
             results = StatisticController.getCurrentInstance()
                     .getPawnCouponStatistic(nullDefaultDateFrom,nullDefaultDateTo);
@@ -69,7 +69,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private void setCustomerStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        ArrayList<String> results = new ArrayList<>();
+        List<String> results = new List<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
             results = StatisticController.getCurrentInstance().getCustomerStatistic(nullDefaultDateFrom,nullDefaultDateTo);
         } else {
@@ -87,7 +87,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     @SuppressWarnings("UnusedAssignment")
     private void setTypeOfProductStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        ArrayList<String> results = new ArrayList<>();
+        List<String> results = new List<>();
         if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
             results = StatisticController.getCurrentInstance().getTypeOfProductStatistic(nullDefaultDateFrom,nullDefaultDateTo);
         } else {

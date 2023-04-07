@@ -7,7 +7,7 @@ package Controller;
 import Model.Customer;
 import Service.ICustomerService;
 import Service.impl.CustomerService;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,12 +27,16 @@ public class CustomerController {
 
     private final ICustomerService customerService = new CustomerService();
 
-    public ArrayList<Customer> getList() {
-        return customerService.getList();
+    public List<Customer> findAll() {
+        return customerService.findAll();
     }
 
-    public Customer getCustomer(String id) {
-        return customerService.getCustomer(id);
+    public List<Customer> findAllServing() {
+        return customerService.findAllServing();
+    }
+
+    public Customer findOneById(String id) {
+        return customerService.findOneById(id);
     }
 
     public boolean insert(Customer customer) {
@@ -43,60 +47,9 @@ public class CustomerController {
         return customerService.update(customer);
     }
 
-    public boolean delete(Customer customer) {
-        return customerService.delete(customer);
+    public List<Customer> filterByKey(String idKey, String fullnameKey, String gender,
+            String phoneNumberKey, String addressKey, Boolean deleteFlagKey) {
+        return customerService.filterByKey(idKey, fullnameKey, gender, phoneNumberKey, addressKey, deleteFlagKey);
     }
 
-    public ArrayList<Customer> findCustomerByIDKey(ArrayList<Customer> customers, String idKey) {
-        return customerService.findCustomerByIDKey(customers, idKey);
-    }
-
-    public ArrayList<Customer> findCustomerByNameKey(ArrayList<Customer> customers, String nameKey) {
-        return customerService.findCustomerByNameKey(customers, nameKey);
-    }
-
-    public ArrayList<Customer> findCustomerByGenderKey(ArrayList<Customer> customers, String gender) {
-        return customerService.findCustomerByGenderKey(customers, gender);
-    }
-
-    public ArrayList<Customer> findCustomerByPhonenumberKey(ArrayList<Customer> customers, String phonenumberKey) {
-        return customerService.findCustomerByPhonenumberKey(customers, phonenumberKey);
-    }
-
-    public ArrayList<Customer> findCustomerByAddressKey(ArrayList<Customer> customers, String addressKey) {
-        return customerService.findCustomerByAddressKey(customers, addressKey);
-    }
-
-    public ArrayList<Customer> findCustomerByDeleteFlagKey(ArrayList<Customer> customers, boolean deleteflag) {
-        return customerService.findCustomerByDeleteFlagKey(customers, deleteflag);
-    }
-
-    public ArrayList<Customer> findCustomerByIDKey(String idKey) {
-        return customerService.findCustomerByIDKey(idKey);
-    }
-
-    public ArrayList<Customer> findCustomerByFullnameKey(String fullnameKey) {
-        return customerService.findCustomerByFullnameKey(fullnameKey);
-    }
-
-    public ArrayList<Customer> findCustomerByGenderKey(String genderKey) {
-        return customerService.findCustomerByGenderKey(genderKey);
-    }
-
-    public ArrayList<Customer> findCustomerByPhonenumberKey(String phonenumberKey) {
-        return customerService.findCustomerByPhonenumberKey(phonenumberKey);
-    }
-
-    public ArrayList<Customer> findCustomerByAddressKey(String addressKey) {
-        return customerService.findCustomerByAddressKey(addressKey);
-    }
-
-    public ArrayList<Customer> findCustomerByDeleteflagKey(String deleteflagKey) {
-        return customerService.findCustomerByDeleteflagKey(deleteflagKey);
-    }
-
-    public ArrayList<Customer> findCustomerByKey(String idKey, String fullnameKey,
-            String genderKey, String phonenumberKey, String addressKey, String deleteflagKey) {
-        return customerService.findCustomerByKey(idKey, fullnameKey, genderKey, phonenumberKey, addressKey, deleteflagKey);
-    }
 }

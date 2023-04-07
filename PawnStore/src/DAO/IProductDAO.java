@@ -6,7 +6,7 @@ package DAO;
 
 import Model.Product;
 import Model.TypeOfProduct;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,26 +14,18 @@ import java.util.ArrayList;
  */
 public interface IProductDAO extends IGenericDAO<Product> {
 
-    ArrayList<Product> getList();
+    public List<Product> findAll();
 
-    Product getProduct(String id);
+    List<Product> findAllNotRedeemed();
+
+    Product findOneById(String id);
+
+    Product findOneByName(String name);
 
     boolean insert(Product product);
 
     boolean update(Product product);
 
-    boolean delete(Product product);
-
-    ArrayList<Product> findProductByIDKey(String idKey);
-
-    ArrayList<Product> findProductByTypeOfProductKey(TypeOfProduct typeOfProductKey);
-
-    ArrayList<Product> findProductByNameKey(String nameKey);
-
-    ArrayList<Product> findProductByInforKey(String inforKey);
-
-    ArrayList<Product> findProductByStatusKey(String statusKey);
-
-    ArrayList<Product> findProductByKey(String idKey, TypeOfProduct typeOfProductKey, String nameKey, String inforKey, String statusKey);
+    List<Product> filterByKey(String idKey, TypeOfProduct typeOfProductKey, String nameKey, String inforKey, String statusKey);
 
 }

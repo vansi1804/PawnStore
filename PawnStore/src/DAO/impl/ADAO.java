@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,9 +22,12 @@ import java.util.ArrayList;
  */
 public class ADAO<T> implements IGenericDAO<T> {
 
+    private static final Logger LOG = Logger.getLogger(ADAO.class.getName());
+
     @Override
-    public <T> ArrayList<T> getList(String query, IObjectMapper<T> objectMapper, Object... parameters) {
-        ArrayList<T> objects = new ArrayList<>();
+    public <T> List<T> findAll(String query, IObjectMapper<T> objectMapper, Object... parameters) {
+        @SuppressWarnings("CollectionWithoutInitialCapacity")
+        List<T> objects = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -55,7 +60,7 @@ public class ADAO<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public T getObject(String query, IObjectMapper<T> objectMapper, Object... parameters) {
+    public T findOne(String query, IObjectMapper<T> objectMapper, Object... parameters) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -158,7 +163,7 @@ public class ADAO<T> implements IGenericDAO<T> {
 
     @Override
     public boolean delete(String sql, Object... parameters) {
-        return update(sql, parameters);
+        return this.update(sql, parameters);
     }
 
     @Override
