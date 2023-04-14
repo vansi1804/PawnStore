@@ -17,8 +17,9 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.awt.event.ActionEvent;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -35,20 +36,24 @@ public class ProductJPanelForm extends javax.swing.JPanel {
 
     public ProductJPanelForm() {
         initComponents();
-        setTypeOfProductDefault(null);
+        setTableFormat();
         setProductDefault(null);
-        setTypeOfProductFilterEvent();
-        setProductFilterEvent();
     }
 
     public ProductJPanelForm(Product product) {
         initComponents();
-        setTypeOfProductDefault(product.getTypeOfProduct());
+        setTableFormat();
         setProductDefault(product);
-        setTypeOfProductFilterEvent();
-        setProductFilterEvent();
     }
 
+    private void setTableFormat() {
+        ColorFormatSupport.FormatTableHeader(jtblTypeOfProduct);
+        ColorFormatSupport.setDataTableCenter(jtblTypeOfProduct);
+        ColorFormatSupport.FormatTableHeader(jtblProduct);
+        ColorFormatSupport.setDataTableCenter(jtblProduct);
+    }
+
+    //=========================================================================\\
     private void setTypeOfProductDefault(TypeOfProduct typeOfProduct) {
         jbtnAddTypeOfProduct.setEnabled(false);
         jbtnEditTypeOfProduct.setEnabled(true);
@@ -59,12 +64,13 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jtfTypeOfProductId.setEditable(true);
             jtfTypeOfProductName.setText(null);
             setTypeOfProductStatus(null);
-            setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findAllServing());
+            setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findAllByStatus(getTypeOfProductStatus()));
         } else {
             jtfTypeOfProductId.setText(typeOfProduct.getId());
             jtfTypeOfProductId.setEditable(false);
             jtfTypeOfProductName.setText(typeOfProduct.getName());
             setTypeOfProductStatus(typeOfProduct.getDeleteFlag());
+            setTypeOfProductTable(TypeOfProductController.getCurrentInstance().findAll());
             Support.setRowTableSelection(jtblTypeOfProduct, 1, typeOfProduct.getId());
         }
     }
@@ -111,41 +117,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         return validInfo ? new TypeOfProduct(jtfTypeOfProductId.getText(), jtfTypeOfProductName.getText(), getTypeOfProductStatus()) : null;
     }
 
-    private void setTypeOfProductFilterEvent() {
-        jtfTypeOfProductId.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-        });
-        jtfTypeOfProductName.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterTypeOfProduct();
-            }
-        });
-    }
-
     private void filterTypeOfProduct() {
         if (!jbtnAddTypeOfProduct.isEnabled() && !jbtnEditTypeOfProduct.isEnabled()) {
             setTypeOfProductTable(TypeOfProductController.getCurrentInstance()
@@ -158,18 +129,19 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jbtnAddProduct.setEnabled(false);
         jbtnEditProduct.setEnabled(true);
         jbtnPawn.setEnabled(false);
+        jlbInvalidProductName.setText(null);
+        jlbInvalidTypeOfProduct.setText(null);
+        jlbInvalidPrductInfo.setText(null);
         if (product == null) {
             jtfProductID.setText(null);
             jtfProductID.setEditable(true);
             jtfProductName.setText(null);
-            jlbInvalidProductName.setText(null);
             setCBTypeOfProduct(null);
-            jlbInvalidTypeOfProduct.setText(null);
             jtaProductInfo.setText(null);
-            jlbInvalidPrductInfo.setText(null);
             setProductStatus(null);
             jbtnEditProduct.setEnabled(false);
-            setProductTable(ProductController.getCurrentInstance().findAllNotRedeemed());
+            setProductTable(ProductController.getCurrentInstance().findAllByStatus(getProductStatus()));
+            setTypeOfProductDefault(null);
         } else {
             jtfProductID.setText(product.getId());
             jtfProductID.setEditable(false);
@@ -180,13 +152,16 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             Support.setRowTableSelection(jtblProduct, 1, product.getId());
             jbtnEditProduct.setEnabled(true);
             jbtnPawn.setEnabled(!product.getTypeOfProduct().getDeleteFlag());
+            setProductTable(ProductController.getCurrentInstance().findAllByStatus(getProductStatus()));
+            Support.setRowTableSelection(jtblProduct, 1, product.getId());
+            setTypeOfProductDefault(product.getTypeOfProduct());
         }
     }
 
     private void setCBTypeOfProduct(TypeOfProduct typeOfProduct) {
         jcbTypeOfProduct.removeAllItems();
         jcbTypeOfProduct.addItem("Tất cả");
-        for (TypeOfProduct type : TypeOfProductController.getCurrentInstance().findAllServing()) {
+        for (TypeOfProduct type : TypeOfProductController.getCurrentInstance().findAllByStatus(getTypeOfProductStatus())) {
             jcbTypeOfProduct.addItem(type.getName());
         }
         jcbTypeOfProduct.setSelectedItem(typeOfProduct == null ? "Tất cả" : typeOfProduct.getName());
@@ -194,7 +169,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
 
     private TypeOfProduct getCBTypeOfProduct() {
         return jcbTypeOfProduct.getSelectedItem().toString().equals("Tất cả") ? null
-                : new TypeOfProduct(null, jcbTypeOfProduct.getSelectedItem().toString(), true);
+                : TypeOfProductController.getCurrentInstance().findOneByName(jcbTypeOfProduct.getSelectedItem().toString());
     }
 
     private void setProductStatus(String status) {
@@ -252,8 +227,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         if (products == null) {
             return;
         }
-        ColorFormatSupport.FormatTableHeader(jtblProduct);
-        ColorFormatSupport.setDataTableCenter(jtblProduct);
         DefaultTableModel model = (DefaultTableModel) jtblProduct.getModel();
         model.setRowCount(0);
         Object rowData[] = new Object[5];
@@ -294,59 +267,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         }
     }
 
-    private void setProductFilterEvent() {
-        jtfProductID.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-        });
-        jtfProductName.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-        });
-        jcbTypeOfProduct.addActionListener((ActionEvent e) -> {
-            filterProduct();
-        });
-        jtaProductInfo.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterProduct();
-            }
-        });
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -475,6 +395,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtProductInfoMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtProductInfoMouseReleased(evt);
+            }
         });
 
         jtfProductID.setBackground(new java.awt.Color(255, 255, 255));
@@ -483,6 +406,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jtfProductID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtProductInfoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtProductInfoMouseReleased(evt);
             }
         });
 
@@ -496,6 +422,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtProductInfoMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtProductInfoMouseReleased(evt);
+            }
         });
         jScrollPane3.setViewportView(jtaProductInfo);
 
@@ -507,9 +436,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 jcbTypeOfProductItemStateChanged(evt);
             }
         });
-        jcbTypeOfProduct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtProductInfoMousePressed(evt);
+        jcbTypeOfProduct.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbTypeOfProductKeyPressed(evt);
             }
         });
 
@@ -801,6 +730,11 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 jtfInfoMousePressed(evt);
             }
         });
+        jtfTypeOfProductName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTypeOfProductKeyReleased(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -809,6 +743,11 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jtfTypeOfProductId.setBackground(new java.awt.Color(255, 255, 255));
         jtfTypeOfProductId.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jtfTypeOfProductId.setForeground(new java.awt.Color(0, 0, 0));
+        jtfTypeOfProductId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfTypeOfProductKeyReleased(evt);
+            }
+        });
 
         jbtnEditTypeOfProduct.setBackground(new java.awt.Color(0, 255, 255));
         jbtnEditTypeOfProduct.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -1044,7 +983,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -1122,7 +1061,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Loại hàng hóa", typeOfProduct.toString()));
+                jbtnAddProduct.setEnabled(true);
                 setCBTypeOfProduct(null);
+                jbtnAddProduct.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jbtnAddTypeOfProductActionPerformed
@@ -1137,7 +1078,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Loại hàng hóa", typeOfProduct.toString()));
             }
+            jbtnAddProduct.setEnabled(true);
             setCBTypeOfProduct(null);
+            jbtnAddProduct.setEnabled(false);
         }
     }//GEN-LAST:event_jbtnEditTypeOfProductActionPerformed
 
@@ -1162,7 +1105,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 setProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
-                                "Cập nhật thông tin", "Hàng hóa", product.toString()));
+                                "Cập nhật", "Hàng hóa", product.toString()));
             }
         }
     }//GEN-LAST:event_jbtnEditProductActionPerformed
@@ -1174,12 +1117,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             String id = (table.getModel().getValueAt(row, 1)).toString();
             Product product = ProductController.getCurrentInstance().findOneById(id);
             setProductDefault(product);
+            setTypeOfProductDefault(product.getTypeOfProduct());
         }
     }//GEN-LAST:event_jtblProductMouseClicked
-
-    private void jcbTypeOfProductItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTypeOfProductItemStateChanged
-
-    }//GEN-LAST:event_jcbTypeOfProductItemStateChanged
 
     private void jrbProductStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbProductStatusActionPerformed
         filterProduct();
@@ -1213,22 +1153,24 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnCreateNewProductMouseClicked
 
     private void jbtnPawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPawnActionPerformed
-//        Product product = getProductFromForm();
-//        if (product != null) {
-//            if (product.getTypeOfProduct().getDeleteFlag()) {
-//                MessageSupport.Message("Thông báo!", "Hàng hóa đã ngưng phục vụ, không thể cầm.");
-//            } else {
-//                @SuppressWarnings("UnusedAssignment")
-//                JPanel jPanel = null;
-//                String title = "Hợp đồng";
-//                if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-//                    HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
-//                }
-//                jPanel = new PawnCouponJPanelForm(product);
-//                HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-//                HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
-//            }
-//        }
+        Product product = getProductFromForm();
+        if (product != null) {
+            if (product.getTypeOfProduct().getDeleteFlag()) {
+                MessageSupport.Message("Thông báo!", "Hàng hóa đã ngưng phục vụ");
+            } else if (product.getStatus().equals("Chưa chuộc") || product.getStatus().equals("Cần thanh lý")) {
+                MessageSupport.Message("Thông báo!", "Hàng hóa đang có hiệu lực ở một hợp đồng khác");
+            } else {
+                @SuppressWarnings("UnusedAssignment")
+                JPanel jPanel = null;
+                String title = "Hợp đồng";
+                if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
+                    HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+                }
+                jPanel = new PawnCouponJPanelForm(product);
+                HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
+                HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+            }
+        }
     }//GEN-LAST:event_jbtnPawnActionPerformed
 
     private void jtfInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfInfoMousePressed
@@ -1246,6 +1188,22 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             jlbInvalidPrductInfo.setText(null);
         }
     }//GEN-LAST:event_jtProductInfoMousePressed
+
+    private void jcbTypeOfProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTypeOfProductKeyPressed
+        jlbInvalidTypeOfProduct.setText(null);
+    }//GEN-LAST:event_jcbTypeOfProductKeyPressed
+
+    private void jtfTypeOfProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTypeOfProductKeyReleased
+        filterTypeOfProduct();
+    }//GEN-LAST:event_jtfTypeOfProductKeyReleased
+
+    private void jtProductInfoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductInfoMouseReleased
+        filterProduct();
+    }//GEN-LAST:event_jtProductInfoMouseReleased
+
+    private void jcbTypeOfProductItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTypeOfProductItemStateChanged
+        filterProduct();
+    }//GEN-LAST:event_jcbTypeOfProductItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -16,8 +16,8 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -117,9 +117,10 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }
 
     private void setActivityHistoryDefault(Account account) {
-        jDCFromDate.setDate(null);
-        jDCToDate.setDate(null);
+        jdcFromDate.setDate(null);
+        jdcToDate.setDate(null);
         jtfUsernameKey.setText(account == null ? null : account.getUsername());
+        jtfUsernameKey.setEditable(account == null);
         jtfObjectnameKey.setText(null);
         jtfActivityKey.setText(null);
         jtfInforKey.setText(null);
@@ -150,18 +151,18 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }
 
     private void setActivityHistoryFilterEvent() {
-        jDCFromDate.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (jDCFromDate.getDate() != null && jDCToDate.getDate() != null) {
-                if (jDCFromDate.getDate().compareTo(jDCToDate.getDate()) > 0) {
-                    jDCFromDate.setDate(jDCToDate.getDate());
+        jdcFromDate.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            if (jdcFromDate.getDate() != null && jdcToDate.getDate() != null) {
+                if (jdcFromDate.getDate().compareTo(jdcToDate.getDate()) > 0) {
+                    jdcFromDate.setDate(jdcToDate.getDate());
                 }
             }
             filterActivityHistoryByKey();
         });
-        jDCToDate.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (jDCFromDate.getDate() != null && jDCToDate.getDate() != null) {
-                if (jDCToDate.getDate().compareTo(jDCFromDate.getDate()) < 0) {
-                    jDCToDate.setDate(jDCFromDate.getDate());
+        jdcToDate.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            if (jdcFromDate.getDate() != null && jdcToDate.getDate() != null) {
+                if (jdcToDate.getDate().compareTo(jdcFromDate.getDate()) < 0) {
+                    jdcToDate.setDate(jdcFromDate.getDate());
                 }
             }
             filterActivityHistoryByKey();
@@ -238,8 +239,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
 
     private void filterActivityHistoryByKey() {
         setActivityHistoryTable(ActivityHistoryController.getCurrentInstance()
-                .filterByKey(Support.dateToString(jDCFromDate.getDate(), Default.DATE_FORMAT),
-                        Support.dateToString(jDCToDate.getDate(), Default.DATE_FORMAT),
+                .filterByKey(Support.dateToString(jdcFromDate.getDate(), Default.DATE_FORMAT),
+                        Support.dateToString(jdcToDate.getDate(), Default.DATE_FORMAT),
                         jtfUsernameKey.getText(), jtfActivityKey.getText(), jtfObjectnameKey.getText(), jtfInforKey.getText()));
     }
 
@@ -248,6 +249,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel6 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -278,8 +280,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jDCFromDate = new com.toedter.calendar.JDateChooser();
-        jDCToDate = new com.toedter.calendar.JDateChooser();
+        jdcFromDate = new com.toedter.calendar.JDateChooser();
+        jdcToDate = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jtfUsernameKey = new javax.swing.JTextField();
@@ -292,6 +294,17 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jtblActivityHistory = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(0, 255, 255));
 
@@ -554,54 +567,51 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jtfUsername)
+                    .addComponent(jlbInvalidUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfFullname)
+                    .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpfPassword)
+                    .addComponent(jlbInvalidPasword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jchbShowHirePassword))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbInvalidUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jtfFullname)
-                            .addComponent(jpfPassword)
-                            .addComponent(jtfUsername)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnLockOrUnlock, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jlbInvalidPasword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(jchbShowHirePassword)
+                            .addComponent(jbtnLockOrUnlock, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbInvalidUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbInvalidPasword, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jchbShowHirePassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jchbShowHirePassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbtnLockOrUnlock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -620,11 +630,21 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Từ ngày");
 
-        jDCFromDate.setDateFormatString("dd/MM/yyyy");
-        jDCFromDate.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jdcFromDate.setDateFormatString("dd/MM/yyyy");
+        jdcFromDate.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jdcFromDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcDatePropertyChange(evt);
+            }
+        });
 
-        jDCToDate.setDateFormatString("dd/MM/yyyy");
-        jDCToDate.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jdcToDate.setDateFormatString("dd/MM/yyyy");
+        jdcToDate.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jdcToDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcDatePropertyChange(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
@@ -638,10 +658,20 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jtfUsernameKey.setBackground(new java.awt.Color(255, 255, 255));
         jtfUsernameKey.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfUsernameKey.setForeground(new java.awt.Color(0, 0, 0));
+        jtfUsernameKey.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfActivityHistoryKeyReleased(evt);
+            }
+        });
 
         jtfActivityKey.setBackground(new java.awt.Color(255, 255, 255));
         jtfActivityKey.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfActivityKey.setForeground(new java.awt.Color(0, 0, 0));
+        jtfActivityKey.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfActivityHistoryKeyReleased(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 51, 51));
@@ -656,10 +686,20 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jtfObjectnameKey.setBackground(new java.awt.Color(255, 255, 255));
         jtfObjectnameKey.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfObjectnameKey.setForeground(new java.awt.Color(0, 0, 0));
+        jtfObjectnameKey.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfActivityHistoryKeyReleased(evt);
+            }
+        });
 
         jtfInforKey.setBackground(new java.awt.Color(255, 255, 255));
         jtfInforKey.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
         jtfInforKey.setForeground(new java.awt.Color(0, 0, 0));
+        jtfInforKey.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfActivityHistoryKeyReleased(evt);
+            }
+        });
 
         jtblActivityHistory.setBackground(new java.awt.Color(255, 255, 255));
         jtblActivityHistory.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -689,12 +729,11 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             jtblActivityHistory.getColumnModel().getColumn(1).setMinWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setPreferredWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setMaxWidth(140);
-            jtblActivityHistory.getColumnModel().getColumn(2).setMinWidth(150);
-            jtblActivityHistory.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jtblActivityHistory.getColumnModel().getColumn(2).setMinWidth(50);
             jtblActivityHistory.getColumnModel().getColumn(2).setMaxWidth(200);
-            jtblActivityHistory.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jtblActivityHistory.getColumnModel().getColumn(3).setMinWidth(50);
             jtblActivityHistory.getColumnModel().getColumn(3).setMaxWidth(100);
-            jtblActivityHistory.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jtblActivityHistory.getColumnModel().getColumn(4).setMinWidth(50);
             jtblActivityHistory.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
@@ -720,13 +759,13 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDCFromDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jdcFromDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDCToDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jdcToDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -743,7 +782,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfInforKey)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -767,8 +806,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                                 .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(6, 6, 6)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDCToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDCFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcToDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jtfUsernameKey, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -916,11 +955,27 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtfInfoMousePressed
 
+    private void jtfActivityHistoryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfActivityHistoryKeyReleased
+        filterActivityHistoryByKey();
+    }//GEN-LAST:event_jtfActivityHistoryKeyReleased
+
+    private void jdcDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcDatePropertyChange
+        if (jdcFromDate.getDate() != null && jdcToDate.getDate() != null) {
+            if (jdcFromDate.getDate().compareTo(jdcToDate.getDate()) > 0) {
+                jdcFromDate.setDate(jdcToDate.getDate());
+            }
+        }
+        if (jdcFromDate.getDate() != null && jdcToDate.getDate() != null) {
+            if (jdcToDate.getDate().compareTo(jdcFromDate.getDate()) < 0) {
+                jdcToDate.setDate(jdcFromDate.getDate());
+            }
+        }
+        filterActivityHistoryByKey();
+    }//GEN-LAST:event_jdcDatePropertyChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private com.toedter.calendar.JDateChooser jDCFromDate;
-    private com.toedter.calendar.JDateChooser jDCToDate;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -939,6 +994,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -948,6 +1004,8 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     private javax.swing.JButton jbtnReload;
     private javax.swing.JButton jbtnResetPassword;
     private javax.swing.JCheckBox jchbShowHirePassword;
+    private com.toedter.calendar.JDateChooser jdcFromDate;
+    private com.toedter.calendar.JDateChooser jdcToDate;
     private javax.swing.JLabel jlbInvalidFullname;
     private javax.swing.JLabel jlbInvalidPasword;
     private javax.swing.JLabel jlbInvalidUsername;

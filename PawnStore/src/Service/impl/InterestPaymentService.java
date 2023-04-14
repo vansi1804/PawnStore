@@ -4,11 +4,15 @@
  */
 package Service.impl;
 
+import Common.Default;
 import DAO.IInterestPaymentDAO;
+import DAO.IPawnCouponDAO;
 import DAO.impl.InterestPaymentDAO;
+import DAO.impl.PawnCouponDAO;
 import Model.InterestPayment;
-import Model.PawnCoupon;
 import Service.IInterestPaymentService;
+import Support.Support;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,17 +22,17 @@ import java.util.List;
 @SuppressWarnings("ClassWithoutLogger")
 public class InterestPaymentService implements IInterestPaymentService {
 
-    @SuppressWarnings("FieldMayBeFinal")
-    private static IInterestPaymentDAO interestPaymentDAO = new InterestPaymentDAO();
+    private static final IInterestPaymentDAO interestPaymentDAO = new InterestPaymentDAO();
+    private static final IPawnCouponDAO pawnCouponDAO = new PawnCouponDAO();
 
     @Override
-    public List<InterestPayment> getList(PawnCoupon pawnCoupon) {
-        return interestPaymentDAO.getList(pawnCoupon);
+    public List<InterestPayment> findAllByPawnCouponId(String pawnCouponId) {
+        return interestPaymentDAO.findAllByPawnCouponId(pawnCouponId);
     }
 
     @Override
-    public InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times) {
-        return interestPaymentDAO.getInterestPayment(pawnCoupon, times);
+    public InterestPayment findOneByPawnCouponIdAndTimes(String pawnCouponId, Integer times) {
+        return interestPaymentDAO.findOneByPawnCouponIdAndTimes(pawnCouponId, times);
     }
 
     @Override
@@ -44,6 +48,11 @@ public class InterestPaymentService implements IInterestPaymentService {
     @Override
     public boolean delete(InterestPayment interestPayment) {
         return interestPaymentDAO.delete(interestPayment);
+    }
+
+    @Override
+    public int countAllByPawnCouponId(String pawnCouponId) {
+        return interestPaymentDAO.countAllByPawnCouponId(pawnCouponId);
     }
 
 }

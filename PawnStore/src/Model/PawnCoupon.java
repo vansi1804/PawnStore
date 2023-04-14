@@ -12,33 +12,17 @@ import Support.Support;
  */
 @SuppressWarnings("ClassWithoutLogger")
 public class PawnCoupon {
-
     private String id;
     private Customer customer;
     private Product product;
     private int amount;
-    private int price;
+    private long price;
     private float interestRate;
     private String pawnDate;
+    private String theNextInterestPaymentDate;
     private String redemption0rLiquidationDate;
-    private int liquidationPrice;
+    private long liquidationPrice;
     private String status;
-
-    public PawnCoupon() {
-    }
-
-    public PawnCoupon(String id, Customer customer, Product product, int amount, int price, float interestRate, String pawnDate, String redeem0rLiquidationDate, int liquidationPrice, String status) {
-        this.id = id;
-        this.customer = customer;
-        this.product = product;
-        this.amount = amount;
-        this.price = price;
-        this.interestRate = interestRate;
-        this.pawnDate = pawnDate;
-        this.redemption0rLiquidationDate = redeem0rLiquidationDate;
-        this.liquidationPrice = liquidationPrice;
-        this.status = status;
-    }
 
     public String getId() {
         return id;
@@ -72,11 +56,11 @@ public class PawnCoupon {
         this.amount = amount;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
@@ -96,6 +80,14 @@ public class PawnCoupon {
         this.pawnDate = pawnDate;
     }
 
+    public String getTheNextInterestPaymentDate() {
+        return theNextInterestPaymentDate;
+    }
+
+    public void setTheNextInterestPaymentDate(String theNextInterestPaymentDate) {
+        this.theNextInterestPaymentDate = theNextInterestPaymentDate;
+    }
+
     public String getRedemption0rLiquidationDate() {
         return redemption0rLiquidationDate;
     }
@@ -104,11 +96,11 @@ public class PawnCoupon {
         this.redemption0rLiquidationDate = redemption0rLiquidationDate;
     }
 
-    public int getLiquidationPrice() {
+    public long getLiquidationPrice() {
         return liquidationPrice;
     }
 
-    public void setLiquidationPrice(int liquidationPrice) {
+    public void setLiquidationPrice(long liquidationPrice) {
         this.liquidationPrice = liquidationPrice;
     }
 
@@ -117,6 +109,31 @@ public class PawnCoupon {
     }
 
     public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public PawnCoupon() {
+    }
+
+    public PawnCoupon(String id, String pawnDate) {
+        this.id = id;
+        this.pawnDate = pawnDate;
+    }
+
+    public PawnCoupon(String id, Customer customer, Product product, 
+            int amount, long price, float interestRate, 
+            String pawnDate, String theNextInterestPaymentDate, String redemption0rLiquidationDate,
+            long liquidationPrice, String status) {
+        this.id = id;
+        this.customer = customer;
+        this.product = product;
+        this.amount = amount;
+        this.price = price;
+        this.interestRate = interestRate;
+        this.pawnDate = pawnDate;
+        this.theNextInterestPaymentDate = theNextInterestPaymentDate;
+        this.redemption0rLiquidationDate = redemption0rLiquidationDate;
+        this.liquidationPrice = liquidationPrice;
         this.status = status;
     }
 
@@ -129,7 +146,7 @@ public class PawnCoupon {
                 + " - " + Support.getFormatNumber(price)
                 + " - " + interestRate
                 + " - " + pawnDate
-                + " - " + (status.equals("Đã chuộc") ? (redemption0rLiquidationDate + " - " + status) 
+                + " - " + (status.equals("Đã chuộc") ? (redemption0rLiquidationDate + " - " + status)
                 : (status.equals("Đã thanh lý") ? (redemption0rLiquidationDate + " - " + liquidationPrice + " - " + status) : status));
 
     }

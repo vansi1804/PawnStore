@@ -60,8 +60,7 @@ public class AccountDAO extends ADAO<Account> implements IAccountDAO {
     @Override
     public List<Account> findAllByDeleteFlag(Boolean deleteflag) {
         String query = SELECTQUERY
-                + " Where 1 = 1"
-                + (deleteflag == null ? "" : " And delete_flag = ?");
+                + (deleteflag == null ? "" : " Where delete_flag = ?");
         return findAll(query, new AccountMapper(), deleteflag);
     }
 

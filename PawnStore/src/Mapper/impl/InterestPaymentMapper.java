@@ -26,21 +26,27 @@ public class InterestPaymentMapper implements IObjectMapper<InterestPayment> {
     public InterestPayment mapObject(ResultSet rs) {
         try {
             String id = rs.getString(1);
-            Customer customer = new Customer(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7));
-            Product product = new Product(rs.getString(8), new TypeOfProduct(rs.getString(9), rs.getString(10), rs.getBoolean(11)), rs.getString(12), rs.getString(13), rs.getString(14));
+            Customer customer = new Customer(rs.getString(2), rs.getString(3), rs.getString(4),
+                    rs.getString(5), rs.getString(6), rs.getBoolean(7));
+            Product product = new Product(rs.getString(8),
+                    new TypeOfProduct(rs.getString(9), rs.getString(10), rs.getBoolean(11)),
+                    rs.getString(12), rs.getString(13), rs.getString(14));
             int amount = rs.getInt(15);
-            int price = rs.getInt(16);
+            long price = rs.getLong(16);
             float interestRate = rs.getFloat(17);
             String pawnDate = rs.getString(18);
-            String redeemOrLiquidartionDate = rs.getString(19);
-            int liquidationPrice = rs.getInt(20);
-            String status = rs.getString(21);
-            PawnCoupon pawnCoupon = new PawnCoupon(id, customer, product, amount, price, interestRate, pawnDate, redeemOrLiquidartionDate, liquidationPrice, status);
-            int times = rs.getInt(22);
-            String paymentDate = rs.getString(23);
-            int money = rs.getInt(24);
-            int debt = rs.getInt(25);
-            String note = rs.getString(26);
+            String theNextInterestPaymentDate = rs.getString(19);
+            String redeemOrLiquidationDate = rs.getString(20);
+            long liquidationPrice = rs.getLong(21);
+            String status = rs.getString(22);
+            PawnCoupon pawnCoupon = new PawnCoupon(id, customer, product, amount, price, interestRate,
+                    pawnDate, theNextInterestPaymentDate, redeemOrLiquidationDate,
+                    liquidationPrice, status);
+            int times = rs.getInt(23);
+            String paymentDate = rs.getString(24);
+            int money = rs.getInt(25);
+            int debt = rs.getInt(26);
+            String note = rs.getString(27);
             return new InterestPayment(pawnCoupon, times, paymentDate, money, debt, note);
         } catch (SQLException ex) {
             Logger.getLogger(AccountMapper.class.getName()).log(Level.SEVERE, null, ex);

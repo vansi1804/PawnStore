@@ -4,9 +4,7 @@
  */
 package DAO;
 
-import Model.Customer;
 import Model.PawnCoupon;
-import Model.Product;
 import java.util.List;
 
 /**
@@ -20,10 +18,18 @@ public interface IPawnCouponDAO extends IGenericDAO<PawnCoupon> {
 
     public List<PawnCoupon> findAllByStatus(String status);
 
-    PawnCoupon getPawnCoupon(String id);
+    PawnCoupon findOneById(String id);
 
     boolean insert(PawnCoupon pawnCoupon);
 
     boolean update(PawnCoupon pawnCoupon);
 
+    PawnCoupon findLastest();
+
+    List<PawnCoupon> filter(String id, String customerId, String productId, 
+            Long pawnPrice, Float interestRate, Integer amount, 
+            String pawnDate, String theNextInterestPaymentDate, String redemptionOrLiquidationDate, 
+            Long liquidationPrice, String status);
+
+    List<PawnCoupon> findAllByCustomerId(String customerId);
 }

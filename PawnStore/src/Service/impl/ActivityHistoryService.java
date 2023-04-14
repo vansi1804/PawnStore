@@ -4,14 +4,10 @@
  */
 package Service.impl;
 
-import Common.Default;
 import DAO.IActivityHistoryDAO;
 import DAO.impl.ActivityHistoryDAO;
 import Model.ActivityHistory;
 import Service.IActivityHistoryService;
-import Support.CheckSupport;
-import Support.Support;
-import java.util.Date;
 import java.util.List;
 
 /**

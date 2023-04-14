@@ -32,8 +32,8 @@ public class ProductController {
         return productService.findAll();
     }
 
-    public List<Product> findAllNotRedeemed() {
-        return productService.findAllNotRedeemed();
+    public List<Product> findAllByStatus(String status) {
+        return productService.findAllByStatus(status);
     }
 
     public Product findOneById(String id) {

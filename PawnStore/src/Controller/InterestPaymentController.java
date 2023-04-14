@@ -5,7 +5,6 @@
 package Controller;
 
 import Model.InterestPayment;
-import Model.PawnCoupon;
 import Service.IInterestPaymentService;
 import Service.impl.InterestPaymentService;
 import java.util.List;
@@ -25,15 +24,19 @@ public class InterestPaymentController {
         }
         return instance;
     }
-    
+
     private final IInterestPaymentService interestPaymentService = new InterestPaymentService();
 
-    public List<InterestPayment> getList(PawnCoupon pawnCoupon) {
-        return interestPaymentService.getList(pawnCoupon);
+    public List<InterestPayment> findAllByPawnCouponId(String pawnCouponId) {
+        return interestPaymentService.findAllByPawnCouponId(pawnCouponId);
     }
 
-    public InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times) {
-        return interestPaymentService.getInterestPayment(pawnCoupon, times);
+    public int countAllByPawnCouponId(String pawnCouponId) {
+        return interestPaymentService.countAllByPawnCouponId(pawnCouponId);
+    }
+
+    public InterestPayment findOneByPawnCouponIdAndTimes(String pawnCouponId, Integer times) {
+        return interestPaymentService.findOneByPawnCouponIdAndTimes(pawnCouponId, times);
     }
 
     public boolean insert(InterestPayment interestPayment) {

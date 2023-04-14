@@ -27,8 +27,12 @@ public class TypeOfProductController {
 
     private final ITypeOfProductService typeOfProductService = new TypeOfProductService();
 
-    public List<TypeOfProduct> findAllServing() {
-        return typeOfProductService.findAllServing();
+    public List<TypeOfProduct> findAll() {
+        return typeOfProductService.findAll();
+    }
+
+    public List<TypeOfProduct> findAllByStatus(Boolean deleteFlag) {
+        return typeOfProductService.findAllByStatus(deleteFlag);
     }
 
     public TypeOfProduct findOneById(String id) {
@@ -54,4 +58,5 @@ public class TypeOfProductController {
     public List<TypeOfProduct> filterByKey(String idKey, String nameKey, Boolean deleteflagKey) {
         return typeOfProductService.filterByKey(idKey, nameKey, deleteflagKey);
     }
+
 }

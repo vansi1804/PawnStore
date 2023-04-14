@@ -78,14 +78,6 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         Support.getClock(jlblClock, true);
         jlblProfile.setText(StaticUser.getCurrentInstance().getFullname() + "     ");
         jAccountMenuItem.setEnabled(StaticUser.getCurrentInstance().getUsername().equals("admin"));
-
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT), "Đăng xuất"));
-            }
-        });
     }
 
     /**

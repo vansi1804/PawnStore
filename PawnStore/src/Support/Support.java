@@ -14,9 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +62,9 @@ public class Support {
     }
 
     public static Date stringToDate(String str, String dateFormat) {
+        if (CheckSupport.isNullOrBlank(str)) {
+            return null;
+        }
         try {
             return new SimpleDateFormat(dateFormat).parse(str);
         } catch (ParseException e) {
@@ -70,36 +73,36 @@ public class Support {
     }
 
     public static String dateToString(Date date, String dateFormat) {
-        return date == null ? null : new SimpleDateFormat(dateFormat).format(date);
+        return date == null ? "" : new SimpleDateFormat(dateFormat).format(date);
     }
 
     public static String LocalDateTimeToString(LocalDateTime dateTime) {
         return dateTime == null ? null : dateTime.format(DateTimeFormatter.ofPattern(Default.DATE_TIME_FORMAT));
     }
 
-    public static long subtractDate(String strDate1, String strDate2) {
+    public static Long subtractDate(String strDate1, String strDate2) {
         Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
         Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
-        return subtractDate(date1, date2);
+        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
     }
 
-    public static long subtractDate(Date date1, String strDate2) {
+    public static Long subtractDate(Date date1, String strDate2) {
         Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
-        return subtractDate(date1, date2);
+        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
     }
 
-    public static long subtractDate(String strDate1, Date date2) {
+    public static Long subtractDate(String strDate1, Date date2) {
         Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
-        return subtractDate(date1, date2);
+        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
     }
 
-    public static long subtractDate(Date date1, Date date2) {
-        return TimeUnit.MILLISECONDS.toDays(date1.getTime() - date2.getTime());
+    public static Long subtractDate(Date date1, Date date2) {
+        return (date1 == null || date2 == null) ? null : TimeUnit.MILLISECONDS.toDays(date1.getTime() - date2.getTime());
     }
 
     public static String addDate(String strDate, int days) {
         Date date = Support.stringToDate(strDate, Default.DATE_FORMAT);
-        return dateToString(addDate(date, days), Default.DATE_FORMAT);
+        return date == null ? "" : dateToString(addDate(date, days), Default.DATE_FORMAT);
     }
 
     public static Date addDate(Date date, int days) {

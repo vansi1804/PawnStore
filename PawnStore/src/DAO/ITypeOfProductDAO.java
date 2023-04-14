@@ -13,16 +13,20 @@ import java.util.List;
  */
 public interface ITypeOfProductDAO extends IGenericDAO<TypeOfProduct> {
 
-    List<TypeOfProduct> findAllServing();
+    List<TypeOfProduct> findAll();
+
+    List<TypeOfProduct> findAllByStatus(Boolean deleteFlag);
 
     TypeOfProduct findOneById(String id);
 
     TypeOfProduct findOneByName(String name);
-    
+
     boolean insert(TypeOfProduct typeOfProduct);
 
     boolean update(TypeOfProduct typeOfProduct);
 
     List<TypeOfProduct> filterByKey(String idKey, String nameKey, Boolean deleteflagKey);
+
+    public TypeOfProduct findLastest();
 
 }

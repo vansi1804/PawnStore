@@ -38,36 +38,36 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         this.setSize(jFirstPanel.getWidth() + 120, jFirstPanel.getHeight() - 340);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
-        Support.ScaleImage(jlbLogo, getClass().getResource("/Image/logo.png"));
+        Support.ScaleImage(jlbLogo1, getClass().getResource("/Image/logo.png"));
+        Support.ScaleImage(jlbLogo2, getClass().getResource("/Image/logo.png"));
         this.pawnCoupon = pawnCoupon;
         setPawnCouponPageber(this.pawnCoupon);
     }
 
     private void setPawnCouponPageber(PawnCoupon pawnCoupon) {
         jbtnPrint.setEnabled(!pawnCoupon.getStatus().equals("Đã chuộc") && !pawnCoupon.getStatus().equals("Đã thanh lý"));
-        String space = "          ";
-        jlbPawnCouponID.setText(space + pawnCoupon.getId());
-        jlbPawnCouponID2.setText(jlbPawnCouponID.getText());
-        jlbCustomerName.setText(space + pawnCoupon.getCustomer().getFullname());
-        jlbCustomerName2.setText(jlbCustomerName.getText());
-        jlbCustomerAddress.setText(space + pawnCoupon.getCustomer().getAddress());
-        jlbCustomerAddress2.setText(jlbCustomerAddress.getText());
-        jlbCustomerID.setText(space + pawnCoupon.getCustomer().getId());
-        jlbCustomerID2.setText(jlbCustomerID.getText());
-        jlbProductName.setText(space + pawnCoupon.getProduct().getName());
-        jlbProductName2.setText(jlbProductName.getText());
-        jlbProductInformation.setText(space + pawnCoupon.getProduct().getInfo());
-        jlbProductInformation2.setText(jlbProductInformation.getText());
-        jlbPawnCouponPriceInNumber.setText(space + Support.getFormatNumber(pawnCoupon.getPrice()));
-        jlbPawnCouponPriceInNumber2.setText(jlbPawnCouponPriceInNumber.getText());
-        jlbPawnCouponPriceInText.setText(space + Support.getTextNumber(pawnCoupon.getPrice()));
-        jlbPawnCouponPriceInText2.setText(jlbPawnCouponPriceInText.getText());
-        jlbPawnCouponInterestRate.setText(space + String.valueOf(pawnCoupon.getInterestRate()));
-        jlbPawnCouponInterestRate2.setText(jlbPawnCouponInterestRate.getText());
-        jlbPawnCouponInterest.setText(space + Support.getFormatNumber(Math.round(pawnCoupon.getPrice() * pawnCoupon.getInterestRate() / 100)));
-        jlbPawnCouponInterest2.setText(jlbPawnCouponInterest.getText());
-        jlbPawnDate.setText(space + pawnCoupon.getPawnDate() + space + "đến" + space + Support.addDate(pawnCoupon.getPawnDate(), 14));
+        String space = "     ";
+        jlbPawnCouponId1.setText(pawnCoupon.getId());
+        jlbPawnCouponId2.setText(jlbPawnCouponId1.getText());
+        jlbCustomerName1.setText(space + pawnCoupon.getCustomer().getFullname());
+        jlbCustomerName2.setText(jlbCustomerName1.getText());
+        jlbCustomerAddress1.setText(space + pawnCoupon.getCustomer().getAddress());
+        jlbCustomerAddress2.setText(jlbCustomerAddress1.getText());
+        jlbCustomerId1.setText(space + pawnCoupon.getCustomer().getId());
+        jlbCustomerId2.setText(jlbCustomerId1.getText());
+        jlbProductName1.setText(space + pawnCoupon.getProduct().getName());
+        jlbProductName2.setText(jlbProductName1.getText());
+        jlbProductInfo1.setText(space + pawnCoupon.getProduct().getInfo());
+        jlbProductInfo2.setText(jlbProductInfo1.getText());
+        jlbPawnCouponPriceInNumber1.setText(space + Support.getFormatNumber(pawnCoupon.getPrice()));
+        jlbPawnCouponPriceInNumber2.setText(jlbPawnCouponPriceInNumber1.getText());
+        jlbPawnCouponPriceInText1.setText(space + Support.getTextNumber(pawnCoupon.getPrice()));
+        jlbPawnCouponPriceInText2.setText(jlbPawnCouponPriceInText1.getText());
+        jlbPawnCouponInterestRate1.setText(space + String.valueOf(pawnCoupon.getInterestRate()));
+        jlbPawnCouponInterestRate2.setText(jlbPawnCouponInterestRate1.getText());
+        jlbPawnCouponInterest1.setText(space + Support.getFormatNumber(Math.round(pawnCoupon.getPrice() * pawnCoupon.getInterestRate() / 100)));
+        jlbPawnCouponInterest2.setText(jlbPawnCouponInterest1.getText());
+        jlbPawnDate1.setText(space + pawnCoupon.getPawnDate() + space + "đến" + space + Support.addDate(pawnCoupon.getPawnDate(), 14));
         jlbPawnDate2.setText(space + pawnCoupon.getPawnDate() + space + "đến" + space + Support.addDate(pawnCoupon.getPawnDate(), 14));
     }
 
@@ -92,43 +92,43 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jlbLogo = new javax.swing.JLabel();
+        jlbLogo1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jlbPawnCouponID = new javax.swing.JLabel();
+        jlbPawnCouponId1 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jlbCustomerName = new javax.swing.JLabel();
+        jlbCustomerName1 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jlbCustomerAddress = new javax.swing.JLabel();
-        jlbCustomerID = new javax.swing.JLabel();
-        jlbCustomerAddress2 = new javax.swing.JLabel();
+        jlbCustomerAddress1 = new javax.swing.JLabel();
+        jlbCustomerId1 = new javax.swing.JLabel();
+        jlbCustomerAddress2432 = new javax.swing.JLabel();
         jlbCustomerAddress3 = new javax.swing.JLabel();
         jlbCustomerAddress6 = new javax.swing.JLabel();
-        jlbProductName = new javax.swing.JLabel();
-        jlbProductInformation = new javax.swing.JLabel();
+        jlbProductName1 = new javax.swing.JLabel();
+        jlbProductInfo1 = new javax.swing.JLabel();
         jlbCustomerAddress4 = new javax.swing.JLabel();
-        jlbPawnCouponPriceInNumber = new javax.swing.JLabel();
+        jlbPawnCouponPriceInNumber1 = new javax.swing.JLabel();
         jlbCustomerAddress7 = new javax.swing.JLabel();
-        jlbPawnCouponPriceInText = new javax.swing.JLabel();
+        jlbPawnCouponPriceInText1 = new javax.swing.JLabel();
         jlbCustomerAddress8 = new javax.swing.JLabel();
         jlbCustomerAddress9 = new javax.swing.JLabel();
         jlbCustomerAddress10 = new javax.swing.JLabel();
-        jlbPawnCouponInterestRate = new javax.swing.JLabel();
+        jlbPawnCouponInterestRate1 = new javax.swing.JLabel();
         jlbCustomerAddress11 = new javax.swing.JLabel();
         jlbCustomerAddress12 = new javax.swing.JLabel();
-        jlbPawnCouponInterest = new javax.swing.JLabel();
+        jlbPawnCouponInterest1 = new javax.swing.JLabel();
         jlbCustomerAddress13 = new javax.swing.JLabel();
         jlbCustomerAddress14 = new javax.swing.JLabel();
-        jlbPawnDate = new javax.swing.JLabel();
+        jlbPawnDate1 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jlbPawnCouponInterestRate6 = new javax.swing.JLabel();
         jlbPawnCouponInterestRate8 = new javax.swing.JLabel();
@@ -160,12 +160,12 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel82 = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
-        jlbLogo4 = new javax.swing.JLabel();
+        jlbLogo2 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
-        jlbPawnCouponID4 = new javax.swing.JLabel();
+        jlbPawnCouponId2 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -176,13 +176,13 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
         jLabel95 = new javax.swing.JLabel();
-        jlbCustomerAddress46 = new javax.swing.JLabel();
-        jlbCustomerID2 = new javax.swing.JLabel();
+        jlbCustomerAddress2 = new javax.swing.JLabel();
+        jlbCustomerId2 = new javax.swing.JLabel();
         jlbCustomerAddress47 = new javax.swing.JLabel();
         jlbCustomerAddress48 = new javax.swing.JLabel();
         jlbCustomerAddress49 = new javax.swing.JLabel();
         jlbProductName2 = new javax.swing.JLabel();
-        jlbProductInformation2 = new javax.swing.JLabel();
+        jlbProductInfo2 = new javax.swing.JLabel();
         jlbCustomerAddress50 = new javax.swing.JLabel();
         jlbPawnCouponPriceInNumber2 = new javax.swing.JLabel();
         jlbCustomerAddress51 = new javax.swing.JLabel();
@@ -275,8 +275,8 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel8.setToolTipText("");
         jLabel8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jlbLogo.setBackground(new java.awt.Color(153, 153, 153));
-        jlbLogo.setForeground(new java.awt.Color(204, 204, 204));
+        jlbLogo1.setBackground(new java.awt.Color(153, 153, 153));
+        jlbLogo1.setForeground(new java.awt.Color(204, 204, 204));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -303,11 +303,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel13.setText("Địa chỉ: 26 đường số 34, Linh Đông, Thủ Đức");
         jLabel13.setToolTipText("");
 
-        jlbPawnCouponID.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jlbPawnCouponID.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponID.setText(".......................................");
-        jlbPawnCouponID.setToolTipText("");
+        jlbPawnCouponId1.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbPawnCouponId1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponId1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponId1.setText(".......................................");
+        jlbPawnCouponId1.setToolTipText("");
 
         jLabel16.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
@@ -329,7 +329,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jlbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -345,7 +345,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbPawnCouponID, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jlbPawnCouponId1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)))
         );
@@ -358,11 +358,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbPawnCouponID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbPawnCouponId1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,11 +418,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel6.setText("Họ và tên ông(bà)");
         jLabel6.setToolTipText("");
 
-        jlbCustomerName.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbCustomerName.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerName.setText(".................................................................................................................");
-        jlbCustomerName.setToolTipText("");
+        jlbCustomerName1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbCustomerName1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerName1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerName1.setText(".................................................................................................................");
+        jlbCustomerName1.setToolTipText("");
 
         jLabel26.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(0, 0, 0));
@@ -442,23 +442,23 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel28.setText("CMND/CCCD");
         jLabel28.setToolTipText("");
 
-        jlbCustomerAddress.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbCustomerAddress.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerAddress.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerAddress.setText("....................................................................................................................................................");
-        jlbCustomerAddress.setToolTipText("");
+        jlbCustomerAddress1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbCustomerAddress1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerAddress1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerAddress1.setText("....................................................................................................................................................");
+        jlbCustomerAddress1.setToolTipText("");
 
-        jlbCustomerID.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbCustomerID.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerID.setText("....................................................................................................................................................");
-        jlbCustomerID.setToolTipText("");
+        jlbCustomerId1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbCustomerId1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerId1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerId1.setText("....................................................................................................................................................");
+        jlbCustomerId1.setToolTipText("");
 
-        jlbCustomerAddress2.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
-        jlbCustomerAddress2.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerAddress2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerAddress2.setText("Tôi xin thỏa thuận tự nguyện đặt đồ vật, tài sản với những điều kiện kê sau đây: ");
-        jlbCustomerAddress2.setToolTipText("");
+        jlbCustomerAddress2432.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
+        jlbCustomerAddress2432.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerAddress2432.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerAddress2432.setText("Tôi xin thỏa thuận tự nguyện đặt đồ vật, tài sản với những điều kiện kê sau đây: ");
+        jlbCustomerAddress2432.setToolTipText("");
 
         jlbCustomerAddress3.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress3.setForeground(new java.awt.Color(0, 0, 0));
@@ -472,17 +472,17 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress6.setText("     - Thông tin chi tiết");
         jlbCustomerAddress6.setToolTipText("");
 
-        jlbProductName.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbProductName.setForeground(new java.awt.Color(0, 0, 0));
-        jlbProductName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbProductName.setText(".............................................................................................................................................");
-        jlbProductName.setToolTipText("");
+        jlbProductName1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbProductName1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbProductName1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbProductName1.setText(".............................................................................................................................................");
+        jlbProductName1.setToolTipText("");
 
-        jlbProductInformation.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbProductInformation.setForeground(new java.awt.Color(0, 0, 0));
-        jlbProductInformation.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbProductInformation.setText(".............................................................................................................................................");
-        jlbProductInformation.setToolTipText("");
+        jlbProductInfo1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbProductInfo1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbProductInfo1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbProductInfo1.setText(".............................................................................................................................................");
+        jlbProductInfo1.setToolTipText("");
 
         jlbCustomerAddress4.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress4.setForeground(new java.awt.Color(0, 0, 0));
@@ -490,11 +490,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress4.setText("     - Số tiền cầm (Bằng số)");
         jlbCustomerAddress4.setToolTipText("");
 
-        jlbPawnCouponPriceInNumber.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbPawnCouponPriceInNumber.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponPriceInNumber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponPriceInNumber.setText(".............................................................................................................................................");
-        jlbPawnCouponPriceInNumber.setToolTipText("");
+        jlbPawnCouponPriceInNumber1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbPawnCouponPriceInNumber1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponPriceInNumber1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponPriceInNumber1.setText(".............................................................................................................................................");
+        jlbPawnCouponPriceInNumber1.setToolTipText("");
 
         jlbCustomerAddress7.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress7.setForeground(new java.awt.Color(0, 0, 0));
@@ -502,11 +502,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress7.setText("     - Số tiền cầm (Bằng chữ)");
         jlbCustomerAddress7.setToolTipText("");
 
-        jlbPawnCouponPriceInText.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbPawnCouponPriceInText.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponPriceInText.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponPriceInText.setText(".............................................................................................................................................");
-        jlbPawnCouponPriceInText.setToolTipText("");
+        jlbPawnCouponPriceInText1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbPawnCouponPriceInText1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponPriceInText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponPriceInText1.setText(".............................................................................................................................................");
+        jlbPawnCouponPriceInText1.setToolTipText("");
 
         jlbCustomerAddress8.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress8.setForeground(new java.awt.Color(0, 0, 0));
@@ -526,11 +526,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress10.setText("     - Lãi suất (/ngày)");
         jlbCustomerAddress10.setToolTipText("");
 
-        jlbPawnCouponInterestRate.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbPawnCouponInterestRate.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponInterestRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponInterestRate.setText(".............................................................................................................................................");
-        jlbPawnCouponInterestRate.setToolTipText("");
+        jlbPawnCouponInterestRate1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbPawnCouponInterestRate1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponInterestRate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponInterestRate1.setText(".............................................................................................................................................");
+        jlbPawnCouponInterestRate1.setToolTipText("");
 
         jlbCustomerAddress11.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress11.setForeground(new java.awt.Color(0, 0, 0));
@@ -544,11 +544,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress12.setText("     - Lãi (/ngày)");
         jlbCustomerAddress12.setToolTipText("");
 
-        jlbPawnCouponInterest.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbPawnCouponInterest.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponInterest.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponInterest.setText(".............................................................................................................................................");
-        jlbPawnCouponInterest.setToolTipText("");
+        jlbPawnCouponInterest1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbPawnCouponInterest1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponInterest1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponInterest1.setText(".............................................................................................................................................");
+        jlbPawnCouponInterest1.setToolTipText("");
 
         jlbCustomerAddress13.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress13.setForeground(new java.awt.Color(0, 0, 0));
@@ -562,11 +562,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbCustomerAddress14.setText("     - Từ ngày");
         jlbCustomerAddress14.setToolTipText("");
 
-        jlbPawnDate.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbPawnDate.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnDate.setText("................................................đến..................................................");
-        jlbPawnDate.setToolTipText("");
+        jlbPawnDate1.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbPawnDate1.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnDate1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnDate1.setText("................................................đến..................................................");
+        jlbPawnDate1.setToolTipText("");
 
         jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(0, 0, 0));
@@ -732,10 +732,10 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jlbPawnCouponPriceInNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jlbPawnCouponPriceInText, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                                .addComponent(jlbPawnCouponInterestRate, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                            .addComponent(jlbPawnCouponInterest, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(jlbPawnCouponPriceInNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jlbPawnCouponPriceInText1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                                .addComponent(jlbPawnCouponInterestRate1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                            .addComponent(jlbPawnCouponInterest1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlbCustomerAddress8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,17 +754,17 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                             .addComponent(jlbCustomerAddress22, javax.swing.GroupLayout.Alignment.TRAILING))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jlbProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlbProductInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))))
+                                    .addComponent(jlbProductName1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlbProductInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(162, 162, 162)
-                            .addComponent(jlbCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel26))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jlbPawnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbPawnDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbPawnCouponInterestRate6, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbPawnCouponInterestRate8, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -776,7 +776,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel47, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel46, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlbCustomerAddress2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbCustomerAddress2432, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -791,8 +791,8 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                 .addComponent(jlbCustomerAddress37)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbCustomerId1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbCustomerAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel45, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -807,16 +807,16 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlbCustomerAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbCustomerId1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jlbCustomerAddress35, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -824,33 +824,33 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlbCustomerAddress37, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbCustomerAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbCustomerAddress2432, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCustomerAddress3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbProductName1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCustomerAddress16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCustomerAddress6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbProductInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbProductInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCustomerAddress17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbCustomerAddress4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbPawnCouponPriceInNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbPawnCouponPriceInNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlbCustomerAddress18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbCustomerAddress7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbPawnCouponPriceInText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbPawnCouponPriceInText1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlbCustomerAddress19, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbCustomerAddress10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbPawnCouponInterestRate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbPawnCouponInterestRate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlbCustomerAddress22, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,11 +859,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jlbCustomerAddress14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlbPawnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jlbPawnDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jlbCustomerAddress24, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlbPawnCouponInterest, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jlbPawnCouponInterest1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jlbCustomerAddress26, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -921,7 +921,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -968,8 +968,8 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel84.setToolTipText("");
         jLabel84.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jlbLogo4.setBackground(new java.awt.Color(153, 153, 153));
-        jlbLogo4.setForeground(new java.awt.Color(204, 204, 204));
+        jlbLogo2.setBackground(new java.awt.Color(153, 153, 153));
+        jlbLogo2.setForeground(new java.awt.Color(204, 204, 204));
 
         jLabel85.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel85.setForeground(new java.awt.Color(0, 0, 0));
@@ -996,11 +996,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel88.setText("Địa chỉ: 26 đường số 34, Linh Đông, Thủ Đức");
         jLabel88.setToolTipText("");
 
-        jlbPawnCouponID4.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jlbPawnCouponID4.setForeground(new java.awt.Color(0, 0, 0));
-        jlbPawnCouponID4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbPawnCouponID4.setText(".......................................");
-        jlbPawnCouponID4.setToolTipText("");
+        jlbPawnCouponId2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jlbPawnCouponId2.setForeground(new java.awt.Color(0, 0, 0));
+        jlbPawnCouponId2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbPawnCouponId2.setText(".......................................");
+        jlbPawnCouponId2.setToolTipText("");
 
         jLabel89.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel89.setForeground(new java.awt.Color(0, 0, 0));
@@ -1022,7 +1022,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel88, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(jlbLogo4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbLogo2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1038,7 +1038,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel89, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbPawnCouponID4, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jlbPawnCouponId2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel86, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel85, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)))
         );
@@ -1051,11 +1051,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                         .addComponent(jLabel84, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbPawnCouponID4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbPawnCouponId2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel89, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbLogo4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbLogo2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1135,17 +1135,17 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel95.setText("CMND/CCCD");
         jLabel95.setToolTipText("");
 
-        jlbCustomerAddress46.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbCustomerAddress46.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerAddress46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerAddress46.setText("....................................................................................................................................................");
-        jlbCustomerAddress46.setToolTipText("");
+        jlbCustomerAddress2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbCustomerAddress2.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerAddress2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerAddress2.setText("....................................................................................................................................................");
+        jlbCustomerAddress2.setToolTipText("");
 
-        jlbCustomerID2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbCustomerID2.setForeground(new java.awt.Color(0, 0, 0));
-        jlbCustomerID2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbCustomerID2.setText("....................................................................................................................................................");
-        jlbCustomerID2.setToolTipText("");
+        jlbCustomerId2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbCustomerId2.setForeground(new java.awt.Color(0, 0, 0));
+        jlbCustomerId2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbCustomerId2.setText("....................................................................................................................................................");
+        jlbCustomerId2.setToolTipText("");
 
         jlbCustomerAddress47.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress47.setForeground(new java.awt.Color(0, 0, 0));
@@ -1171,11 +1171,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jlbProductName2.setText(".............................................................................................................................................");
         jlbProductName2.setToolTipText("");
 
-        jlbProductInformation2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
-        jlbProductInformation2.setForeground(new java.awt.Color(0, 0, 0));
-        jlbProductInformation2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jlbProductInformation2.setText(".............................................................................................................................................");
-        jlbProductInformation2.setToolTipText("");
+        jlbProductInfo2.setFont(new java.awt.Font("Times New Roman", 3, 20)); // NOI18N
+        jlbProductInfo2.setForeground(new java.awt.Color(0, 0, 0));
+        jlbProductInfo2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlbProductInfo2.setText(".............................................................................................................................................");
+        jlbProductInfo2.setToolTipText("");
 
         jlbCustomerAddress50.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
         jlbCustomerAddress50.setForeground(new java.awt.Color(0, 0, 0));
@@ -1448,7 +1448,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jlbProductName2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlbProductInformation2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))))
+                                    .addComponent(jlbProductInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))))
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel12Layout.createSequentialGroup()
                             .addGap(162, 162, 162)
@@ -1484,8 +1484,8 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                                 .addComponent(jlbCustomerAddress68)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlbCustomerID2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerAddress46, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbCustomerId2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbCustomerAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel99, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel98, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel102, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1505,11 +1505,11 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerAddress46, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlbCustomerAddress2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlbCustomerID2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbCustomerId2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jlbCustomerAddress66, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1526,7 +1526,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCustomerAddress49, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbProductInformation2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbProductInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCustomerAddress60, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1614,7 +1614,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1774,8 +1774,6 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -1787,30 +1785,8 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
@@ -1842,11 +1818,9 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPawnCouponPageberJPanel;
     private javax.swing.JButton jbtnPrint;
-    private javax.swing.JLabel jlbCustomerAddress;
+    private javax.swing.JLabel jlbCustomerAddress1;
     private javax.swing.JLabel jlbCustomerAddress10;
     private javax.swing.JLabel jlbCustomerAddress11;
     private javax.swing.JLabel jlbCustomerAddress12;
@@ -1859,13 +1833,13 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jlbCustomerAddress2;
     private javax.swing.JLabel jlbCustomerAddress22;
     private javax.swing.JLabel jlbCustomerAddress24;
+    private javax.swing.JLabel jlbCustomerAddress2432;
     private javax.swing.JLabel jlbCustomerAddress26;
     private javax.swing.JLabel jlbCustomerAddress3;
     private javax.swing.JLabel jlbCustomerAddress35;
     private javax.swing.JLabel jlbCustomerAddress36;
     private javax.swing.JLabel jlbCustomerAddress37;
     private javax.swing.JLabel jlbCustomerAddress4;
-    private javax.swing.JLabel jlbCustomerAddress46;
     private javax.swing.JLabel jlbCustomerAddress47;
     private javax.swing.JLabel jlbCustomerAddress48;
     private javax.swing.JLabel jlbCustomerAddress49;
@@ -1892,21 +1866,17 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jlbCustomerAddress7;
     private javax.swing.JLabel jlbCustomerAddress8;
     private javax.swing.JLabel jlbCustomerAddress9;
-    private javax.swing.JLabel jlbCustomerID;
-    private javax.swing.JLabel jlbCustomerID2;
-    private javax.swing.JLabel jlbCustomerName;
+    private javax.swing.JLabel jlbCustomerId1;
+    private javax.swing.JLabel jlbCustomerId2;
+    private javax.swing.JLabel jlbCustomerName1;
     private javax.swing.JLabel jlbCustomerName2;
-    private javax.swing.JLabel jlbLogo;
+    private javax.swing.JLabel jlbLogo1;
     private javax.swing.JLabel jlbLogo2;
-    private javax.swing.JLabel jlbLogo3;
-    private javax.swing.JLabel jlbLogo4;
-    private javax.swing.JLabel jlbPawnCouponID;
-    private javax.swing.JLabel jlbPawnCouponID2;
-    private javax.swing.JLabel jlbPawnCouponID3;
-    private javax.swing.JLabel jlbPawnCouponID4;
-    private javax.swing.JLabel jlbPawnCouponInterest;
+    private javax.swing.JLabel jlbPawnCouponId1;
+    private javax.swing.JLabel jlbPawnCouponId2;
+    private javax.swing.JLabel jlbPawnCouponInterest1;
     private javax.swing.JLabel jlbPawnCouponInterest2;
-    private javax.swing.JLabel jlbPawnCouponInterestRate;
+    private javax.swing.JLabel jlbPawnCouponInterestRate1;
     private javax.swing.JLabel jlbPawnCouponInterestRate10;
     private javax.swing.JLabel jlbPawnCouponInterestRate11;
     private javax.swing.JLabel jlbPawnCouponInterestRate14;
@@ -1916,15 +1886,15 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
     private javax.swing.JLabel jlbPawnCouponInterestRate2;
     private javax.swing.JLabel jlbPawnCouponInterestRate6;
     private javax.swing.JLabel jlbPawnCouponInterestRate8;
-    private javax.swing.JLabel jlbPawnCouponPriceInNumber;
+    private javax.swing.JLabel jlbPawnCouponPriceInNumber1;
     private javax.swing.JLabel jlbPawnCouponPriceInNumber2;
-    private javax.swing.JLabel jlbPawnCouponPriceInText;
+    private javax.swing.JLabel jlbPawnCouponPriceInText1;
     private javax.swing.JLabel jlbPawnCouponPriceInText2;
-    private javax.swing.JLabel jlbPawnDate;
+    private javax.swing.JLabel jlbPawnDate1;
     private javax.swing.JLabel jlbPawnDate2;
-    private javax.swing.JLabel jlbProductInformation;
-    private javax.swing.JLabel jlbProductInformation2;
-    private javax.swing.JLabel jlbProductName;
+    private javax.swing.JLabel jlbProductInfo1;
+    private javax.swing.JLabel jlbProductInfo2;
+    private javax.swing.JLabel jlbProductName1;
     private javax.swing.JLabel jlbProductName2;
     // End of variables declaration//GEN-END:variables
 }

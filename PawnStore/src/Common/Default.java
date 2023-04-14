@@ -25,4 +25,6 @@ public class Default {
 
     public static final String DEFAULT_PASSWORD = "1";
 
+    public static final int PAYMENT_CIRCLE = 15;
+
 }

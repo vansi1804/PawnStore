@@ -14,4 +14,5 @@ import java.sql.ResultSet;
 public interface IObjectMapper<T> {
 
     T mapObject(ResultSet rs);
+    
 }

@@ -16,19 +16,19 @@ public class InterestPayment {
     private PawnCoupon pawnCoupon;
     private int times;
     private String paymentDate;
-    private int money;
-    private int debt;
+    private long moneyPaid;
+    private long newDebt;
     private String note;
 
     public InterestPayment() {
     }
 
-    public InterestPayment(PawnCoupon pawnCoupon, int times, String paymentDate, int money, int debt, String note) {
+    public InterestPayment(PawnCoupon pawnCoupon, int times, String paymentDate, long money, long debt, String note) {
         this.pawnCoupon = pawnCoupon;
         this.times = times;
         this.paymentDate = paymentDate;
-        this.money = money;
-        this.debt = debt;
+        this.moneyPaid = money;
+        this.newDebt = debt;
         this.note = note;
     }
 
@@ -56,20 +56,20 @@ public class InterestPayment {
         this.paymentDate = paymentDate;
     }
 
-    public int getMoney() {
-        return money;
+    public long getMoneyPaid() {
+        return moneyPaid;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setMoneyPaid(long moneyPaid) {
+        this.moneyPaid = moneyPaid;
     }
 
-    public int getDebt() {
-        return debt;
+    public long getNewDebt() {
+        return newDebt;
     }
 
-    public void setDebt(int debt) {
-        this.debt = debt;
+    public void setNewDebt(long newDebt) {
+        this.newDebt = newDebt;
     }
 
     public String getNote() {
@@ -79,15 +79,14 @@ public class InterestPayment {
     public void setNote(String note) {
         this.note = note;
     }
-
     
     @Override
     public String toString() {
         return pawnCoupon.getId()
                 + " - " + times
                 + " - " + paymentDate
-                + " - " + money
-                + " - " + debt
+                + " - " + moneyPaid
+                + " - " + newDebt
                 + (!CheckSupport.isNullOrBlank(note) ? (" - " + note) : "");
 
     }

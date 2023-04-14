@@ -205,8 +205,10 @@ public class ADAO<T> implements IGenericDAO<T> {
             for (int i = 0; i < parameters.length; i++) {
                 Object parameter = parameters[i];
                 int index = i + 1;
-                if (parameter instanceof Float) {
-                    statement.setFloat(index, (float) parameter);
+                if (parameter instanceof Long) {
+                    statement.setFloat(index, (Long) parameter);
+                } else if (parameter instanceof Float) {
+                    statement.setFloat(index, (Float) parameter);
                 } else if (parameter instanceof String) {
                     statement.setString(index, (String) parameter);
                 } else if (parameter instanceof Integer) {

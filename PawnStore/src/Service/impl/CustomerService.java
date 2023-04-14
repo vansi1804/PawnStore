@@ -26,8 +26,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<Customer> findAllServing() {
-        return customerDAO.findAllServing();
+    public List<Customer> findAllByStatus(Boolean deleteFlag) {
+        return customerDAO.findAllByStatus(deleteFlag);
     }
 
     @Override

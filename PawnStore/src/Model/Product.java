@@ -28,6 +28,10 @@ public class Product {
         this.status = status;
     }
 
+    public Product(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
@@ -70,7 +74,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return id + " - " + typeOfProduct.getId() + " - " + name 
+        return id + " - " + typeOfProduct.getDeleteFlag() + " - " + name
                 + " - " + info + " - " + status;
     }
 }

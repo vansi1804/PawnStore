@@ -4,6 +4,21 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
+    <Container class="javax.swing.JPanel" name="jPanel6">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -138,7 +153,7 @@
                           <Component id="jPanel3" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -373,35 +388,30 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel5" pref="190" max="32767" attributes="0"/>
-                                      <Component id="jLabel4" max="32767" attributes="0"/>
-                                      <Component id="jLabel8" max="32767" attributes="0"/>
-                                      <Component id="jbtnResetPassword" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel5" pref="190" max="32767" attributes="0"/>
+                              <Component id="jLabel4" max="32767" attributes="0"/>
+                              <Component id="jLabel8" max="32767" attributes="0"/>
+                              <Component id="jbtnResetPassword" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jtfUsername" max="32767" attributes="0"/>
+                              <Component id="jlbInvalidUsername" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jtfFullname" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jlbInvalidFullname" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jpfPassword" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jlbInvalidPasword" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jbtnAdd" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jlbInvalidUsername" max="32767" attributes="0"/>
-                                      <Component id="jlbInvalidFullname" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jtfFullname" max="32767" attributes="0"/>
-                                      <Component id="jpfPassword" max="32767" attributes="0"/>
-                                      <Component id="jtfUsername" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jbtnAdd" min="-2" pref="120" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jbtnLockOrUnlock" min="-2" pref="120" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jlbInvalidPasword" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jbtnLockOrUnlock" min="-2" pref="120" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -409,29 +419,29 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel8" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jtfUsername" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jtfUsername" alignment="0" pref="25" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlbInvalidUsername" min="-2" pref="15" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jtfFullname" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="jtfFullname" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlbInvalidFullname" min="-2" pref="15" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jpfPassword" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jpfPassword" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="jLabel5" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jlbInvalidPasword" min="-2" pref="15" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jchbShowHirePassword" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jbtnAdd" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jbtnLockOrUnlock" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -645,14 +655,14 @@
                                   <Component id="jLabel9" min="-2" pref="193" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jDCFromDate" pref="120" max="32767" attributes="0"/>
+                                      <Component id="jdcFromDate" pref="120" max="32767" attributes="0"/>
                                       <Component id="jLabel17" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" pref="9" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jDCToDate" pref="120" max="32767" attributes="0"/>
+                                      <Component id="jdcToDate" pref="120" max="32767" attributes="0"/>
                                       <Component id="jLabel20" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -673,7 +683,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jtfInforKey" max="32767" attributes="0"/>
-                                      <Component id="jLabel19" pref="144" max="32767" attributes="0"/>
+                                      <Component id="jLabel19" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -708,8 +718,8 @@
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jDCToDate" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Component id="jDCFromDate" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="jdcToDate" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="jdcFromDate" min="-2" pref="21" max="-2" attributes="0"/>
                                       <Component id="jLabel13" min="-2" pref="21" max="-2" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                           <Component id="jtfUsernameKey" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
@@ -752,21 +762,27 @@
                     <Property name="text" type="java.lang.String" value="T&#x1eeb; ng&#xe0;y"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDCFromDate">
+                <Component class="com.toedter.calendar.JDateChooser" name="jdcFromDate">
                   <Properties>
                     <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="14" style="2"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdcDatePropertyChange"/>
+                  </Events>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDCToDate">
+                <Component class="com.toedter.calendar.JDateChooser" name="jdcToDate">
                   <Properties>
                     <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Times New Roman" size="14" style="2"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jdcDatePropertyChange"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel13">
                   <Properties>
@@ -803,6 +819,9 @@
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfActivityHistoryKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfActivityKey">
                   <Properties>
@@ -816,6 +835,9 @@
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfActivityHistoryKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
@@ -853,6 +875,9 @@
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfActivityHistoryKeyReleased"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfInforKey">
                   <Properties>
@@ -866,6 +891,9 @@
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfActivityHistoryKeyReleased"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                   <AuxValues>
@@ -907,17 +935,17 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="200" minWidth="150" prefWidth="150" resizable="true">
+                            <Column maxWidth="200" minWidth="50" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="100" minWidth="-1" prefWidth="100" resizable="true">
+                            <Column maxWidth="100" minWidth="50" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="100" minWidth="-1" prefWidth="100" resizable="true">
+                            <Column maxWidth="100" minWidth="50" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>

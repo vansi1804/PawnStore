@@ -31,8 +31,8 @@ public class CustomerController {
         return customerService.findAll();
     }
 
-    public List<Customer> findAllServing() {
-        return customerService.findAllServing();
+    public List<Customer> findAllByStatus(Boolean deleteFlag) {
+        return customerService.findAllByStatus(deleteFlag);
     }
 
     public Customer findOneById(String id) {

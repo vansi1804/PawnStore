@@ -13,7 +13,9 @@ import java.util.List;
  */
 public interface ITypeOfProductService {
 
-    List<TypeOfProduct> findAllServing();
+    List<TypeOfProduct> findAll();
+
+    List<TypeOfProduct> findAllByStatus(Boolean deleteFlag);
 
     TypeOfProduct findOneById(String id);
 
@@ -26,4 +28,5 @@ public interface ITypeOfProductService {
     String createNewId();
 
     List<TypeOfProduct> filterByKey(String idKey, String nameKey, Boolean deleteflagKey);
+
 }

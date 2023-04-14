@@ -27,10 +27,10 @@ public class CustomerDAO extends ADAO<Customer> implements ICustomerDAO {
     }
 
     @Override
-    public List<Customer> findAllServing() {
+    public List<Customer> findAllByStatus(Boolean deleteFlag) {
         String query = SELECTQUERY
-                + " Where delete_flag = 0";
-        return findAll(query, new CustomerMapper());
+                + (deleteFlag == null ? "" : " Where delete_flag = ?");
+        return findAll(query, new CustomerMapper(), deleteFlag);
     }
 
     @Override

@@ -4,13 +4,17 @@
  */
 package Service.impl;
 
-import DAO.IInterestPaymentDAO;
+import DAO.ICustomerDAO;
 import DAO.IPawnCouponDAO;
-import DAO.impl.InterestPaymentDAO;
+import DAO.IProductDAO;
+import DAO.impl.CustomerDAO;
 import DAO.impl.PawnCouponDAO;
-import Model.InterestPayment;
+import DAO.impl.ProductDAO;
+import Model.Customer;
 import Model.PawnCoupon;
+import Model.Product;
 import Service.IPawnCouponService;
+import Support.MessageSupport;
 import Support.Support;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +28,8 @@ import java.util.stream.Collectors;
 public class PawnCouponService implements IPawnCouponService {
 
     private final IPawnCouponDAO pawnCouponDAO = new PawnCouponDAO();
-    private final IInterestPaymentDAO interestPaymentDAO = new InterestPaymentDAO();
+    private final ICustomerDAO customerDAO = new CustomerDAO();
+    private final IProductDAO productDAO = new ProductDAO();
 
     @Override
     public List<PawnCoupon> findAll() {
@@ -37,49 +42,78 @@ public class PawnCouponService implements IPawnCouponService {
     }
 
     @Override
-    public PawnCoupon getPawnCoupon(String id) {
-        return updateLate(pawnCouponDAO.getPawnCoupon(id));
+    public PawnCoupon findOneById(String id) {
+        return updateLate(pawnCouponDAO.findOneById(id));
     }
 
     @Override
     public boolean insert(PawnCoupon pawnCoupon) {
+        if (customerDAO.findOneById(pawnCoupon.getCustomer().getId()).getDeleteFlag()) {
+            MessageSupport.ErrorMessage("Lỗi", "Khách hàng ngưng phục vụ");
+            return false;
+        }
+        Product product = productDAO.findOneById(pawnCoupon.getProduct().getId());
+        if (product.getTypeOfProduct().getDeleteFlag()) {
+            MessageSupport.ErrorMessage("Lỗi", "Hàng hóa thuộc loại mặt hàng ngưng phục vụ");
+            return false;
+        } else if (product.getStatus().equals("Chưa chuộc")
+                || product.getStatus().equals("Cần thanh lý")) {
+            MessageSupport.ErrorMessage("Lỗi", "Hàng hóa đang có hiệu lực ở một hợp đồng khác\n Kiểm tra và thử lại");
+            return false;
+        }
         return pawnCouponDAO.insert(pawnCoupon);
     }
 
     @Override
     public boolean update(PawnCoupon pawnCoupon) {
+        PawnCoupon existingOne = this.findOneById(pawnCoupon.getId());
+        Customer customer = customerDAO.findOneById(pawnCoupon.getCustomer().getId());
+        if (!existingOne.getCustomer().getId().equals(customer.getId()) && customer.getDeleteFlag()) {
+            MessageSupport.ErrorMessage("Lỗi", "Khách hàng ngưng phục vụ");
+            return false;
+        }
+        Product product = productDAO.findOneById(pawnCoupon.getProduct().getId());
+        if (!existingOne.getProduct().getId().equals(product.getId())
+                && (product.getStatus().equals("Chưa chuộc") || product.getStatus().equals("Cần thanh lý"))) {
+            MessageSupport.ErrorMessage("Lỗi", "Hàng hóa đang có hiệu lực ở một hợp đồng khác\n Kiểm tra và thử lại");
+            return false;
+        }
         return pawnCouponDAO.update(pawnCoupon);
     }
 
     @Override
-    public String getNewID() {
-        List<PawnCoupon> pawnCoupons = pawnCouponDAO.findAll();
-        if (pawnCoupons.isEmpty()) {
+    public String createNewId() {
+        PawnCoupon pawnCoupon = pawnCouponDAO.findLastest();
+        if (pawnCoupon == null) {
             return "HĐ0000000001";
         }
-        return Support.createNewId(pawnCoupons.get(pawnCoupons.size() - 1).getId());
-    }
-
-    @Override
-    public String getTheNextPaymentDate(PawnCoupon pawnCoupon) {
-        List<InterestPayment> interestPayments = interestPaymentDAO.getList(pawnCoupon);
-        if (interestPayments.isEmpty()) {
-            return Support.addDate(pawnCoupon.getPawnDate(), 14);
-        } else {
-            return Support.addDate(interestPayments.get(interestPayments.size() - 1).getPaymentDate(), 15);
-        }
-    }
-
-    private boolean checkForLate(PawnCoupon pawnCoupon) {
-        return pawnCoupon.getStatus().equals("Chưa chuộc") && Support.subtractDate(getTheNextPaymentDate(pawnCoupon), new Date()) < 0;
+        return Support.createNewId(pawnCoupon.getId());
     }
 
     private PawnCoupon updateLate(PawnCoupon pawnCoupon) {
-        if (pawnCoupon != null && checkForLate(pawnCoupon)) {
-            pawnCoupon.setStatus("Trễ");
-            pawnCouponDAO.update(pawnCoupon);
+        if (pawnCoupon.getStatus().equals("Chưa chuộc")) {
+            if (Support.subtractDate(pawnCoupon.getTheNextInterestPaymentDate(), new Date()) <= 0) {
+                pawnCoupon.setStatus("Trễ");
+                this.update(pawnCoupon);
+            }
         }
         return pawnCoupon;
+    }
+
+    @Override
+    public List<PawnCoupon> filter(String id, String customerId, String productId,
+            Long pawnPrice, Float interestRate, Integer amount,
+            String pawnDate, String theNextInterestPaymentDate, String redemptionOrLiquidationDate,
+            Long liquidationPrice, String status) {
+        return pawnCouponDAO.filter(id, customerId, productId,
+                pawnPrice, interestRate, amount,
+                pawnDate, theNextInterestPaymentDate, redemptionOrLiquidationDate,
+                liquidationPrice, status);
+    }
+
+    @Override
+    public List<PawnCoupon> findAllByCustomerId(String customerId) {
+        return pawnCouponDAO.findAllByCustomerId(customerId);
     }
 
 }

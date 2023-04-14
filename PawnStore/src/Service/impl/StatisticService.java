@@ -4,6 +4,7 @@
  */
 package Service.impl;
 
+import Common.Default;
 import DAO.IActivityHistoryDAO;
 import DAO.ICustomerDAO;
 import DAO.IInterestPaymentDAO;
@@ -22,8 +23,9 @@ import Model.PawnCoupon;
 import Model.TypeOfProduct;
 import Service.IStatisticService;
 import Support.Support;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -39,12 +41,18 @@ public class StatisticService implements IStatisticService {
     private final ICustomerDAO customerDAO = new CustomerDAO();
     private final ITypeOfProductDAO typeOfProductDAO = new TypeOfProductDAO();
     private final IActivityHistoryDAO activityHistoryDAO = new ActivityHistoryDAO();
-    private final IProductDAO productDAO = new ProductDAO();
 
     @Override
+    @SuppressWarnings({"AssignmentToMethodParameter"})
     public List<String> getPawnCouponStatistic(Date dateFrom, Date dateTo) {
+        if (dateFrom == null) {
+            dateFrom = new Date(0);
+        }
+        if (dateTo == null) {
+            dateTo = new Date(Long.MAX_VALUE);
+        }
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        List<String> results = new List<>();
+        List<String> results = new ArrayList<>();
         int totalPawnCouponCount = 0;
         long totalPawnCouponPrice = 0;
         int totalNotRedeemedPawnCouponCount = 0;
@@ -57,13 +65,13 @@ public class StatisticService implements IStatisticService {
         long totalInterest = 0;
 
         for (PawnCoupon pawnCoupon : pawnCouponDAO.findAll()) {
-            Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
+            Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Default.DATE_FORMAT);
             if (dateFrom.compareTo(pawnDate) <= dateTo.compareTo(pawnDate)) {
                 totalPawnCouponCount++;
                 totalPawnCouponPrice += pawnCoupon.getPrice();
             }
             if (pawnCoupon.getStatus().equals("Đã chuộc") || pawnCoupon.getStatus().equals("Đã thanh lý")) {
-                Date redeemOrLiquidateDate = Support.stringToDate(pawnCoupon.getRedemption0rLiquidationDate(), Support.getDateFormat());
+                Date redeemOrLiquidateDate = Support.stringToDate(pawnCoupon.getRedemption0rLiquidationDate(), Default.DATE_FORMAT);
                 if (dateFrom.compareTo(redeemOrLiquidateDate) <= dateTo.compareTo(redeemOrLiquidateDate)) {
                     if (pawnCoupon.getStatus().equals("Đã chuộc")) {
                         totalRedeemedPawnCouponCount++;
@@ -74,22 +82,18 @@ public class StatisticService implements IStatisticService {
                         totalLiquidatedPawnCouponLiquidationPrice += pawnCoupon.getLiquidationPrice();
                         totalInterest += pawnCoupon.getLiquidationPrice() - pawnCoupon.getPrice();
                     }
-                } else {
-                    totalNotRedeemedPawnCouponCount++;
-                    totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
                 }
             } else {
                 totalNotRedeemedPawnCouponCount++;
                 totalNotRedeemedPawnCouponPrice += pawnCoupon.getPrice();
             }
-            for (InterestPayment interestPayment : interestPaymentDAO.getList(pawnCoupon)) {
-                Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Support.getDateFormat());
+            for (InterestPayment interestPayment : interestPaymentDAO.findAllByPawnCouponId(pawnCoupon.getId())) {
+                Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Default.DATE_FORMAT);
                 if (dateFrom.compareTo(paymentDate) <= dateTo.compareTo(paymentDate)) {
-                    totalInterest += interestPayment.getMoney();
+                    totalInterest += interestPayment.getMoneyPaid();
                 }
             }
         }
-
         results.add(Support.getFormatNumber(totalPawnCouponCount));
         results.add(Support.getFormatNumber(totalPawnCouponPrice));
         results.add(Support.getFormatNumber(totalNotRedeemedPawnCouponCount));
@@ -104,8 +108,14 @@ public class StatisticService implements IStatisticService {
     }
 
     @Override
-    @SuppressWarnings("null")
+    @SuppressWarnings({"null", "AssignmentToMethodParameter"})
     public List<String> getCustomerStatistic(Date dateFrom, Date dateTo) {
+        if (dateFrom == null) {
+            dateFrom = new Date(0);
+        }
+        if (dateTo == null) {
+            dateTo = new Date(Long.MAX_VALUE);
+        }
         int totalCustomer = 0;
         String bestCustomerName = "";
         int bestCustomerPawnedCount = 0;
@@ -114,26 +124,26 @@ public class StatisticService implements IStatisticService {
         int totalStopServiceCount = 0;
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        List<String> results = new List<>();
-        for (Customer customer : customerDAO.findAllServing()) {
-            String strDateFrom = Support.dateToString(dateFrom, Support.getDateFormat());
-            String strDateTo = Support.dateToString(dateTo, Support.getDateFormat());
-            if (!activityHistoryDAO.findActivityHistoryByKey(strDateFrom, strDateTo, null, "Thêm mới", "Khách hàng", null).isEmpty()) {
+        List<String> results = new ArrayList<>();
+        for (Customer customer : customerDAO.findAllByStatus(Boolean.TRUE)) {
+            String strDateFrom = Support.dateToString(dateFrom, Default.DATE_FORMAT);
+            String strDateTo = Support.dateToString(dateTo, Default.DATE_FORMAT);
+            if (!activityHistoryDAO.filterByKey(strDateFrom, strDateTo, null, "Thêm mới", "Khách hàng", null).isEmpty()) {
                 totalCustomer++;
             }
             int totalPawnedCount = 0;
             long totalPawnedPrice = 0;
             long totalInterestPayed = 0;
-            for (PawnCoupon pawnCoupon : pawnCouponDAO.findPawnCouponByCustomerKey(customer)) {
-                Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
+            for (PawnCoupon pawnCoupon : pawnCouponDAO.findAllByCustomerId(customer.getId())) {
+                Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Default.DATE_FORMAT);
                 if (dateFrom.compareTo(pawnDate) <= dateTo.compareTo(pawnDate)) {
                     totalPawnedCount++;
                     totalPawnedPrice += pawnCoupon.getPrice();
                 }
-                for (InterestPayment interestPayment : interestPaymentDAO.getList(pawnCoupon)) {
-                    Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Support.getDateFormat());
+                for (InterestPayment interestPayment : interestPaymentDAO.findAllByPawnCouponId(pawnCoupon.getId())) {
+                    Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Default.DATE_FORMAT);
                     if (dateFrom.compareTo(paymentDate) <= dateTo.compareTo(paymentDate)) {
-                        totalInterestPayed += interestPayment.getMoney();
+                        totalInterestPayed += interestPayment.getMoneyPaid();
                     }
                 }
             }
@@ -155,8 +165,8 @@ public class StatisticService implements IStatisticService {
                     bestCustomerName += ", " + customer.getId() + " - " + customer.getFullname();
                 }
             }
-            if (!activityHistoryDAO.findActivityHistoryByKey(strDateFrom, strDateTo, null, "Sửa", "Khách hàng", "Ngưng phục vụ").isEmpty()
-                    && activityHistoryDAO.findActivityHistoryByKey(strDateTo, strDateTo, null, "Sửa", "Khách hàng", "Phục vụ").isEmpty()) {
+            if (!activityHistoryDAO.filterByKey(strDateFrom, strDateTo, null, "Sửa", "Khách hàng", "Ngưng phục vụ").isEmpty()
+                    && activityHistoryDAO.filterByKey(strDateTo, strDateTo, null, "Sửa", "Khách hàng", "Phục vụ").isEmpty()) {
                 totalStopServiceCount++;
             }
         }
@@ -172,8 +182,14 @@ public class StatisticService implements IStatisticService {
     }
 
     @Override
+    @SuppressWarnings("AssignmentToMethodParameter")
     public List<String> getTypeOfProductStatistic(Date dateFrom, Date dateTo) {
-
+        if (dateFrom == null) {
+            dateFrom = new Date(0);
+        }
+        if (dateTo == null) {
+            dateTo = new Date(Long.MAX_VALUE);
+        }
         int typeOfProductCount = 0;
         int productCount = 0;
         String bestTypeOfProductName = "";
@@ -183,13 +199,13 @@ public class StatisticService implements IStatisticService {
         int totalStopServiceCount = 0;
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
-        List<String> results = new List<>();
+        List<String> results = new ArrayList<>();
 
-        for (TypeOfProduct typeOfProduct : typeOfProductDAO.findAllServing()) {
+        for (TypeOfProduct typeOfProduct : typeOfProductDAO.findAll()) {
             typeOfProductCount++;
-            String strDateFrom = Support.dateToString(dateFrom, Support.getDateFormat());
-            String strDateTo = Support.dateToString(dateTo, Support.getDateFormat());
-            if (!activityHistoryDAO.findActivityHistoryByKey(strDateFrom, strDateTo, null, "Thêm mới", "Hàng hóa", typeOfProduct.getId()).isEmpty()) {
+            String strDateFrom = Support.dateToString(dateFrom, Default.DATE_FORMAT);
+            String strDateTo = Support.dateToString(dateTo, Default.DATE_FORMAT);
+            if (!activityHistoryDAO.filterByKey(strDateFrom, strDateTo, null, "Thêm mới", "Hàng hóa", typeOfProduct.getId()).isEmpty()) {
                 productCount++;
             }
             int totalPawnedCount = 0;
@@ -197,14 +213,14 @@ public class StatisticService implements IStatisticService {
             long totalInterestPayed = 0;
             for (PawnCoupon pawnCoupon : pawnCouponDAO.findAll()) {
                 if (typeOfProduct.getId().equals(pawnCoupon.getProduct().getTypeOfProduct().getId())) {
-                    Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Support.getDateFormat());
+                    Date pawnDate = Support.stringToDate(pawnCoupon.getPawnDate(), Default.DATE_FORMAT);
                     if (dateFrom.compareTo(pawnDate) <= dateTo.compareTo(pawnDate)) {
                         totalPawnedCount++;
                         totalPawnedPrice += pawnCoupon.getPrice();
-                        for (InterestPayment interestPayment : interestPaymentDAO.getList(pawnCoupon)) {
-                            Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Support.getDateFormat());
+                        for (InterestPayment interestPayment : interestPaymentDAO.findAllByPawnCouponId(pawnCoupon.getId())) {
+                            Date paymentDate = Support.stringToDate(interestPayment.getPaymentDate(), Default.DATE_FORMAT);
                             if (dateFrom.compareTo(paymentDate) <= dateTo.compareTo(paymentDate)) {
-                                totalInterestPayed += interestPayment.getMoney();
+                                totalInterestPayed += interestPayment.getMoneyPaid();
                             }
                         }
                     }
@@ -227,8 +243,8 @@ public class StatisticService implements IStatisticService {
                     bestTypeOfProductName += ", " + typeOfProduct.getName();
                 }
             }
-            if (!activityHistoryDAO.findActivityHistoryByKey(strDateFrom, strDateTo, null, "Sửa", "Loại hàng hóa", "Ngưng phục vụ").isEmpty()
-                    && activityHistoryDAO.findActivityHistoryByKey(strDateTo, strDateTo, null, "Sửa", "Loại hàng hóa", "Phục vụ").isEmpty()) {
+            if (!activityHistoryDAO.filterByKey(strDateFrom, strDateTo, null, "Sửa", "Loại hàng hóa", "Ngưng phục vụ").isEmpty()
+                    && activityHistoryDAO.filterByKey(strDateTo, strDateTo, null, "Sửa", "Loại hàng hóa", "Phục vụ").isEmpty()) {
                 totalStopServiceCount++;
             }
         }

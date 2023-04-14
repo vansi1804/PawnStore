@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface IProductDAO extends IGenericDAO<Product> {
 
-    public List<Product> findAll();
+    List<Product> findAll();
 
-    List<Product> findAllNotRedeemed();
+    List<Product> findAllByStatus(String status);
 
     Product findOneById(String id);
 
@@ -27,5 +27,7 @@ public interface IProductDAO extends IGenericDAO<Product> {
     boolean update(Product product);
 
     List<Product> filterByKey(String idKey, TypeOfProduct typeOfProductKey, String nameKey, String inforKey, String statusKey);
+    
+    Product findLastest();
 
 }

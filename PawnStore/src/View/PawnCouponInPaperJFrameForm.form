@@ -126,7 +126,7 @@
                           <Component id="jPanel2" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -148,7 +148,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel13" alignment="0" pref="335" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlbLogo" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="jlbLogo1" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jLabel3" max="32767" attributes="0"/>
@@ -167,7 +167,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel16" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jlbPawnCouponID" min="-2" pref="216" max="-2" attributes="0"/>
+                                      <Component id="jlbPawnCouponId1" min="-2" pref="216" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel12" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel11" alignment="0" pref="459" max="32767" attributes="0"/>
@@ -184,13 +184,13 @@
                                       <Component id="jLabel8" min="-2" pref="46" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbPawnCouponID" max="32767" attributes="0"/>
+                                          <Component id="jlbPawnCouponId1" max="32767" attributes="0"/>
                                           <Component id="jLabel16" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbLogo" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="jlbLogo1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                               <Component id="jLabel3" min="-2" pref="46" max="-2" attributes="0"/>
@@ -311,7 +311,7 @@
                         <Property name="verticalAlignment" type="int" value="3"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbLogo">
+                    <Component class="javax.swing.JLabel" name="jlbLogo1">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="99" red="99" type="rgb"/>
@@ -374,7 +374,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponID">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponId1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="18" style="3"/>
@@ -484,11 +484,11 @@
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="1" attributes="0">
                                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="jlbPawnCouponPriceInNumber" min="-2" pref="444" max="-2" attributes="0"/>
-                                                              <Component id="jlbPawnCouponPriceInText" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                              <Component id="jlbPawnCouponInterestRate" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                              <Component id="jlbPawnCouponPriceInNumber1" min="-2" pref="444" max="-2" attributes="0"/>
+                                                              <Component id="jlbPawnCouponPriceInText1" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                              <Component id="jlbPawnCouponInterestRate1" alignment="0" pref="0" max="32767" attributes="0"/>
                                                           </Group>
-                                                          <Component id="jlbPawnCouponInterest" min="-2" pref="443" max="-2" attributes="0"/>
+                                                          <Component id="jlbPawnCouponInterest1" min="-2" pref="443" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -515,8 +515,8 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jlbProductName" min="-2" pref="549" max="-2" attributes="0"/>
-                                                  <Component id="jlbProductInformation" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="jlbProductName1" min="-2" pref="549" max="-2" attributes="0"/>
+                                                  <Component id="jlbProductInfo1" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -524,13 +524,13 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerName" min="-2" pref="467" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerName1" min="-2" pref="467" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jlbPawnDate" min="-2" pref="550" max="-2" attributes="0"/>
+                                          <Component id="jlbPawnDate1" min="-2" pref="550" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel39" alignment="0" min="-2" pref="794" max="-2" attributes="0"/>
@@ -546,7 +546,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel47" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel46" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jlbCustomerAddress2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jlbCustomerAddress2432" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="jLabel27" alignment="0" max="32767" attributes="0"/>
@@ -564,8 +564,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbCustomerID" min="-2" pref="632" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerAddress" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerId1" min="-2" pref="632" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerAddress1" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel42" alignment="0" max="32767" attributes="0"/>
@@ -585,18 +585,18 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerName1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jLabel26" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel27" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerAddress" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerAddress1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel28" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerID" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerId1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -608,17 +608,17 @@
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlbCustomerAddress2" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jlbCustomerAddress2432" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jlbCustomerAddress3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jlbProductName" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jlbProductName1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jlbCustomerAddress16" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jlbCustomerAddress6" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jlbProductInformation" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jlbProductInfo1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jlbCustomerAddress17" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -626,19 +626,19 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jlbCustomerAddress4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbPawnCouponPriceInNumber" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbPawnCouponPriceInNumber1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jlbCustomerAddress18" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jlbCustomerAddress7" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbPawnCouponPriceInText" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbPawnCouponPriceInText1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jlbCustomerAddress19" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jlbCustomerAddress10" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbPawnCouponInterestRate" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbPawnCouponInterestRate1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jlbCustomerAddress22" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -648,13 +648,13 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jlbCustomerAddress14" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                                  <Component id="jlbPawnDate" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="jlbPawnDate1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jlbCustomerAddress24" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                                  <Component id="jlbPawnCouponInterest" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="jlbPawnCouponInterest1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jlbCustomerAddress26" min="-2" pref="28" max="-2" attributes="0"/>
@@ -715,7 +715,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerName">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerName1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -767,7 +767,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -780,7 +780,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerID">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerId1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -793,7 +793,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress2">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress2432">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="0"/>
@@ -832,7 +832,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbProductName">
+                    <Component class="javax.swing.JLabel" name="jlbProductName1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -845,7 +845,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbProductInformation">
+                    <Component class="javax.swing.JLabel" name="jlbProductInfo1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -871,7 +871,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponPriceInNumber">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponPriceInNumber1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -897,7 +897,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponPriceInText">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponPriceInText1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -949,7 +949,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponInterestRate">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponInterestRate1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -988,7 +988,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponInterest">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponInterest1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -1027,7 +1027,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnDate">
+                    <Component class="javax.swing.JLabel" name="jlbPawnDate1">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -1371,7 +1371,7 @@
                           <Component id="jPanel10" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel12" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1393,7 +1393,7 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel88" alignment="0" pref="335" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jlbLogo4" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <Component id="jlbLogo2" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jLabel79" alignment="0" max="32767" attributes="0"/>
@@ -1412,7 +1412,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel89" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jlbPawnCouponID4" min="-2" pref="216" max="-2" attributes="0"/>
+                                      <Component id="jlbPawnCouponId2" min="-2" pref="216" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel86" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel85" alignment="0" pref="459" max="32767" attributes="0"/>
@@ -1429,13 +1429,13 @@
                                       <Component id="jLabel84" min="-2" pref="46" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbPawnCouponID4" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jlbPawnCouponId2" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jLabel89" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbLogo4" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Component id="jlbLogo2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                               <Component id="jLabel79" min="-2" pref="46" max="-2" attributes="0"/>
@@ -1556,7 +1556,7 @@
                         <Property name="verticalAlignment" type="int" value="3"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbLogo4">
+                    <Component class="javax.swing.JLabel" name="jlbLogo2">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="99" red="99" type="rgb"/>
@@ -1619,7 +1619,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbPawnCouponID4">
+                    <Component class="javax.swing.JLabel" name="jlbPawnCouponId2">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="18" style="3"/>
@@ -1761,7 +1761,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="jlbProductName2" alignment="0" min="-2" pref="549" max="-2" attributes="0"/>
-                                                  <Component id="jlbProductInformation2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="jlbProductInfo2" alignment="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -1809,8 +1809,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jlbCustomerID2" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerAddress46" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerId2" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerAddress2" alignment="0" min="-2" pref="632" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel99" alignment="0" max="32767" attributes="0"/>
@@ -1836,12 +1836,12 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel94" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerAddress46" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerAddress2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel95" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="jlbCustomerID2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerId2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -1863,7 +1863,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jlbCustomerAddress49" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jlbProductInformation2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jlbProductInfo2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                   <Component id="jlbCustomerAddress60" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2012,7 +2012,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress46">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerAddress2">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -2025,7 +2025,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbCustomerID2">
+                    <Component class="javax.swing.JLabel" name="jlbCustomerId2">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>
@@ -2090,7 +2090,7 @@
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jlbProductInformation2">
+                    <Component class="javax.swing.JLabel" name="jlbProductInfo2">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Times New Roman" size="20" style="3"/>

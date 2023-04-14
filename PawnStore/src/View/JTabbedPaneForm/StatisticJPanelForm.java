@@ -5,13 +5,11 @@
 package View.JTabbedPaneForm;
 
 import Controller.StatisticController;
-import Support.MessageSupport;
-import Support.Support;
 import View.HomePageJFrameForm;
-import java.beans.PropertyChangeEvent;
-import java.util.List;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -21,39 +19,30 @@ import java.util.Date;
 public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-
-    private static final Date nullDefaultDateFrom = Support.stringToDate("01/01/1000", Support.getDateFormat());
-    private static final Date nullDefaultDateTo = Support.stringToDate("31/12/9999", Support.getDateFormat());
-    private static final Date defaultDateFrom = Support.stringToDate(
-            String.valueOf(Calendar.getInstance().getActualMinimum(Calendar.DATE))
-            + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
-            + "/2022",
-            Support.getDateFormat());
-    private static final Date defaultDateTo = Support.stringToDate(
-            String.valueOf(Calendar.getInstance().getActualMaximum(Calendar.DATE))
-            + "/" + String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1)
-            + "/2022",
-            Support.getDateFormat());
+    private static final Date FROM = Date.from(
+            LocalDate.now().withDayOfMonth(1).atStartOfDay(
+                    ZoneId.systemDefault())
+                    .toInstant());
+    private static final Date TO = Date.from(
+            LocalDate.now().withDayOfMonth(
+                    LocalDate.now().lengthOfMonth())
+                    .atStartOfDay(
+                            ZoneId.systemDefault())
+                    .toInstant());
 
     public StatisticJPanelForm() {
         initComponents();
-        jdcDateFrom.setDate(defaultDateFrom);
-        jdcDateTo.setDate(defaultDateTo);
+        jdcDateFrom.setDate(FROM);
+        jdcDateTo.setDate(TO);
         setPawnCouponStatistics();
         setCustomerStatistics();
         setTypeOfProductStatistics();
-        setDateFindValueChage();
     }
 
     private void setPawnCouponStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        List<String> results = new List<>();
-        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
-            results = StatisticController.getCurrentInstance()
-                    .getPawnCouponStatistic(nullDefaultDateFrom,nullDefaultDateTo);
-        } else {
-            results = StatisticController.getCurrentInstance().getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
-        }
+        List<String> results = StatisticController.getCurrentInstance()
+                .getPawnCouponStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         jlb1_2.setText(results.get(0));
         jlb1_3.setText(results.get(1));
         jlb2_2.setText(results.get(2));
@@ -69,13 +58,8 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private void setCustomerStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        List<String> results = new List<>();
-        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
-            results = StatisticController.getCurrentInstance().getCustomerStatistic(nullDefaultDateFrom,nullDefaultDateTo);
-        } else {
-            results = StatisticController.getCurrentInstance()
-                    .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
-        }
+        List<String> results = StatisticController.getCurrentInstance()
+                .getCustomerStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         jlb6_2.setText(results.get(0));
         jlb7_2.setText(results.get(1));
         jlb7_3.setText(results.get(2));
@@ -87,13 +71,8 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     @SuppressWarnings("UnusedAssignment")
     private void setTypeOfProductStatistics() {
         @SuppressWarnings({"CollectionWithoutInitialCapacity", "UnusedAssignment"})
-        List<String> results = new List<>();
-        if (jdcDateFrom.getDate() == null || jdcDateTo.getDate() == null) {
-            results = StatisticController.getCurrentInstance().getTypeOfProductStatistic(nullDefaultDateFrom,nullDefaultDateTo);
-        } else {
-            results = StatisticController.getCurrentInstance()
-                    .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
-        }
+        List<String> results = StatisticController.getCurrentInstance()
+                .getTypeOfProductStatistic(jdcDateFrom.getDate(), jdcDateTo.getDate());
         jlb9_3.setText(results.get(0));
         jlb9_2.setText(results.get(1));
         jlb10_2.setText(results.get(2));
@@ -102,32 +81,6 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         jlb10_5.setText(results.get(5));
         jlb11_2.setText(results.get(6));
 
-    }
-
-    private void setDateFindValueChage() {
-        jdcDateFrom.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (jdcDateFrom.getDate() != null && jdcDateTo.getDate() != null) {
-                if (jdcDateFrom.getDate().compareTo(jdcDateTo.getDate()) > 0) {
-                    MessageSupport.Message("Lỗi", "Ngày tìm kiếm 1 không được sau ngày tìm kiếm 2.");
-                } else {
-                    setPawnCouponStatistics();
-                    setCustomerStatistics();
-                    setTypeOfProductStatistics();
-                }
-            }
-        });
-
-        jdcDateTo.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (jdcDateFrom.getDate() != null && jdcDateTo.getDate() != null) {
-                if (jdcDateTo.getDate().compareTo(jdcDateFrom.getDate()) < 0) {
-                    MessageSupport.Message("Lỗi", "Ngày tìm kiếm 2 không được sau ngày tìm kiếm 1.");
-                } else {
-                    setPawnCouponStatistics();
-                    setCustomerStatistics();
-                    setTypeOfProductStatistics();
-                }
-            }
-        });
     }
 
     /**
@@ -509,7 +462,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jlb4_3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlb4_4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jlb4_4, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
             .addComponent(jlb4_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
@@ -845,6 +798,11 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         jdcDateFrom.setForeground(new java.awt.Color(0, 0, 0));
         jdcDateFrom.setDateFormatString("dd/MM/yyyy");
         jdcDateFrom.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
+        jdcDateFrom.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcDatePropertyChange(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -855,6 +813,11 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         jdcDateTo.setForeground(new java.awt.Color(0, 0, 0));
         jdcDateTo.setDateFormatString("dd/MM/yyyy");
         jdcDateTo.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
+        jdcDateTo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jdcDatePropertyChange(evt);
+            }
+        });
 
         jchbAll.setBackground(new java.awt.Color(0, 255, 255));
         jchbAll.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -889,12 +852,12 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jdcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jdcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jchbAll)
@@ -910,15 +873,19 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jdcDateTo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jchbAll, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtnReload, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jdcDateFrom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jdcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jchbAll, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -937,9 +904,9 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     private void jchbAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbAllActionPerformed
         if (!jchbAll.isSelected()) {
             jdcDateFrom.setEnabled(true);
-            jdcDateFrom.setDate(defaultDateFrom);
+            jdcDateFrom.setDate(FROM);
             jdcDateTo.setEnabled(true);
-            jdcDateTo.setDate(defaultDateTo);
+            jdcDateTo.setDate(TO);
             jlb1_1.setText("Mới");
             jlb6_1.setText("Mới");
             jlb9_1.setText("Mới");
@@ -959,10 +926,16 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadActionPerformed
-        setPawnCouponStatistics();
-        setCustomerStatistics();
-        setTypeOfProductStatistics();
+        jchbAll.setSelected(false);
     }//GEN-LAST:event_jbtnReloadActionPerformed
+
+    private void jdcDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcDatePropertyChange
+        if ("date".equals(evt.getPropertyName())) {
+            setPawnCouponStatistics();
+            setCustomerStatistics();
+            setTypeOfProductStatistics();
+        }
+    }//GEN-LAST:event_jdcDatePropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

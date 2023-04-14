@@ -22,8 +22,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,46 +35,58 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
 
     public CustomerJPanelForm() {
         initComponents();
+        setTableFormat();
         setCustomerDefault(null);
-        setFilterEvent();
     }
 
     public CustomerJPanelForm(Customer customer) {
         initComponents();
+        setTableFormat();
         setCustomerDefault(customer);
-        setFilterEvent();
     }
 
     private void setCustomerDefault(Customer customer) {
-        setCustomerTable(CustomerController.getCurrentInstance().findAllServing());
-        jbtnAdd.setEnabled(false);
+        jbtnAdd.setEnabled(true);
         jlbInvalidId.setText(null);
         jlbInvalidFullname.setText(null);
         jlbInvalidPhoneNumber.setText(null);
         jlbInvalidAddress.setText(null);
         if (customer == null) {
-            jbtnPawn.setEnabled(false);
-            jbtnEdit.setEnabled(false);
             jtfId.setText(null);
             jtfId.setEditable(true);
             jtfFullname.setText(null);
             setGender(null);
             jtfPhoneNumber.setText(null);
             jtaAddress.setText(null);
-            setStatus(null);
+            setCustomerStatus(null);
+            setCustomerTable(CustomerController.getCurrentInstance().findAllByStatus(getCustomStatus()));
+            jbtnAdd.setEnabled(false);
+            jbtnPawn.setEnabled(false);
+            jbtnEdit.setEnabled(false);
+            setPawnHistoryTable(null);
         } else {
-            jbtnPawn.setEnabled(!customer.getDeleteFlag());
-            jbtnEdit.setEnabled(true);
+            jbtnAdd.setEnabled(false);
             jtfId.setText(customer.getId());
             jtfId.setEditable(false);
             jtfFullname.setText(customer.getFullname());
             setGender(customer.getGender());
             jtfPhoneNumber.setText(customer.getPhoneNumber());
             jtaAddress.setText(customer.getAddress());
-            setStatus(customer.getDeleteFlag());
+            setCustomerStatus(customer.getDeleteFlag());
+            setCustomerTable(CustomerController.getCurrentInstance().findAll());
             Support.setRowTableSelection(jtblCustomer, 1, customer.getId());
+            jbtnPawn.setEnabled(!customer.getDeleteFlag());
+            jbtnEdit.setEnabled(true);
+            setPawnHistoryTable(customer);
         }
 
+    }
+
+    private void setTableFormat() {
+        ColorFormatSupport.FormatTableHeader(jtblCustomer);
+        ColorFormatSupport.setDataTableCenter(jtblCustomer);
+        ColorFormatSupport.FormatTableHeader(jtblPawningHistory);
+        ColorFormatSupport.setDataTableCenter(jtblPawningHistory);
     }
 
     private void setGender(String gender) {
@@ -105,7 +115,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     }
 
     @SuppressWarnings({"NestedAssignment", "AssignmentToMethodParameter"})
-    private void setStatus(Boolean deleteFlag) {
+    private void setCustomerStatus(Boolean deleteFlag) {
         if (deleteFlag == null) {
             jrbServingStatus.setSelected(true);
             jrbAllStatus.setEnabled(true);
@@ -116,18 +126,16 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         }
     }
 
-    private Boolean getStatus() {
+    private Boolean getCustomStatus() {
         return jrbAllStatus.isSelected() ? null : jrbStopServingStatus.isSelected();
     }
 
     private void setCustomerTable(List<Customer> customers) {
+        DefaultTableModel model = (DefaultTableModel) jtblCustomer.getModel();
+        model.setRowCount(0);
         if (customers == null) {
             return;
         }
-        ColorFormatSupport.FormatTableHeader(jtblCustomer);
-        ColorFormatSupport.setDataTableCenter(jtblCustomer);
-        DefaultTableModel model = (DefaultTableModel) jtblCustomer.getModel();
-        model.setRowCount(0);
         Object rowData[] = new Object[6];
         for (int i = 0; i < customers.size(); i++) {
             rowData[0] = String.valueOf(i + 1);
@@ -163,100 +171,29 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             jlbInvalidAddress.setText("Địa chỉ không để trống");
             validInfo = false;
         }
-        Boolean deleteflag = getStatus();
+        Boolean deleteflag = getCustomStatus();
         return validInfo ? new Customer(id, fullname, gender, phonenumber, address, deleteflag) : null;
     }
 
-    private void filterByKey() {
+    private void filter() {
         if (!jbtnPawn.isEnabled() && !jbtnAdd.isEnabled() && !jbtnEdit.isEnabled()) {
             setCustomerTable(CustomerController.getCurrentInstance()
                     .filterByKey(jtfId.getText(), jtfFullname.getText(), getGender(),
-                            jtfPhoneNumber.getText(), jtaAddress.getText(), getStatus()));
+                            jtfPhoneNumber.getText(), jtaAddress.getText(), getCustomStatus()));
         }
 
     }
 
-    private void setFilterEvent() {
-        jtfId.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-        });
-        jtfFullname.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-        });
-        jtfPhoneNumber.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-        });
-        jtaAddress.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                filterByKey();
-            }
-        });
-    }
-
     private void setPawnHistoryTable(Customer customer) {
-        long totalPrice = 0;
-        long totalPayed = 0;
-        long totalDebt = 0;
-        ColorFormatSupport.setDataTableCenter(jtblPawningHistory);
         DefaultTableModel model = (DefaultTableModel) jtblPawningHistory.getModel();
         model.setRowCount(0);
         if (customer == null) {
-            jlbTotalPawnedHistory.setText("");
-            jlbTotalPrice.setText("");
-            jlTotalPayed.setText("");
-            jlbTotalDebt.setText("");
+            jPanelPawnHistoryStatistics.setVisible(false);
         } else {
-            List<PawnCoupon> pawnCoupons = PawnCouponController.getCurrentInstance().findPawnCouponByCustomerKey(customer);
+            long totalPrice = 0;
+            long totalPayed = 0;
+            long totalDebt = 0;
+            List<PawnCoupon> pawnCoupons = PawnCouponController.getCurrentInstance().findAllByCustomerId(customer.getId());
             Object rowData[] = new Object[11];
             for (int i = 0; i < pawnCoupons.size(); i++) {
                 rowData[0] = String.valueOf(i + 1);
@@ -265,17 +202,18 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 rowData[3] = Support.getFormatNumber(pawnCoupons.get(i).getPrice());
                 totalPrice += pawnCoupons.get(i).getPrice();
                 rowData[4] = pawnCoupons.get(i).getInterestRate();
-                List<InterestPayment> interestPayments = InterestPaymentController.getCurrentInstance().getList(pawnCoupons.get(i));
+                List<InterestPayment> interestPayments = InterestPaymentController.getCurrentInstance()
+                        .findAllByPawnCouponId(pawnCoupons.get(i).getId());
                 rowData[5] = interestPayments.size();
                 long interestPayed = 0;
                 for (InterestPayment interestPayment : interestPayments) {
-                    interestPayed += interestPayment.getMoney();
+                    interestPayed += interestPayment.getMoneyPaid();
                 }
                 rowData[6] = interestPayed;
                 totalPayed += interestPayed;
                 if (!interestPayments.isEmpty()) {
-                    rowData[7] = interestPayments.get(interestPayments.size() - 1).getDebt();
-                    totalDebt += interestPayments.get(interestPayments.size() - 1).getDebt();
+                    rowData[7] = interestPayments.get(interestPayments.size() - 1).getNewDebt();
+                    totalDebt += interestPayments.get(interestPayments.size() - 1).getNewDebt();
                 } else {
                     rowData[7] = 0;
                 }
@@ -283,7 +221,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 rowData[9] = Support.getFormatNumber(pawnCoupons.get(i).getLiquidationPrice());
                 rowData[10] = pawnCoupons.get(i).getStatus();
                 model.addRow(rowData);
-                jlbTotalPawnedHistory.setText("Tổng:");
+                jPanelPawnHistoryStatistics.setVisible(true);
                 jlbTotalPrice.setText(Support.getFormatNumber(totalPrice));
                 jlTotalPayed.setText(Support.getFormatNumber(totalPayed));
                 jlbTotalDebt.setText(Support.getFormatNumber(totalDebt));
@@ -334,7 +272,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblPawningHistory = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
+        jPanelPawnHistoryStatistics = new javax.swing.JPanel();
         jlbTotalPrice = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jlTotalPayed = new javax.swing.JLabel();
@@ -395,6 +333,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtfInfoMouseReleased(evt);
+            }
         });
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
@@ -416,6 +357,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtfInfoMouseReleased(evt);
+            }
         });
 
         jtaAddress.setBackground(new java.awt.Color(255, 255, 255));
@@ -427,6 +371,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jtaAddress.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtfInfoMouseReleased(evt);
             }
         });
         jScrollPane3.setViewportView(jtaAddress);
@@ -521,6 +468,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jtfPhoneNumber.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jtfInfoMouseReleased(evt);
             }
         });
 
@@ -671,11 +621,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                     .addComponent(jtfFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -693,7 +643,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                             .addComponent(jrbServingStatus)
                             .addComponent(jrbAllStatus)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -718,7 +668,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã Hợp đồng", "Ngày cầm", "Giá", "Lãi xuất", "Số kỳ đóng", "Lãi đã đóng", "Nợ", "Ngày chuộc/Thanh lý", "Giá thanh lý", "Trạng thái"
+                "STT", "Mã Hợp đồng", "Ngày cầm", "Giá", "Lãi xuất", "Số kỳ đóng lãi", "Lãi đã đóng", "Nợ", "Ngày chuộc/Thanh lý", "Giá thanh lý", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -736,40 +686,8 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jtblPawningHistory);
-        if (jtblPawningHistory.getColumnModel().getColumnCount() > 0) {
-            jtblPawningHistory.getColumnModel().getColumn(0).setMinWidth(30);
-            jtblPawningHistory.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jtblPawningHistory.getColumnModel().getColumn(0).setMaxWidth(30);
-            jtblPawningHistory.getColumnModel().getColumn(1).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(1).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(1).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(2).setMinWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(2).setPreferredWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(2).setMaxWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(3).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(3).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(3).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(4).setMinWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(4).setPreferredWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(4).setMaxWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(5).setMinWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(5).setPreferredWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(5).setMaxWidth(70);
-            jtblPawningHistory.getColumnModel().getColumn(6).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(6).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(6).setMaxWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(7).setMinWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(7).setPreferredWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(7).setMaxWidth(100);
-            jtblPawningHistory.getColumnModel().getColumn(8).setMinWidth(200);
-            jtblPawningHistory.getColumnModel().getColumn(8).setPreferredWidth(200);
-            jtblPawningHistory.getColumnModel().getColumn(8).setMaxWidth(200);
-            jtblPawningHistory.getColumnModel().getColumn(9).setMinWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(9).setPreferredWidth(120);
-            jtblPawningHistory.getColumnModel().getColumn(9).setMaxWidth(120);
-        }
 
-        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelPawnHistoryStatistics.setBackground(new java.awt.Color(204, 204, 204));
 
         jlbTotalPrice.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         jlbTotalPrice.setForeground(new java.awt.Color(0, 0, 0));
@@ -790,35 +708,39 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jlbTotalDebt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTotalDebt.setText("0");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jlbTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jlbTotalPawnedHistory.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jlbTotalPawnedHistory.setForeground(new java.awt.Color(0, 0, 0));
+        jlbTotalPawnedHistory.setText("Tổng  :");
+
+        javax.swing.GroupLayout jPanelPawnHistoryStatisticsLayout = new javax.swing.GroupLayout(jPanelPawnHistoryStatistics);
+        jPanelPawnHistoryStatistics.setLayout(jPanelPawnHistoryStatisticsLayout);
+        jPanelPawnHistoryStatisticsLayout.setHorizontalGroup(
+            jPanelPawnHistoryStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPawnHistoryStatisticsLayout.createSequentialGroup()
+                .addComponent(jlbTotalPawnedHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlTotalPayed, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTotalDebt, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(505, 505, 505))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        jPanelPawnHistoryStatisticsLayout.setVerticalGroup(
+            jPanelPawnHistoryStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPawnHistoryStatisticsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbTotalPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelPawnHistoryStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPawnHistoryStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jlbTotalPrice)
+                        .addComponent(jlbTotalPawnedHistory))
                     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPawnHistoryStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jlTotalPayed)
                         .addComponent(jlbTotalDebt))))
         );
-
-        jlbTotalPawnedHistory.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jlbTotalPawnedHistory.setForeground(new java.awt.Color(0, 0, 0));
-        jlbTotalPawnedHistory.setText("Tổng  :");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -827,14 +749,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jlbTotalPawnedHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1121, Short.MAX_VALUE)
+                    .addComponent(jPanelPawnHistoryStatistics, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -842,11 +761,9 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbTotalPawnedHistory)))
+                .addComponent(jPanelPawnHistoryStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
@@ -1018,11 +935,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnEditActionPerformed
 
     private void jrbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbGenderActionPerformed
-        filterByKey();
+        filter();
     }//GEN-LAST:event_jrbGenderActionPerformed
 
     private void jrbtnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbtnStatusActionPerformed
-        filterByKey();
+        filter();
     }//GEN-LAST:event_jrbtnStatusActionPerformed
 
     private void jtblPawningHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPawningHistoryMouseClicked
@@ -1032,7 +949,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             String id = (table.getModel().getValueAt(row, 1)).toString();
             @SuppressWarnings("UnusedAssignment")
             JPanel jPanel = null;
-            PawnCoupon pawnCoupon = PawnCouponController.getCurrentInstance().getPawnCoupon(id);
+            PawnCoupon pawnCoupon = PawnCouponController.getCurrentInstance().findOneById(id);
             String title = "Hợp đồng";
             if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
                 HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
@@ -1051,7 +968,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             setCustomerDefault(null);
             setGender("Nam");
-            setStatus(Boolean.FALSE);
+            setCustomerStatus(Boolean.FALSE);
             jbtnAdd.setEnabled(true);
         }
     }//GEN-LAST:event_jbtnAddNewCustomerMouseClicked
@@ -1085,6 +1002,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtfInfoMousePressed
 
+    private void jtfInfoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfInfoMouseReleased
+        filter();
+    }//GEN-LAST:event_jtfInfoMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupGender;
@@ -1106,7 +1027,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanelPawnHistoryStatistics;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

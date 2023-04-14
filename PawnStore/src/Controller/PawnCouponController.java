@@ -36,8 +36,8 @@ public class PawnCouponController {
         return pawnCouponService.findAllByStatus(status);
     }
 
-    public PawnCoupon getPawnCoupon(String id) {
-        return pawnCouponService.getPawnCoupon(id);
+    public PawnCoupon findOneById(String id) {
+        return pawnCouponService.findOneById(id);
     }
 
     public boolean insert(PawnCoupon pawnCoupon) {
@@ -48,15 +48,21 @@ public class PawnCouponController {
         return pawnCouponService.update(pawnCoupon);
     }
 
-    public String getNewID() {
-        return pawnCouponService.getNewID();
+    public String createNewId() {
+        return pawnCouponService.createNewId();
     }
 
-    public String getTheNextPaymentDate(PawnCoupon pawnCoupon) {
-        return pawnCouponService.getTheNextPaymentDate(pawnCoupon);
+    public List<PawnCoupon> findAllByCustomerId(String customerId) {
+        return pawnCouponService.findAllByCustomerId(customerId);
     }
 
-    public List<PawnCoupon> findPawnCouponByCustomerKey(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<PawnCoupon> filter(String id, String customerId, String productId,
+            Long pawnPrice, Float interestRate, Integer amount,
+            String pawnDate, String theNextInterestPaymentDate, String redemptionOrLiquidationDate,
+            Long liquidationPrice, String status) {
+        return pawnCouponService.filter(id, customerId, productId,
+                pawnPrice, interestRate, amount, 
+                pawnDate, theNextInterestPaymentDate, redemptionOrLiquidationDate,
+                liquidationPrice, status);
     }
 }

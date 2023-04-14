@@ -16,7 +16,7 @@ public interface IProductService {
 
     List<Product> findAll();
 
-    List<Product> findAllNotRedeemed();
+    List<Product> findAllByStatus(String status);
 
     Product findOneById(String id);
 

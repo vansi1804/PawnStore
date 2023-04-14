@@ -24,14 +24,15 @@ public class ProductService implements IProductService {
 
     private final IProductDAO productDAO = new ProductDAO();
     private final ITypeOfProductDAO typeOfProductDAO = new TypeOfProductDAO();
- @Override
+
+    @Override
     public List<Product> findAll() {
         return productDAO.findAll();
     }
 
     @Override
-    public List<Product> findAllNotRedeemed() {
-        return productDAO.findAllNotRedeemed();
+    public List<Product> findAllByStatus(String status) {
+        return productDAO.findAllByStatus(status);
     }
 
     @Override
@@ -74,10 +75,10 @@ public class ProductService implements IProductService {
 
     @Override
     public String createNewId() {
-        List<Product> products = productDAO.findAllNotRedeemed();
-        if (products.isEmpty()) {
+        Product product = productDAO.findLastest();
+        if (product == null) {
             return "HH0000000001";
         }
-        return Support.createNewId(products.get(products.size() - 1).getId());
+        return Support.createNewId(product.getId());
     }
 }

@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface ICustomerService {
 
-    public List<Customer> findAll();
+    List<Customer> findAll();
 
-    List<Customer> findAllServing();
+    List<Customer> findAllByStatus(Boolean deleteFlag);
 
     Customer findOneById(String id);
 

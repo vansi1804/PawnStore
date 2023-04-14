@@ -22,8 +22,13 @@ public class TypeOfProductService implements ITypeOfProductService {
     private final ITypeOfProductDAO typeOfProductDAO = new TypeOfProductDAO();
 
     @Override
-    public List<TypeOfProduct> findAllServing() {
-        return typeOfProductDAO.findAllServing();
+    public List<TypeOfProduct> findAll() {
+        return typeOfProductDAO.findAll();
+    }
+
+    @Override
+    public List<TypeOfProduct> findAllByStatus(Boolean deleteFlag) {
+        return typeOfProductDAO.findAllByStatus(deleteFlag);
     }
 
     @Override
@@ -48,7 +53,7 @@ public class TypeOfProductService implements ITypeOfProductService {
     @Override
     public boolean update(TypeOfProduct typeOfProduct) {
         TypeOfProduct typeOfProductWithName = this.findOneByName(typeOfProduct.getName());
-        if (typeOfProductWithName!= null && !typeOfProductWithName.getId().equals(typeOfProduct.getId())) {
+        if (typeOfProductWithName != null && !typeOfProductWithName.getId().equals(typeOfProduct.getId())) {
             MessageSupport.ErrorMessage("Lỗi", "Tên loại hàng hóa đã tồn tại");
             return false;
         }
@@ -57,11 +62,11 @@ public class TypeOfProductService implements ITypeOfProductService {
 
     @Override
     public String createNewId() {
-        List<TypeOfProduct> typeOfProducts = typeOfProductDAO.findAllServing();
-        if (typeOfProducts.isEmpty()) {
+        TypeOfProduct typeOfProduct = typeOfProductDAO.findLastest();
+        if (typeOfProduct == null) {
             return "LHH000000001";
         }
-        return Support.createNewId(typeOfProducts.get(typeOfProducts.size() - 1).getId());
+        return Support.createNewId(typeOfProduct.getId());
     }
 
     @Override

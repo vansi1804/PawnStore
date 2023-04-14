@@ -18,14 +18,19 @@ public interface IPawnCouponService {
 
     List<PawnCoupon> findAllByStatus(String status);
 
-    PawnCoupon getPawnCoupon(String id);
+    PawnCoupon findOneById(String id);
 
     boolean insert(PawnCoupon pawnCoupon);
 
     boolean update(PawnCoupon pawnCoupon);
 
-    String getNewID();
+    String createNewId();
 
-    String getTheNextPaymentDate(PawnCoupon pawnCoupon);
+    List<PawnCoupon> filter(String id, String customerId, String productId, 
+            Long pawnPrice, Float interestRate, Integer amount,
+            String pawnDate, String theNextInterestPaymentDate, String redemptionOrLiquidationDate, 
+            Long liquidationPrice, String status);
+
+    List<PawnCoupon> findAllByCustomerId(String customerId);
 
 }

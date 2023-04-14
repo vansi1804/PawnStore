@@ -31,9 +31,10 @@ public class ProductDAO extends ADAO<Product> implements IProductDAO {
     }
 
     @Override
-    public List<Product> findAllNotRedeemed() {
-        String query = SELECTQUERY + " Where product.status = N'Chưa chuộc'";
-        return findAll(query, new ProductMapper());
+    public List<Product> findAllByStatus(String status) {
+        String query = SELECTQUERY
+                + (CheckSupport.isNullOrBlank(status) ? "" : " Where product.status = ?");
+        return findAll(query, new ProductMapper(), status);
     }
 
     @Override
@@ -72,6 +73,13 @@ public class ProductDAO extends ADAO<Product> implements IProductDAO {
                 + (CheckSupport.isNullOrBlank(inforKey) ? "" : " And product.info Like N'%" + inforKey + "%'")
                 + (CheckSupport.isNullOrBlank(statusKey) ? "" : " And product.status Like N'%" + statusKey + "%'");
         return findAll(query, new ProductMapper());
+    }
+
+    @Override
+    public Product findLastest() {
+        String query = SELECTQUERY
+                + " Where product.id = (Select Max(id) from product)";
+        return findOne(query, new ProductMapper());
     }
 
 }

@@ -5,7 +5,6 @@
 package Service;
 
 import Model.InterestPayment;
-import Model.PawnCoupon;
 import java.util.List;
 
 /**
@@ -13,13 +12,17 @@ import java.util.List;
  * @author NVS
  */
 public interface IInterestPaymentService {
-    List<InterestPayment> getList(PawnCoupon pawnCoupon);
 
-    InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times);
+    List<InterestPayment> findAllByPawnCouponId(String pawnCouponId);
+
+    InterestPayment findOneByPawnCouponIdAndTimes(String pawnCouponId, Integer times);
 
     boolean insert(InterestPayment interestPayment);
 
     boolean update(InterestPayment interestPayment);
 
     boolean delete(InterestPayment interestPayment);
+
+    int countAllByPawnCouponId(String pawnCouponId);
+
 }

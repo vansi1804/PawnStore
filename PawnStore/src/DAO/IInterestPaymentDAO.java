@@ -5,7 +5,6 @@
 package DAO;
 
 import Model.InterestPayment;
-import Model.PawnCoupon;
 import java.util.List;
 
 /**
@@ -15,14 +14,16 @@ import java.util.List;
 @SuppressWarnings("MarkerInterface")
 public interface IInterestPaymentDAO extends IGenericDAO<InterestPayment> {
 
-    List<InterestPayment> getList(PawnCoupon pawnCoupon);
+    List<InterestPayment> findAllByPawnCouponId(String pawnCouponId);
 
-    InterestPayment getInterestPayment(PawnCoupon pawnCoupon, String times);
+    InterestPayment findOneByPawnCouponIdAndTimes(String pawnCouponId, Integer times);
 
     boolean insert(InterestPayment interestPayment);
 
     boolean update(InterestPayment interestPayment);
 
     boolean delete(InterestPayment interestPayment);
+
+    int countAllByPawnCouponId(String pawnCouponId);
 
 }

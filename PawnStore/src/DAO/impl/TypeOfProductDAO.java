@@ -22,9 +22,15 @@ public class TypeOfProductDAO extends ADAO<TypeOfProduct> implements ITypeOfProd
     private static final String UPDATEQUERY = "Update type_of_product Set name = ?, delete_flag = ? Where id = ?";
 
     @Override
-    public List<TypeOfProduct> findAllServing() {
-        String query = SELECTQUERY + " Where delete_flag = 0";
-        return findAll(query, new TypeOfProductMapper());
+    public List<TypeOfProduct> findAll() {
+        return findAll(SELECTQUERY, new TypeOfProductMapper());
+    }
+
+    @Override
+    public List<TypeOfProduct> findAllByStatus(Boolean deleteFlag) {
+        String query = SELECTQUERY
+                + (deleteFlag == null ? "" : " Where  delete_flag = ?");
+        return findAll(query, new TypeOfProductMapper(), deleteFlag);
     }
 
     @Override
@@ -57,6 +63,12 @@ public class TypeOfProductDAO extends ADAO<TypeOfProduct> implements ITypeOfProd
                 + (CheckSupport.isNullOrBlank(nameKey) ? "" : " And id like N'%" + nameKey + "%'")
                 + (deleteflagKey == null ? "" : " And delete_flag = " + deleteflagKey);
         return findAll(query, new TypeOfProductMapper());
+    }
+
+    @Override
+    public TypeOfProduct findLastest() {
+        String query = SELECTQUERY + " Where id = (Select Max(id) from type_of_product)";
+        return findOne(query, new TypeOfProductMapper());
     }
 
 }
