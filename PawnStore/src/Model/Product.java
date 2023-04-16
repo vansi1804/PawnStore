@@ -74,7 +74,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return id + " - " + typeOfProduct.getDeleteFlag() + " - " + name
+        return id + " - " + typeOfProduct.getId() + " - " + name
                 + " - " + info + " - " + status;
     }
 }

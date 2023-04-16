@@ -23,7 +23,9 @@ public class ActivityHistoryDAO extends ADAO<ActivityHistory> implements IActivi
 
     @Override
     public List<ActivityHistory> getList() {
-        return findAll(SELECTQUERY, new ActivityHistoryMapper());
+        String query = SELECTQUERY
+                + " Order By time";
+        return findAll(query, new ActivityHistoryMapper());
     }
 
     @Override
@@ -58,7 +60,8 @@ public class ActivityHistoryDAO extends ADAO<ActivityHistory> implements IActivi
                 + (CheckSupport.isNullOrBlank(usernameKey) ? "" : " And (username Like N'%" + usernameKey + "%')")
                 + (CheckSupport.isNullOrBlank(activityKey) ? "" : " And (activity Like N'%" + activityKey + "%')")
                 + (CheckSupport.isNullOrBlank(objectNameKey) ? "" : " And (object_name Like N'%" + objectNameKey + "%')")
-                + (CheckSupport.isNullOrBlank(infoKey) ? "" : " And (info Like N'%" + infoKey + "%')");
+                + (CheckSupport.isNullOrBlank(infoKey) ? "" : " And (info Like N'%" + infoKey + "%')")
+                + " Order By time";
         return findAll(query, new ActivityHistoryMapper());
     }
 }

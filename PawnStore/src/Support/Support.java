@@ -76,6 +76,10 @@ public class Support {
         return date == null ? "" : new SimpleDateFormat(dateFormat).format(date);
     }
 
+    public static String dateToString(LocalDateTime now, String dateFormat) {
+        return now == null ? "" : now.format(DateTimeFormatter.ofPattern(dateFormat));
+    }
+
     public static String LocalDateTimeToString(LocalDateTime dateTime) {
         return dateTime == null ? null : dateTime.format(DateTimeFormatter.ofPattern(Default.DATE_TIME_FORMAT));
     }

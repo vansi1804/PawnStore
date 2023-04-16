@@ -252,7 +252,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("STK: 040081697886");
+        jLabel4.setText("STK:   040081697886");
         jLabel4.setToolTipText("");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
@@ -945,7 +945,7 @@ public class PawnCouponInPaperJFrameForm extends javax.swing.JFrame {
         jLabel81.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jLabel81.setForeground(new java.awt.Color(0, 0, 0));
         jLabel81.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel81.setText("STK: 040081697886");
+        jLabel81.setText("STK:   040081697886");
         jLabel81.setToolTipText("");
 
         jLabel82.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N

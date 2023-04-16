@@ -16,6 +16,7 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
@@ -157,7 +158,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                     jdcFromDate.setDate(jdcToDate.getDate());
                 }
             }
-            filterActivityHistoryByKey();
+            filterActivityHistory();
         });
         jdcToDate.addPropertyChangeListener((PropertyChangeEvent evt) -> {
             if (jdcFromDate.getDate() != null && jdcToDate.getDate() != null) {
@@ -165,79 +166,79 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                     jdcToDate.setDate(jdcFromDate.getDate());
                 }
             }
-            filterActivityHistoryByKey();
+            filterActivityHistory();
         });
         jtfUsernameKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
         }
         );
         jtfActivityKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
         }
         );
         jtfObjectnameKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
         }
         );
         jtfInforKey.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filterActivityHistoryByKey();
+                filterActivityHistory();
             }
         }
         );
     }
 
-    private void filterActivityHistoryByKey() {
+    private void filterActivityHistory() {
         setActivityHistoryTable(ActivityHistoryController.getCurrentInstance()
                 .filterByKey(Support.dateToString(jdcFromDate.getDate(), Default.DATE_FORMAT),
                         Support.dateToString(jdcToDate.getDate(), Default.DATE_FORMAT),
@@ -376,9 +377,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtblAccount);
         if (jtblAccount.getColumnModel().getColumnCount() > 0) {
-            jtblAccount.getColumnModel().getColumn(0).setMinWidth(50);
-            jtblAccount.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jtblAccount.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtblAccount.getColumnModel().getColumn(0).setPreferredWidth(35);
             jtblAccount.getColumnModel().getColumn(1).setMinWidth(150);
             jtblAccount.getColumnModel().getColumn(1).setPreferredWidth(150);
         }
@@ -723,9 +722,9 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jtblActivityHistory.setRowHeight(20);
         jScrollPane2.setViewportView(jtblActivityHistory);
         if (jtblActivityHistory.getColumnModel().getColumnCount() > 0) {
-            jtblActivityHistory.getColumnModel().getColumn(0).setMinWidth(40);
-            jtblActivityHistory.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jtblActivityHistory.getColumnModel().getColumn(0).setMaxWidth(40);
+            jtblActivityHistory.getColumnModel().getColumn(0).setMinWidth(35);
+            jtblActivityHistory.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jtblActivityHistory.getColumnModel().getColumn(0).setMaxWidth(35);
             jtblActivityHistory.getColumnModel().getColumn(1).setMinWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setPreferredWidth(140);
             jtblActivityHistory.getColumnModel().getColumn(1).setMaxWidth(140);
@@ -894,7 +893,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                     }
                     setAccountDefault(null);
                     ActivityHistoryController.getCurrentInstance()
-                            .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                            .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                     "Đặt lại mật khẩu", "Tài khoản", account.toString()));
                 }
             }
@@ -918,7 +917,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Tạo tài khoản thành công. Mật khẩu mặc định là 1");
                 setAccountDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Tài khoản", account.toString()));
             }
         }
@@ -939,7 +938,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Mật khẩu đã được đặt mặc định là 1");
                 setAccountDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Đặt lại mật khẩu", "Tài khoản", account.toString()));
             }
         }
@@ -956,7 +955,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfInfoMousePressed
 
     private void jtfActivityHistoryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfActivityHistoryKeyReleased
-        filterActivityHistoryByKey();
+        filterActivityHistory();
     }//GEN-LAST:event_jtfActivityHistoryKeyReleased
 
     private void jdcDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcDatePropertyChange
@@ -970,7 +969,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
                 jdcToDate.setDate(jdcFromDate.getDate());
             }
         }
-        filterActivityHistoryByKey();
+        filterActivityHistory();
     }//GEN-LAST:event_jdcDatePropertyChange
 
 

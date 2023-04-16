@@ -17,7 +17,7 @@ public class Default {
 
     public static final String DATE_FORMAT = "dd-MM-yyyy";
 
-    public static final String DATE_TIME_FORMAT = DATE_FORMAT + " hh:mm:ss";
+    public static final String DATE_TIME_FORMAT = DATE_FORMAT + " HH:mm:ss";
 
     public static final String MIN_TIME_OF_DATE = " 00:00:00";
 
@@ -26,5 +26,7 @@ public class Default {
     public static final String DEFAULT_PASSWORD = "1";
 
     public static final int PAYMENT_CIRCLE = 15;
+    
+    public static final int MIN_AMOUNT_OF_PAWNED_DATE = 3;
 
 }

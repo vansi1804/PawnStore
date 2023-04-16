@@ -15,7 +15,7 @@ import Support.Support;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.swing.JFrame;
 
 @SuppressWarnings("ClassWithoutLogger")
@@ -42,7 +42,7 @@ public class LoginJFrameForm extends JFrame {
             if (!account.getDeleteFlag()) {
                 StaticUser.setCurrentInstance(account);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT), "Đăng nhập"));
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT), "Đăng nhập"));
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
                 this.dispose();

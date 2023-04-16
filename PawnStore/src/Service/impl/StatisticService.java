@@ -9,13 +9,11 @@ import DAO.IActivityHistoryDAO;
 import DAO.ICustomerDAO;
 import DAO.IInterestPaymentDAO;
 import DAO.IPawnCouponDAO;
-import DAO.IProductDAO;
 import DAO.ITypeOfProductDAO;
 import DAO.impl.ActivityHistoryDAO;
 import DAO.impl.CustomerDAO;
 import DAO.impl.InterestPaymentDAO;
 import DAO.impl.PawnCouponDAO;
-import DAO.impl.ProductDAO;
 import DAO.impl.TypeOfProductDAO;
 import Model.Customer;
 import Model.InterestPayment;
@@ -125,7 +123,7 @@ public class StatisticService implements IStatisticService {
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
         List<String> results = new ArrayList<>();
-        for (Customer customer : customerDAO.findAllByStatus(Boolean.TRUE)) {
+        for (Customer customer : customerDAO.findAll()) {
             String strDateFrom = Support.dateToString(dateFrom, Default.DATE_FORMAT);
             String strDateTo = Support.dateToString(dateTo, Default.DATE_FORMAT);
             if (!activityHistoryDAO.filterByKey(strDateFrom, strDateTo, null, "Thêm mới", "Khách hàng", null).isEmpty()) {
@@ -147,8 +145,7 @@ public class StatisticService implements IStatisticService {
                     }
                 }
             }
-
-            if (totalPawnedCount > bestCustomerPawnedCount) {
+            if (totalPawnedCount > bestCustomerPawnedCount) { 
                 bestCustomerName = customer.getId() + " - " + customer.getFullname();
                 bestCustomerPawnedCount = totalPawnedCount;
                 bestCustomerPawnedPrice = totalPawnedPrice;
@@ -170,14 +167,12 @@ public class StatisticService implements IStatisticService {
                 totalStopServiceCount++;
             }
         }
-
         results.add(Support.getFormatNumber(totalCustomer));
         results.add(bestCustomerName);
         results.add(Support.getFormatNumber(bestCustomerPawnedCount));
         results.add(Support.getFormatNumber(bestCustomerPawnedPrice));
         results.add(Support.getFormatNumber(bestCustomerInterestPayed));
         results.add(Support.getFormatNumber(totalStopServiceCount));
-
         return results;
     }
 
@@ -200,7 +195,6 @@ public class StatisticService implements IStatisticService {
 
         @SuppressWarnings("CollectionWithoutInitialCapacity")
         List<String> results = new ArrayList<>();
-
         for (TypeOfProduct typeOfProduct : typeOfProductDAO.findAll()) {
             typeOfProductCount++;
             String strDateFrom = Support.dateToString(dateFrom, Default.DATE_FORMAT);

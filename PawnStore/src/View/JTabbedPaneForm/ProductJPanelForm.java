@@ -16,13 +16,11 @@ import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
-import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -710,9 +708,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jtblTypeOfProduct);
         if (jtblTypeOfProduct.getColumnModel().getColumnCount() > 0) {
-            jtblTypeOfProduct.getColumnModel().getColumn(0).setMinWidth(50);
-            jtblTypeOfProduct.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jtblTypeOfProduct.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtblTypeOfProduct.getColumnModel().getColumn(0).setMinWidth(35);
+            jtblTypeOfProduct.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jtblTypeOfProduct.getColumnModel().getColumn(0).setMaxWidth(35);
             jtblTypeOfProduct.getColumnModel().getColumn(1).setMinWidth(150);
             jtblTypeOfProduct.getColumnModel().getColumn(1).setPreferredWidth(150);
             jtblTypeOfProduct.getColumnModel().getColumn(1).setMaxWidth(150);
@@ -956,9 +954,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtblProduct);
         if (jtblProduct.getColumnModel().getColumnCount() > 0) {
-            jtblProduct.getColumnModel().getColumn(0).setMinWidth(50);
-            jtblProduct.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jtblProduct.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtblProduct.getColumnModel().getColumn(0).setMinWidth(35);
+            jtblProduct.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jtblProduct.getColumnModel().getColumn(0).setMaxWidth(35);
             jtblProduct.getColumnModel().getColumn(1).setMinWidth(150);
             jtblProduct.getColumnModel().getColumn(1).setPreferredWidth(150);
             jtblProduct.getColumnModel().getColumn(1).setMaxWidth(150);
@@ -1059,7 +1057,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Thêm mới thành công");
                 setTypeOfProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Loại hàng hóa", typeOfProduct.toString()));
                 jbtnAddProduct.setEnabled(true);
                 setCBTypeOfProduct(null);
@@ -1075,7 +1073,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Cập nhật thông tin loại hàng hóa thành công");
                 setTypeOfProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Loại hàng hóa", typeOfProduct.toString()));
             }
             jbtnAddProduct.setEnabled(true);
@@ -1091,7 +1089,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Thêm mới hàng hóa thành công");
                 setProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Hàng hóa", product.toString()));
             }
         }
@@ -1104,7 +1102,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Cập nhật thông tin hàng hóa thành công");
                 setProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Hàng hóa", product.toString()));
             }
         }

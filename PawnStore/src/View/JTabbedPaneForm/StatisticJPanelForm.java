@@ -34,9 +34,6 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         initComponents();
         jdcDateFrom.setDate(FROM);
         jdcDateTo.setDate(TO);
-        setPawnCouponStatistics();
-        setCustomerStatistics();
-        setTypeOfProductStatistics();
     }
 
     private void setPawnCouponStatistics() {

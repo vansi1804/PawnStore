@@ -18,6 +18,7 @@ import Support.ColorFormatSupport;
 import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
@@ -686,6 +687,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jtblPawningHistory);
+        if (jtblPawningHistory.getColumnModel().getColumnCount() > 0) {
+            jtblPawningHistory.getColumnModel().getColumn(0).setMinWidth(35);
+            jtblPawningHistory.getColumnModel().getColumn(0).setPreferredWidth(35);
+            jtblPawningHistory.getColumnModel().getColumn(0).setMaxWidth(35);
+        }
 
         jPanelPawnHistoryStatistics.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -911,7 +917,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Thêm mới khách hàng thành công");
                 setCustomerDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Khách hàng", customer.toString()));
             }
         }
@@ -928,7 +934,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                 MessageSupport.Message("Thông báo", "Cập nhật thông tin khách hàng thành công");
                 setCustomerDefault(null);
                 ActivityHistoryController.getCurrentInstance()
-                        .insert(new ActivityHistory(Support.dateToString(new Date(), Default.DATE_TIME_FORMAT),
+                        .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Khách hàng", customer.toString()));
             }
         }

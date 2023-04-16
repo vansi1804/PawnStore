@@ -61,9 +61,9 @@ create table if not exists interest_payment(
 	pawn_coupon_id varchar(12),
 	times int,
 	primary key (pawn_coupon_id,times),
-	payment_date date not null,
-	money int default 0,
-	debt int default 0,
+	payment_date nvarchar(10) not null,
+	money_paid int default 0,
+	new_debt int default 0,
 	note nvarchar(200),
 	foreign key(pawn_coupon_id) references pawn_coupon(id) on update cascade
 );

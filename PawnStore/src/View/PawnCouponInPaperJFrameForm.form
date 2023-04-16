@@ -266,7 +266,7 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="STK: 040081697886"/>
+                        <Property name="text" type="java.lang.String" value="STK:   040081697886"/>
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
@@ -1511,7 +1511,7 @@
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="STK: 040081697886"/>
+                        <Property name="text" type="java.lang.String" value="STK:   040081697886"/>
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                       </Properties>
                     </Component>
