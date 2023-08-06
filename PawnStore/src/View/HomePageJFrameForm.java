@@ -4,9 +4,6 @@
  */
 package View;
 
-import Common.Default;
-import Controller.ActivityHistoryController;
-import Model.ActivityHistory;
 import Model.StaticUser;
 import Support.MessageSupport;
 import Support.Support;
@@ -17,11 +14,8 @@ import View.JTabbedPaneForm.ProductJPanelForm;
 import View.JTabbedPaneForm.ProfileJPanelForm;
 import View.JTabbedPaneForm.StatisticJPanelForm;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -77,7 +71,7 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
 
         Support.getClock(jlblClock, true);
         jlblProfile.setText(StaticUser.getCurrentInstance().getFullname() + "     ");
-        jAccountMenuItem.setEnabled(StaticUser.getCurrentInstance().getUsername().equals("admin"));
+        jAccountMenuItem.setVisible(StaticUser.getCurrentInstance().getUsername().equals("admin"));
     }
 
     /**

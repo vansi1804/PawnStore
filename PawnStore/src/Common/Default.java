@@ -13,8 +13,6 @@ import java.util.logging.Logger;
 @SuppressWarnings("UtilityClassWithoutPrivateConstructor")
 public class Default {
 
-    private static final Logger LOG = Logger.getLogger(Default.class.getName());
-
     public static final String DATE_FORMAT = "dd-MM-yyyy";
 
     public static final String DATE_TIME_FORMAT = DATE_FORMAT + " HH:mm:ss";
@@ -26,7 +24,17 @@ public class Default {
     public static final String DEFAULT_PASSWORD = "1";
 
     public static final int PAYMENT_CIRCLE = 15;
-    
-    public static final int MIN_AMOUNT_OF_PAWNED_DATE = 3;
+
+    public static class Admin {
+
+        public static final String USERNAME = "admin";
+        
+        public static final String PASSWORD = "admin";
+        
+        public static final String FULL_NAME = "Admin";
+        
+    }
+
+    private static final Logger LOG = Logger.getLogger(Default.class.getName());
 
 }

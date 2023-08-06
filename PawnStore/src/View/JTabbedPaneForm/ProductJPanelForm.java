@@ -17,7 +17,6 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -264,7 +263,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                             jtfProductName.getText(), jtaProductInfo.getText(), getProductStatus()));
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1132,23 +1130,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnCreateNewTypeOfProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewTypeOfProductMouseClicked
-        if (evt.getClickCount() == 2) {
-            setTypeOfProductDefault(null);
-            jbtnAddTypeOfProduct.setEnabled(true);
-            jtfTypeOfProductId.setText(TypeOfProductController.getCurrentInstance().createNewId());
-            jtfTypeOfProductId.setEditable(false);
-            setTypeOfProductStatus(Boolean.FALSE);
-        }
+        setTypeOfProductDefault(null);
+        jbtnAddTypeOfProduct.setEnabled(true);
+        jtfTypeOfProductId.setText(TypeOfProductController.getCurrentInstance().createNewId());
+        jtfTypeOfProductId.setEditable(false);
+        setTypeOfProductStatus(Boolean.FALSE);
     }//GEN-LAST:event_jbtnCreateNewTypeOfProductMouseClicked
-
-    private void jbtnCreateNewProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewProductMouseClicked
-        if (evt.getClickCount() == 2) {
-            setProductDefault(null);
-            jbtnAddProduct.setEnabled(true);
-            jtfProductID.setText(ProductController.getCurrentInstance().createNewId());
-            setProductStatus("Mới");
-        }
-    }//GEN-LAST:event_jbtnCreateNewProductMouseClicked
 
     private void jbtnPawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPawnActionPerformed
         Product product = getProductFromForm();
@@ -1202,6 +1189,14 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     private void jcbTypeOfProductItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbTypeOfProductItemStateChanged
         filterProduct();
     }//GEN-LAST:event_jcbTypeOfProductItemStateChanged
+
+    private void jbtnCreateNewProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewProductMouseClicked
+        setProductDefault(null);
+        jbtnAddProduct.setEnabled(true);
+        jtfProductID.setText(ProductController.getCurrentInstance().createNewId());
+        jtfProductID.setEditable(false);
+        setProductStatus("Mới");
+    }//GEN-LAST:event_jbtnCreateNewProductMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

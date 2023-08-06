@@ -19,7 +19,6 @@ import Support.MessageSupport;
 import Support.Support;
 import View.HomePageJFrameForm;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -263,7 +262,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jrbServingStatus = new javax.swing.JRadioButton();
         jrbAllStatus = new javax.swing.JRadioButton();
         jPanel10 = new javax.swing.JPanel();
-        jbtnAddNewCustomer = new javax.swing.JButton();
+        jbtnCreateNewCustomer = new javax.swing.JButton();
         jbtnPawn = new javax.swing.JButton();
         jlbInvalidId = new javax.swing.JLabel();
         jlbInvalidFullname = new javax.swing.JLabel();
@@ -334,8 +333,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtfInfoMouseReleased(evt);
+        });
+        jtfFullname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfInfoKeyPressed(evt);
             }
         });
 
@@ -358,8 +359,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtfInfoMouseReleased(evt);
+        });
+        jtfId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfInfoKeyPressed(evt);
             }
         });
 
@@ -373,8 +376,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtfInfoMouseReleased(evt);
+        });
+        jtaAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfInfoKeyPressed(evt);
             }
         });
         jScrollPane3.setViewportView(jtaAddress);
@@ -470,8 +475,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jtfInfoMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jtfInfoMouseReleased(evt);
+        });
+        jtfPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfInfoKeyPressed(evt);
             }
         });
 
@@ -515,12 +522,12 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
 
         jPanel10.setBackground(new java.awt.Color(0, 255, 255));
 
-        jbtnAddNewCustomer.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnAddNewCustomer.setForeground(new java.awt.Color(0, 0, 0));
-        jbtnAddNewCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/addNew.png"))); // NOI18N
-        jbtnAddNewCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtnCreateNewCustomer.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnCreateNewCustomer.setForeground(new java.awt.Color(0, 0, 0));
+        jbtnCreateNewCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/addNew.png"))); // NOI18N
+        jbtnCreateNewCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtnAddNewCustomerMouseClicked(evt);
+                jbtnCreateNewCustomerMouseClicked(evt);
             }
         });
 
@@ -528,11 +535,11 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbtnAddNewCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)
+            .addComponent(jbtnCreateNewCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jbtnAddNewCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)
+            .addComponent(jbtnCreateNewCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, Short.MAX_VALUE)
         );
 
         jbtnPawn.setBackground(new java.awt.Color(0, 255, 255));
@@ -970,14 +977,12 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
-    private void jbtnAddNewCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnAddNewCustomerMouseClicked
-        if (evt.getClickCount() == 2) {
-            setCustomerDefault(null);
-            setGender("Nam");
-            setCustomerStatus(Boolean.FALSE);
-            jbtnAdd.setEnabled(true);
-        }
-    }//GEN-LAST:event_jbtnAddNewCustomerMouseClicked
+    private void jbtnCreateNewCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewCustomerMouseClicked
+        setCustomerDefault(null);
+        setGender("Nam");
+        setCustomerStatus(Boolean.FALSE);
+        jbtnAdd.setEnabled(true);
+    }//GEN-LAST:event_jbtnCreateNewCustomerMouseClicked
 
     private void jbtnPawnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPawnActionPerformed
         Customer customer = getCustomerFromForm();
@@ -997,20 +1002,20 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnPawnActionPerformed
 
     private void jtfInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfInfoMousePressed
-        if (evt.getSource().equals(jtfId)) {
+        if (jtfId.equals(evt.getSource())) {
             jlbInvalidId.setText(null);
-        } else if (evt.getSource().equals(jtfFullname)) {
+        } else if (jtfFullname.equals(evt.getSource())) {
             jlbInvalidFullname.setText(null);
-        } else if (evt.getSource().equals(jtfPhoneNumber)) {
+        } else if (jtfPhoneNumber.equals(evt.getSource())) {
             jlbInvalidPhoneNumber.setText(null);
-        } else if (evt.getSource().equals(jtaAddress)) {
+        } else if (jtaAddress.equals(evt.getSource())) {
             jlbInvalidAddress.setText(null);
         }
     }//GEN-LAST:event_jtfInfoMousePressed
 
-    private void jtfInfoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfInfoMouseReleased
+    private void jtfInfoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfInfoKeyPressed
         filter();
-    }//GEN-LAST:event_jtfInfoMouseReleased
+    }//GEN-LAST:event_jtfInfoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1038,7 +1043,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnAdd;
-    private javax.swing.JButton jbtnAddNewCustomer;
+    private javax.swing.JButton jbtnCreateNewCustomer;
     private javax.swing.JButton jbtnDeleteTab;
     private javax.swing.JButton jbtnEdit;
     private javax.swing.JButton jbtnPawn;

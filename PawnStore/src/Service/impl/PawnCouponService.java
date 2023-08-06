@@ -43,7 +43,11 @@ public class PawnCouponService implements IPawnCouponService {
 
     @Override
     public PawnCoupon findOneById(String id) {
-        return updateLate(pawnCouponDAO.findOneById(id));
+        PawnCoupon pawnCoupon = pawnCouponDAO.findOneById(id);
+        if(pawnCoupon != null ){
+            updateLate(pawnCoupon);
+        }
+        return pawnCoupon;
     }
 
     @Override

@@ -475,31 +475,7 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jlbCustomerAddress26" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jlbCustomerAddress24" min="-2" pref="6" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="jlbPawnCouponPriceInNumber1" min="-2" pref="444" max="-2" attributes="0"/>
-                                                              <Component id="jlbPawnCouponPriceInText1" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                              <Component id="jlbPawnCouponInterestRate1" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="jlbPawnCouponInterest1" min="-2" pref="443" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jlbCustomerAddress8" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress9" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress11" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress13" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="jlbCustomerAddress17" alignment="0" min="-2" pref="6" max="-2" attributes="0"/>
@@ -514,10 +490,42 @@
                                                   </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jlbProductName1" min="-2" pref="549" max="-2" attributes="0"/>
-                                                  <Component id="jlbProductInfo1" pref="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jlbProductName1" min="-2" pref="549" max="-2" attributes="0"/>
+                                                          <Component id="jlbProductInfo1" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jlbCustomerAddress8" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                                          <Component id="jlbCustomerAddress9" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jlbCustomerAddress11" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jlbCustomerAddress26" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jlbCustomerAddress24" min="-2" pref="6" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                                      <Component id="jlbPawnCouponInterest1" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jlbPawnCouponInterestRate1" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="jlbPawnCouponPriceInText1" pref="0" max="32767" attributes="0"/>
+                                                  <Component id="jlbPawnCouponPriceInNumber1" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jlbCustomerAddress13" min="-2" pref="72" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -540,7 +548,7 @@
                                   <Component id="jlbPawnCouponInterestRate10" alignment="0" min="-2" pref="794" max="-2" attributes="0"/>
                                   <Component id="jLabel40" alignment="0" min="-2" pref="794" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -634,6 +642,7 @@
                                           <Component id="jlbCustomerAddress7" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jlbPawnCouponPriceInText1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           <Component id="jlbCustomerAddress19" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="jlbCustomerAddress9" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -655,6 +664,7 @@
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jlbCustomerAddress24" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                                   <Component id="jlbPawnCouponInterest1" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="jlbCustomerAddress13" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jlbCustomerAddress26" min="-2" pref="28" max="-2" attributes="0"/>
@@ -663,12 +673,8 @@
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jlbCustomerAddress8" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jlbCustomerAddress9" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                       <Component id="jlbCustomerAddress11" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jlbCustomerAddress13" min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1720,31 +1726,7 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jlbCustomerAddress65" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jlbCustomerAddress64" min="-2" pref="6" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="jlbPawnCouponPriceInNumber2" alignment="0" min="-2" pref="444" max="-2" attributes="0"/>
-                                                              <Component id="jlbPawnCouponPriceInText2" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                              <Component id="jlbPawnCouponInterestRate2" alignment="0" pref="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="jlbPawnCouponInterest2" alignment="1" min="-2" pref="443" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jlbCustomerAddress52" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress53" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress55" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                                  <Component id="jlbCustomerAddress57" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                   <Component id="jlbCustomerAddress60" alignment="0" min="-2" pref="6" max="-2" attributes="0"/>
@@ -1759,10 +1741,47 @@
                                                   </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jlbProductName2" alignment="0" min="-2" pref="549" max="-2" attributes="0"/>
-                                                  <Component id="jlbProductInfo2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="jlbProductName2" alignment="0" min="-2" pref="549" max="-2" attributes="0"/>
+                                                          <Component id="jlbProductInfo2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jlbCustomerAddress55" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                                          <Component id="jlbCustomerAddress53" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jlbCustomerAddress52" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jlbCustomerAddress65" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jlbCustomerAddress64" min="-2" pref="6" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                  <Component id="jlbPawnCouponPriceInText2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                                  <Component id="jlbPawnCouponInterestRate2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                                                  <Component id="jlbPawnCouponPriceInNumber2" alignment="0" min="-2" pref="471" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Group type="102" attributes="0">
+                                                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                                                              <Component id="jlbPawnCouponInterest2" pref="0" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jlbCustomerAddress57" min="-2" pref="72" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -1785,7 +1804,7 @@
                                   <Component id="jlbPawnCouponInterestRate16" alignment="0" min="-2" pref="794" max="-2" attributes="0"/>
                                   <Component id="jLabel97" alignment="0" min="-2" pref="794" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -1900,6 +1919,7 @@
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jlbCustomerAddress64" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                                   <Component id="jlbPawnCouponInterest2" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="jlbCustomerAddress57" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jlbCustomerAddress65" min="-2" pref="28" max="-2" attributes="0"/>
@@ -1912,8 +1932,6 @@
                                       <Component id="jlbCustomerAddress53" min="-2" pref="28" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jlbCustomerAddress55" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jlbCustomerAddress57" min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>

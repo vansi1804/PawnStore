@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  * @author NVS
  * @param <T>
  */
-public class ADAO<T> implements IGenericDAO<T> {
+public abstract class ADAO<T> implements IGenericDAO<T> {
 
     private static final Logger LOG = Logger.getLogger(ADAO.class.getName());
 
@@ -105,7 +105,6 @@ public class ADAO<T> implements IGenericDAO<T> {
             connection.commit();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             if (connection != null) {
                 try {
                     connection.rollback();
@@ -143,7 +142,6 @@ public class ADAO<T> implements IGenericDAO<T> {
                 try {
                     connection.rollback();
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
                 }
             }
         } finally {
@@ -155,7 +153,6 @@ public class ADAO<T> implements IGenericDAO<T> {
                     statement.close();
                 }
             } catch (SQLException e2) {
-                e2.printStackTrace();
             }
         }
         return false;
@@ -218,7 +215,6 @@ public class ADAO<T> implements IGenericDAO<T> {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

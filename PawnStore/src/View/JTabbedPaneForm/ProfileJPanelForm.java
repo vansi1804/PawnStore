@@ -225,6 +225,11 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
         jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 3, 16)); // NOI18N
         jchbShowHirePassword.setForeground(new java.awt.Color(0, 0, 0));
         jchbShowHirePassword.setText("Hiện mật khẩu");
+        jchbShowHirePassword.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jchbShowHirePasswordStateChanged(evt);
+            }
+        });
         jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jchbShowHirePasswordActionPerformed(evt);
@@ -407,12 +412,6 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
-        Support.ShowHirePassword(jchbShowHirePassword, jpfCurrentPassword);
-        Support.ShowHirePassword(jchbShowHirePassword, jpfNewPassword);
-        Support.ShowHirePassword(jchbShowHirePassword, jpfConfirmPassword);
-    }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
-
     private void jbtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelActionPerformed
         setProfileDefault(false);
     }//GEN-LAST:event_jbtnCancelActionPerformed
@@ -452,6 +451,16 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
         HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
+
+    private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
+
+    }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
+
+    private void jchbShowHirePasswordStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordStateChanged
+        Support.ShowHirePassword(jchbShowHirePassword, jpfCurrentPassword);
+        Support.ShowHirePassword(jchbShowHirePassword, jpfNewPassword);
+        Support.ShowHirePassword(jchbShowHirePassword, jpfConfirmPassword);
+    }//GEN-LAST:event_jchbShowHirePasswordStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

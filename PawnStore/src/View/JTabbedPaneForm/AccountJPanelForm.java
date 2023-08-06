@@ -17,7 +17,6 @@ import Support.Support;
 import View.HomePageJFrameForm;
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -37,6 +36,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         initComponents();
         setAccountDefault(null);
         setActivityHistoryFilterEvent();
+        jpfPassword.setEchoChar('*');
     }
 
     private void setAccountDefault(Account account) {
@@ -66,6 +66,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             jbtnLockOrUnlock.setEnabled(true);
             jbtnLockOrUnlock.setText(account.getDeleteFlag() ? "Mở khóa" : "Khóa");
             jbtnResetPassword.setEnabled(true);
+            setAccountStatus(account.getDeleteFlag());
         }
         setActivityHistoryDefault(account);
     }
@@ -73,11 +74,15 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     private void setAccountStatus(Boolean isDeleteFlag) {
         if (isDeleteFlag == null) {
             jrbAll.setEnabled(true);
+            jrbLocked.setEnabled(true);
+            jrbActive.setEnabled(true);
             jrbActive.setSelected(true);
         } else {
-            jrbAll.setEnabled(false);
-            jrbActive.setSelected(!isDeleteFlag);
+            jrbLocked.setEnabled(isDeleteFlag);
             jrbLocked.setSelected(isDeleteFlag);
+            jrbActive.setEnabled(!isDeleteFlag);
+            jrbActive.setSelected(!isDeleteFlag);
+            jrbAll.setEnabled(false);
         }
 
     }
@@ -499,9 +504,9 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         jchbShowHirePassword.setFont(new java.awt.Font("Times New Roman", 2, 16)); // NOI18N
         jchbShowHirePassword.setForeground(new java.awt.Color(0, 0, 0));
         jchbShowHirePassword.setText("Hiện mật khẩu");
-        jchbShowHirePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jchbShowHirePasswordActionPerformed(evt);
+        jchbShowHirePassword.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jchbShowHirePasswordStateChanged(evt);
             }
         });
 
@@ -870,10 +875,6 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed
-        Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
-    }//GEN-LAST:event_jchbShowHirePasswordActionPerformed
-
     private void jbtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadActionPerformed
         setAccountDefault(null);
     }//GEN-LAST:event_jbtnReloadActionPerformed
@@ -924,7 +925,9 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnAddActionPerformed
 
     private void jrbAccountStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAccountStatusActionPerformed
-        setAccountTable(AccountController.getCurrentInstance().findAllByStatus(getAccountStatus()));
+        if (jbtnAdd.isEnabled()) {
+            setAccountTable(AccountController.getCurrentInstance().findAllByStatus(getAccountStatus()));
+        }
     }//GEN-LAST:event_jrbAccountStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
@@ -971,6 +974,10 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         }
         filterActivityHistory();
     }//GEN-LAST:event_jdcDatePropertyChange
+
+    private void jchbShowHirePasswordStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordStateChanged
+        Support.ShowHirePassword(jchbShowHirePassword, jpfPassword);
+    }//GEN-LAST:event_jchbShowHirePasswordStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

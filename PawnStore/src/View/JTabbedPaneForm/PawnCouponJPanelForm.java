@@ -1335,7 +1335,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTotalPaid, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
-                .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelInterestPaymentStatisticLayout.setVerticalGroup(
@@ -1516,7 +1516,9 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
             jtblPawnCoupon.getColumnModel().getColumn(1).setPreferredWidth(150);
             jtblPawnCoupon.getColumnModel().getColumn(2).setPreferredWidth(150);
             jtblPawnCoupon.getColumnModel().getColumn(3).setPreferredWidth(150);
-            jtblPawnCoupon.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jtblPawnCoupon.getColumnModel().getColumn(4).setMinWidth(75);
+            jtblPawnCoupon.getColumnModel().getColumn(4).setPreferredWidth(75);
+            jtblPawnCoupon.getColumnModel().getColumn(4).setMaxWidth(75);
             jtblPawnCoupon.getColumnModel().getColumn(5).setPreferredWidth(120);
             jtblPawnCoupon.getColumnModel().getColumn(6).setPreferredWidth(120);
             jtblPawnCoupon.getColumnModel().getColumn(8).setPreferredWidth(120);
@@ -1561,13 +1563,13 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbTotalPawnPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTotalPawnPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbTotalInterestPerDay, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlbTotalInterestPerDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTotalLiquidationPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

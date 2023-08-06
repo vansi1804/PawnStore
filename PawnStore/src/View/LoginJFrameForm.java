@@ -45,6 +45,7 @@ public class LoginJFrameForm extends JFrame {
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT), "Đăng nhập"));
                 HomePageJFrameForm homePageForm = new HomePageJFrameForm(this);
                 homePageForm.setVisible(true);
+                jpfPassword.setText(null);
                 this.dispose();
             } else {
                 MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa.");

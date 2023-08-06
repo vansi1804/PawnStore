@@ -28,12 +28,15 @@ public class PawnCouponDAO extends ADAO<PawnCoupon> implements IPawnCouponDAO {
             + " From pawn_coupon Inner Join customer On pawn_coupon.customer_id = customer.id"
             + " Inner Join product On pawn_coupon.product_id = product.id"
             + " Inner Join type_of_product On product.type_id = type_of_product.id";
-    private static final String INSERTQUERY = "Insert Into pawn_coupon(id, customer_id, product_id"
-            + ", amount, price, interest_rate, pawn_date, the_next_interest_payment_date, status) Values(?,?,?,?,?,?,?,?,?)";
-    private static final String UPDATEQUERY = "Update pawn_coupon Set customer_id = ?, product_id = ?"
+    private static final String INSERTQUERY = "Insert Into pawn_coupon("
+            + " id, customer_id, product_id, amount, price, interest_rate, pawn_date, the_next_interest_payment_date, status)"
+            + " Values(?,?,?,?,?,?,?,?,?)";
+    private static final String UPDATEQUERY = "Update pawn_coupon"
+            + " Set customer_id = ?, product_id = ?"
             + ", amount = ?, price = ?, interest_rate = ?"
             + ", the_next_interest_payment_date = ?, redemption_or_liquidation_date = ?"
-            + ", liquidation_price = ?, status = ? Where id = ?";
+            + ", liquidation_price = ?, status = ?"
+            + " Where id = ?";
 
     @Override
     public List<PawnCoupon> findAll() {

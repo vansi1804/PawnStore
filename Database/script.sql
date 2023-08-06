@@ -98,6 +98,6 @@ FOR EACH ROW
     
 
 insert into account 
-values ('admin',N'21232f297a57a5a743894a0e4a801fc3','Admin',0);
+values ('admin',N'21232f297a57a5a743894a0e4a801fc3','Admin',0); -- default password : admin
 
 
