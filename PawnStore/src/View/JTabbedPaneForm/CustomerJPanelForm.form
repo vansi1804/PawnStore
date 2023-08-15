@@ -43,7 +43,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-              <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+              <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -173,33 +173,32 @@
                               <Component id="jbtnPawn" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jbtnAdd" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                                  <Component id="jbtnEdit" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jtfId" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jlbInvalidId" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfFullname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jlbInvalidFullname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfPhoneNumber" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jlbInvalidPhoneNumber" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jrbStopServingStatus" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jrbServingStatus" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jrbAllStatus" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jtfId" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jlbInvalidId" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfFullname" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jlbInvalidFullname" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jtfPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jlbInvalidPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jrbStopServingStatus" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jrbServingStatus" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jrbAllStatus" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jlbInvalidAddress" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jbtnEdit" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jlbInvalidAddress" alignment="1" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jbtnAdd" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>

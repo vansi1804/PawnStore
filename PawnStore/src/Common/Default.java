@@ -4,13 +4,11 @@
  */
 package Common;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author NVS
  */
-@SuppressWarnings("UtilityClassWithoutPrivateConstructor")
+@SuppressWarnings({"UtilityClassWithoutPrivateConstructor", "ClassWithoutLogger", "ClassMayBeInterface"})
 public class Default {
 
     public static final String DATE_FORMAT = "dd-MM-yyyy";
@@ -23,8 +21,10 @@ public class Default {
 
     public static final String DEFAULT_PASSWORD = "1";
 
+    // Chu kỳ đóng lãi
     public static final int PAYMENT_CIRCLE = 15;
 
+    @SuppressWarnings("PublicInnerClass")
     public static class Admin {
 
         public static final String USERNAME = "admin";
@@ -34,7 +34,5 @@ public class Default {
         public static final String FULL_NAME = "Admin";
         
     }
-
-    private static final Logger LOG = Logger.getLogger(Default.class.getName());
 
 }

@@ -5,9 +5,8 @@
 package View.JTabbedPaneForm;
 
 import Controller.StatisticController;
+import Support.Support;
 import View.HomePageJFrameForm;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -19,21 +18,13 @@ import java.util.List;
 public class StatisticJPanelForm extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final Date FROM = Date.from(
-            LocalDate.now().withDayOfMonth(1).atStartOfDay(
-                    ZoneId.systemDefault())
-                    .toInstant());
-    private static final Date TO = Date.from(
-            LocalDate.now().withDayOfMonth(
-                    LocalDate.now().lengthOfMonth())
-                    .atStartOfDay(
-                            ZoneId.systemDefault())
-                    .toInstant());
+    private static final Date FROM_DATE = Support.getFirstDateInCurrentMonth();
+    private static final Date TO_DATE = Support.getLastDateInCurrentMonth();
 
     public StatisticJPanelForm() {
         initComponents();
-        jdcDateFrom.setDate(FROM);
-        jdcDateTo.setDate(TO);
+        jdcDateFrom.setDate(FROM_DATE);
+        jdcDateTo.setDate(TO_DATE);
     }
 
     private void setPawnCouponStatistics() {
@@ -840,7 +831,6 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -861,6 +851,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -901,9 +892,9 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     private void jchbAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbAllActionPerformed
         if (!jchbAll.isSelected()) {
             jdcDateFrom.setEnabled(true);
-            jdcDateFrom.setDate(FROM);
+            jdcDateFrom.setDate(FROM_DATE);
             jdcDateTo.setEnabled(true);
-            jdcDateTo.setDate(TO);
+            jdcDateTo.setDate(TO_DATE);
             jlb1_1.setText("Mới");
             jlb6_1.setText("Mới");
             jlb9_1.setText("Mới");
@@ -919,7 +910,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jchbAllActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thống kê"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Thống kê"));
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadActionPerformed

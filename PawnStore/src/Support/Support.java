@@ -12,7 +12,9 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,17 +89,17 @@ public class Support {
     public static Long subtractDate(String strDate1, String strDate2) {
         Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
         Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
-        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
+        return subtractDate(date1, date2);
     }
 
     public static Long subtractDate(Date date1, String strDate2) {
         Date date2 = stringToDate(strDate2, Default.DATE_FORMAT);
-        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
+        return subtractDate(date1, date2);
     }
 
     public static Long subtractDate(String strDate1, Date date2) {
         Date date1 = stringToDate(strDate1, Default.DATE_FORMAT);
-        return (date1 == null || date2 == null) ? null : subtractDate(date1, date2);
+        return subtractDate(date1, date2);
     }
 
     public static Long subtractDate(Date date1, Date date2) {
@@ -239,12 +241,12 @@ public class Support {
 //10,000,000
 //1,000,000
 
-        int i = 0;
+        int index = 0;
         if (strNum.length() % 3 == 1) {
             int firstValue = Integer.parseInt(String.valueOf(strNum.charAt(0)));
             String textValue = convertNumToText[firstValue];
             pronounce += textValue;
-            i = 1;
+            index = 1;
             pronounce += devidefor3[strNum.length() / 3];
         } else if (strNum.length() % 3 == 2) {
             int firstValue = Integer.parseInt(String.valueOf(strNum.charAt(0)));
@@ -271,15 +273,15 @@ public class Support {
             }
 
             pronounce += textValue;
-            i = 2;
+            index = 2;
             pronounce += devidefor3[strNum.length() / 3];
         }
 
-        for (; i < strNum.length(); i += 3) {
-            String getpronounce = getPronounce(strNum.charAt(i), strNum.charAt(i + 1), strNum.charAt(i + 2));
+        for (; index < strNum.length(); index += 3) {
+            String getpronounce = getPronounce(strNum.charAt(index), strNum.charAt(index + 1), strNum.charAt(index + 2));
             if (!getpronounce.isEmpty()) {
                 pronounce += " " + getpronounce;
-                pronounce += devidefor3[((strNum.length() - i) / 3) - 1];
+                pronounce += devidefor3[((strNum.length() - index) / 3) - 1];
             }
         }
 
@@ -328,6 +330,22 @@ public class Support {
                 jTable.setRowSelectionInterval(row, row);
             }
         }
+    }
+
+    public static Date getFirstDateInCurrentMonth() {
+        return Date.from(
+                LocalDate.now()
+                        .withDayOfMonth(1)
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant());
+    }
+
+    public static Date getLastDateInCurrentMonth() {
+        return Date.from(
+                LocalDate.now()
+                        .withDayOfMonth(LocalDate.now().lengthOfMonth())
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant());
     }
 
 }

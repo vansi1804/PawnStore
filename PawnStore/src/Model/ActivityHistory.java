@@ -14,7 +14,7 @@ public class ActivityHistory {
     private String time;
     private Account account;
     private String activity;
-    private String objectname;
+    private String objectName;
     private String infor;
 
     public ActivityHistory() {
@@ -24,7 +24,7 @@ public class ActivityHistory {
         this.time = time;
         this.account = account;
         this.activity = activity;
-        this.objectname = objectname;
+        this.objectName = objectname;
         this.infor = infor;
     }
 
@@ -32,7 +32,7 @@ public class ActivityHistory {
         this.time = time;
         this.account = StaticUser.getCurrentInstance();
         this.activity = activity;
-        this.objectname = objectname;
+        this.objectName = objectname;
         this.infor = infor;
     }
 
@@ -40,7 +40,7 @@ public class ActivityHistory {
         this.time = time;
         this.account = StaticUser.getCurrentInstance();
         this.activity = activity;
-        this.objectname = "";
+        this.objectName = "";
         this.infor = "";
     }
 
@@ -68,12 +68,12 @@ public class ActivityHistory {
         this.activity = activity;
     }
 
-    public String getObjectname() {
-        return objectname;
+    public String getObjectName() {
+        return objectName;
     }
 
-    public void setObjectname(String objectname) {
-        this.objectname = objectname;
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
     public String getInfor() {

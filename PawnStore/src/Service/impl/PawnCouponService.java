@@ -5,12 +5,15 @@
 package Service.impl;
 
 import DAO.ICustomerDAO;
+import DAO.IInterestPaymentDAO;
 import DAO.IPawnCouponDAO;
 import DAO.IProductDAO;
 import DAO.impl.CustomerDAO;
+import DAO.impl.InterestPaymentDAO;
 import DAO.impl.PawnCouponDAO;
 import DAO.impl.ProductDAO;
 import Model.Customer;
+import Model.InterestPayment;
 import Model.PawnCoupon;
 import Model.Product;
 import Service.IPawnCouponService;
@@ -30,6 +33,7 @@ public class PawnCouponService implements IPawnCouponService {
     private final IPawnCouponDAO pawnCouponDAO = new PawnCouponDAO();
     private final ICustomerDAO customerDAO = new CustomerDAO();
     private final IProductDAO productDAO = new ProductDAO();
+    private final IInterestPaymentDAO interestPaymentDAO = new InterestPaymentDAO();
 
     @Override
     public List<PawnCoupon> findAll() {
@@ -44,7 +48,7 @@ public class PawnCouponService implements IPawnCouponService {
     @Override
     public PawnCoupon findOneById(String id) {
         PawnCoupon pawnCoupon = pawnCouponDAO.findOneById(id);
-        if(pawnCoupon != null ){
+        if (pawnCoupon != null) {
             updateLate(pawnCoupon);
         }
         return pawnCoupon;
@@ -76,12 +80,20 @@ public class PawnCouponService implements IPawnCouponService {
             MessageSupport.ErrorMessage("Lỗi", "Khách hàng ngưng phục vụ");
             return false;
         }
+
         Product product = productDAO.findOneById(pawnCoupon.getProduct().getId());
         if (!existingOne.getProduct().getId().equals(product.getId())
                 && (product.getStatus().equals("Chưa chuộc") || product.getStatus().equals("Cần thanh lý"))) {
             MessageSupport.ErrorMessage("Lỗi", "Hàng hóa đang có hiệu lực ở một hợp đồng khác\n Kiểm tra và thử lại");
             return false;
         }
+
+        InterestPayment lastInterestPayment = interestPaymentDAO.findLast(pawnCoupon.getId());
+        if (pawnCoupon.getStatus().equals("Đã chuộc") && lastInterestPayment.getNewDebt() > 0) {
+            MessageSupport.ErrorMessage("Lỗi", "Hợp đồng còn tồn nợ.");
+            return false;
+        }
+
         return pawnCouponDAO.update(pawnCoupon);
     }
 

@@ -386,11 +386,11 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,7 +424,7 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
                 if (AccountController.getCurrentInstance().updateProfile(account)) {
                     MessageSupport.Message("Thông báo", "Cập nhật thành công");
                     StaticUser.setCurrentInstance(account);
-                    jlblProfile.setText(StaticUser.getCurrentInstance().getFullname()+"      ");
+                    jlblProfile.setText(StaticUser.getCurrentInstance().getFullname());
                     setProfileDefault(false);
                 }
             }
@@ -449,7 +449,7 @@ public class ProfileJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jlbChangePasswordMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Thông tin tài khoản"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Thông tin tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jchbShowHirePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbShowHirePasswordActionPerformed

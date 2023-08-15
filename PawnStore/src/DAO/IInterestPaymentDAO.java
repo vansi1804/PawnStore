@@ -26,4 +26,6 @@ public interface IInterestPaymentDAO extends IGenericDAO<InterestPayment> {
 
     int countAllByPawnCouponId(String pawnCouponId);
 
+    public InterestPayment findLast(String id);
+
 }

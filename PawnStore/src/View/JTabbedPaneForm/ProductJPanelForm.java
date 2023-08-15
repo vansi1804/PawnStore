@@ -148,7 +148,14 @@ public class ProductJPanelForm extends javax.swing.JPanel {
             setProductStatus(product.getStatus());
             Support.setRowTableSelection(jtblProduct, 1, product.getId());
             jbtnEditProduct.setEnabled(true);
-            jbtnPawn.setEnabled(!product.getTypeOfProduct().getDeleteFlag());
+            if (product.getTypeOfProduct().getDeleteFlag()
+                    || product.getStatus().equals("Chưa chuộc")
+                    || product.getStatus().equals("Cần thanh lý")) {
+
+                jbtnPawn.setEnabled(false);
+            } else {
+                jbtnPawn.setEnabled(true);
+            }
             setProductTable(ProductController.getCurrentInstance().findAllByStatus(getProductStatus()));
             Support.setRowTableSelection(jtblProduct, 1, product.getId());
             setTypeOfProductDefault(product.getTypeOfProduct());
@@ -432,9 +439,9 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 jcbTypeOfProductItemStateChanged(evt);
             }
         });
-        jcbTypeOfProduct.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jcbTypeOfProductKeyPressed(evt);
+        jcbTypeOfProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jcbTypeOfProductMousePressed(evt);
             }
         });
 
@@ -1010,8 +1017,8 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1053,13 +1060,11 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         if (typeOfProduct != null) {
             if (TypeOfProductController.getCurrentInstance().insert(typeOfProduct)) {
                 MessageSupport.Message("Thông báo", "Thêm mới thành công");
-                setTypeOfProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Loại hàng hóa", typeOfProduct.toString()));
-                jbtnAddProduct.setEnabled(true);
-                setCBTypeOfProduct(null);
-                jbtnAddProduct.setEnabled(false);
+                setTypeOfProductDefault(null);
+                setProductDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnAddTypeOfProductActionPerformed
@@ -1069,14 +1074,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         if (typeOfProduct != null) {
             if (TypeOfProductController.getCurrentInstance().update(typeOfProduct)) {
                 MessageSupport.Message("Thông báo", "Cập nhật thông tin loại hàng hóa thành công");
-                setTypeOfProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Loại hàng hóa", typeOfProduct.toString()));
             }
-            jbtnAddProduct.setEnabled(true);
-            setCBTypeOfProduct(null);
-            jbtnAddProduct.setEnabled(false);
+            setTypeOfProductDefault(null);
+            setProductDefault(null);
         }
     }//GEN-LAST:event_jbtnEditTypeOfProductActionPerformed
 
@@ -1085,10 +1088,10 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         if (product != null) {
             if (ProductController.getCurrentInstance().insert(product)) {
                 MessageSupport.Message("Thông báo", "Thêm mới hàng hóa thành công");
-                setProductDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Hàng hóa", product.toString()));
+                setProductDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnAddProductActionPerformed
@@ -1126,7 +1129,7 @@ public class ProductJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbTypeOfProductStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Hàng hóa"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Hàng hóa"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnCreateNewTypeOfProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewTypeOfProductMouseClicked
@@ -1148,12 +1151,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
                 @SuppressWarnings("UnusedAssignment")
                 JPanel jPanel = null;
                 String title = "Hợp đồng";
-                if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                    HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+                if (HomePageJFrameForm.jtpHomePage.indexOfTab(title) != -1) {
+                    HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab(title));
                 }
                 jPanel = new PawnCouponJPanelForm(product);
-                HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-                HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+                HomePageJFrameForm.jtpHomePage.addTab(title, jPanel);
+                HomePageJFrameForm.jtpHomePage.setSelectedComponent(jPanel);
             }
         }
     }//GEN-LAST:event_jbtnPawnActionPerformed
@@ -1174,10 +1177,6 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtProductInfoMousePressed
 
-    private void jcbTypeOfProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbTypeOfProductKeyPressed
-        jlbInvalidTypeOfProduct.setText(null);
-    }//GEN-LAST:event_jcbTypeOfProductKeyPressed
-
     private void jtfTypeOfProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTypeOfProductKeyReleased
         filterTypeOfProduct();
     }//GEN-LAST:event_jtfTypeOfProductKeyReleased
@@ -1196,7 +1195,12 @@ public class ProductJPanelForm extends javax.swing.JPanel {
         jtfProductID.setText(ProductController.getCurrentInstance().createNewId());
         jtfProductID.setEditable(false);
         setProductStatus("Mới");
+        setProductTable(ProductController.getCurrentInstance().findAllByStatus(getProductStatus()));
     }//GEN-LAST:event_jbtnCreateNewProductMouseClicked
+
+    private void jcbTypeOfProductMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbTypeOfProductMousePressed
+        jlbInvalidTypeOfProduct.setText(null);
+    }//GEN-LAST:event_jcbTypeOfProductMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

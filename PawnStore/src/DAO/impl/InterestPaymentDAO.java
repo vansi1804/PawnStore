@@ -42,9 +42,11 @@ public class InterestPaymentDAO extends ADAO<InterestPayment> implements IIntere
 
     private static final String COUNTQUERY = "Select Count(times) from interest_payment Where pawn_coupon_id = ?";
 
+    private static final String ORDER_BY = " Order By interest_payment.times DESC";
+
     @Override
     public List<InterestPayment> findAllByPawnCouponId(String pawnCouponId) {
-        String query = SELECTQUERY + " Where interest_payment.pawn_coupon_id = ?";
+        String query = SELECTQUERY + " Where interest_payment.pawn_coupon_id = ?" + ORDER_BY;
         return findAll(query, new InterestPaymentMapper(), pawnCouponId);
     }
 
@@ -82,6 +84,12 @@ public class InterestPaymentDAO extends ADAO<InterestPayment> implements IIntere
     @Override
     public int countAllByPawnCouponId(String pawnCouponId) {
         return count(COUNTQUERY, pawnCouponId);
+    }
+
+    @Override
+    public InterestPayment findLast(String id) {
+        String query = SELECTQUERY + ORDER_BY + " Limit 1";
+        return findOne(query, new InterestPaymentMapper());
     }
 
 }

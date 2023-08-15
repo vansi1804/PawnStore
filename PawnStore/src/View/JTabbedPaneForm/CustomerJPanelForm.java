@@ -587,29 +587,28 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtnPawn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103)
-                        .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jtfId, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jlbInvalidId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtfFullname, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtfPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jlbInvalidPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jrbStopServingStatus)
-                            .addGap(18, 18, 18)
-                            .addComponent(jrbServingStatus)
-                            .addGap(18, 18, 18)
-                            .addComponent(jrbAllStatus))
-                        .addComponent(jlbInvalidAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jtfId, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbInvalidId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtfFullname, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbInvalidFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtfPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbInvalidPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(jrbStopServingStatus)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrbServingStatus)
+                                .addGap(18, 18, 18)
+                                .addComponent(jrbAllStatus))
+                            .addComponent(jlbInvalidAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -885,7 +884,7 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -922,10 +921,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         if (customer != null) {
             if (CustomerController.getCurrentInstance().insert(customer)) {
                 MessageSupport.Message("Thông báo", "Thêm mới khách hàng thành công");
-                setCustomerDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Khách hàng", customer.toString()));
+                setCustomerDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnAddActionPerformed
@@ -939,10 +938,10 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
         if (customer != null) {
             if (CustomerController.getCurrentInstance().update(customer)) {
                 MessageSupport.Message("Thông báo", "Cập nhật thông tin khách hàng thành công");
-                setCustomerDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Cập nhật", "Khách hàng", customer.toString()));
+                setCustomerDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnEditActionPerformed
@@ -964,17 +963,17 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             JPanel jPanel = null;
             PawnCoupon pawnCoupon = PawnCouponController.getCurrentInstance().findOneById(id);
             String title = "Hợp đồng";
-            if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+            if (HomePageJFrameForm.jtpHomePage.indexOfTab(title) != -1) {
+                HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab(title));
             }
             jPanel = new PawnCouponJPanelForm(pawnCoupon);
-            HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-            HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+            HomePageJFrameForm.jtpHomePage.addTab(title, jPanel);
+            HomePageJFrameForm.jtpHomePage.setSelectedComponent(jPanel);
         }
     }//GEN-LAST:event_jtblPawningHistoryMouseClicked
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Khách hàng"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Khách hàng"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnCreateNewCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCreateNewCustomerMouseClicked
@@ -992,12 +991,12 @@ public class CustomerJPanelForm extends javax.swing.JPanel {
             @SuppressWarnings("UnusedAssignment")
             JPanel jPanel = null;
             String title = "Hợp đồng";
-            if (HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title) != -1) {
-                HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab(title));
+            if (HomePageJFrameForm.jtpHomePage.indexOfTab(title) != -1) {
+                HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab(title));
             }
             jPanel = new PawnCouponJPanelForm(customer);
-            HomePageJFrameForm.jHomePageTabbedPane.addTab(title, jPanel);
-            HomePageJFrameForm.jHomePageTabbedPane.setSelectedComponent(jPanel);
+            HomePageJFrameForm.jtpHomePage.addTab(title, jPanel);
+            HomePageJFrameForm.jtpHomePage.setSelectedComponent(jPanel);
         }
     }//GEN-LAST:event_jbtnPawnActionPerformed
 

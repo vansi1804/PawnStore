@@ -20,11 +20,11 @@ public class ActivityHistoryDAO extends ADAO<ActivityHistory> implements IActivi
 
     private static final String SELECTQUERY = "Select time, username, activity, object_name, info From activity_history";
     private static final String INSERTQUERY = "Insert Into activity_history(time, username, activity, object_name, info) Values(?,?,?,?,?)";
+    private static final String ORDER_BY = " Order By time";
 
     @Override
     public List<ActivityHistory> getList() {
-        String query = SELECTQUERY
-                + " Order By time";
+        String query = SELECTQUERY + ORDER_BY;
         return findAll(query, new ActivityHistoryMapper());
     }
 
@@ -38,7 +38,7 @@ public class ActivityHistoryDAO extends ADAO<ActivityHistory> implements IActivi
     @Override
     public boolean insert(ActivityHistory activityHistory) {
         return insert(INSERTQUERY, activityHistory.getTime(), activityHistory.getAccount().getUsername(),
-                activityHistory.getActivity(), activityHistory.getObjectname(), activityHistory.getInfor());
+                activityHistory.getActivity(), activityHistory.getObjectName(), activityHistory.getInfor());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ActivityHistoryDAO extends ADAO<ActivityHistory> implements IActivi
                 + (CheckSupport.isNullOrBlank(activityKey) ? "" : " And (activity Like N'%" + activityKey + "%')")
                 + (CheckSupport.isNullOrBlank(objectNameKey) ? "" : " And (object_name Like N'%" + objectNameKey + "%')")
                 + (CheckSupport.isNullOrBlank(infoKey) ? "" : " And (info Like N'%" + infoKey + "%')")
-                + " Order By time";
+                + ORDER_BY;
         return findAll(query, new ActivityHistoryMapper());
     }
 }

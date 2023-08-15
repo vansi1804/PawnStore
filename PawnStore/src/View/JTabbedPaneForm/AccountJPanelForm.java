@@ -9,7 +9,6 @@ import Controller.AccountController;
 import Controller.ActivityHistoryController;
 import Model.Account;
 import Model.ActivityHistory;
-import Model.StaticUser;
 import Support.CheckSupport;
 import Support.ColorFormatSupport;
 import Support.MessageSupport;
@@ -63,8 +62,13 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             jtfFullname.setEditable(false);
             jpfPassword.setText(null);
             jbtnAdd.setEnabled(false);
-            jbtnLockOrUnlock.setEnabled(true);
-            jbtnLockOrUnlock.setText(account.getDeleteFlag() ? "Mở khóa" : "Khóa");
+            if (Default.Admin.USERNAME.equals(account.getUsername())) {
+                jbtnLockOrUnlock.setEnabled(false);
+                jbtnLockOrUnlock.setText("Khóa");
+            } else {
+                jbtnLockOrUnlock.setEnabled(true);
+                jbtnLockOrUnlock.setText(account.getDeleteFlag() ? "Mở khóa" : "Khóa");
+            }
             jbtnResetPassword.setEnabled(true);
             setAccountStatus(account.getDeleteFlag());
         }
@@ -123,16 +127,14 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }
 
     private void setActivityHistoryDefault(Account account) {
-        jdcFromDate.setDate(null);
-        jdcToDate.setDate(null);
+        jdcFromDate.setDate(Support.getFirstDateInCurrentMonth());
+        jdcToDate.setDate(Support.getLastDateInCurrentMonth());
         jtfUsernameKey.setText(account == null ? null : account.getUsername());
         jtfUsernameKey.setEditable(account == null);
         jtfObjectnameKey.setText(null);
         jtfActivityKey.setText(null);
         jtfInforKey.setText(null);
-        if (account == null) {
-            setActivityHistoryTable(ActivityHistoryController.getCurrentInstance().getList());
-        }
+        filterActivityHistory();
     }
 
     @SuppressWarnings("AssignmentToMethodParameter")
@@ -150,7 +152,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
             rowData[1] = activityHistorys.get(activityHistorys.size() - 1 - i).getTime();
             rowData[2] = activityHistorys.get(activityHistorys.size() - 1 - i).getAccount().getUsername();
             rowData[3] = activityHistorys.get(activityHistorys.size() - 1 - i).getActivity();
-            rowData[4] = activityHistorys.get(activityHistorys.size() - 1 - i).getObjectname();
+            rowData[4] = activityHistorys.get(activityHistorys.size() - 1 - i).getObjectName();
             rowData[5] = activityHistorys.get(activityHistorys.size() - 1 - i).getInfor();
             model.addRow(rowData);
         }
@@ -882,21 +884,26 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     private void jbtnLockOrUnlockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLockOrUnlockActionPerformed
         Account account = getAccountFromForm();
         if (account != null) {
-            if (StaticUser.getCurrentInstance().getUsername().equals(jtfUsername.getText())) {
-                MessageSupport.Message("Thông báo", "Tài khoản của quản trị viên là bất tử, không thể khóa");
-            } else {
-                if (AccountController.getCurrentInstance()
-                        .lockOrUnlock(account, String.valueOf(jpfPassword.getPassword()))) {
-                    if (jbtnLockOrUnlock.getText().equals("Khóa")) {
-                        MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa");
-                    } else {
-                        MessageSupport.Message("Thông báo", "Tài khoản đã được khôi phục");
-                    }
-                    setAccountDefault(null);
-                    ActivityHistoryController.getCurrentInstance()
-                            .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
-                                    "Đặt lại mật khẩu", "Tài khoản", account.toString()));
+            String adminPassword = String.valueOf(jpfPassword.getPassword());
+            if (AccountController.getCurrentInstance().lockOrUnlock(account, adminPassword)) {
+                account.setDeleteFlag(jbtnLockOrUnlock.getText().equals("Khóa"));
+
+                String activity;
+                if (account.getDeleteFlag()) {
+                    activity = "Khóa";
+                    MessageSupport.Message("Thông báo", "Tài khoản đã bị khóa");
+                } else {
+                    activity = "Mở khóa";
+                    MessageSupport.Message("Thông báo", "Tài khoản đã được mở khóa");
                 }
+                ActivityHistoryController.getCurrentInstance()
+                        .insert(
+                                new ActivityHistory(
+                                        Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
+                                        activity,
+                                        "Tài khoản",
+                                        account.toString()));
+                setAccountDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnLockOrUnlockActionPerformed
@@ -916,10 +923,10 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         if (account != null) {
             if (AccountController.getCurrentInstance().insert(account, String.valueOf(jpfPassword.getPassword()))) {
                 MessageSupport.Message("Thông báo", "Tạo tài khoản thành công. Mật khẩu mặc định là 1");
-                setAccountDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Thêm mới", "Tài khoản", account.toString()));
+                setAccountDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnAddActionPerformed
@@ -931,7 +938,7 @@ public class AccountJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jrbAccountStatusActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        HomePageJFrameForm.jHomePageTabbedPane.remove(HomePageJFrameForm.jHomePageTabbedPane.indexOfTab("Tài khoản"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Tài khoản"));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnResetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnResetPasswordActionPerformed
@@ -939,10 +946,10 @@ public class AccountJPanelForm extends javax.swing.JPanel {
         if (account != null) {
             if (AccountController.getCurrentInstance().resetPassword(account, String.valueOf(jpfPassword.getPassword()))) {
                 MessageSupport.Message("Thông báo", "Mật khẩu đã được đặt mặc định là 1");
-                setAccountDefault(null);
                 ActivityHistoryController.getCurrentInstance()
                         .insert(new ActivityHistory(Support.dateToString(LocalDateTime.now(), Default.DATE_TIME_FORMAT),
                                 "Đặt lại mật khẩu", "Tài khoản", account.toString()));
+                setAccountDefault(null);
             }
         }
     }//GEN-LAST:event_jbtnResetPasswordActionPerformed

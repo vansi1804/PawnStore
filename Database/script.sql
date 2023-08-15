@@ -1,6 +1,8 @@
--- drop database pawn_store
+drop database pawn_store;
+
 create database pawn_store;
 use pawn_store;
+
 -- drop table account;
 create table if not exists account(
 	username varchar(20) primary key not null,
@@ -8,7 +10,7 @@ create table if not exists account(
 	fullname nvarchar(50) not null,
 	delete_flag bit default 0
 );
--- delete from account where username != 'admin';
+
 -- drop table customer;
 create table if not exists customer(
 	id varchar(12) primary key not null,
@@ -96,8 +98,5 @@ FOR EACH ROW
     SET status = NEW.status  
     WHERE id = NEW.product_id AND NEW.status != N'Trễ';
     
-
-insert into account 
-values ('admin',N'21232f297a57a5a743894a0e4a801fc3','Admin',0); -- default password : admin
 
 

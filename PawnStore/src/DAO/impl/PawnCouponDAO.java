@@ -37,16 +37,18 @@ public class PawnCouponDAO extends ADAO<PawnCoupon> implements IPawnCouponDAO {
             + ", the_next_interest_payment_date = ?, redemption_or_liquidation_date = ?"
             + ", liquidation_price = ?, status = ?"
             + " Where id = ?";
+    private static final String ORDER_BY = " Order By pawn_coupon.id DESC";
 
     @Override
     public List<PawnCoupon> findAll() {
-        return findAll(SELECTQUERY, new PawnCouponMapper());
+        String query = SELECTQUERY + ORDER_BY;
+        return findAll(query, new PawnCouponMapper());
     }
 
     @Override
     public List<PawnCoupon> findAllByStatus(String status) {
         String query = SELECTQUERY
-                + (status == null ? "" : " Where pawn_coupon.status = ?");
+                + (status == null ? "" : " Where pawn_coupon.status = ?" + ORDER_BY);
         return findAll(query, new PawnCouponMapper(), status);
     }
 
@@ -99,14 +101,14 @@ public class PawnCouponDAO extends ADAO<PawnCoupon> implements IPawnCouponDAO {
                 + (CheckSupport.isNullOrBlank(redemptionOrLiquidationDate) ? ""
                 : " And pawn_coupon.redemption_or_liquidation_date = '" + redemptionOrLiquidationDate + "'")
                 + (liquidationPrice == null ? "" : " And pawn_coupon.liquidation_price = " + liquidationPrice)
-                + (status == null ? "" : " And pawn_coupon.status = N'" + status + "'");
+                + (status == null ? "" : " And pawn_coupon.status = N'" + status + "'")
+                + ORDER_BY;
         return findAll(query, new PawnCouponMapper());
     }
 
     @Override
     public List<PawnCoupon> findAllByCustomerId(String customerId) {
-        String query = SELECTQUERY
-                + " Where pawn_coupon.customer_id = ?";
+        String query = SELECTQUERY + " Where pawn_coupon.customer_id = ?" + ORDER_BY;
         return findAll(query, new PawnCouponMapper(), customerId);
     }
 
