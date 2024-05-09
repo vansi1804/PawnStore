@@ -1804,7 +1804,7 @@ public class PawnCouponJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnDeleteInterestPaymentActionPerformed
 
     private void jbtnDeleteTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteTabActionPerformed
-        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Hợp đồng"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab(this.getName()));
     }//GEN-LAST:event_jbtnDeleteTabActionPerformed
 
     private void jbtnViewPawnCouponInPaperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnViewPawnCouponInPaperActionPerformed

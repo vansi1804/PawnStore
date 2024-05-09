@@ -910,7 +910,7 @@ public class StatisticJPanelForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jchbAllActionPerformed
 
     private void jbtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDeleteActionPerformed
-        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab("Thống kê"));
+        HomePageJFrameForm.jtpHomePage.remove(HomePageJFrameForm.jtpHomePage.indexOfTab(this.getName()));
     }//GEN-LAST:event_jbtnDeleteActionPerformed
 
     private void jbtnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadActionPerformed

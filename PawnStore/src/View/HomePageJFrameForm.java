@@ -337,6 +337,8 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         String title = "Thông tin tài khoản";
         if (jtpHomePage.indexOfTab(title) == -1) {
             jprofiletab = new ProfileJPanelForm();
+            jprofiletab.setName(title);
+            
             jtpHomePage.addTab(title, jprofiletab);
         }
         jtpHomePage.setSelectedComponent(jprofiletab);
@@ -346,6 +348,8 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         String title = "Khách hàng";
         if (jtpHomePage.indexOfTab(title) == -1) {
             jcustomertab = new CustomerJPanelForm();
+            jcustomertab.setName(title);
+            
             jtpHomePage.addTab(title, jcustomertab);
         }
         jtpHomePage.setSelectedComponent(jcustomertab);
@@ -355,6 +359,8 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         String title = "Hàng hóa";
         if (jtpHomePage.indexOfTab(title) == -1) {
             jproducttab = new ProductJPanelForm();
+            jproducttab.setName(title);
+            
             jtpHomePage.addTab(title, jproducttab);
         }
         jtpHomePage.setSelectedComponent(jproducttab);
@@ -364,6 +370,8 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         String title = "Hợp đồng";
         if (jtpHomePage.indexOfTab(title) == -1) {
             jpawncoupontab = new PawnCouponJPanelForm();
+            jpawncoupontab.setName(title);
+            
             jtpHomePage.addTab(title, jpawncoupontab);
         }
         jtpHomePage.setSelectedComponent(jpawncoupontab);
@@ -373,6 +381,8 @@ public class HomePageJFrameForm extends javax.swing.JFrame {
         String title = "Thống kê";
         if (jtpHomePage.indexOfTab(title) == -1) {
             jstatistictab = new StatisticJPanelForm();
+            jstatistictab.setName(title);
+            
             jtpHomePage.addTab(title, jstatistictab);
         }
         jtpHomePage.setSelectedComponent(jstatistictab);
